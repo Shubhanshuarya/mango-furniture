@@ -1,0 +1,225 @@
+<div
+  class="search-modal background color-{{ section.settings.color_scheme }}"
+  role="dialog"
+  aria-modal="true"
+  aria-label="{{ 'general.search.search' | t }}"
+  id="search-modal"
+>
+  <button
+    class="search__close modal-close-button"
+    aria-label="Close"
+    onclick="this.parentElement.parentElement.open = false"
+  >
+    {% render 'icon-close' %}
+  </button>
+  <div class="search-modal__overlay"></div>
+  <div class="search-modal__item">
+    <div class="search-modal__content">
+      {%- if settings.predictive_search_enabled -%}
+        <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
+      {%- endif -%}
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
+        <div class="search__form-inner">
+          <div class="field">
+            <div class="container">
+              <div class="search__form__wrapper">
+                {% comment %}
+                  <button class="search__button" aria-label="{{ 'general.search.search' | t }}" type="submit">
+                  	{% render 'icon-search' %}
+                  </button>
+                {% endcomment %}
+                <input
+                  dir="ltr"
+                  class="search__input field__input {% if settings.predictive_search_show_clear_button %}clear_btn{% endif %}"
+                  id="Search-In-Modal"
+                  type="search"
+                  name="q"
+                  value="{{ search.terms | escape }}"
+                  placeholder=" "
+                  {%- if settings.predictive_search_enabled -%}
+                    role="combobox"
+                    aria-expanded="false"
+                    aria-owns="predictive-search-results-list"
+                    aria-controls="predictive-search-results-list"
+                    aria-haspopup="listbox"
+                    aria-autocomplete="list"
+                    autocorrect="off"
+                    autocomplete="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                  {%- endif -%}
+                >
+                <label class="field__label" for="Search-In-Modal">{{ 'general.search.placeholder' | t }}</label>
+                <input type="hidden" name="options[prefix]" value="last">
+
+                {% comment %}
+                  <button class="search-reset__button" aria-label="{{ 'general.search.reset' | t }}" type="reset">
+                  	{% render 'icon-close' %}
+                  </button>
+                {% endcomment %}
+                <button class="button button--primary" aria-label="{{ 'general.search.search' | t }}">
+                  {{ 'general.search.search' | t }}
+                </button>
+              </div>
+            </div>
+            {%- if settings.predictive_search_enabled -%}
+              <div class="predictive-search__wrapper">
+                <div class="container">
+                  <div class="predictive-search__wrapper-box">
+                    <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
+                      <div class="predictive-search__loading-state">
+                        {% render 'icon-spinner' %}
+                      </div>
+                    </div>
+                    <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </form>
+      {%- if settings.predictive_search_enabled -%}
+        </predictive-search>
+      {%- endif -%}
+      {%- if settings.show_promo or settings.show_promo_2 or settings.search_collection_list != blank -%}
+        <div class="search__recomendation container card-link-small">
+          {% if settings.search_collection_list != blank %}
+            <div class="search__categories search-list__categories">
+              <div class="search-list__categories-title small-text">
+                {{- 'general.search.popular_search' | t -}}
+              </div>
+              <div class="search__categories-wrapper">
+                {%- for collection in settings.search_collection_list -%}
+                  <h4 class="collection-card__title">
+                    <a
+                      class="full-unstyled-link"
+                      href="{{ collection.url }}"
+                    >
+                      {{ collection.title }}
+                    </a>
+                  </h4>
+                {%- endfor -%}
+              </div>
+              {% render 'button',
+                btn_label: settings.search_button_label,
+                btn_link: settings.search_button_link,
+                btn_style: 'simple'
+              %}
+            </div>
+          {% endif %}
+          {% if settings.show_promo or settings.show_promo_2 %}
+            <div class="header-mega-menu__collection-list">
+              {% if settings.show_promo %}
+                <div class="mega-menu__collection mega-menu__search-modal color-{{ settings.promo_color_scheme }}">
+                  {% if settings.promo_image != blank %}
+                    {{
+                      settings.promo_image
+                      | image_url: width: settings.promo_image.width
+                      | image_tag:
+                        loading: 'lazy',
+                        sizes: '100vw',
+                        widths: '360, 550, 710, 1100, 1420, 1700, 1920',
+                        width: settings.promo_image.width,
+                        class: 'mega-menu__item-image'
+                    }}
+                  {% else %}
+                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                  <span
+                    class="image_overlay"
+                    style="opacity: {{ settings.promo_effect_opacity }}"
+                  ></span>
+
+                  <div class="promo_text text-{{ settings.promo_alignment }}">
+                    {%- if settings.promo_heading != blank -%}
+                      <h3>
+                        {{ settings.promo_heading }}
+                      </h3>
+                    {%- endif -%}
+                    {%- if settings.promo_description != blank -%}
+                      <div class="large-font">
+                        {{ settings.promo_description }}
+                      </div>
+                    {%- endif -%}
+                    {% if settings.promo_button_label != blank -%}
+                      {% render 'button',
+                        btn_style: 'simple',
+                        btn_label: settings.promo_button_label,
+                        btn_link: settings.promo_button_link
+                      %}
+                    {% endif %}
+                  </div>
+
+                  <a
+                    {% if settings.promo_button_link.url != blank %}
+                      href="{{ settings.promo_button_link }}"
+                    {% endif %}
+                    class="mega-menu__collection-link-overlay"
+                    {% if settings.promo_button_link.url == blank %}
+                      aria-disabled="true"
+                    {% endif %}
+                    aria-label="Promo banner"
+                  ></a>
+                </div>
+              {% endif %}
+              {% if settings.show_promo_2 %}
+                <div class="mega-menu__collection mega-menu__search-modal color-{{ settings.promo_color_scheme_2 }}">
+                  {% if settings.promo_image_2 != blank %}
+                    {{
+                      settings.promo_image_2
+                      | image_url: width: settings.promo_image_2.width
+                      | image_tag:
+                        loading: 'lazy',
+                        sizes: '100vw',
+                        widths: '360, 550, 710, 1100, 1420, 1700, 1920',
+                        width: settings.promo_image_2.width,
+                        class: 'mega-menu__item-image'
+                    }}
+                  {% else %}
+                    {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                  <span
+                    class="image_overlay"
+                    style="opacity: {{ settings.promo_effect_opacity_2 }}"
+                  ></span>
+
+                  <div class="promo_text text-{{ settings.promo_alignment_2 }}">
+                    {%- if settings.promo_heading_2 != blank -%}
+                      <h3>
+                        {{ settings.promo_heading_2 }}
+                      </h3>
+                    {%- endif -%}
+                    {%- if settings.promo_description_2 != blank -%}
+                      <div class="large-font">
+                        {{ settings.promo_description_2 }}
+                      </div>
+                    {%- endif -%}
+                    {% if settings.promo_button_label_2 != blank -%}
+                      {% render 'button',
+                        btn_style: 'simple',
+                        btn_label: settings.promo_button_label_2,
+                        btn_link: settings.promo_button_link_2
+                      %}
+                    {% endif %}
+                  </div>
+
+                  <a
+                    {% if settings.promo_button_link_2.url != blank %}
+                      href="{{ settings.promo_button_link_2 }}"
+                    {% endif %}
+                    class="mega-menu__collection-link-overlay"
+                    {% if settings.promo_button_link_2.url == blank %}
+                      aria-disabled="true"
+                    {% endif %}
+                    aria-label="Promo banner"
+                  ></a>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

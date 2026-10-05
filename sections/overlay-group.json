@@ -1,0 +1,109 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "custom.overlay",
+  "name": "t:sections.overlay-group.name",
+  "sections": {
+    "popup_wwwgMz": {
+      "type": "popup",
+      "blocks": {
+        "popup_heading_kmkN84": {
+          "type": "popup_heading",
+          "settings": {}
+        },
+        "popup_text_t83BRB": {
+          "type": "popup_text",
+          "settings": {
+            "text": ""
+          }
+        },
+        "subscribe_form_QJ964p": {
+          "type": "subscribe_form",
+          "settings": {
+            "placeholder_input": "E-mail",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "popup_heading_kmkN84",
+        "popup_text_t83BRB",
+        "subscribe_form_QJ964p"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "image_layout": "left",
+        "image_fit": "cover",
+        "alignment": "center",
+        "limit-display": 0,
+        "limit-cache": 30,
+        "position": "center",
+        "full-height": false,
+        "popup-id": "",
+        "trigger-open": "manual",
+        "trigger-open-delay": 1,
+        "open-scroll-type": "%",
+        "open-scroll-position": 50,
+        "manual-selector": "#id",
+        "trigger-close": "none",
+        "trigger-close-delay": 30,
+        "close-scroll-type": "%",
+        "close-scroll-position": 50,
+        "width": 860,
+        "open-animation": "Slide",
+        "exit-animation": "Slide",
+        "show-overlay": true,
+        "mobile": false,
+        "scrolling": false,
+        "overlay-close": true,
+        "esc-close": true,
+        "f4-close": true
+      }
+    },
+    "notification_banner_8BGBj4": {
+      "type": "notification-banner",
+      "settings": {
+        "color_scheme": "",
+        "layout": "banner",
+        "image_fit": "cover",
+        "image_position": "overlay",
+        "overlay_opacity": 0,
+        "show_button": false,
+        "button_action": "accept",
+        "button_link": "",
+        "button_style": "primary",
+        "limit-display": 1,
+        "limit-cache": 30,
+        "position": "bottom-left",
+        "popup-id": "id",
+        "trigger-open": "delay",
+        "trigger-open-delay": 5,
+        "open-scroll-type": "%",
+        "open-scroll-position": 50,
+        "manual-selector": "",
+        "trigger-close": "none",
+        "trigger-close-delay": 30,
+        "close-scroll-type": "%",
+        "close-scroll-position": 50,
+        "width": 380,
+        "min_height": 210,
+        "open-animation": "Fade",
+        "exit-animation": "Fade",
+        "show-overlay": false,
+        "mobile": false,
+        "scrolling": false,
+        "overlay-close": false,
+        "esc-close": false,
+        "f4-close": false
+      }
+    }
+  },
+  "order": ["popup_wwwgMz", "notification_banner_8BGBj4"]
+}

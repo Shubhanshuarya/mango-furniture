@@ -1,0 +1,98 @@
+{% doc %}
+  Renders a discount code field.
+
+  @param {object} cart - Cart Liquid object.
+  @param {string} section_id - Parent section ID.
+
+  @example
+  {% render 'cart-discount-code', cart: cart, section_id: section.id %}
+{% enddoc %}
+
+{% liquid
+  assign discount_codes = cart.cart_level_discount_applications | where: 'type', 'discount_code' | map: 'title'
+  for item in cart.items
+    for allocation in item.line_level_discount_allocations
+      if allocation.discount_application.type == 'discount_code'
+        assign discount_codes = item.line_level_discount_allocations | slice: forloop.index0 | map: 'discount_application' | map: 'title' | concat: discount_codes
+      endif
+    endfor
+  endfor
+
+  assign discount_codes = discount_codes | uniq
+%}
+
+<cart-discount-code
+  class="cart-discount-code"
+  {% if section_id != blank %}
+    data-section-id="{{ section_id }}"
+  {% endif %}
+>
+  <form
+    onsubmit="return false;"
+    class="cart-discount-code__form"
+  >
+    <div class="cart-discount-code__field">
+      <div class="field">
+        <input
+          id="CartDiscountCode"
+          class="field__input"
+          type="text"
+          name="discount"
+          dir="ltr"
+          placeholder=" "
+        >
+        <label class="field__label" for="CartDiscountCode">
+          {{- 'general.cart.discount_code_label' | t -}}
+        </label>
+      </div>
+      <button
+        type="submit"
+        class="cart-discount-code__submit button button--primary no-js-hidden"
+      >
+        <span class="button-label">{{ 'general.cart.discount_code_submit' | t }}</span>
+        {% render 'icon-spinner' %}
+      </button>
+    </div>
+  </form>
+
+  <div
+    class="cart-discount-code__error body-xs hidden"
+    role="alert"
+    ref="cartDiscountError"
+  >
+    <small
+      class="cart-discount-code__error-text body-xs hidden"
+      ref="cartDiscountErrorDiscountCode"
+    >
+      {{- 'general.cart.discount_code_error' | t -}}
+    </small>
+    <small
+      class="cart-discount-code__error-text body-xs hidden"
+      ref="cartDiscountErrorShipping"
+    >
+      {{- 'general.cart.shipping_discount_error' | t -}}
+    </small>
+  </div>
+
+  <ul class="cart-discount-code__codes list-unstyled">
+    {%- for discount_code in discount_codes -%}
+      <li
+        class="cart-discount-code__pill"
+        data-discount-code="{{ discount_code }}"
+        aria-label="{{ 'general.cart.discount_code_applied' | t: code: discount_code }}"
+      >
+        <button
+          type="button"
+          class="cart-discount-code__pill-button focus-inset"
+          aria-label="{{ 'general.cart.remove_discount_code' | t: code: discount_code }}"
+          title="{{ 'general.cart.remove_discount_code' | t: code: discount_code }}"
+        >
+          <span class="body-xs">
+            {{- discount_code -}}
+          </span>
+          {% render 'icon-close-small' %}
+        </button>
+      </li>
+    {%- endfor -%}
+  </ul>
+</cart-discount-code>

@@ -1,0 +1,83 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "color_scheme": "",
+        "overlay_opacity": 20,
+        "section_size": "full",
+        "text_horizontal": "center",
+        "add_word": "Collection",
+        "show_word": false,
+        "show_collection_description": true,
+        "description_products": "Explore complete range of our offerings.",
+        "image_size": "medium",
+        "show_collection_image": false,
+        "margin_top": "xs",
+        "margin_bottom": "s",
+        "padding_top": "no-indent",
+        "padding_bottom": "no-indent"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 12,
+        "show_two_cards": true,
+        "show_secondary_image": true,
+        "show_sku": false,
+        "show_vendor": true,
+        "show_desc": false,
+        "show_color_swatch": true,
+        "image_ratio": "portrait",
+        "image_fit": "cover",
+        "color_scheme": "",
+        "enable_filtering": true,
+        "enable_sorting": true,
+        "image_filter_ratio": "4/5",
+        "image_filter_fit": "cover",
+        "image_filter_columns": 2,
+        "padding_top": "no-indent",
+        "padding_bottom": "l"
+      }
+    },
+    "rich_text_HEL3LA": {
+      "type": "rich-text",
+      "blocks": {
+        "text_dHamBw": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Discover Copenhagen Primary’s curated collection of modern essentials designed for effortless sophistication. From timeless dresses to relaxed trousers and everyday favourites, each piece blends clean Scandinavian design with comfort and versatility. Crafted in soft, premium fabrics and refined tones, our styles transition seamlessly from day to night. Thoughtfully made for those who value quality, ease and understated confidence in every detail.</p>",
+            "text_color": "body",
+            "text_size": "small",
+            "container_size": "small",
+            "text_horizontal": "left"
+          }
+        }
+      },
+      "block_order": ["text_dHamBw"],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "full_width": true,
+        "content_horizontal": "center",
+        "margin_top": "no-indent",
+        "margin_bottom": "l",
+        "padding_top": "no-indent",
+        "padding_bottom": "no-indent",
+        "enable_border_top": false,
+        "enable_border_bottom": false
+      }
+    }
+  },
+  "order": ["banner", "product-grid", "rich_text_HEL3LA"]
+}

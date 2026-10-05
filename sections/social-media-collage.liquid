@@ -1,0 +1,713 @@
+{{ 'section-social-media-collage.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  {% render 'section-margin' %}
+
+  .social-media-collage__image-block {
+  	grid-template-columns: 1fr;
+  }
+
+   @media screen and (min-width: 750px) {
+    .social-media-collage__image-block {
+  	grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+  	.social-media-collage__image-box {
+  		grid-column-start: 1 !important;
+  		grid-column-end: 2 !important;
+  		grid-row-start: auto !important;
+  		grid-row-end: auto !important;
+  	}
+  }
+
+   @media screen and (max-width: 1099px) {
+  	.social-media-collage__image-box {
+  		grid-column-start: auto !important;
+  		grid-column-end: auto !important;
+  		grid-row-start: auto !important;
+  		grid-row-end: auto !important;
+  	}
+  }
+
+
+
+  @media screen and (min-width: 1100px) {
+  	#shopify-section-{{ section.id }} .social-media-collage__image-block {
+  		grid-template-columns: repeat({{ section.settings.columns }}, 1fr);
+  	}
+  }
+{% endstyle %}
+
+<div class="social-media-collage">
+  <div class="social-media-collage__images">
+    <div class="container">
+      <div class="social-media-collage__image-block{% if section.settings.hide_mobile_image %} hide_mobile_image{% endif %}">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'social-media-desc' -%}
+              <div
+                class="social-media-collage__image-box color-{{ block.settings.color_scheme }} background"
+                data-id="{{ block.id }}"
+                style="grid-column-start: {{ block.settings.column_start }}; grid-column-end: {{ block.settings.column_end }}; grid-row-start: {{ block.settings.row_start }}; grid-row-end: {{ block.settings.row_end }};"
+              >
+                <div class="social-media-collage__text">
+                  <div class="social-media-collage__followers">
+                    {% style %}
+                      #shopify-section-{{ section.id }} {
+                      	--social-bg:  {{ block.settings.gradient }};
+                      }
+                    {% endstyle %}
+
+                    {% if block.settings.instagram_image != blank %}
+                      <div class="social-media-collage__author-img">
+                        {{
+                          block.settings.instagram_image
+                          | image_url: width: 3840
+                          | image_tag:
+                            loading: 'lazy',
+                            height: image_height,
+                            sizes: '30px, 60px, 90px, 120px',
+                            widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+                        }}
+                      </div>
+                    {% else %}
+                      <div class="social-media-collage__author-icon">
+                        {%- render 'icon-social', icon-social: block.settings.icon_social -%}
+                      </div>
+                    {% endif %}
+                  </div>
+                  <div class="social-media-collage-box">
+                    {%- if block.settings.heading != blank -%}
+                      <{{ block.settings.heading_tag }} class="social-media-collage-title h5">
+                        {{ block.settings.heading }}
+                      </{{ block.settings.heading_tag }}>
+                    {% endif %}
+                    {% if block.settings.description != blank %}
+                      <div class="social-media-collage-desc medium-font richtext__content">
+                        {{ block.settings.description }}
+                      </div>
+                    {% endif %}
+                    {% render 'button', layout: block, btn_icon: true %}
+                  </div>
+                </div>
+              </div>
+            {%- when 'social-media-image' -%}
+              <div
+                class="social-media-collage__image-box"
+                data-id="{{ block.id }}"
+                style="grid-column-start: {{ block.settings.column_start }}; grid-column-end: {{ block.settings.column_end }}; grid-row-start: {{ block.settings.row_start }}; grid-row-end: {{ block.settings.row_end }};"
+              >
+                <div class="social-media-collage__image-item">
+                  {% liquid
+                    assign media_size = block.settings.image_ratio
+
+                    case media_size
+                      when 'landscape'
+                        assign image_size = '50%'
+                      when 'portrait'
+                        assign image_size = '125%'
+                      when 'square'
+                        assign image_size = '100%'
+                      else
+                        assign image_size = '100%'
+                    endcase
+                  %}
+                  {% style %}
+                    [data-id="{{ block.id }}"] {
+                    							--image_size: {{ image_size }};
+                    						}
+                  {% endstyle %}
+                  {% if block.settings.image != blank and block.settings.video == blank %}
+                    {% assign image_height = block.settings.image.width
+                      | divided_by: block.settings.image.aspect_ratio
+                    %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 3840
+                      | image_tag:
+                        loading: 'lazy',
+                        width: block.settings.image.width,
+                        height: image_height,
+                        sizes: '100vw,(min-width: 748px) 50vw',
+                        widths: '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+                    }}
+                  {%- elsif block.settings.video != blank -%}
+                    {{
+                      block.settings.video
+                      | video_tag: image_size: '1100x', autoplay: true, loop: true, controls: false, muted: true
+                    }}
+                  {% else %}
+                    {% assign loop_index = forloop.index | modulo: 3 | plus: 1 %}
+                    {{ 'product-' | append: loop_index | placeholder_svg_tag }}
+                  {% endif %}
+                </div>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.social-media-collage.name",
+  "tag": "section",
+  "class": "social-media-collage-section spaced-section",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "range",
+      "id": "columns",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.cards-grid.settings.columns.label",
+      "info": "t:sections.cards-grid.settings.columns.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile_image",
+      "default": true,
+      "label": "t:sections.all.hide_mobile.option_1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-margin.header.content"
+    },
+    {
+      "type": "select",
+      "id": "margin_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_top.label"
+    },
+    {
+      "type": "select",
+      "id": "margin_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        }
+      ],
+      "default": "l",
+      "label": "t:sections.all.section-margin.margin_bottom.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social-media-desc",
+      "name": "t:sections.social-media-collage.blocks.social-media-desc.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "column_start",
+          "min": 1,
+          "max": 6,
+          "default": 1,
+          "label": "t:sections.cards-grid.blocks.column.settings.column_start.label"
+        },
+        {
+          "type": "range",
+          "id": "column_end",
+          "min": 2,
+          "max": 7,
+          "default": 4,
+          "label": "t:sections.cards-grid.blocks.column.settings.column_end.label"
+        },
+        {
+          "type": "select",
+          "id": "row_start",
+          "options": [
+            {
+              "value": "1",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__1.label"
+            },
+            {
+              "value": "2",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__2.label"
+            },
+            {
+              "value": "3",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__3.label"
+            },
+            {
+              "value": "4",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__4.label"
+            },
+            {
+              "value": "5",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__5.label"
+            },
+            {
+              "value": "6",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__6.label"
+            },
+            {
+              "value": "7",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__7.label"
+            },
+            {
+              "value": "8",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__8.label"
+            },
+            {
+              "value": "unset",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__9.label"
+            }
+          ],
+          "default": "unset",
+          "label": "t:sections.cards-grid.blocks.column.settings.row_start.label"
+        },
+        {
+          "type": "select",
+          "id": "row_end",
+          "options": [
+            {
+              "value": "2",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__1.label"
+            },
+            {
+              "value": "3",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__2.label"
+            },
+            {
+              "value": "4",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__3.label"
+            },
+            {
+              "value": "5",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__4.label"
+            },
+            {
+              "value": "6",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__5.label"
+            },
+            {
+              "value": "7",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__6.label"
+            },
+            {
+              "value": "8",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__7.label"
+            },
+            {
+              "value": "9",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__8.label"
+            },
+            {
+              "value": "unset",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__9.label"
+            }
+          ],
+          "default": "unset",
+          "label": "t:sections.cards-grid.blocks.column.settings.row_end.label",
+          "info": "t:sections.cards-grid.blocks.column.settings.row_end.info"
+        },
+        {
+          "type": "select",
+          "id": "image_ratio",
+          "options": [
+            {
+              "value": "landscape",
+              "label": "t:sections.all.image.ratio.options__1.label"
+            },
+            {
+              "value": "portrait",
+              "label": "t:sections.all.image.ratio.options__2.label"
+            },
+            {
+              "value": "square",
+              "label": "t:sections.all.image.ratio.options__3.label"
+            }
+          ],
+          "default": "square",
+          "label": "t:sections.all.image.ratio.label"
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "default": "background-1",
+          "label": "t:sections.all.color_scheme.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "t:sections.social-media-collage.settings.heading.default",
+          "label": "t:sections.all.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_tag",
+          "label": "t:sections.all.heading_tag.label",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            },
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h4",
+              "label": "H4"
+            },
+            {
+              "value": "h5",
+              "label": "H5"
+            },
+            {
+              "value": "h6",
+              "label": "H6"
+            },
+            {
+              "value": "div",
+              "label": "div"
+            },
+            {
+              "value": "p",
+              "label": "p"
+            }
+          ],
+          "default": "h5"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "default": "t:sections.social-media-collage.settings.description.default",
+          "label": "t:sections.all.text.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.all.button.header.content"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "t:sections.social-media-collage.settings.button_label.default",
+          "label": "t:sections.all.button.label.label",
+          "info": "t:sections.all.button.label.info"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.all.button.link.label"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "t:sections.all.button.style.options__1.label"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.all.button.style.options__2.label"
+            },
+            {
+              "value": "tertiary",
+              "label": "t:sections.all.button.style.options__3.label"
+            }
+          ],
+          "default": "primary",
+          "label": "t:sections.all.button.style.label"
+        },
+
+        {
+          "type": "header",
+          "content": "t:sections.all.instagram_options.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "instagram_image",
+          "label": "t:sections.all.image.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_social",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:sections.all.icons_accardion.settings.icon.icons.none"
+            },
+            {
+              "value": "instagram",
+              "label": "t:sections.all.icons_social.icons.icon_1"
+            },
+            {
+              "value": "facebook",
+              "label": "t:sections.all.icons_social.icons.icon_2"
+            },
+            {
+              "value": "tiktok",
+              "label": "t:sections.all.icons_social.icons.icon_3"
+            },
+            {
+              "value": "twitter",
+              "label": "t:sections.all.icons_social.icons.icon_4"
+            },
+            {
+              "value": "vimeo",
+              "label": "t:sections.all.icons_social.icons.icon_5"
+            },
+            {
+              "value": "youtube",
+              "label": "t:sections.all.icons_social.icons.icon_6"
+            },
+            {
+              "value": "pinterest",
+              "label": "t:sections.all.icons_social.icons.icon_7"
+            },
+            {
+              "value": "linkedin",
+              "label": "t:sections.all.icons_social.icons.icon_8"
+            }
+          ],
+          "default": "instagram",
+          "label": "t:sections.all.icons_social.header.content"
+        },
+        {
+          "type": "color_background",
+          "id": "gradient",
+          "label": "Border",
+          "default": "linear-gradient(132.88deg, #7831fa -8.28%, #f4018f 36.86%, #fcc300 96.43%)"
+        }
+      ]
+    },
+    {
+      "type": "social-media-image",
+      "name": "t:sections.social-media-collage.blocks.social-media-image.name",
+      "settings": [
+        {
+          "type": "range",
+          "id": "column_start",
+          "min": 1,
+          "max": 6,
+          "default": 4,
+          "label": "t:sections.cards-grid.blocks.column.settings.column_start.label"
+        },
+        {
+          "type": "range",
+          "id": "column_end",
+          "min": 2,
+          "max": 7,
+          "default": 5,
+          "label": "t:sections.cards-grid.blocks.column.settings.column_end.label"
+        },
+        {
+          "type": "select",
+          "id": "row_start",
+          "options": [
+            {
+              "value": "1",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__1.label"
+            },
+            {
+              "value": "2",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__2.label"
+            },
+            {
+              "value": "3",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__3.label"
+            },
+            {
+              "value": "4",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__4.label"
+            },
+            {
+              "value": "5",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__5.label"
+            },
+            {
+              "value": "6",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__6.label"
+            },
+            {
+              "value": "7",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__7.label"
+            },
+            {
+              "value": "8",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__8.label"
+            },
+            {
+              "value": "unset",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_start.options__9.label"
+            }
+          ],
+          "default": "unset",
+          "label": "t:sections.cards-grid.blocks.column.settings.row_start.label"
+        },
+        {
+          "type": "select",
+          "id": "row_end",
+          "options": [
+            {
+              "value": "2",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__1.label"
+            },
+            {
+              "value": "3",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__2.label"
+            },
+            {
+              "value": "4",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__3.label"
+            },
+            {
+              "value": "5",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__4.label"
+            },
+            {
+              "value": "6",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__5.label"
+            },
+            {
+              "value": "7",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__6.label"
+            },
+            {
+              "value": "8",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__7.label"
+            },
+            {
+              "value": "9",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__8.label"
+            },
+            {
+              "value": "unset",
+              "label": "t:sections.cards-grid.blocks.column.settings.row_end.options__9.label"
+            }
+          ],
+          "default": "unset",
+          "label": "t:sections.cards-grid.blocks.column.settings.row_end.label",
+          "info": "t:sections.cards-grid.blocks.column.settings.row_end.info"
+        },
+        {
+          "type": "select",
+          "id": "image_ratio",
+          "options": [
+            {
+              "value": "landscape",
+              "label": "t:sections.all.image.ratio.options__1.label"
+            },
+            {
+              "value": "portrait",
+              "label": "t:sections.all.image.ratio.options__2.label"
+            },
+            {
+              "value": "square",
+              "label": "t:sections.all.image.ratio.options__3.label"
+            }
+          ],
+          "default": "square",
+          "label": "t:sections.all.image.ratio.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.all.image.label"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "t:sections.all.video.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.social-media-collage.presets.name",
+      "blocks": [
+        {
+          "type": "social-media-desc",
+          "settings": {
+            "column_start": 1,
+            "column_end": 2,
+            "row_start": "auto",
+            "row_end": "auto"
+          }
+        },
+        {
+          "type": "social-media-image",
+          "settings": {
+            "column_start": 2,
+            "column_end": 3,
+            "row_start": "auto",
+            "row_end": "auto"
+          }
+        },
+        {
+          "type": "social-media-image",
+          "settings": {
+            "column_start": 3,
+            "column_end": 4,
+            "row_start": "auto",
+            "row_end": "auto"
+          }
+        },
+        {
+          "type": "social-media-image",
+          "settings": {
+            "column_start": 4,
+            "column_end": 5,
+            "row_start": "auto",
+            "row_end": "auto"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

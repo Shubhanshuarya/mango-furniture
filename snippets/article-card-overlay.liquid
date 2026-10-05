@@ -1,0 +1,86 @@
+{% comment %}
+  	Renders an article card for a given blog with settings to either show the image or not.
+
+  	Accepts:
+  	- blog: {Object} Blog object
+  	- article: {Object} Article object
+  	- show_image: {String} The setting either show the article image or not. If it's not included it will show the image by default
+  	- show_date: {String} The setting either show the article date or not. If it's not included it will not show the image by default
+
+  	Usage:
+  {% render 'article-card-overlay' blog: blog, article: article, show_image: section.settings.show_image %}
+{% endcomment %}
+<article
+  class="article-card article-card-overlay color-inverse have-overlay"
+  aria-labelledby="Article-{{ article.id }}"
+>
+  <div class="article-card__image-wrapper">
+    {% assign article_image = article.image %}
+    {%- if show_image and article_image != blank or placeholder -%}
+      {% if placeholder %}
+        {{ 'image' | placeholder_svg_tag }}
+      {% else %}
+        {% liquid
+          assign image_height = article_image.width | divided_by: article_image.aspect_ratio
+          assign image_width = article_image.width
+        %}
+        {{
+          article_image
+          | image_url: width: 1296
+          | image_tag:
+            loading: 'lazy',
+            width: image_width,
+            height: image_height,
+            sizes: '100vw, (min-width: 576px) 50vw, (min-width: 1200px) 33vw',
+            widths: '375, 550, 750, 1100, 1500'
+        }}
+      {% endif %}
+    {%- endif -%}
+  </div>
+  <div class="article-card__text">
+    <h3
+      class="article-card__title h1"
+      id="Article-{{ article.id }}"
+    >
+      <a href="{{ article.url }}" class="full-unstyled-link">
+        {% if placeholder %}
+          {{ 'blogs.article.title' | t }}
+        {% else %}
+          {{ article.title | escape }}
+        {% endif %}
+      </a>
+    </h3>
+    {%- if show_excerpt and article.excerpt_or_content.size > 0 -%}
+      <p class="article-card__excerpt">
+        {% if placeholder %}
+          {{ 'blogs.article.description' | t }}
+        {% else %}
+          {{ article.excerpt_or_content | strip_html | truncate: 70 }}
+        {% endif %}
+      </p>
+    {%- endif -%}
+    {%- if placeholder != true -%}
+      <div class="article-card__block">
+        {%- if show_tags -%}
+          <div class="article-card__tags">
+            {% for tag in article.tags %}
+              <a
+                class="full-unstyled-link"
+                href="{{ blog.url }}/tagged/{{ tag | handle }}"
+                title="{{ tag }}"
+              >
+                {{ tag }}
+                {% render 'icon-caret-right' %}
+              </a>
+            {% endfor %}
+          </div>
+        {%- endif -%}
+        {% if show_date %}
+          <div class="article-card__date">
+            {{- article.published_at | time_tag: format: 'date' -}}
+          </div>
+        {% endif %}
+      </div>
+    {%- endif -%}
+  </div>
+</article>

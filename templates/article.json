@@ -1,0 +1,103 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-article",
+      "blocks": {
+        "title": {
+          "type": "article-header",
+          "settings": {
+            "header_variant": "overlay",
+            "overlay_opacity": 20,
+            "blog_show_tags": true,
+            "blog_show_excerpt": true,
+            "blog_show_date": true,
+            "image_size": "21/9",
+            "show_share_facebook": true,
+            "show_share_twitter": true,
+            "show_share_instagram": true,
+            "show_share_youtube": true,
+            "show_share_tiktok": true
+          }
+        },
+        "content": {
+          "type": "content",
+          "settings": {}
+        },
+        "article_footer": {
+          "type": "article-footer",
+          "settings": {
+            "blog_show_date": true,
+            "show_share_facebook": true,
+            "show_share_twitter": true,
+            "show_share_instagram": true,
+            "show_share_youtube": true,
+            "show_share_tiktok": true
+          }
+        }
+      },
+      "block_order": ["title", "content", "article_footer"],
+      "settings": {
+        "margin_top": "no-indent",
+        "margin_bottom": "l",
+        "padding_top": "m",
+        "padding_bottom": "s"
+      }
+    },
+    "collection_tabs_jaWar3": {
+      "type": "collection-tabs",
+      "settings": {
+        "color_scheme": "",
+        "heading": "Related Products",
+        "description": "",
+        "alignment": "center",
+        "collection_list": [],
+        "product_count": 4,
+        "image_ratio": "portrait",
+        "show_two_cards": false,
+        "show_secondary_image": true,
+        "show_sku": false,
+        "show_vendor": false,
+        "show_color_swatch": false,
+        "show_desc": false,
+        "margin_top": "no-indent",
+        "margin_bottom": "l",
+        "padding_top": "s",
+        "padding_bottom": "s",
+        "enable_border_top": true,
+        "enable_border_bottom": true
+      }
+    },
+    "blog_post_YRNhMr": {
+      "type": "blog-post",
+      "settings": {
+        "posts_count": 4,
+        "per_row": 4,
+        "heading": "Latest Posts",
+        "heading_position": "center",
+        "button_label": "",
+        "button_link": "",
+        "blog": "news",
+        "text_horizontal": "center",
+        "show_image": true,
+        "show_tags": true,
+        "show_date": true,
+        "show_author": false,
+        "show_excerpt": false,
+        "image_ratio": "landscape",
+        "image_fit": "cover",
+        "margin_top": "no-indent",
+        "margin_bottom": "l"
+      }
+    }
+  },
+  "order": ["main", "collection_tabs_jaWar3", "blog_post_YRNhMr"]
+}

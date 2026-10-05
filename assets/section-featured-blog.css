@@ -1,0 +1,112 @@
+.blog__box .blog__posts {
+  gap: 2.4rem 1.6rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: grid;
+  position: relative;
+  grid-template-columns: 1fr;
+}
+@media screen and (min-width: 576px) {
+  .blog__box .blog__posts {
+    grid-template-columns: repeat(clamp(1, var(--per-row), 2), 1fr);
+  }
+}
+@media screen and (min-width: 990px) {
+  .blog__box .blog__posts {
+    grid-template-columns: repeat(clamp(1, var(--per-row), 3), 1fr);
+  }
+}
+@media screen and (min-width: 1100px) {
+  .blog__box .blog__posts {
+    grid-template-columns: repeat(var(--per-row), 1fr);
+  }
+}
+@media screen and (max-width: 750px) {
+  .blog__box .blog__post {
+    display: none;
+  }
+  .blog__box .blog__posts .blog__post:first-child,
+.blog__box .blog__posts .blog__post:nth-child(2) {
+    display: block;
+  }
+}
+.blog__box__title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem 3rem;
+  margin-bottom: 5.6rem;
+}
+.blog__box .blog__post-placeholder {
+  display: flex;
+}
+.blog__box__title {
+  margin: 0;
+}
+.blog__box__button {
+  margin-left: auto;
+}
+.blog__box .swiper-slide {
+  height: auto;
+}
+
+.article-template .blog__title-wrapper {
+  border: none;
+}
+
+.article-card-row__image.media--landscape {
+  background-color: #e7e7e7;
+}
+
+.blog-post__title__block {
+  display: grid;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 3.2rem;
+}
+.blog-post__title__block .blog-post__title-item .blog-post__title {
+  margin: 0;
+}
+.blog-post__title__block .blog-post__button {
+  margin-left: auto;
+}
+.blog-post__title__block-center {
+  grid-template-columns: 1fr;
+  text-align: center;
+}
+@media screen and (min-width: 576px) {
+  .blog-post__title__block-center {
+    text-align: unset;
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+}
+.blog-post__title__block-center .blog-post__title {
+  text-align: center;
+}
+.blog-post__title__block-center .blog-post__button {
+  width: 100%;
+}
+@media screen and (min-width: 576px) {
+  .blog-post__title__block-center .blog-post__button {
+    grid-column: 3/4;
+    width: auto;
+  }
+}
+.blog-post__title__block-center div:empty {
+  display: none;
+}
+@media screen and (min-width: 576px) {
+  .blog-post__title__block-center div:empty {
+    display: block;
+  }
+}
+.blog-post__title__block-left {
+  grid-template-columns: auto;
+}
+.blog-post__title__block-left .blog-post__title {
+  text-align: left;
+}
+.blog-post__title__block-left .blog-post__button {
+  grid-column: 2/3;
+}

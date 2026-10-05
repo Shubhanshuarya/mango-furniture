@@ -1,0 +1,273 @@
+{% comment %}
+  Renders product variant options
+  Accepts:
+  - product: {Object} product object.
+  - option: {Object} current product_option object.
+  - block: {Object} block object.
+  Usage:
+  {% render 'product-variant-options',
+    product: product,
+    option: option,
+    block: block
+  %}
+{% endcomment %}
+
+{%- liquid
+  assign product_form_id = 'product-form-' | append: section.id
+-%}
+
+{% if product.available %}
+  {% for product_option in product.options_with_values %}
+    {% if product_option.name == 'Color' or product_option.name == 'color' or product_option.name == '色' %}
+      <div class="product_color-count">
+        {{ product_option.values | size }}
+        {{ 'products.product.colors' | t }}
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+{%- for value in option.values -%}
+  {%- liquid
+    assign option_disabled = true
+
+    if value.available
+      assign option_disabled = false
+    endif
+    assign variant_id = value.variant.id
+  -%}
+
+  {% liquid
+    assign color_trigger = settings.trigger_swatch | handle | strip
+    assign name_option = option.name | handle | strip
+    assign color_swatches_type = block.settings.color_swatches_type | default: 'color'
+  %}
+
+  {% if settings.type_color_swatch == 'custom' and color_trigger == name_option %}
+    {% liquid
+      assign color_value = value | handle | strip
+      assign color_value_custom = color_value
+
+      if settings.custom_colors != blank
+        assign custom_colors_string = settings.custom_colors | strip
+        assign custom_colors_obj = custom_colors_string | newline_to_br | split: '<br />'
+
+        for obj in custom_colors_obj
+          assign obj_strip = obj | strip
+          assign obj_key = obj_strip | split: ':' | first
+          assign obj_value = obj_strip | split: ':' | last
+          assign obj_color_name = obj_key | handle | strip
+
+          if color_value == obj_color_name
+            assign obj_color_value = obj_value
+            assign color_value_custom = obj_color_value | strip
+            break
+          endif
+        endfor
+      endif
+    %}
+
+    {% liquid
+      assign variant_link = product.url
+
+      for variant in product.variants
+        assign flag = false
+        if variant.available
+          for option_variant in variant.options
+            if option_variant == value
+              assign flag = true
+              break
+            endif
+          endfor
+        endif
+
+        if flag == true
+          assign variant_link = variant.url
+          assign variant_id = variant.id
+          break
+        endif
+      endfor
+    %}
+    <input
+      dir="ltr"
+      type="radio"
+      id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}-{{ product.id }}"
+      name="{{ option.name }}-{{ product.id }}-{{ section.id }}"
+      value="{{ value | escape }}"
+      {% if variant_link %}
+        data-variant-link="{{ variant_link }}"
+      {% endif %}
+      {% if variant_id %}
+        data-variant-id="{{ variant_id }}"
+      {% endif %}
+      {% if no_form_id != true %}
+        form="{{ product_form_id }}"
+      {% endif %}
+      {% if option.selected_value == value %}
+        checked
+      {% endif %}
+      {% comment %} {% if option_disabled and no_form_id != true %} {% endcomment %}
+      {% if option_disabled %}
+        class="disabled"
+      {% endif %}
+      data-option-value-id="{{ value.id }}"
+      data-product-url="{{ value.product_url }}"
+    >
+    {% liquid
+      if color_value_custom == 'white' or color_value_custom == '#fff' or color_value_custom == '#ffffff' or color_value_custom == '255,255,255' or color_value_custom == '255,255,255,1'
+        assign swatch_bg = 'rgb(var(--color-border))'
+        assign disable_color = 'rgb(var(--color-foreground-title))'
+        assign checkbox_bg = 'rgb(var(--color-border))'
+      else
+        assign swatch_bg = 'transparent'
+        assign disable_color = 'white'
+        assign checkbox_bg = 'white'
+      endif
+    %}
+    {% liquid
+      # additional check for variant image output only for Swatch trigger option
+      assign color_trigger = settings.trigger_swatch | strip | newline_to_br | split: '<br />'
+      assign name_option = option.name | handle | strip
+      assign is_swatch_trigger_option = false
+      for item in color_trigger
+        assign item_temp = item | handle | strip
+        if name_option == item_temp
+          assign is_swatch_trigger_option = true
+        endif
+      endfor
+    %}
+    {%- comment %} render variant image swatch {%- endcomment %}
+    {%- if color_swatches_type == 'variant_image'
+      and block.settings.picker_type == 'button'
+      and is_swatch_trigger_option
+      and prevent_variant_image != true
+    -%}
+      {%- liquid
+        assign has_variant_image = false
+        assign value_variant = value.variant
+        assign value_variant_image = value_variant.featured_image
+
+        # fallback value from other variants with the same option value
+        if value_variant_image == blank
+          for other_variant in product.variants
+            if other_variant.options contains value.name and other_variant != value_variant and other_variant.featured_image != blank
+              assign value_variant_image = other_variant.featured_image
+              break
+            endif
+          endfor
+        endif
+
+        # fallback value from swatch image metafield
+        if value_variant_image == blank and value.swatch.image != blank
+          assign value_variant_image = value.swatch.image
+        endif
+
+        assign fallback_product_image = blank
+        if value.product_url == blank or value.product_url == product.url
+          assign fallback_product_image = product.featured_image
+        endif
+
+        if value_variant_image != blank or fallback_product_image != blank
+          assign has_variant_image = true
+          assign variant_image = value_variant_image | default: fallback_product_image
+          assign image_width = 150
+          assign image_ratio = variant_image.aspect_ratio
+          assign calc_ratio = 1
+          assign setting_ratio = 0.75
+          if image_ratio > setting_ratio
+            assign calc_ratio = image_ratio | divided_by: setting_ratio | round: 2
+            assign image_width = image_width | times: calc_ratio
+          endif
+        endif
+      -%}
+
+      {% comment %}
+        Priority order for displaying values in variant image swatches (--swatch-color value):
+        1. product_option_value.featured_image or product_option_value.swatch.image
+        2. product_option_value.swatch.color
+        3. custom color from theme settings if product_option_value.name == custom_color_value
+        4. product.featured_image
+      {% endcomment %}
+      {%- capture variant_image_style -%}
+				{%- if value_variant_image != blank -%}
+					--swatch-color: url({{ variant_image | image_url: width: image_width }});
+				{%- elsif is_metafield_color_swatch or is_custom_color_swatch or is_color_value_string_valid_css -%}
+					--swatch-color: {{ color_value }};
+				{%- elsif fallback_product_image != blank -%}
+					--swatch-color: url({{ variant_image | image_url: width: image_width }});
+				{%- else -%}
+					--swatch-color: {{ color_value }};
+				{%- endif -%}
+			{%- endcapture -%}
+
+      <label
+        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}-{{ product.id }}"
+        class="variant-swatch variant-swatch--image variant-swatch--{{ variant_image_ratio }}{% if has_variant_image == false %} variant-swatch--color{% endif %}"
+        style="{{ variant_image_style }}"
+        title="{{- value -}}"
+      >
+        <span class="visually-hidden">{{- value -}}</span>
+      </label>
+    {%- else -%}
+      <label
+        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}-{{ product.id }}"
+        class="color-swatch"
+        style="--swatch-color: {{ color_value_custom | remove: '-' }}; --swatch-bg: {{ swatch_bg }};--disable-color:{{ disable_color }};--checkbox-bg: {{ checkbox_bg }}; border-radius: {{ settings.swatch_border_radius }}%"
+      >
+        <span class="visually-hidden">{{- value -}}</span>
+        <span class="color"></span>
+        <span class="color-name">{{- value -}}</span>
+      </label>
+    {%- endif -%}
+  {% else %}
+    {%- if block.settings.picker_type == 'button' -%}
+      <input
+        dir="ltr"
+        type="radio"
+        id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+        name="{{ option.name }}"
+        value="{{ value | escape }}"
+        {% if variant_link %}
+          data-variant-link="{{ variant_link }}"
+        {% endif %}
+        {% if variant_id %}
+          data-variant-id="{{ variant_id }}"
+        {% endif %}
+        {% if no_form_id != true %}
+          form="{{ product_form_id }}"
+        {% endif %}
+        {% if option.selected_value == value %}
+          checked
+        {% endif %}
+        {% if option_disabled %}
+          class="disabled"
+        {% endif %}
+        data-option-value-id="{{ value.id }}"
+        data-product-url="{{ value.product_url }}"
+      >
+      <label
+        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+        class="pills-variant-labels"
+      >
+        {{ value -}}
+        <span class="visually-hidden">
+          {{- 'products.product.variant_sold_out_or_unavailable' | t -}}
+        </span>
+      </label>
+    {%- elsif block.settings.picker_type == 'dropdown' -%}
+      <option
+        value="{{ value | escape }}"
+        {% if option.selected_value == value %}
+          selected="selected"
+        {% endif %}
+        data-option-value-id="{{ value.id }}"
+        data-product-url="{{ value.product_url }}"
+      >
+        {% if option_disabled -%}
+          {{- 'products.product.value_unavailable' | t: option_value: value -}}
+        {%- else -%}
+          {{- value -}}
+        {%- endif %}
+      </option>
+    {% endif %}
+  {% endif %}
+{%- endfor -%}

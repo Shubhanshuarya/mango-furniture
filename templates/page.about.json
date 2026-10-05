@@ -1,0 +1,223 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": "no-indent",
+        "padding_bottom": "no-indent"
+      }
+    },
+    "93c14491-fd18-45ff-9146-e492e581d13f": {
+      "type": "banner",
+      "settings": {
+        "full_width": false,
+        "image_size": "adapt",
+        "overlay_opacity": 0,
+        "margin_top": "no-indent",
+        "margin_bottom": "l"
+      }
+    },
+    "0eb57b0b-608e-43f9-b209-88547e4add0d": {
+      "type": "rich-text",
+      "blocks": {
+        "template--14703380332579__0eb57b0b-608e-43f9-b209-88547e4add0d-subheading-1": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "who we are",
+            "animation": true
+          }
+        },
+        "template--14703380332579__0eb57b0b-608e-43f9-b209-88547e4add0d-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Redefining the Essence of <em>Personal Style</em> with <em>Innovative Designs</em> in Every Collection",
+            "heading_size": "h2"
+          }
+        },
+        "template--14703380332579__0eb57b0b-608e-43f9-b209-88547e4add0d-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p> Born from a passion for unique designs and a commitment to sustainability, our store is not just a clothing retailer; it's a trendsetter in the fashion industry. We believe in the power of personal expression and aim to provide our customers with an array of styles that are as diverse and dynamic as they are. </p>",
+            "text_color": "heading",
+            "text_size": "small",
+            "container_size": "small",
+            "text_horizontal": "left"
+          }
+        },
+        "db1f9228-8e89-4592-855b-7bf8a842e21d": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our journey began with a simple idea: to merge timeless elegance with contemporary fashion. Each item in our store is carefully selected to ensure it meets our high standards for craftsmanship, durability, and style. Beyond just selling clothes, we are dedicated to building a community of fashion enthusiasts who value quality, creativity, and ethical production. </p>",
+            "text_color": "heading",
+            "text_size": "small",
+            "container_size": "small",
+            "text_horizontal": "left"
+          }
+        }
+      },
+      "block_order": [
+        "template--14703380332579__0eb57b0b-608e-43f9-b209-88547e4add0d-subheading-1",
+        "template--14703380332579__0eb57b0b-608e-43f9-b209-88547e4add0d-heading-1",
+        "template--14703380332579__0eb57b0b-608e-43f9-b209-88547e4add0d-text-1",
+        "db1f9228-8e89-4592-855b-7bf8a842e21d"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "full_width": true,
+        "content_horizontal": "center",
+        "margin_top": "no-indent",
+        "margin_bottom": "l",
+        "padding_top": "no-indent",
+        "padding_bottom": "no-indent",
+        "enable_border_top": false,
+        "enable_border_bottom": false
+      }
+    },
+    "c2fac663-805d-4bba-8672-ec813d527d4d": {
+      "type": "multicolumn",
+      "blocks": {
+        "template--14703380332579__c2fac663-805d-4bba-8672-ec813d527d4d-column-1": {
+          "type": "column",
+          "settings": {
+            "text": "1",
+            "heading": "Worldwide <em>Shipping</em>",
+            "desc": "<p>Explore our global fashion collection, now shipping to every corner of the world.</p>",
+            "button_label": "shipping details",
+            "button_style": "tertiary"
+          }
+        },
+        "template--14703380332579__c2fac663-805d-4bba-8672-ec813d527d4d-column-2": {
+          "type": "column",
+          "settings": {
+            "text": "2",
+            "heading": "30 Days <em>Free Returns</em>",
+            "desc": "<p>Shop with confidence — enjoy 30 days of hassle-free returns on all purchases.</p>",
+            "button_label": "Return policy",
+            "button_style": "tertiary"
+          }
+        },
+        "template--14703380332579__c2fac663-805d-4bba-8672-ec813d527d4d-column-3": {
+          "type": "column",
+          "settings": {
+            "text": "3",
+            "heading": "24/7 Customer <em>Support</em>",
+            "desc": "<p>Always here for you — our  support team is available to assist with any queries.</p>",
+            "button_label": "Get Help",
+            "button_style": "tertiary"
+          }
+        }
+      },
+      "block_order": [
+        "template--14703380332579__c2fac663-805d-4bba-8672-ec813d527d4d-column-1",
+        "template--14703380332579__c2fac663-805d-4bba-8672-ec813d527d4d-column-2",
+        "template--14703380332579__c2fac663-805d-4bba-8672-ec813d527d4d-column-3"
+      ],
+      "settings": {
+        "multicolumn_to_show": 3,
+        "horizontal_alignment": "center",
+        "object_fit": "cover",
+        "img_size": "small",
+        "swipe_on_mobile": true,
+        "margin_top": "no-indent",
+        "margin_bottom": "l",
+        "padding_top": "s",
+        "padding_bottom": "s",
+        "enable_border_top": true,
+        "enable_border_bottom": true
+      }
+    },
+    "2ffae942-74ff-4c56-a915-f729ee947985": {
+      "type": "blockquote",
+      "settings": {
+        "color_scheme": "",
+        "heading": "\"In every piece of garment, a promise of quality.\"",
+        "text": "by Rita Hoffman, Founder of Copenhagen",
+        "animation": true,
+        "aniamtion_effect": "slide",
+        "hide_mobile_image": true,
+        "image_ratio_first": "portrait",
+        "image_ratio_second": "portrait",
+        "margin_top": "no-indent",
+        "margin_bottom": "l",
+        "padding_top": "no-indent",
+        "padding_bottom": "m",
+        "enable_border_top": false,
+        "enable_border_bottom": true
+      }
+    },
+    "68c21d5c-35cb-4930-a450-22babb02db2e": {
+      "type": "rich-text",
+      "blocks": {
+        "template--14703380332579__68c21d5c-35cb-4930-a450-22babb02db2e-subheading-1": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "store location",
+            "animation": true
+          }
+        },
+        "template--14703380332579__68c21d5c-35cb-4930-a450-22babb02db2e-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "206 Smith Street, Collingwood, Melbourne",
+            "heading_size": "h2"
+          }
+        },
+        "template--14703380332579__68c21d5c-35cb-4930-a450-22babb02db2e-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>+61 426 426 116</p>",
+            "text_color": "body",
+            "text_size": "large",
+            "container_size": "small",
+            "text_horizontal": "center"
+          }
+        },
+        "23d02e74-ac4f-4de2-b274-82bc26c85fef": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Monday to Friday: 11:00am to 5:00pm <br/>Saturday: 10:00am to 5:00pm<br/>Sunday: 11:00am to 5:00pm</p>",
+            "text_color": "body",
+            "text_size": "large",
+            "container_size": "small",
+            "text_horizontal": "center"
+          }
+        }
+      },
+      "block_order": [
+        "template--14703380332579__68c21d5c-35cb-4930-a450-22babb02db2e-subheading-1",
+        "template--14703380332579__68c21d5c-35cb-4930-a450-22babb02db2e-heading-1",
+        "template--14703380332579__68c21d5c-35cb-4930-a450-22babb02db2e-text-1",
+        "23d02e74-ac4f-4de2-b274-82bc26c85fef"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "full_width": true,
+        "content_horizontal": "center",
+        "margin_top": "no-indent",
+        "margin_bottom": "l",
+        "padding_top": "no-indent",
+        "padding_bottom": "no-indent",
+        "enable_border_top": false,
+        "enable_border_bottom": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "93c14491-fd18-45ff-9146-e492e581d13f",
+    "0eb57b0b-608e-43f9-b209-88547e4add0d",
+    "c2fac663-805d-4bba-8672-ec813d527d4d",
+    "2ffae942-74ff-4c56-a915-f729ee947985",
+    "68c21d5c-35cb-4930-a450-22babb02db2e"
+  ]
+}

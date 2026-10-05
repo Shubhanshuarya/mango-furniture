@@ -1,0 +1,66 @@
+{% comment %}
+  Renders B2B volume pricing table and quantity rules for a product variant.
+
+  Accepts:
+  - product_resource: {Object} product Liquid object
+  - has_volume_pricing: {Boolean} whether the variant has quantity price breaks
+  - has_price_rules: {Boolean} whether the variant has quantity rule constraints (min/max/increment)
+
+  Usage:
+  {% render 'product-quantity-pricing-elements', product_resource: product, has_volume_pricing: has_volume_pricing, has_price_rules: has_price_rules %}
+{% endcomment %}
+{%- liquid
+  assign current_variant = product_resource.selected_or_first_available_variant
+-%}
+<div class="product-b2b-elements">
+  {%- if has_volume_pricing -%}
+    <table class="volume-pricing small-text">
+      <caption class="visually-hidden">
+        {{- 'products.product.price.volume_pricing' | t -}}
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">{{- 'products.product.quantity.input_label' | t -}}</th>
+          <th scope="col">{{- 'products.product.price.price' | t -}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ current_variant.quantity_rule.min }}+</td>
+          <td>
+            {{- current_variant.price | money -}}
+            /{{ 'products.product.price.each' | t }}
+          </td>
+        </tr>
+        {%- for price_break in current_variant.quantity_price_breaks -%}
+          <tr>
+            <td>{{ price_break.minimum_quantity }}+</td>
+            <td>
+              {{- price_break.price | money -}}
+              /{{ 'products.product.price.each' | t }}
+            </td>
+          </tr>
+        {%- endfor -%}
+      </tbody>
+    </table>
+  {%- endif -%}
+  {%- if has_price_rules -%}
+    <div class="quantity-rules small-text">
+      {%- if current_variant.quantity_rule.increment > 1 -%}
+        <span class="quantity-rules__item">
+          {{- 'products.product.quantity.multiples_of' | t: quantity: current_variant.quantity_rule.increment -}}
+        </span>
+      {%- endif -%}
+      {%- if current_variant.quantity_rule.min > 1 -%}
+        <span class="quantity-rules__item">
+          {{- 'products.product.quantity.minimum_of' | t: quantity: current_variant.quantity_rule.min -}}
+        </span>
+      {%- endif -%}
+      {%- if current_variant.quantity_rule.max != null -%}
+        <span class="quantity-rules__item">
+          {{- 'products.product.quantity.maximum_of' | t: quantity: current_variant.quantity_rule.max -}}
+        </span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>

@@ -1,0 +1,375 @@
+.countdown {
+  text-align: center;
+}
+.countdown .countdown__block__num div {
+  color: rgb(var(--color-foreground-title));
+  font-family: var(--font-heading-family);
+}
+@media only screen and (min-width: 750px) {
+  .countdown .countdown__block__num p {
+    margin-right: 10px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .countdown .countdown__block__num p {
+    font-size: calc(var(--font-body-scale-m) * 0.64rem);
+  }
+}
+.countdown .countdown__block__num .countdown__block__num_box {
+  display: flex;
+  align-items: center;
+}
+@media only screen and (min-width: 750px) {
+  .countdown .countdown__block__num .countdown__block__num_box {
+    gap: 1.8rem;
+  }
+}
+.countdown .countdown__block__num .countdown__block__num_box > :first-child {
+  min-width: 60px;
+}
+@media screen and (min-width: 1100px) {
+  .countdown .countdown__block__num .countdown__block__num_box > :first-child {
+    min-width: 50px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .countdown .countdown__block__num .countdown__block__num_box > :first-child {
+    min-width: 60px;
+  }
+}
+.countdown .heading__standart .countdown__block__num div {
+  color: rgb(var(--color-foreground-title));
+  font-weight: 400;
+}
+.countdown .heading__standart .countdown__block__num div {
+  font-size: calc(var(--font-heading-h1-scale) * 3rem);
+}
+@media only screen and (min-width: 1360px) {
+  .countdown .heading__standart .countdown__block__num div {
+    font-size: calc(var(--font-heading-h1-scale) * 4.4rem);
+  }
+}
+@media only screen and (min-width: 1540px) {
+  .countdown .heading__standart .countdown__block__num div {
+    font-size: calc(var(--font-heading-h1-scale) * 5.5rem);
+  }
+}
+.countdown .heading__large .countdown__block__num div {
+  font-size: calc(var(--font-heading-h1-scale) * 3rem);
+}
+@media only screen and (min-width: 750px) {
+  .countdown .heading__large .countdown__block__num div {
+    font-size: calc(var(--font-heading-h1-scale) * 3.4rem);
+  }
+}
+@media only screen and (min-width: 1100px) {
+  .countdown .heading__large .countdown__block__num div {
+    font-size: calc(var(--font-heading-h1-scale) * 4.4rem);
+  }
+}
+@media only screen and (min-width: 1360px) {
+  .countdown .heading__large .countdown__block__num div {
+    font-size: calc(var(--font-heading-h1-scale) * 5.4rem);
+  }
+}
+@media only screen and (min-width: 1540px) {
+  .countdown .heading__large .countdown__block__num div {
+    font-size: calc(var(--font-heading-h1-scale) * 6.4rem);
+  }
+}
+.countdown .countdown__none-img {
+  padding: 2rem;
+}
+.countdown__wrapper {
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+.countdown__wrapper .countdown__body {
+  width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (min-width: 750px) {
+  .countdown__wrapper {
+    gap: 3rem;
+  }
+  .countdown__wrapper .countdown__body {
+    margin-bottom: 0;
+    padding: 0;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .countdown__wrapper .countdown__body {
+    margin-bottom: 0;
+    padding-left: 4rem;
+  }
+}
+.countdown__wrapper::before {
+  background: var(--countdown-overlay);
+}
+.countdown .countdown__aligment-center .countdown__header {
+  text-align: center;
+}
+.countdown .countdown__add-collection {
+  display: flex;
+  padding: 0;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+}
+@media screen and (min-width: 1100px) {
+  .countdown .countdown__add-collection {
+    flex-direction: row;
+  }
+}
+@media screen and (min-width: 1540px) {
+  .countdown .countdown__add-collection {
+    height: 52rem;
+  }
+}
+.countdown .countdown__add-collection .countdown__block__num_box {
+  gap: 0.5rem;
+}
+@media screen and (min-width: 1540px) {
+  .countdown .countdown__add-collection .countdown__block__num_box {
+    gap: 1rem;
+  }
+}
+.countdown .countdown__add-collection .countdown__block {
+  border: none;
+  flex-direction: column;
+  padding: 0;
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+@media screen and (min-width: 750px) {
+  .countdown .countdown__add-collection .countdown__block {
+    flex: 0 0 calc(50% - 1.6rem);
+    max-width: calc(50% - 1.6rem);
+  }
+}
+@media screen and (min-width: 1100px) {
+  .countdown .countdown__add-collection .countdown__block {
+    flex: 0 0 calc(25% - 1.2rem);
+    max-width: calc(25% - 1.2rem);
+  }
+}
+@media only screen and (min-width: 1860px) {
+  .countdown .countdown__add-collection .countdown__block {
+    padding-right: 6.4rem;
+  }
+}
+.countdown .countdown__add-collection .countdown__block .countdown__header {
+  border: none;
+}
+.countdown .countdown__add-collection .countdown__block .countdown__main {
+  gap: 0;
+  justify-content: flex-start;
+}
+.countdown .countdown__add-collection .countdown__block .countdown__main .countdown__block__num:last-child {
+  min-width: unset;
+}
+@media only screen and (min-width: 1540px) {
+  .countdown .countdown__add-collection .countdown__block .countdown__main {
+    gap: 1rem;
+  }
+}
+.countdown .countdown__add-collection .countdown__block .countdown__body {
+  margin-top: auto;
+  padding: 0;
+}
+.countdown .countdown__add-collection .countdown__block .button {
+  margin-top: 3.2rem;
+}
+.countdown .countdown__add-collection .countdown__collection-card {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+@media screen and (min-width: 750px) {
+  .countdown .countdown__add-collection .countdown__collection-card {
+    flex: 0 0 calc(50% - 1.6rem);
+    max-width: calc(50% - 1.6rem);
+  }
+}
+@media screen and (min-width: 1100px) {
+  .countdown .countdown__add-collection .countdown__collection-card {
+    flex: 0 0 calc(25% - 1.2rem);
+    max-width: calc(25% - 1.2rem);
+  }
+}
+.countdown .countdown__add-collection .countdown__collection-card .collection-card__text .button {
+  display: block;
+}
+.countdown .countdown__add-collection .countdown__collection {
+  flex: 0 0 75%;
+}
+.countdown .countdown__add-collection .countdown__collection .countdown__collection-box {
+  display: flex;
+  gap: 1.6rem;
+  flex-direction: column;
+  align-items: center;
+}
+@media screen and (min-width: 750px) {
+  .countdown .countdown__add-collection .countdown__collection .countdown__collection-box {
+    flex-direction: row;
+  }
+}
+.countdown .countdown__colection_title {
+  text-align: left;
+  border-top: 1px solid rgb(var(--color-border));
+  padding-top: 1.7rem;
+}
+.countdown .countdown__colection_title a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.countdown .countdown__aligment-left .countdown__header {
+  text-align: center;
+}
+@media screen and (min-width: 990px) {
+  .countdown .countdown__aligment-left .countdown__header {
+    text-align: left;
+  }
+}
+.countdown .countdown__colection_link {
+  row-gap: 1.7rem;
+  display: flex;
+  flex-direction: column;
+}
+.countdown .countdown__colection_link:last-child {
+  border-bottom: 1px solid rgb(var(--color-border));
+  padding-bottom: 1.7rem;
+}
+.countdown .countdown__block {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid rgb(var(--color-accent));
+  padding: 2rem;
+  flex-direction: column;
+  gap: 1rem;
+}
+@media screen and (min-width: 990px) {
+  .countdown .countdown__block {
+    flex-direction: row;
+    gap: 0;
+    padding: 4rem;
+  }
+}
+.countdown .countdown__colection {
+  margin-bottom: 0.8rem;
+}
+.countdown .countdown__font h3 {
+  font-family: Satoshi;
+}
+.countdown .countdown__position {
+  align-items: center;
+}
+.countdown__header {
+  text-align: center;
+}
+@media screen and (min-width: 990px) {
+  .countdown__header {
+    padding-right: 4rem;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .countdown__header {
+    width: 100%;
+    border-right: 1px solid rgb(var(--color-accent));
+  }
+}
+.countdown__img,
+.countdown__img img,
+.countdown__img video {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: -2;
+}
+.countdown__img img,
+.countdown__img video {
+  object-fit: cover;
+  object-position: center;
+}
+.countdown__body:only-child {
+  margin-bottom: 0;
+}
+.countdown__main {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+@media screen and (min-width: 576px) {
+  .countdown__main {
+    gap: 1.2rem;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .countdown__main {
+    gap: 1.8rem;
+  }
+}
+.countdown__header-title {
+  margin: 0;
+  margin-bottom: 2.4rem;
+}
+@media screen and (min-width: 1100px) and (max-width: 1360px) {
+  .countdown__header-title {
+    font-size: calc(var(--font-heading-h3-scale) * 3rem);
+  }
+}
+.countdown .countdown__header-text {
+  margin-bottom: 2.4rem;
+}
+.countdown__heading {
+  display: none;
+}
+.countdown__heading h3 {
+  margin: 0;
+}
+.countdown .countdown__colon {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 0.8rem;
+  padding-top: 0.8rem;
+}
+@media screen and (min-width: 990px) {
+  .countdown .countdown__colon {
+    gap: 1rem;
+    padding-top: 1rem;
+  }
+}
+.countdown .countdown__delimiter {
+  display: inline-block;
+  background: rgba(var(--color-foreground), 0.3);
+  align-self: center;
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+}
+@media screen and (min-width: 990px) {
+  .countdown .countdown__delimiter {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+}
+@media screen and (min-width: 1360px) {
+  .countdown .countdown__delimiter {
+    width: 0.7rem;
+    height: 0.7rem;
+  }
+}
+.countdown .countdown__collection-card.countdown__collection-btn a.button {
+  opacity: 0.9;
+}

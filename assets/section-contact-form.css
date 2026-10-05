@@ -1,0 +1,213 @@
+.spaced-section:last-child.contact-section.no-padding {
+  padding-bottom: 0 !important;
+}
+
+.contact__wrapper {
+  position: relative;
+}
+.contact__container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-left: 0;
+}
+@media screen and (min-width: 1100px) {
+  .contact__container {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 8rem;
+  }
+}
+.contact__text {
+  max-width: 77rem;
+}
+@media screen and (min-width: 1100px) {
+  .contact__text {
+    flex: 0 0 calc(48% - 5rem);
+    max-width: calc(48% - 5rem);
+  }
+}
+.contact-form__block {
+  flex: 1;
+  max-width: 72rem;
+  padding: 3.2rem;
+  border-radius: 0.8rem;
+}
+@media screen and (min-width: 1100px) {
+  .contact-form__block {
+    padding: 6.4rem;
+    flex: 0 0 calc(45% - 5rem);
+    max-width: calc(45% - 5rem);
+  }
+}
+.contact__title {
+  margin: 3.2rem 0 1.6rem;
+  line-height: 1;
+}
+.contact__title > p {
+  margin: 0;
+}
+.contact-form__desc {
+  margin-bottom: 3.2rem;
+}
+.contact .contact__field-error .form__message {
+  align-items: flex-start;
+  margin: 1rem 0 0;
+  font-size: 1.2rem;
+  font-weight: var(--font-body-weight);
+  color: rgba(var(--color-error));
+}
+.contact .contact__field-error .form__message:before {
+  content: "*";
+  color: rgba(var(--color-error));
+  margin-right: 0.2rem;
+}
+@media screen and (min-width: 750px) {
+  .contact__fields {
+    display: flex;
+    grid-column-gap: 2.4rem;
+  }
+}
+.contact .field {
+  margin-bottom: 1.5rem;
+}
+@media screen and (min-width: 750px) {
+  .contact .field {
+    margin-bottom: 2.4rem;
+  }
+}
+.contact .text-area {
+  min-height: 9rem;
+  margin-bottom: 0.8rem;
+}
+.contact__bottom {
+  margin-top: 1.5rem;
+}
+@media screen and (min-width: 750px) {
+  .contact__bottom {
+    margin-top: 2.4rem;
+  }
+}
+.contact__add-text {
+  font-size: 1.2rem;
+  line-height: var(--font-body-linhe-height);
+  color: rgba(var(--color-foreground), 0.6);
+  margin-top: 1.6rem;
+}
+.contact__add-text a {
+  transition: all var(--duration-default) ease;
+  position: relative;
+  text-decoration-color: currentColor;
+}
+.contact__add-text a:hover {
+  color: rgba(var(--color-foreground), 0.6);
+}
+.contact__add-text > * {
+  margin: 0;
+}
+.contact .icon-success {
+  margin-top: 0.2rem;
+}
+.contact .field--checkbox,
+.contact .field--terms {
+  min-height: unset;
+  align-items: flex-start;
+}
+.contact .field--checkbox input[type=checkbox],
+.contact .field--terms input[type=checkbox] {
+  display: block;
+  position: absolute;
+  opacity: 1;
+  width: 1.6rem;
+  height: 1.6rem;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  appearance: none;
+}
+.contact .field--checkbox input[type=checkbox]:checked + .contact-checkbox > .icon-checkmark,
+.contact .field--terms input[type=checkbox]:checked + .contact-checkbox > .icon-checkmark {
+  visibility: visible;
+}
+.contact .field--checkbox input[type=checkbox].is-invalid + .contact-checkbox::before,
+.contact .field--terms input[type=checkbox].is-invalid + .contact-checkbox::before {
+  border-color: rgba(var(--color-error));
+}
+.contact .field--checkbox input[type=checkbox]:focus-visible + .contact-checkbox::before,
+.contact .field--terms input[type=checkbox]:focus-visible + .contact-checkbox::before {
+  outline: 0.2rem solid rgb(var(--color-foreground));
+  outline-offset: 0.2rem;
+}
+.contact .field--checkbox .contact-checkbox,
+.contact .field--terms .contact-checkbox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+}
+.contact .field--checkbox .contact-checkbox::before,
+.contact .field--terms .contact-checkbox::before {
+  content: "";
+  display: block;
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-top: 0.1rem;
+  border: 0.1rem solid rgb(var(--color-border));
+  background-color: rgb(var(--color-background));
+  transition: border-color var(--duration-default);
+}
+@media (hover: hover) {
+  .contact .field--checkbox .contact-checkbox:hover::before,
+.contact .field--terms .contact-checkbox:hover::before {
+    border-color: rgb(var(--color-foreground));
+  }
+}
+.contact .field--checkbox .contact-checkbox .icon-checkmark,
+.contact .field--terms .contact-checkbox .icon-checkmark {
+  position: absolute;
+  left: 0.4rem;
+  top: 0.7rem;
+  z-index: 5;
+  visibility: hidden;
+}
+.contact .field--checkbox .contact-checkbox__label,
+.contact .field--terms .contact-checkbox__label {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  font-size: 1.3rem;
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-button-family);
+}
+.contact .field--checkbox .contact-checkbox__label a,
+.contact .field--terms .contact-checkbox__label a {
+  text-decoration: underline;
+  transition: color var(--duration-default) ease;
+}
+@media (hover: hover) {
+  .contact .field--checkbox .contact-checkbox__label a:hover,
+.contact .field--terms .contact-checkbox__label a:hover {
+    color: rgba(var(--color-foreground), 0.7);
+  }
+}
+.contact .field--checkbox .form__message--error,
+.contact .field--terms .form__message--error {
+  display: block;
+  margin-top: 0.8rem;
+  font-size: 1.2rem;
+  color: rgba(var(--color-error));
+}
+.contact .field--checkbox .contact-checkbox .icon-checkmark,
+.contact .field--terms .contact-checkbox .icon-checkmark {
+  top: unset;
+}
+
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+[dir=rtl] .form__message .icon {
+  left: 0.4rem;
+  top: 0.7rem;
+}

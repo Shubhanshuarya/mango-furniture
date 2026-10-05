@@ -1,0 +1,106 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "ec2d7443-f095-40ca-a77c-9e29889d2fd7": {
+      "type": "slideshow",
+      "blocks": {
+        "template--14703254863907__ec2d7443-f095-40ca-a77c-9e29889d2fd7-slideshow_item-1": {
+          "type": "slideshow_item",
+          "settings": {
+            "color_scheme": "background-2",
+            "overlay_opacity": 20,
+            "heading": "Slide heading",
+            "text": "<p>Text from here describes your slide</p>",
+            "button_label": "Button label",
+            "button_link": "",
+            "second_button_label": "Button label",
+            "second_button_link": ""
+          }
+        },
+        "template--14703254863907__ec2d7443-f095-40ca-a77c-9e29889d2fd7-slideshow_item-2": {
+          "type": "slideshow_item",
+          "settings": {
+            "color_scheme": "background-2",
+            "overlay_opacity": 20,
+            "heading": "Slide heading",
+            "text": "<p>Text from here describes your slide</p>",
+            "button_label": "Button label",
+            "button_link": "",
+            "second_button_label": "Button label",
+            "second_button_link": ""
+          }
+        },
+        "template--14703254863907__ec2d7443-f095-40ca-a77c-9e29889d2fd7-slideshow_item-3": {
+          "type": "slideshow_item",
+          "settings": {
+            "color_scheme": "background-2",
+            "overlay_opacity": 20,
+            "heading": "Slide heading",
+            "text": "<p>Text from here describes your slide</p>",
+            "button_label": "Button label",
+            "button_link": "",
+            "second_button_label": "Button label",
+            "second_button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--14703254863907__ec2d7443-f095-40ca-a77c-9e29889d2fd7-slideshow_item-1",
+        "template--14703254863907__ec2d7443-f095-40ca-a77c-9e29889d2fd7-slideshow_item-2",
+        "template--14703254863907__ec2d7443-f095-40ca-a77c-9e29889d2fd7-slideshow_item-3"
+      ],
+      "settings": {
+        "section_layout": "container",
+        "section_alignment": "center",
+        "vertical_alignment": "center",
+        "text_animation": true,
+        "image_size": "21/9",
+        "is_autoplay": false,
+        "is_hover_stop_autoplay": false,
+        "show_bullets": true,
+        "parallax": false,
+        "slideshow_speed": 1.1,
+        "slideshow_delay": 3,
+        "slide_effects": "slide",
+        "margin_top": "no-indent",
+        "margin_bottom": "m"
+      }
+    },
+    "main": {
+      "type": "main-blog",
+      "settings": {
+        "tag_articles_heading": "Highlights",
+        "tag_articles": "INSIGHTS",
+        "tag_text_horizontal": "center",
+        "slideshow_speed": 0.5,
+        "tag_image_ratio": "portrait",
+        "tag_image_fit": "cover",
+        "show_image_tag": true,
+        "show_tags_tag": true,
+        "show_date_tag": true,
+        "show_excerpt_tag": false,
+        "show_author_tag": false,
+        "heading": "Our stories",
+        "text_horizontal": "left",
+        "image_ratio": "landscape",
+        "image_fit": "cover",
+        "show_image": true,
+        "show_tags": true,
+        "show_date": true,
+        "show_excerpt": false,
+        "show_author": false,
+        "margin_top": "no-indent",
+        "margin_bottom": "l"
+      }
+    }
+  },
+  "order": ["ec2d7443-f095-40ca-a77c-9e29889d2fd7", "main"]
+}

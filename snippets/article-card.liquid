@@ -1,0 +1,143 @@
+{% comment %}
+  	Renders an article card for a given blog with settings to either show the image or not.
+
+  	Accepts:
+  	- blog: {Object} Blog object
+  	- article: {Object} Article object
+  	- show_image: {String} The setting either show the article image or not. If it's not included it will show the image by default
+  	- show_date: {String} The setting either show the article date or not. If it's not included it will not show the image by default
+
+  	Usage:
+  {% render 'article-card' blog: blog, article: article, show_image: section.settings.show_image %}
+{% endcomment %}
+{% liquid
+  case image_ratio
+    when 'landscape'
+      assign image_size = '56%'
+    when 'square'
+      assign image_size = '100%'
+    when 'portrait'
+      assign image_size = '133%'
+    else
+      assign image_size = '100%'
+  endcase
+%}
+{% if loop_index == blank %}
+  {% assign loop_index = 1 %}
+{% endif %}
+<article
+  class="article-card article-card-{{ content_alignment }}"
+  aria-labelledby="Article-{{ article.id }}"
+  style="--image-size: {{ image_size }}"
+>
+  <div class="article-card__image-wrapper">
+    {% assign article_image = article.image %}
+    {%- if show_image and article_image != blank or placeholder -%}
+      <a
+        {% if placeholder == flase %}
+          href="{{ article.url }}"
+        {%- endif -%}
+        class="article-card__image"
+      >
+        {% if placeholder %}
+          {{ 'product-' | append: loop_index | placeholder_svg_tag }}
+        {% else %}
+          {% liquid
+            assign image_height = article_image.width | divided_by: article_image.aspect_ratio
+            assign image_width = article_image.width
+          %}
+          {% capture fit_style %}
+						object-fit: {{ image_fit }};
+					{% endcapture %}
+          {{
+            article_image
+            | image_url: width: 1296
+            | image_tag:
+              loading: 'lazy',
+              width: image_width,
+              height: image_height,
+              sizes: '100vw, (min-width: 576px) 50vw, (min-width: 1200px) 33vw',
+              widths: '375, 550, 750, 1100, 1500',
+              style: fit_style
+          }}
+        {% endif %}
+      </a>
+    {%- endif -%}
+  </div>
+  {%- if placeholder != true -%}
+    {%- if show_tags or show_date -%}
+      <div class="article-card__block">
+        {%- if show_tags -%}
+          <div class="article-card__tags article-card__tags-block">
+            {%- for tag in article.tags -%}
+              <a
+                class="button button--simple"
+                href="{{ blog.url }}/tagged/{{ tag | handle }}"
+                title="{{ tag }}"
+              >
+                {{ tag }}
+              </a>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        {% if show_date %}
+          <div class="article-card__date small-text article-card__tags-block ">
+            {{- article.published_at | time_tag: format: 'date' -}}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {%- if show_author -%}
+      <div class="article-card__author small-text">
+        <span>{{ 'general.blog.author' | t }}</span>
+        <span>
+          {% if placeholder %}
+            {{ 'blogs.article.author' | t }}
+          {% else %}
+            {{- article.author -}}
+          {% endif %}
+        </span>
+      </div>
+    {%- endif -%}
+  {% else %}
+    <div class="article-card__block">
+      {%- if show_tags -%}
+        <div class="article-card__tags article-card__tags-block">
+          <a
+            class="button button--simple"
+            href="#"
+          >
+            {{ 'blogs.article.tag' | t }}
+          </a>
+        </div>
+      {% endif %}
+      <div class="article-card__date small-text article-card__tags-block ">
+        {{ 'blogs.article.date' | t }}
+      </div>
+    </div>
+  {%- endif -%}
+  <div class="article-card__text richtext__content">
+    <h3
+      class="article-card__title{% if small_title != blank %} h5{% else %} h4{% endif %}"
+      id="Article-{{ article.id }}"
+    >
+      <a href="{{ article.url }}" class="full-unstyled-link">
+        {% if placeholder %}
+          {{ 'blogs.article.title' | t }}
+        {% else %}
+          {{ article.title | escape }}
+        {% endif %}
+      </a>
+    </h3>
+    {%- if show_excerpt and article.excerpt_or_content.size > 0 -%}
+      <p class="article-card__excerpt">
+        {% if placeholder %}
+          {{ 'blogs.article.description' | t }}
+        {% else %}
+          {{ article.excerpt_or_content | strip_html | truncate: 70 }}
+        {% endif %}
+      </p>
+    {%- endif -%}
+  </div>
+</article>

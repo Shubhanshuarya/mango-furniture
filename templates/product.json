@@ -1,0 +1,162 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "tags": {
+          "type": "tags",
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "An essential piece that promises a blend of durability and timeless style."
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_tax_info": false,
+            "show_shipping": false
+          }
+        },
+        "inventory_6wQxE8": {
+          "type": "inventory",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "show_size_guide": true,
+            "size_guide_header": "",
+            "size_guide_decription": "",
+            "size_guide_text": "Size Guide",
+            "page": "size-chart"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_quantity": false,
+            "show_gift_card_recipient": false
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "description_heading": "Description",
+            "subheading": "Universal Appeal"
+          }
+        },
+        "additional-1": {
+          "type": "additional_description",
+          "settings": {
+            "subheading": "Fabric & Care",
+            "additional_heading": "Fabric",
+            "additional_content": "89% Merino Wool / 11% Nylon, 170 gsm",
+            "additional_text_alignment": "center"
+          }
+        },
+        "additional-2": {
+          "type": "additional_description",
+          "settings": {
+            "subheading": "",
+            "additional_heading": "Care",
+            "additional_content": "Cold hand wash, wash separately, do not bleach or soak, drip dry in shade, do not tumble dry, warm iron on reverse side only, dry cleanable.",
+            "additional_text_alignment": "center"
+          }
+        },
+        "about-1": {
+          "type": "about",
+          "settings": {
+            "subheading": "Faq",
+            "heading": "Find quick answers to most common queries.",
+            "about_heading": "Are there any special offers or discounts if I purchase multiple items?",
+            "about_heading_content": "<p>We occasionally run promotions for bulk purchases or multiple items. Please subscribe to our newsletter or check our website regularly for the latest deals and offers.</p>"
+          }
+        },
+        "about-2": {
+          "type": "about",
+          "settings": {
+            "subheading": "",
+            "heading": "",
+            "about_heading": "Can I make changes to my order after it has been placed?",
+            "about_heading_content": "<p>Order modifications are subject to our processing timeline. If your order hasn't been processed yet, we may be able to make changes. Please contact our customer service immediately with your order details for assistance.</p>"
+          }
+        },
+        "about-3": {
+          "type": "about",
+          "settings": {
+            "subheading": "",
+            "heading": "",
+            "about_heading": "What should I do if I receive a damaged or incorrect item?",
+            "about_heading_content": "<p>If you receive a damaged or incorrect item, please contact our customer service within 48 hours of receiving the product with your order number and a photo of the item. We'll assist you with a return or exchange.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tags",
+        "title",
+        "text",
+        "price",
+        "inventory_6wQxE8",
+        "variant_picker",
+        "buy_buttons",
+        "description",
+        "additional-1",
+        "additional-2",
+        "about-1",
+        "about-2",
+        "about-3"
+      ],
+      "settings": {
+        "image_gallery_collage": "thumbnail_carousel",
+        "desktop_alignment": "left",
+        "mobile_alignment": "after",
+        "image_fit": "cover",
+        "enable_autoheight": false,
+        "animation": true,
+        "padding_top": "no-indent",
+        "padding_bottom": "no-indent"
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "You May Be Interested",
+        "products_to_show": 4,
+        "show_two_cards": true,
+        "autoplay": false,
+        "stop_autoplay": true,
+        "show_arrows": false,
+        "slideshow_speed": 1.1,
+        "slideshow_delay": 3,
+        "image_ratio": "portrait",
+        "image_fit": "cover",
+        "show_secondary_image": true,
+        "show_sku": false,
+        "show_vendor": false,
+        "show_color_swatch": false,
+        "show_desc": false,
+        "margin_top": "s",
+        "margin_bottom": "l"
+      }
+    }
+  },
+  "order": ["main", "product-recommendations"]
+}

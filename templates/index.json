@@ -1,0 +1,573 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "slideshow_item-1": {
+          "type": "slideshow_item",
+          "settings": {
+            "color_scheme": "background-2",
+            "overlay_opacity": 10,
+            "heading": "Versatile <em>Shackets</em> – The Perfect Mix of Shirt and Jacket",
+            "text": "<p>Layer Up</p>",
+            "button_label": "shop collection",
+            "second_button_label": "more details",
+            "article": ""
+          }
+        },
+        "slideshow_item-2": {
+          "type": "slideshow_item",
+          "settings": {
+            "color_scheme": "background-2",
+            "overlay_opacity": 10,
+            "heading": "Minimalist <em>Everyday Bags</em> in Timeless Styles",
+            "text": "<p>Simply Functional</p>",
+            "button_label": "shop collection",
+            "second_button_label": "more details",
+            "article": ""
+          }
+        },
+        "slideshow_item-3": {
+          "type": "slideshow_item",
+          "settings": {
+            "color_scheme": "background-2",
+            "overlay_opacity": 10,
+            "heading": "Soft <em>Flannel Shirts</em> for a Cozy, Warm Feel",
+            "text": "<p>Perfect Layering</p>",
+            "button_label": "shop collection",
+            "second_button_label": "more details",
+            "article": ""
+          }
+        }
+      },
+      "block_order": [
+        "slideshow_item-1",
+        "slideshow_item-2",
+        "slideshow_item-3"
+      ],
+      "settings": {
+        "section_layout": "full",
+        "section_alignment": "center",
+        "vertical_alignment": "center",
+        "text_animation": true,
+        "image_size": "21/9",
+        "is_autoplay": false,
+        "is_hover_stop_autoplay": false,
+        "show_bullets": true,
+        "parallax": false,
+        "slideshow_speed": 1.1,
+        "slideshow_delay": 3,
+        "slide_effects": "slide",
+        "margin_top": "no-indent",
+        "margin_bottom": "l"
+      }
+    },
+    "collection-grid": {
+      "type": "collection-grid",
+      "blocks": {
+        "categories-1": {
+          "type": "categories",
+          "settings": {
+            "button_label": "shop collection",
+            "column_start": 1,
+            "column_end": 2,
+            "row_start": "unset",
+            "row_end": "unset"
+          }
+        },
+        "categories-2": {
+          "type": "categories",
+          "settings": {
+            "button_label": "shop collection",
+            "column_start": 2,
+            "column_end": 3,
+            "row_start": "unset",
+            "row_end": "unset"
+          }
+        },
+        "categories-3": {
+          "type": "categories",
+          "settings": {
+            "button_label": "Shop collection",
+            "column_start": 3,
+            "column_end": 4,
+            "row_start": "unset",
+            "row_end": "unset"
+          }
+        }
+      },
+      "block_order": ["categories-1", "categories-2", "categories-3"],
+      "settings": {
+        "columns": 3,
+        "blocks_spacing": "m",
+        "image_ratio": "portrait",
+        "card_type": "standart",
+        "text_horizontal": "left",
+        "overlay_opacity": 20,
+        "show_collection_desc": true,
+        "show_collection_button": true,
+        "margin_top": "no-indent",
+        "margin_bottom": "l"
+      }
+    },
+    "popular-products": {
+      "type": "popular-products",
+      "settings": {
+        "product_list": [],
+        "heading": "New Season <em>Favourites</em>",
+        "description": "<p>Essential styles for the new season. Practical, comfortable, and easy to wear every day.</p>",
+        "alignment": "center",
+        "autoplay": false,
+        "stop_autoplay": true,
+        "slideshow_speed": 0.5,
+        "slideshow_delay": 3,
+        "image_ratio": "portrait",
+        "image_fit": "cover",
+        "show_secondary_image": true,
+        "show_sku": false,
+        "show_vendor": false,
+        "show_color_swatch": false,
+        "show_desc": false,
+        "margin_top": "no-indent",
+        "margin_bottom": "l",
+        "padding_top": "l",
+        "padding_bottom": "no-indent",
+        "enable_border_top": true,
+        "enable_border_bottom": false
+      }
+    },
+    "grid-banner": {
+      "type": "grid-banner",
+      "blocks": {
+        "column-1": {
+          "type": "column",
+          "settings": {
+            "column_start": 1,
+            "column_end": 2,
+            "row_start": "auto",
+            "row_end": "auto",
+            "color_scheme": "background-2",
+            "image_ratio": "portrait",
+            "overlay_opacity": 0,
+            "animation": true,
+            "aniamtion_effect": "slide",
+            "text_horizontal": "center",
+            "text_vertical": "flex-end",
+            "heading": "Transitional <em>Weather Essentials</em>",
+            "heading_size": "h2",
+            "text": "<p>In Store and Online</p>",
+            "button_label": "shop bestsellers",
+            "second_button_label": "shop all collection"
+          }
+        },
+        "column-2": {
+          "type": "column",
+          "settings": {
+            "column_start": 2,
+            "column_end": 3,
+            "row_start": "auto",
+            "row_end": "auto",
+            "color_scheme": "background-2",
+            "image_ratio": "portrait",
+            "overlay_opacity": 0,
+            "animation": true,
+            "aniamtion_effect": "slide",
+            "text_horizontal": "center",
+            "text_vertical": "flex-end",
+            "heading": "Your <em>Spring</em> Carry",
+            "heading_size": "h2",
+            "text": "<p>All Our Bestselling Bags in One Place</p>",
+            "button_label": "shop now",
+            "second_button_label": "",
+            "second_button_link": ""
+          }
+        }
+      },
+      "block_order": ["column-1", "column-2"],
+      "settings": {
+        "columns": 2,
+        "margin_top": "no-indent",
+        "margin_bottom": "l"
+      }
+    },
+    "fa0130ad-1353-49bf-b178-b562783abf82": {
+      "type": "brands",
+      "blocks": {
+        "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-1": {
+          "type": "column",
+          "settings": {
+            "image_width": 165
+          }
+        },
+        "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-2": {
+          "type": "column",
+          "settings": {
+            "image_width": 105
+          }
+        },
+        "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-3": {
+          "type": "column",
+          "settings": {
+            "image_width": 100
+          }
+        },
+        "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-4": {
+          "type": "column",
+          "settings": {
+            "image_width": 100
+          }
+        },
+        "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-5": {
+          "type": "column",
+          "settings": {
+            "image_width": 100
+          }
+        },
+        "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-6": {
+          "type": "column",
+          "settings": {
+            "image_width": 100
+          }
+        },
+        "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-7": {
+          "type": "column",
+          "settings": {
+            "image_width": 95
+          }
+        }
+      },
+      "block_order": [
+        "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-1",
+        "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-2",
+        "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-3",
+        "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-4",
+        "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-5",
+        "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-6",
+        "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-7"
+      ],
+      "settings": {
+        "margin_top": "no-indent",
+        "margin_bottom": "l"
+      }
+    },
+    "d36c1fcf-5d88-4f60-9edd-8d03e896463d": {
+      "type": "product-markers",
+      "blocks": {
+        "template--14703255126051__d36c1fcf-5d88-4f60-9edd-8d03e896463d-marker-1": {
+          "type": "marker",
+          "settings": {
+            "marker_background": "#f4eee9",
+            "marker_color": "#988c63",
+            "marker_background_hover": "#17324e",
+            "marker_color_hover": "#ffffff",
+            "image_ratio": "portrait",
+            "position_x": 20,
+            "position_y": 30
+          }
+        },
+        "template--14703255126051__d36c1fcf-5d88-4f60-9edd-8d03e896463d-marker-2": {
+          "type": "marker",
+          "settings": {
+            "marker_background": "#f4eee9",
+            "marker_color": "#988c63",
+            "marker_background_hover": "#17324e",
+            "marker_color_hover": "#ffffff",
+            "image_ratio": "portrait",
+            "position_x": 40,
+            "position_y": 50
+          }
+        },
+        "bc634ef8-211d-44ac-9923-6a077a2d9c13": {
+          "type": "marker",
+          "settings": {
+            "marker_background": "#f4eee9",
+            "marker_color": "#988c63",
+            "marker_background_hover": "#17324e",
+            "marker_color_hover": "#ffffff",
+            "image_ratio": "portrait",
+            "position_x": 20,
+            "position_y": 30
+          }
+        }
+      },
+      "block_order": [
+        "template--14703255126051__d36c1fcf-5d88-4f60-9edd-8d03e896463d-marker-1",
+        "template--14703255126051__d36c1fcf-5d88-4f60-9edd-8d03e896463d-marker-2",
+        "bc634ef8-211d-44ac-9923-6a077a2d9c13"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "section_stype": "multi-column",
+        "banner_ratio": "landscape",
+        "overlay_opacity": 30,
+        "heading": "Now Trending",
+        "description": "<p>The latest must-have styles, from classic staples to new-season updates.</p>",
+        "alignment": "center",
+        "show_secondary_image": true,
+        "show_color_swatch": true,
+        "show_sku": false,
+        "show_vendor": true,
+        "button_label": "Button label",
+        "button_link": "",
+        "button_style": "primary",
+        "button_arrow": true,
+        "banner_color_scheme": "",
+        "banner_heading": "Banner heading",
+        "banner_link": "",
+        "banner_description": "<p>Banner description</p>",
+        "margin_top": "no-indent",
+        "margin_bottom": "l",
+        "padding_top": "no-indent",
+        "padding_bottom": "no-indent"
+      }
+    },
+    "collection_tabs_kR6ndA": {
+      "type": "collection-tabs",
+      "settings": {
+        "color_scheme": "",
+        "heading": "Spring 2025 Collection",
+        "description": "<p>Lightweight jackets, breathable shirts, and versatile layers for the new season. Practical, comfortable, and easy to style.</p>",
+        "alignment": "center",
+        "collection_list": [],
+        "product_count": 4,
+        "image_ratio": "portrait",
+        "show_two_cards": true,
+        "show_secondary_image": true,
+        "show_sku": false,
+        "show_vendor": false,
+        "show_color_swatch": false,
+        "show_desc": false,
+        "margin_top": "no-indent",
+        "margin_bottom": "l",
+        "padding_top": "no-indent",
+        "padding_bottom": "no-indent",
+        "enable_border_top": false,
+        "enable_border_bottom": false
+      }
+    },
+    "countdown": {
+      "type": "countdown",
+      "blocks": {
+        "categories_c48t3J": {
+          "type": "categories",
+          "settings": {
+            "show_collection_desc": false,
+            "show_collection_button": true
+          }
+        },
+        "categories_BTdcjx": {
+          "type": "categories",
+          "settings": {
+            "show_collection_desc": false,
+            "show_collection_button": true
+          }
+        },
+        "categories_FnKRNR": {
+          "type": "categories",
+          "settings": {
+            "show_collection_desc": false,
+            "show_collection_button": true
+          }
+        }
+      },
+      "block_order": [
+        "categories_c48t3J",
+        "categories_BTdcjx",
+        "categories_FnKRNR"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "subheading": "markdown",
+        "heading": "Extra 50% Off All Sale",
+        "text_horizontal": "left",
+        "button_label": "start Shopping",
+        "button_style": "tertiary",
+        "overlay_opacity": 0,
+        "time_zone": 0,
+        "date_picker": "2024-01-31",
+        "time_picker": "00:00",
+        "heading_size": "large",
+        "completed_countdown": "show_text",
+        "countdown_heading": "Header after countdown",
+        "margin_top": "no-indent",
+        "margin_bottom": "l",
+        "padding_top": "l",
+        "padding_bottom": "l",
+        "enable_border_top": true,
+        "enable_border_bottom": true
+      }
+    },
+    "split-screen-slideshow": {
+      "type": "split-screen-slideshow",
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "",
+            "subheading": "ADVANTAGES",
+            "heading": "Worldwide <em>Shipping</em>",
+            "text": "<p>We offer fast and secure international shipping, ensuring your order arrives safely no matter where you are.</p>",
+            "slide_index": true,
+            "button_label": "shiping details",
+            "button_style": "tertiary"
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "",
+            "subheading": "ADVANTAGES",
+            "heading": "<em>Quality</em> Materials",
+            "text": "<p>All our products are made from high-quality, durable fabrics designed for comfort, longevity, and everyday wear.</p>",
+            "slide_index": true,
+            "button_label": "shiping details",
+            "button_style": "tertiary"
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "",
+            "subheading": "ADVANTAGES",
+            "heading": "<em>Trendy</em> Selections",
+            "text": "<p>Our collection is regularly updated with the latest styles, featuring modern designs and seasonal must-haves.</p>",
+            "slide_index": true,
+            "button_label": "shiping details",
+            "button_style": "tertiary"
+          }
+        }
+      },
+      "block_order": ["slide-1", "slide-2", "slide-3"],
+      "settings": {
+        "sliding_types": "scroll",
+        "image_size": "75",
+        "parallax": true,
+        "is_autoplay": false,
+        "is_hover_stop_autoplay": true,
+        "show_arrows": true,
+        "show_bullets": true,
+        "slideshow_speed": 1.1,
+        "slideshow_delay": 3,
+        "slide_effects": "fade",
+        "margin_top": "no-indent",
+        "margin_bottom": "l"
+      }
+    },
+    "39c2ce61-61c0-4425-9eaf-db1df93f34ce": {
+      "type": "collapsible-content",
+      "blocks": {
+        "template--14703255126051__39c2ce61-61c0-4425-9eaf-db1df93f34ce-text-block-1": {
+          "type": "text-block",
+          "settings": {
+            "block_heading": "What payment methods do you accept?",
+            "text": "<p>We accept a variety of payment methods including credit/debit cards, PayPal, and other secure online payment systems.</p>"
+          }
+        },
+        "template--14703255126051__39c2ce61-61c0-4425-9eaf-db1df93f34ce-text-block-2": {
+          "type": "text-block",
+          "settings": {
+            "block_heading": "How can I track my order?",
+            "text": "<p>Once your order is dispatched, you'll receive a tracking link via email, allowing you to monitor its progress in real-time.</p>"
+          }
+        },
+        "template--14703255126051__39c2ce61-61c0-4425-9eaf-db1df93f34ce-text-block-3": {
+          "type": "text-block",
+          "settings": {
+            "block_heading": "Can I return or exchange an item?",
+            "text": "<p>Yes, we offer a hassle-free return and exchange policy. Items can be returned or exchanged within 30 days of purchase, provided they are in original condition.</p>"
+          }
+        },
+        "119a5cc4-1bec-479f-a4ac-2dacc21e8927": {
+          "type": "text-block",
+          "settings": {
+            "block_heading": "Do you offer customer support?",
+            "text": "<p>Absolutely! Our customer service team is available to assist you with any inquiries or issues you may have, ensuring a smooth shopping experience.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--14703255126051__39c2ce61-61c0-4425-9eaf-db1df93f34ce-text-block-1",
+        "template--14703255126051__39c2ce61-61c0-4425-9eaf-db1df93f34ce-text-block-2",
+        "template--14703255126051__39c2ce61-61c0-4425-9eaf-db1df93f34ce-text-block-3",
+        "119a5cc4-1bec-479f-a4ac-2dacc21e8927"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "heading": "Frequently Asked <em>Questions</em>",
+        "description": "Find quick answers to all your queries in our comprehensive FAQ section, designed to enhance your shopping experience.",
+        "margin_top": "no-indent",
+        "margin_bottom": "l",
+        "padding_top": "no-indent",
+        "padding_bottom": "no-indent",
+        "enable_border_top": false,
+        "enable_border_bottom": false
+      }
+    },
+    "blog-post": {
+      "type": "blog-post",
+      "settings": {
+        "posts_count": 4,
+        "per_row": 4,
+        "heading": "Popular <em>Stories</em>",
+        "heading_position": "center",
+        "button_label": "read more",
+        "text_horizontal": "center",
+        "show_image": true,
+        "show_tags": true,
+        "show_date": true,
+        "show_author": false,
+        "show_excerpt": false,
+        "image_ratio": "portrait",
+        "image_fit": "cover",
+        "margin_top": "no-indent",
+        "margin_bottom": "l"
+      }
+    },
+    "image-banner": {
+      "type": "image-banner",
+      "settings": {
+        "hide_mobile_image": true,
+        "full_width": true,
+        "color_scheme": "",
+        "image_size": "adapt",
+        "overlay_opacity": 20,
+        "subheading": "ABOUT US",
+        "heading": "Keeping Up With <em>Trends</em>, Never Compromising on <em>Quality</em>",
+        "description": "<p>Staying on top of fashion shouldn’t mean settling for lower quality. We create modern, trend-forward clothing using durable fabrics and precise construction.</p>",
+        "text_horizontal": "center",
+        "text_vertical": "center",
+        "button_label": "more about us",
+        "button_style": "tertiary",
+        "margin_top": "no-indent",
+        "margin_bottom": "l",
+        "padding_top": "l",
+        "padding_bottom": "no-indent",
+        "enable_border_top": true,
+        "enable_border_bottom": false
+      }
+    }
+  },
+  "order": [
+    "slideshow",
+    "collection-grid",
+    "popular-products",
+    "grid-banner",
+    "fa0130ad-1353-49bf-b178-b562783abf82",
+    "d36c1fcf-5d88-4f60-9edd-8d03e896463d",
+    "collection_tabs_kR6ndA",
+    "countdown",
+    "split-screen-slideshow",
+    "39c2ce61-61c0-4425-9eaf-db1df93f34ce",
+    "blog-post",
+    "image-banner"
+  ]
+}

@@ -1,0 +1,92 @@
+@media screen and (min-width: 990px) {
+  .featured-product .section-header__line {
+    padding-bottom: 4rem;
+  }
+}
+.featured-product .section-header__title-item {
+  gap: 1.6rem;
+}
+.featured-product .product__media-icon {
+  display: none;
+}
+.featured-product .product__media-list__container--large-two .product__media-item {
+  display: none;
+}
+.featured-product .product__media-list__container--large-two .product__media-item:first-child, .featured-product .product__media-list__container--large-two .product__media-item:nth-child(2) {
+  display: block;
+}
+.featured-product .product__modal-opener--image .product__media-toggle:hover {
+  cursor: default;
+}
+.featured-product .product__outer {
+  padding: 0;
+  align-items: center;
+}
+@media screen and (min-width: 990px) and (max-width: 1200px) {
+  .featured-product .product__outer {
+    align-items: flex-start;
+  }
+}
+.featured-product .featured-product__read-more {
+  margin-top: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.featured-product .product__outer-placeholder {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6.4rem;
+}
+.featured-product .product__outer-placeholder .featured-product__media {
+  max-width: 100%;
+  flex: 0 0 100%;
+}
+@media (min-width: 990px) {
+  .featured-product .product__outer-placeholder .featured-product__media {
+    max-width: calc(60% - 3.2rem);
+    flex: 0 0 calc(60% - 3.2rem);
+  }
+}
+.featured-product .product__outer-placeholder .product__info-wrapper {
+  max-width: 100%;
+  flex: 0 0 100%;
+}
+@media (min-width: 990px) {
+  .featured-product .product__outer-placeholder .product__info-wrapper {
+    max-width: calc(40% - 3.2rem);
+    flex: 0 0 calc(40% - 3.2rem);
+  }
+}
+.featured-product .product__outer-placeholder .product-form {
+  text-align: center;
+}
+.featured-product .product__media-sublist {
+  display: none;
+}
+.featured-product .media_swipe_on_mobile {
+  display: block;
+}
+@media (min-width: 576px) {
+  .featured-product .media_swipe_on_mobile {
+    display: none;
+  }
+}
+.featured-product .media_swipe_on_mobile .swiper-btn {
+  display: flex;
+}
+.featured-product .media_swipe_on_mobile .swiper-btn.swiper-btn--next {
+  right: 0.8rem;
+}
+.featured-product .media_swipe_on_mobile .swiper-btn.swiper-btn--prev {
+  left: 0.8rem;
+}
+@media (max-width: 576px) {
+  .featured-product .product__media-hide {
+    display: none;
+  }
+}
+.featured-product .product__outer.product__outer_placeholder .product-form button {
+  width: 100%;
+}

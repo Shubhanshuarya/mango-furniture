@@ -1,0 +1,283 @@
+<script src="{{ 'announcement.js' | asset_url }}" defer="defer"></script>
+
+{% if section.settings.height < 70 and section.settings.button_label_about != blank %}
+  <style>
+    :root {
+    	--announcement-height: 67px;
+    }
+    @media screen and (min-width: 750px) {
+    	:root {
+    		--announcement-height: {{ section.settings.height }}px;
+    	}
+    }
+  </style>
+{% else %}
+  <style>
+    :root {
+    	--announcement-height: {{ section.settings.height }}px;
+    }
+  </style>
+{% endif %}
+
+{% liquid
+  assign slideshow_speed = section.settings.slideshow_speed
+  assign autoplay = section.settings.is_autoplay
+  assign stop_autoplay = section.settings.is_hover_stop_autoplay
+  assign slideshow_delay = section.settings.slideshow_delay
+%}
+{% assign block_count = section.blocks | size %}
+{% if block_count > 0 %}
+  <div
+    class="announcement-bar color-{{ section.settings.color_scheme }} background"
+    role="region"
+    aria-label="{{ 'sections.header.announcement' | t }}"
+    {{ block.shopify_attributes }}
+    data-id="shopify-section-{{ section.id }}"
+    data-autoplay="{{ autoplay }}"
+    data-stop-autoplay="{{ stop_autoplay }}"
+    data-speed="{{ slideshow_speed }}"
+    data-delay="{{ slideshow_delay }}"
+  >
+    <div
+      class="{% if section.settings.full_width != true %}container{% else %} announcement-bar__slide {% endif %}"
+      data-announcement-id="{{ section.id }}"
+    >
+      <div class="announcement-wrapper">
+        <div
+          class="announcement-wrapper_button {% if section.settings.button_label_about == blank %} announcement-wrapper_button-none {% endif %}"
+        >
+          {% render 'button',
+            layout: block,
+            btn_style: 'simple',
+            btn_label: section.settings.button_label_about,
+            btn_link: section.settings.button_link_about
+          %}
+        </div>
+        <div class="swiper announcement-js-{{ section.id }}">
+          <div class="swiper-wrapper announcement-bar__slide-box">
+            {% for block in section.blocks %}
+              {%- case block.type -%}
+                {%- when 'slide' -%}
+                  {%- if block.settings.text != blank -%}
+                    <div class="announcement-bar__message swiper-slide">
+                      {%- if block.settings.image != blank -%}
+                        <figure class="announcement-bar__image">
+                          {{
+                            block.settings.image
+                            | image_url: width: 375
+                            | image_tag: loading: 'lazy', widths: '25, 75, 150, 275, 375'
+                          }}
+                        </figure>
+                      {%- endif -%}
+                      <div class="announcement-bar__text small-text">
+                        {{ block.settings.text }}
+                      </div>
+                    </div>
+                  {%- endif -%}
+              {%- endcase -%}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="announcement-bar_soclal_media">
+          {% for block in section.blocks %}
+            {%- case block.type -%}
+              {%- when 'social-links' -%}
+                <div class="announcement-bar_soclal">
+                  {% render 'button',
+                    layout: block,
+                    btn_style: 'simple',
+                    btn_label: block.settings.button_label,
+                    btn_link: block.settings.button_link
+                  %}
+                  <a href="{{ block.settings.button_link }}" aria-label="social-icons">
+                    {%- render 'icon-social', icon-social: block.settings.icon_social -%}
+                  </a>
+                </div>
+            {%- endcase -%}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+{
+  "name": "t:sections.announcement-bar.name",
+  "class": "section-announcement",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "t:sections.image-banner.settings.full_width.label"
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "label": "t:sections.announcement-bar.settings.height.label",
+      "info": "t:sections.announcement-bar.settings.height.info"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-2",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.slider_options.header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_autoplay",
+      "default": true,
+      "label": "t:sections.all.slider_options.slider_is_autoplay.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_hover_stop_autoplay",
+      "default": false,
+      "label": "t:sections.all.slider_options.slider_hover_autoplay_stop.label"
+    },
+    {
+      "type": "range",
+      "id": "slideshow_speed",
+      "min": 0,
+      "max": 6,
+      "step": 0.1,
+      "default": 1.1,
+      "unit": "s",
+      "label": "t:sections.all.slider_options.speed.label"
+    },
+    {
+      "type": "range",
+      "id": "slideshow_delay",
+      "min": 0,
+      "max": 8,
+      "step": 0.1,
+      "default": 3,
+      "unit": "s",
+      "label": "t:sections.all.slider_options.delay.label"
+    },
+    {
+      "type": "text",
+      "id": "button_label_about",
+      "default": "t:sections.announcement-bar.settings.button_label_about.default",
+      "label": "t:sections.all.button.label.label",
+      "info": "t:sections.all.button.label.info"
+    },
+    {
+      "type": "url",
+      "id": "button_link_about",
+      "label": "t:sections.all.button.link.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "t:sections.announcement-bar.blocks.slide.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.announcement-bar.blocks.slide.settings.image.label",
+          "info": "t:sections.announcement-bar.blocks.slide.settings.image.info"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "t:sections.announcement-bar.blocks.slide.settings.text.default",
+          "label": "t:sections.announcement-bar.blocks.slide.settings.text.label"
+        }
+      ]
+    },
+    {
+      "type": "social-links",
+      "name": "t:sections.announcement-bar.blocks.slide.settings.link.label",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "t:sections.announcement-bar.blocks.social-links.settings.button_label.default",
+          "label": "t:sections.all.button.label.label",
+          "info": "t:sections.all.button.label.info"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.all.button.link.label"
+        },
+        {
+          "type": "select",
+          "id": "icon_social",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:sections.all.icons_accardion.settings.icon.icons.none"
+            },
+            {
+              "value": "instagram",
+              "label": "t:sections.all.icons_social.icons.icon_1"
+            },
+            {
+              "value": "facebook",
+              "label": "t:sections.all.icons_social.icons.icon_2"
+            },
+            {
+              "value": "tiktok",
+              "label": "t:sections.all.icons_social.icons.icon_3"
+            },
+            {
+              "value": "twitter",
+              "label": "t:sections.all.icons_social.icons.icon_4"
+            },
+            {
+              "value": "vimeo",
+              "label": "t:sections.all.icons_social.icons.icon_5"
+            },
+            {
+              "value": "youtube",
+              "label": "t:sections.all.icons_social.icons.icon_6"
+            },
+            {
+              "value": "pinterest",
+              "label": "t:sections.all.icons_social.icons.icon_7"
+            },
+            {
+              "value": "linkedin",
+              "label": "t:sections.all.icons_social.icons.icon_8"
+            }
+          ],
+          "default": "instagram",
+          "label": "t:sections.all.icons_social.header.content",
+          "info": "t:sections.announcement-bar.blocks.slide.settings.link.icon_on_mobile.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.announcement-bar.name",
+      "blocks": [
+        {
+          "type": "social-links"
+        },
+        {
+          "type": "social-links"
+        },
+        {
+          "type": "social-links"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

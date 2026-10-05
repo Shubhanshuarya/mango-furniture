@@ -1,0 +1,164 @@
+@media screen and (max-width: 991px) {
+  .multicolumn .swiper--multicolumn .multicolumn-list__wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: unset;
+  }
+}
+
+.multicolumn {
+  --col-gap: 4rem;
+  --row-gap: 4rem;
+}
+@media screen and (min-width: 1100px) {
+  .multicolumn {
+    --col-gap: 2rem;
+    --row-gap: 4rem;
+  }
+}
+.multicolumn .multicolumn-card__info:first-child > *:first-child {
+  margin-top: 0;
+}
+.multicolumn .multicolumn-card__info:last-child > *:last-child {
+  margin-bottom: 0;
+}
+.multicolumn .multicolumn-list__wrapper {
+  display: grid;
+  column-gap: var(--col-gap);
+  row-gap: var(--row-gap);
+  grid-template-columns: 1fr;
+  padding: 0;
+  margin: 0;
+}
+@media screen and (min-width: 576px) {
+  .multicolumn .multicolumn-list__wrapper {
+    grid-template-columns: repeat(clamp(1, var(--per-row), 2), 1fr);
+    margin-bottom: 0;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .multicolumn .multicolumn-list__wrapper {
+    grid-template-columns: repeat(var(--per-row), 1fr);
+  }
+}
+@media screen and (min-width: 1100px) {
+  .multicolumn .multicolumn-list__item:first-child .multicolumn-card {
+    padding: 0 4rem 0 0;
+  }
+  .multicolumn .multicolumn-list__item .multicolumn-card {
+    padding: 0 4rem 0.4rem 4rem;
+  }
+}
+.multicolumn .horizontal-alignment-center .multicolumn-card {
+  text-align: center;
+  align-items: center;
+}
+.multicolumn .horizontal-alignment-center .multicolumn-card .multicolumn-card__info {
+  align-items: center;
+}
+.multicolumn .horizontal-alignment-center .multicolumn-card__image-block {
+  margin: 0 auto 1.6rem;
+}
+@media screen and (min-width: 1100px) {
+  .multicolumn .horizontal-alignment-center.multicolumn-list__item .multicolumn-card {
+    padding: 0 4rem;
+  }
+}
+.multicolumn .multicolumn-card__info-title,
+.multicolumn .multicolumn-card__image-block {
+  margin-bottom: 1.6rem;
+}
+@media screen and (min-width: 1100px) and (max-width: 1360px) {
+  .multicolumn .multicolumn-card__info-title {
+    font-size: calc(var(--font-heading-h3-scale) * 2.2rem);
+  }
+}
+.multicolumn .multicolumn_card-text {
+  margin-bottom: 1.6rem;
+  line-height: 1;
+  color: rgb(var(--color-foreground-secondary));
+}
+@media screen and (min-width: 1360px) {
+  .multicolumn .multicolumn_card-text {
+    font-size: calc(var(--font-heading-h2-scale) * 4.2rem);
+  }
+}
+.multicolumn .multicolumn_card-desc {
+  margin-bottom: 2rem;
+}
+@media screen and (min-width: 990px) {
+  .multicolumn .multicolumn_card-desc {
+    margin-bottom: 4rem;
+  }
+}
+.multicolumn-card__image-item {
+  margin: 0 auto;
+  height: 100%;
+  display: block;
+}
+.multicolumn-card__image-item img,
+.multicolumn-card__image-item svg {
+  width: 100%;
+  height: 100%;
+}
+.multicolumn-card__image-size-small {
+  width: 40px;
+}
+.multicolumn-card__image-size-medium {
+  width: 80px;
+}
+@media screen and (max-width: 990px) {
+  .multicolumn .swiper--multicolumn .multicolumn-list__item::before {
+    display: none;
+  }
+}
+.multicolumn .multicolumn-list__item {
+  position: relative;
+  height: auto;
+}
+@media screen and (min-width: 576px) and (max-width: 1100px) {
+  .multicolumn .multicolumn-list__item:not(:nth-child(2n)):not(:last-child)::before {
+    content: "";
+    position: absolute;
+    right: calc(var(--col-gap) / -2);
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: rgb(var(--color-border));
+    pointer-events: none;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .multicolumn .multicolumn-list__item:not(.hide_border):not(:last-child)::before {
+    content: "";
+    position: absolute;
+    right: calc(var(--col-gap) / -2);
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: rgb(var(--color-border));
+    pointer-events: none;
+  }
+}
+.multicolumn .section_border_top {
+  border-top: 1px solid rgba(var(--color-border));
+}
+.multicolumn .section_border_bottom {
+  border-bottom: 1px solid rgba(var(--color-border));
+}
+.multicolumn .multicolumn-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.multicolumn .multicolumn-card .multicolumn-card__info {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.multicolumn .multicolumn-card .multicolumn-card__info .button {
+  margin-top: auto;
+}

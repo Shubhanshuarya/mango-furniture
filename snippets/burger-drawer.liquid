@@ -1,0 +1,153 @@
+{% comment %}
+  Renders cart drawer
+
+  Usage:
+  {% render 'burger-drawer' %}
+{% endcomment %}
+
+<style>
+  .drawer {
+    visibility: hidden;
+  }
+</style>
+
+<burger-drawer class="drawer burger-drawer">
+  <div
+    id="BurgerDrawer"
+    class="cart-drawer color-{{ section.settings.color_scheme }}"
+  >
+    <div
+      id="BurgerDrawer-Overlay"
+      class="cart-drawer__overlay"
+    ></div>
+    <div
+      class="drawer__inner"
+      role="dialog"
+      aria-modal="true"
+      aria-label="{{ 'general.cart.item_added' | t }}"
+      tabindex="-1"
+    >
+      <button
+        type="button"
+        class="burger__close modal__close-button focus-inset modal-close-button"
+        id="burger-drawer-close"
+        aria-label="{{ 'accessibility.close' | t }}"
+      >
+        {% render 'icon-close' %}
+      </button>
+      <div class="drawer__top">
+        <div class="burger_menu">
+          {%- for link in block.settings.dropdown_button_menu.links -%}
+            <div class="extra-large-font" data-hover-opacity="20">
+              {%- if link.links != blank -%}
+                <button class="drawer__accordion-title first_level" tabindex="0">
+                  <span>
+                    {{ link.title | escape }}
+                  </span>
+                </button>
+                <div class="drawer__accordion-content" style="display: none">
+                  {%- for childlink in link.links -%}
+                    <div class="medium-font" data-hover-opacity="21">
+                      <div class="second_level">
+                        <a
+                          href="{{ childlink.url }}"
+                          class="menu-drawer__menu-item list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
+                          {% if childlink.current %}
+                            aria-current="page"
+                          {% endif %}
+                        >
+                          {{ childlink.title | escape }}
+                        </a>
+                      </div>
+                      <div>
+                        {%- for grandchildlink in childlink.links -%}
+                          <div class="second_level" data-hover-opacity="22">
+                            <a
+                              href="{{ grandchildlink.url }}"
+                              class="menu-drawer__menu-item-child"
+                              {% if grandchildlink.current %}
+                                aria-current="page"
+                              {% endif %}
+                            >
+                              {{ grandchildlink.title | escape }}
+                            </a>
+                          </div>
+                        {%- endfor -%}
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                </div>
+              {%- else -%}
+                <div class="first_level">
+                  <a
+                    href="{{ link.url }}"
+                    class="menu-drawer__menu-item list-menu__item focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
+                    {% if link.current %}
+                      aria-current="page"
+                    {% endif %}
+                  >
+                    {{ link.title | escape }}
+                  </a>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      {% if block.settings.show_promo %}
+        <div class="drawer__bottom color-{{ block.settings.color_scheme }}">
+          {% if block.settings.image != blank %}
+            {{
+              block.settings.image
+              | image_url: width: block.settings.image_1.width
+              | image_tag:
+                loading: 'lazy',
+                sizes: '100vw',
+                widths: '360, 550, 710, 1100, 1420, 1700, 1920',
+                width: block.settings.image.width,
+                class: 'mega-menu__item-image'
+            }}
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+          <span
+            class="image_overlay"
+            style="opacity: {{ block.settings.effect_opacity }}"
+          ></span>
+
+          <div class="promo_text text-{{ block.settings.promo_alignment }}">
+            {%- if block.settings.heading != blank -%}
+              <h3>
+                {{ block.settings.heading }}
+              </h3>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <div class="medium-font">
+                {{ block.settings.description }}
+              </div>
+            {%- endif -%}
+            {% if block.settings.button_label != blank -%}
+              {% render 'button',
+                btn_style: 'simple',
+                btn_label: block.settings.button_label,
+                btn_link: block.settings.button_link
+              %}
+            {% endif %}
+          </div>
+
+          <a
+            {% if block.settings.button_link.url != blank %}
+              href="{{ block.settings.button_link }}"
+            {% endif %}
+            class="drawer-link-overlay"
+            {% if block.settings.button_link.url == blank %}
+              aria-disabled="true"
+            {% endif %}
+            aria-label="Promo banner"
+          ></a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</burger-drawer>

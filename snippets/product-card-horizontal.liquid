@@ -1,0 +1,167 @@
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+{{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  case media_size
+    when 'landscape'
+      assign image_size = '70%'
+    when 'portrait'
+      assign image_size = '133%'
+    when 'square'
+      assign image_size = '100%'
+    else
+      assign image_size = '130%'
+  endcase
+
+  if media_fit == blank
+    assign imgae_fit = 'cover'
+  else
+    assign imgae_fit = media_fit
+  endif
+%}
+{% if loop_index == blank %}
+  {% assign loop_index = 1 %}
+{% endif %}
+<div
+  class="card-horizontal-wrapper js-color-swatches-wrapper"
+  data-product="{{ product_card_product.handle }}"
+>
+  <span class="visually-hidden">{{ product_card_product.title | escape }}</span>
+
+  <div class="card-horizontal__image" tabindex="-1">
+    <div class="card-horizontal__inner full-unstyled-link">
+      <a
+        href="{{ product_card_product.url | default: '#' }}"
+        class="media media--transparent media--hover-effect js-color-swatches-link"
+        style="padding-bottom: {{ image_size }};"
+      >
+        {%- if product_card_product.featured_media -%}
+          {%- capture style -%}
+						object-position: {{ product_card_product.featured_media.presentation.focal_point }};
+						object-fit : {{ imgae_fit }};
+					{%- endcapture -%}
+          {{
+            product_card_product.featured_media
+            | image_url: width: 170
+            | image_tag: loading: 'lazy', class: 'motion-reduce media--first', style: style
+          }}
+          {%- if product_card_product.media[1] != null and show_secondary_image -%}
+            {%- capture style -%}
+						object-position: {{ product_card_product.media[1].presentation.focal_point }};
+						object-fit : {{ imgae_fit }};
+					{%- endcapture -%}
+            {{
+              product_card_product.media[1]
+              | image_url: width: 170
+              | image_tag: loading: 'lazy', class: 'motion-reduce media--second', style: style
+            }}
+          {%- endif -%}
+        {%- else -%}
+          {{ 'collection-' | append: loop_index | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </a>
+    </div>
+  </div>
+  <div class="card-horizontal__information">
+    <div class="card__badge small-text">
+      {%- if product_card_product.available == false -%}
+        <span
+          class="badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}"
+          aria-hidden="true"
+        >
+          {{- 'products.product.sold_out' | t -}}
+        </span>
+      {%- elsif product_card_product.compare_at_price > product_card_product.price
+        and product_card_product.available
+      -%}
+        <span
+          class=" color-badge {{ settings.sale_badge_color_scheme }}"
+          aria-hidden="true"
+        >
+          {{- 'products.product.on_sale' | t -}}
+        </span>
+      {%- endif -%}
+      {%- if show_vendor -%}
+        <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>
+        {% if settings.enable_vendor_link %}
+          <a
+            href="{{ product_card_product.vendor | url_for_vendor }}"
+            class="unstyled-link card__vendor small-text vendor-link"
+          >
+            {{ product_card_product.vendor }}
+          </a>
+        {% else %}
+          <div class="card__vendor small-text">
+            {% if product_card_product != blank %}
+              {{ product_card_product.vendor }}
+            {% else %}
+              {{ 'products.product.vendor' | t }}
+            {% endif %}
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+    {%- if show_sku and product_card_product.selected_or_first_available_variant.sku.size > 0 -%}
+      <p
+        class="card-horizontal__sku card__sku subtitle no-js-hidden"
+        id="Sku-{{ section.id }}"
+        role="status"
+        {{ block.shopify_attributes }}
+      >
+        <span class="visually-hidden">{{ 'products.product.sku' | t }}:</span>
+        {{- product_card_product.selected_or_first_available_variant.sku -}}
+      </p>
+    {%- endif -%}
+    <div class="card-horizontal__block">
+      <div class="card-horizontal__title-color">
+        <h3 class="card-horizontal__title">
+          {% if product_card_product.title != blank %}
+            <a
+              class="full-unstyled-link"
+              href="{{ product_card_product.url | default: '#' }}"
+              title="{{ product_card_product.title | escape }}"
+            >
+              {{ product_card_product.title | escape }}
+            </a>
+          {% else %}
+            <a href="#" class="full-unstyled-link">
+              {{ 'products.product.product_heading' | t }}
+            </a>
+          {% endif %}
+        </h3>
+        {%- unless product_card_product.has_only_default_variant -%}
+          {% if show_color_swatch %}
+            <div class="product-parameters-color no-js-hidden">
+              {%- for option in product_card_product.options_with_values -%}
+                {% liquid
+                  assign color_trigger = settings.trigger_swatch | handle | strip
+                  assign name_option = option.name | handle | strip
+                %}
+                {% if settings.type_color_swatch == 'custom'
+                  and color_trigger == name_option
+                  and option.values.size > 1
+                %}
+                  <div class="product-form__controls js-color-swatches">
+                    <div class="product-form__controls-group color--silwer">
+                      {% render 'product-variant-options',
+                        product: product_card_product,
+                        option: option,
+                        no_form_id: true
+                      %}
+                    </div>
+                  </div>
+                {% endif %}
+              {%- endfor -%}
+            </div>
+          {% endif %}
+        {% endunless %}
+      </div>
+      {% render 'price', product: product_card_product, price_class: '' %}
+    </div>
+    {%- if show_desc and product_card_product.description != blank -%}
+      <div class="card__description">
+        {{ product_card_product.description | strip_html | truncate: 120 }}
+      </div>
+    {%- endif -%}
+  </div>
+</div>

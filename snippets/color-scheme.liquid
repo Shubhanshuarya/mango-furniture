@@ -1,0 +1,16 @@
+{%- assign dark_mode_toggle = settings.dark_mode_toggle -%}
+{%- if dark_mode_toggle -%}
+  <div class="header__scheme no-js-hidden" data-hover-opacity="3">
+    <button
+      class="header__toggle-scheme toggle-scheme-button"
+      aria-label="toggle-scheme"
+    >
+      <div class="header__toggle-scheme-item header__toggle-scheme-item--light">
+        {% render 'icon-light-mode' %}
+      </div>
+      <div class="header__toggle-scheme-item header__toggle-scheme-item--dark">
+        {% render 'icon-dark-mode' %}
+      </div>
+    </button>
+  </div>
+{%- endif -%}

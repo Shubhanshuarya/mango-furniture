@@ -1,0 +1,29 @@
+.article-card-horizontal {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media screen and (min-width: 990px) {
+  .article-card-horizontal {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+.article-card-horizontal .article-card__text {
+  margin: 0;
+  display: block;
+}
+.article-card-horizontal .article-card__image {
+  padding-bottom: 57%;
+}
+.article-card-horizontal .article-card__block {
+  margin-top: 2rem;
+}
+@media screen and (min-width: 990px) {
+  .article-card-horizontal .article-card__block {
+    margin-top: 4rem;
+  }
+}
+.article-card-horizontal .article-card__excerpt {
+  margin: 0.8rem 0 0;
+}

@@ -1,0 +1,129 @@
+{% comment %}
+  Renders quantity rules and volume pricing information in an anchored popover for cart line items.
+
+  Accepts:
+  - variant: {Object} Product variant object
+  - unique_id: {String} Unique identifier for the cart line item
+  - quantity: {Number} Current line item quantity
+
+  Usage:
+  {% render 'cart-volume-pricing-info', variant: item.variant, unique_id: item.index, quantity: item.quantity %}
+{% endcomment %}
+{%- liquid
+  assign has_quantity_rules = false
+  if variant.quantity_rule.min > 1 or variant.quantity_rule.increment > 1 or variant.quantity_rule.max != null
+    assign has_quantity_rules = true
+  endif
+
+  assign has_volume_pricing = false
+  if variant.quantity_price_breaks.size > 0
+    assign has_volume_pricing = true
+  endif
+
+  assign current_quantity = quantity | default: variant.quantity_rule.min | default: 1
+-%}
+
+{%- if has_quantity_rules or has_volume_pricing -%}
+  {%- liquid
+    assign popover_id = 'CartVolumePricingInfo-' | append: variant.id
+    if unique_id != blank
+      assign popover_id = popover_id | append: '-' | append: unique_id
+    endif
+
+    assign minimum_quantity = variant.quantity_rule.min | default: 1
+    assign first_break = variant.quantity_price_breaks.first.minimum_quantity | default: blank
+  -%}
+  <anchored-popover-component class="cart-volume-pricing-info" data-hover-triggered="true">
+    <button
+      type="button"
+      class="cart-volume-pricing-info__button"
+      aria-label="{{ 'accessibility.view_pricing_info' | t | escape }}"
+      aria-expanded="false"
+      ref="trigger"
+    >
+      {% render 'icon-info' %}
+    </button>
+
+    <div id="{{ popover_id }}" class="cart-volume-pricing-info__popover" ref="popover" popover="auto">
+      <volume-pricing-info>
+        <div class="product-b2b-elements cart-volume-pricing-info__content">
+          {%- if has_volume_pricing -%}
+            <table class="volume-pricing small-text cart-volume-pricing-info__table">
+              <caption class="visually-hidden">
+                {{- 'products.product.price.volume_pricing' | t -}}
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">{{- 'products.product.quantity.input_label' | t -}}</th>
+                  <th scope="col">{{- 'products.product.price.price' | t -}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class="cart-volume-pricing-info__row{% if first_break == blank or current_quantity < first_break %} cart-volume-pricing-info__row--active{% endif %}"
+                  data-quantity="{{ minimum_quantity }}"
+                >
+                  <td>{{ minimum_quantity }}+</td>
+                  <td class="cart-volume-pricing-info__price-cell">
+                    <span class="cart-volume-pricing-info__price-content">
+                      <span class="cart-volume-pricing-info__checkmark" aria-hidden="true">{% render 'icon-checkmark' %}</span>
+                      <span>{{- variant.price | money -}}/{{ 'products.product.price.each' | t }}</span>
+                    </span>
+                  </td>
+                </tr>
+
+                {%- for price_break in variant.quantity_price_breaks -%}
+                  {%- liquid
+                    assign next_tier = variant.quantity_price_breaks[forloop.index].minimum_quantity
+                    assign is_last = forloop.last
+                    assign is_active = false
+
+                    if is_last
+                      if current_quantity >= price_break.minimum_quantity
+                        assign is_active = true
+                      endif
+                    elsif current_quantity >= price_break.minimum_quantity and current_quantity < next_tier
+                      assign is_active = true
+                    endif
+                  -%}
+                  <tr
+                    class="cart-volume-pricing-info__row{% if is_active %} cart-volume-pricing-info__row--active{% endif %}"
+                    data-quantity="{{ price_break.minimum_quantity }}"
+                  >
+                    <td>{{ price_break.minimum_quantity }}+</td>
+                    <td class="cart-volume-pricing-info__price-cell">
+                      <span class="cart-volume-pricing-info__price-content">
+                        <span class="cart-volume-pricing-info__checkmark" aria-hidden="true">{% render 'icon-checkmark' %}</span>
+                        <span>{{- price_break.price | money -}}/{{ 'products.product.price.each' | t }}</span>
+                      </span>
+                    </td>
+                  </tr>
+                {%- endfor -%}
+              </tbody>
+            </table>
+          {%- endif -%}
+
+          {%- if has_quantity_rules -%}
+            <div class="quantity-rules small-text">
+              {%- if variant.quantity_rule.increment > 1 -%}
+                <span class="quantity-rules__item">
+                  {{- 'products.product.quantity.multiples_of' | t: quantity: variant.quantity_rule.increment -}}
+                </span>
+              {%- endif -%}
+              {%- if variant.quantity_rule.min > 1 -%}
+                <span class="quantity-rules__item">
+                  {{- 'products.product.quantity.minimum_of' | t: quantity: variant.quantity_rule.min -}}
+                </span>
+              {%- endif -%}
+              {%- if variant.quantity_rule.max != null -%}
+                <span class="quantity-rules__item">
+                  {{- 'products.product.quantity.maximum_of' | t: quantity: variant.quantity_rule.max -}}
+                </span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </volume-pricing-info>
+    </div>
+  </anchored-popover-component>
+{%- endif -%}

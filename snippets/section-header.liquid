@@ -1,0 +1,59 @@
+{% liquid
+  if custom_settings
+    assign section_heading = section_heading
+    assign section_description = section_description
+    assign section_button_label = section_button_label
+    assign section_button_link = section_button_link
+    assign section_button_style = section_button_style
+    assign section_enable_arrow = section_enable_arrow
+  else
+    assign section_heading = section.settings.heading
+    assign section_description = section.settings.description
+    assign section_button_label = section.settings.button_label
+    assign section_button_link = section.settings.button_link
+    assign section_button_style = section.settings.button_style
+  endif
+%}
+{%- if section_heading != blank or section_button_label != blank -%}
+  <div class="section-header__line text-{{ section.settings.alignment }}">
+    <div class="container">
+      <div class="section-header__item">
+        <div class="section-header__title__block">
+          <div class="section-header__title-item">
+            {%- if section_heading != blank -%}
+              {% if section_heading_tag != null %}
+                <{{ section_heading_tag }} class="section-header__title title--section {% if heading_size == "h2" %}h2{% else %}h3{% endif %}">
+                  {{ section_heading }}
+                </{{ section_heading_tag }}>
+              {% else %}
+                <h2 class="section-header__title title--section {% if heading_size == "h2" %}h2{% else %}h3{% endif %}">
+                  {{ section_heading }}
+                </h2>
+              {% endif %}
+            {% endif %}
+            {%- if section_description != blank -%}
+              <div class="section-header__desc richtext__content extra-large-font {% if text_size == "large" %} large-font{% endif %}">
+                {{ section_description }}
+              </div>
+            {% endif %}
+          </div>
+          {% comment %}
+            <div class="section-header__button">
+            	{% if section_button_label != blank %}
+            		{% render 'button', layout: section %}
+            	{% endif %}
+            	{% if show_arrows %}
+            		<button class="swiper-button swiper-button-prev swiper-button-disabled">
+            			<span>{% render 'icon-arrow' %}</span>
+            		</button>
+            		<button class="swiper-button swiper-button-next">
+            			<span>{% render 'icon-arrow' %}</span>
+            		</button>
+            	{% endif %}
+            </div>
+          {% endcomment %}
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}

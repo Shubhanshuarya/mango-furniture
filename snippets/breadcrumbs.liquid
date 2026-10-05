@@ -1,0 +1,92 @@
+{% assign template_base = template | split: '.' | first %}
+
+{% unless template_base == 'index'
+  or template_base == 'article'
+  or template_base == 'page.contact'
+  or template_base == 'product'
+  or template_base == 'customers/login'
+%}
+  {% assign curent_url = request.path | lstrip | truncate: 12 %}
+  {% if curent_url == '/policies...' %}
+    {% assign container = 'shopify-policy__container' %}
+  {% else %}
+    {% assign container = 'container' %}
+  {% endif %}
+
+  <div class="{{ container }}">
+    <nav
+      class="breadcrumb breadcrumb_margin"
+      role="navigation"
+      aria-label="breadcrumbs"
+    >
+      <a
+        href="{{ routes.root_url }}"
+        title="{{ 'general.breadcrumbs.home' | t }}"
+        class="breadcrumb__link"
+      >
+        <span>{{ 'general.breadcrumbs.home' | t }} </span>
+      </a>
+      {% if template contains 'page' %}
+        <div class="breadcrumb__delimiter">{% render 'icon-breadcrumbs' %}</div>
+        <div>{{ page.title }}</div>
+      {% elsif template contains 'product' %}
+        <div class="breadcrumb__delimiter">{% render 'icon-breadcrumbs' %}</div>
+        {% if product.collections[0] %}
+          <span
+            ><a href="{{ product.collections[0].url }}">
+              {{- product.collections[0].title }}
+            </a></span
+          >
+          <div class="breadcrumb__delimiter">
+            {% render 'icon-breadcrumbs' %}
+          </div>
+        {% endif %}
+        <div>{{ product.title }}</div>
+      {% elsif template contains 'collection' and collection.handle %}
+        <div class="breadcrumb__delimiter">{% render 'icon-breadcrumbs' %}</div>
+        {% if current_tags %}
+          {% capture url %}/collections/{{ collection.handle }}
+          {% endcapture %}
+          {{ collection.title | link_to: url }}
+          <div class="breadcrumb__delimiter">
+            {% render 'icon-breadcrumbs' %}
+          </div>
+          <span>{{ current_tags | join: ' + ' }} </span>
+        {% endif %}
+        <div>{{ collection.title }}</div>
+      {% elsif template == 'blog' %}
+        <div class="breadcrumb__delimiter">{% render 'icon-breadcrumbs' %}</div>
+        {% if current_tags %}
+          <span>{{ blog.title | link_to: blog.url }}</span>
+          <div class="breadcrumb__delimiter">
+            {% render 'icon-breadcrumbs' %}
+          </div>
+          <div>{{ current_tags | join: ' + ' }}</div>
+        {% else %}
+          <div>{{ blog.title }}</div>
+        {% endif %}
+      {% elsif template == 'customers/order' %}
+        <div class="breadcrumb__delimiter">{% render 'icon-breadcrumbs' %}</div>
+        <span>
+          <a href="{{ routes.account_profile_url }}">
+            {{- 'customer.account.title' | t }}
+          </a>
+        </span>
+        <div class="breadcrumb__delimiter">{% render 'icon-breadcrumbs' %}</div>
+        <div>{{ order.name }}</div>
+      {% elsif template == 'customers/addresses' %}
+        <div class="breadcrumb__delimiter">{% render 'icon-breadcrumbs' %}</div>
+        <span>
+          <a href="{{ routes.account_profile_url }}">
+            {{- 'customer.account.title' | t }}
+          </a>
+        </span>
+        <div class="breadcrumb__delimiter">{% render 'icon-breadcrumbs' %}</div>
+        <div>{{ 'customer.addresses.title' | t }}</div>
+      {% else %}
+        <div class="breadcrumb__delimiter">{% render 'icon-breadcrumbs' %}</div>
+        <div>{{ page_title }}</div>
+      {% endif %}
+    </nav>
+  </div>
+{% endunless %}

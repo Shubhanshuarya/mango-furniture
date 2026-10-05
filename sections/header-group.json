@@ -1,0 +1,98 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "t:sections.header.settings.header-group.label",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "slide": {
+          "type": "slide",
+          "settings": {}
+        },
+        "slide1": {
+          "type": "slide",
+          "settings": {}
+        },
+        "slide2": {
+          "type": "slide",
+          "settings": {}
+        },
+        "a5617969-8a72-48f4-8ab5-b5d3336887bc": {
+          "type": "social-links",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "slide",
+        "slide1",
+        "slide2",
+        "a5617969-8a72-48f4-8ab5-b5d3336887bc"
+      ],
+      "settings": {
+        "full_width": true,
+        "height": 40,
+        "color_scheme": "background-2",
+        "is_autoplay": true,
+        "is_hover_stop_autoplay": false,
+        "slideshow_speed": 1.1,
+        "slideshow_delay": 3
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "dropdown": {
+          "type": "dropdown",
+          "settings": {
+            "dropdown_button_menu": "main-menu",
+            "show_promo": true,
+            "color_scheme": "background-2",
+            "promo_alignment": "center",
+            "effect_opacity": 0
+          }
+        },
+        "541dd1e3-b946-4884-8c07-190ee11738f9": {
+          "type": "mega_menu_collection",
+          "settings": {
+            "menu_primary": "collections",
+            "menu_secondary": "mega-menu",
+            "secondary_heading": "featured",
+            "show_promo": true,
+            "color_scheme": "",
+            "promo_alignment": "center",
+            "effect_opacity": 0,
+            "show_promo_2": true,
+            "color_scheme_2": "",
+            "promo_alignment_2": "center",
+            "effect_opacity_2": 0
+          }
+        }
+      },
+      "block_order": ["dropdown", "541dd1e3-b946-4884-8c07-190ee11738f9"],
+      "settings": {
+        "full_width": true,
+        "height": 65,
+        "header_enable_border_bottom": true,
+        "logo_width": 265,
+        "header_overlay": true,
+        "menu": "main-menu",
+        "color_scheme": "background-1",
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "sticky_header_type": "on-scroll-up",
+        "logo_position": "center",
+        "enable_search": true
+      }
+    }
+  },
+  "order": ["announcement-bar", "header"]
+}

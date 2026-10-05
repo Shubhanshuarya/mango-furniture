@@ -1,0 +1,44 @@
+.collection-carousel {
+  position: relative;
+  z-index: 1;
+}
+.collection-carousel .collection-tabs_card-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+}
+.collection-carousel .collection-tabs_card-item .collection-tabs_card {
+  flex: 0 0 calc(25% - 16px);
+}
+.collection-carousel .collection-tabs_card-item .collection-tabs-placeholder {
+  flex: 0 0 calc(25% - 16px);
+}
+.collection-carousel .collection-product-card {
+  margin-right: 2.4rem;
+}
+.collection-carousel .collection-carousel__slider {
+  margin-top: 6.4rem;
+}
+.collection-carousel .collection-carousel-icon {
+  margin-bottom: 3.2rem;
+}
+.collection-carousel .card__title {
+  margin: 0;
+}
+.collection-carousel .card-wrapper {
+  background-color: unset;
+}
+.collection-carousel .card-information__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.collection-carousel .product-parameters {
+  margin-bottom: 0;
+}
+.collection-carousel .card-information-block {
+  gap: 1rem;
+}
+.collection-carousel .collection-carousel-btn {
+  margin-top: 3.2rem;
+}

@@ -1,0 +1,487 @@
+{{ 'img-comparison.css' | asset_url | stylesheet_tag }}
+{{ 'section-compare.css' | asset_url | stylesheet_tag }}
+{{ 'component-card-horizontal.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'img-comparison.js' | asset_url }}" defer="defer"></script>
+
+<noscript>
+  <style>
+    img-comparison-slider {
+      visibility: visible;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    img-comparison-slider [slot='second'] {
+      display: block;
+      @media (max-width: 1100px) {
+        display: block;
+      }
+    }
+
+    .icon-handle {
+      position: absolute;
+      left: 48%;
+      top: 48%;
+    }
+    .compare__figure {
+      width: 50%;
+      order: 1;
+      @media (max-width: 1100px) {
+        height: auto;
+      }
+    }
+    img:first-child {
+    }
+    img:last-child {
+    }
+  </style>
+</noscript>
+
+{% style %}
+  {% render 'section-margin' %}
+{% endstyle %}
+
+{%- capture html_dir %}{% render 'direction' %}{% endcapture %}
+
+<section class="compare compare-text-{{ section.settings.alignment }} {% if section.settings.section_type == 'full' %}compare--full{% else %}compare--simple{% endif %}">
+  {% assign content = false %}
+  <div class="container">
+    {%- if section.settings.section_type == 'full' -%}
+      {%- if section.settings.subheading != blank
+        or section.settings.heading != blank
+        or section.settings.description != blank
+        or section.settings.product != blank
+      -%}
+        <div class="compare__content color-{{ section.settings.color_scheme }}">
+          <div class="compare__top_content">
+            {%- if section.settings.subheading != blank -%}
+              <div class="compare__subtitle subtitle">
+                {{ section.settings.subheading }}
+              </div>
+            {%- endif -%}
+            {% render 'section-header',
+              text_size: 'large',
+              heading_size: 'h2',
+              section_heading_tag: section.settings.heading_tag
+            %}
+          </div>
+          {%- if section.settings.product != blank -%}
+            <div class="compare__content-bottom">
+              <div class="collection-tabs_card">
+                {% render 'product-card-horizontal',
+                  product_card_product: section.settings.product,
+                  media_size: section.settings.image_ratio,
+                  media_fit: section.settings.media_fit,
+                  show_secondary_image: section.settings.show_secondary_image,
+                  show_vendor: section.settings.show_vendor,
+                  show_desc: section.settings.show_desc,
+                  show_color_swatch: section.settings.show_color_swatch,
+                  show_sku: section.settings.show_sku,
+                  text_alignment: settings.card_text_alignment
+                %}
+              </div>
+            </div>
+          {%- else -%}
+            <div class="compare__content-bottom">
+              <div class="collection-tabs_card">
+                {% render 'product-card-horizontal',
+                  media_size: section.settings.image_ratio,
+                  media_fit: section.settings.media_fit,
+                  show_secondary_image: section.settings.show_secondary_image,
+                  show_vendor: section.settings.show_vendor,
+                  show_desc: section.settings.show_desc,
+                  show_color_swatch: section.settings.show_color_swatch,
+                  show_sku: section.settings.show_sku,
+                  text_alignment: settings.card_text_alignment
+                %}
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+
+    <div class="compare__box">
+      {%- if section.settings.section_type == 'simple' -%}
+        {%- if section.settings.subheading != blank
+          or section.settings.heading != blank
+          or section.settings.description != blank
+          or section.settings.product != blank
+        -%}
+          {% assign content = true %}
+          <div class="compare__content color-{{ section.settings.color_scheme }}">
+            <div class="compare__content-top">
+              {%- if section.settings.subheading != blank -%}
+                <div class="compare__subtitle subtitle">
+                  {{ section.settings.subheading }}
+                </div>
+              {%- endif -%}
+              {% render 'section-header',
+                text_size: 'large',
+                heading_size: 'h2',
+                section_heading_tag: section.settings.heading_tag
+              %}
+            </div>
+            {%- if section.settings.product != blank -%}
+              <div class="compare__content-bottom">
+                <div class="collection-tabs_card">
+                  {% render 'product-card-horizontal',
+                    product_card_product: section.settings.product,
+                    media_size: section.settings.image_ratio,
+                    media_fit: section.settings.media_fit,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    show_vendor: section.settings.show_vendor,
+                    show_desc: section.settings.show_desc,
+                    show_color_swatch: section.settings.show_color_swatch,
+                    show_sku: section.settings.show_sku,
+                    text_alignment: settings.card_text_alignment
+                  %}
+                </div>
+              </div>
+            {%- else -%}
+              <div class="compare__content-bottom">
+                <div class="collection-tabs_card">
+                  {% render 'product-card-horizontal',
+                    media_size: section.settings.image_ratio,
+                    media_fit: section.settings.media_fit,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    show_vendor: section.settings.show_vendor,
+                    show_desc: section.settings.show_desc,
+                    show_color_swatch: section.settings.show_color_swatch,
+                    show_sku: section.settings.show_sku,
+                    text_alignment: settings.card_text_alignment
+                  %}
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+      <div class="compare__slide compare__content-{{ content }}">
+        {%- if section.settings.image_before != blank and section.settings.image_after != blank -%}
+          <img-comparison-slider>
+            {% if html_dir == 'rtl' %}
+              <figure class="compare__figure" slot="first">
+                {{
+                  section.settings.image_after
+                  | image_url: width: section.settings.image_after.width
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '575, 750, 990, 1200, 1360, 1500, 1632, 1900, 2200, 2500, 2800, 3100, 3264, 3400, 3700, 3900',
+                    sizes: '100vw'
+                }}
+                <figcaption class="compare__figure_text compare__figure_text--left color-{{ section.settings.color_scheme }}">
+                  {%- if section.settings.after_heading != blank -%}
+                    <div class="button button--secondary">
+                      {{ section.settings.after_heading }}
+                    </div>
+                  {%- endif -%}
+                </figcaption>
+              </figure>
+            {% endif %}
+            <figure class="compare__figure" slot="{%- if html_dir == 'ltr' -%}first{%- else -%}second{%- endif -%}">
+              {{
+                section.settings.image_before
+                | image_url: width: section.settings.image_before.width
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '575, 750, 990, 1200, 1360, 1500, 1632, 1900, 2200, 2500, 2800, 3100, 3264, 3400, 3700, 3900',
+                  sizes: '100vw'
+              }}
+              <figcaption class="compare__figure_text compare__figure_text--{% if html_dir == 'ltr' %}left {%- else -%}right {% endif %} color-{{ section.settings.color_scheme }}">
+                {%- if section.settings.before_heading != blank -%}
+                  <div class="button button--secondary">
+                    {{ section.settings.before_heading }}
+                  </div>
+                {%- endif -%}
+              </figcaption>
+            </figure>
+            {% if html_dir == 'ltr' %}
+              <figure class="compare__figure" slot="second">
+                {{
+                  section.settings.image_after
+                  | image_url: width: section.settings.image_after.width
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '575, 750, 990, 1200, 1360, 1500, 1632, 1900, 2200, 2500, 2800, 3100, 3264, 3400, 3700, 3900',
+                    sizes: '100vw'
+                }}
+                <figcaption class="compare__figure_text compare__figure_text--right color-{{ section.settings.color_scheme }}">
+                  {%- if section.settings.after_heading != blank -%}
+                    <div class="button button--secondary">
+                      {{ section.settings.after_heading }}
+                    </div>
+                  {%- endif -%}
+                </figcaption>
+              </figure>
+            {% endif %}
+            {% render 'icon-handle', class: section.settings.color_scheme %}
+          </img-comparison-slider>
+        {%- else -%}
+          <div class="compare__default">
+            {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+            {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "t:sections.compare-block.name",
+  "tag": "section",
+  "class": "section-compare",
+  "enabled_on": {
+    "templates": ["*"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_type",
+      "options": [
+        {
+          "value": "simple",
+          "label": "t:sections.compare-block.settings.section_type.options__1.label"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.compare-block.settings.section_type.options__2.label"
+        }
+      ],
+      "default": "simple",
+      "label": "t:sections.compare-block.settings.section_type.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "default": "background-3",
+      "label": "t:sections.all.color_scheme.label"
+    },
+    {
+      "type": "text_alignment",
+      "id": "alignment",
+      "label": "t:sections.all.content_alignment.label",
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "default": "t:sections.compare-block.settings.subheading.default",
+      "label": "t:sections.compare-block.settings.heading.label"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "t:sections.compare-block.settings.heading.default",
+      "label": "t:sections.compare-block.settings.title.label"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "t:sections.all.heading_tag.label",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "div",
+          "label": "div"
+        },
+        {
+          "value": "p",
+          "label": "p"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "default": "t:sections.compare-block.settings.description.default",
+      "label": "t:sections.compare-block.settings.text.label"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:sections.all.product_card.product.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.product_card.header.content"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "landscape",
+          "label": "t:sections.all.image.ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.all.image.ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.all.image.ratio.options__3.label"
+        }
+      ],
+      "default": "portrait",
+      "label": "t:sections.all.image.ratio.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": true,
+      "label": "t:sections.all.product_card.show_secondary_image.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sku",
+      "default": false,
+      "label": "t:sections.all.sku.show_sku"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "t:sections.all.product_card.show_vendor.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_swatch",
+      "default": false,
+      "label": "t:sections.all.product_card.show_color.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_desc",
+      "default": false,
+      "label": "t:sections.all.product_card.show_description.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.compare-block.settings.before.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_before",
+      "label": "t:sections.compare-block.settings.image_before.label",
+      "info": "t:sections.compare-block.settings.image_before.info"
+    },
+    {
+      "type": "text",
+      "id": "before_heading",
+      "default": "t:sections.compare-block.settings.before_heading.default",
+      "label": "t:sections.compare-block.settings.title.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.compare-block.settings.after.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_after",
+      "label": "t:sections.compare-block.settings.image_after.label",
+      "info": "t:sections.compare-block.settings.image_before.info"
+    },
+    {
+      "type": "text",
+      "id": "after_heading",
+      "default": "t:sections.compare-block.settings.after_heading.default",
+      "label": "t:sections.compare-block.settings.title.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.section-margin.header.content"
+    },
+    {
+      "type": "select",
+      "id": "margin_top",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        }
+      ],
+      "default": "no-indent",
+      "label": "t:sections.all.section-margin.margin_top.label"
+    },
+    {
+      "type": "select",
+      "id": "margin_bottom",
+      "options": [
+        {
+          "value": "no-indent",
+          "label": "t:sections.all.section-margin.options__1.label"
+        },
+        {
+          "value": "xs",
+          "label": "t:sections.all.section-margin.options__2.label"
+        },
+        {
+          "value": "s",
+          "label": "t:sections.all.section-margin.options__3.label"
+        },
+        {
+          "value": "m",
+          "label": "t:sections.all.section-margin.options__4.label"
+        },
+        {
+          "value": "l",
+          "label": "t:sections.all.section-margin.options__5.label"
+        }
+      ],
+      "default": "l",
+      "label": "t:sections.all.section-margin.margin_bottom.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.compare-block.presets.name"
+    }
+  ]
+}
+{% endschema %}

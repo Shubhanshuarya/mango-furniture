@@ -1,5 +1,3 @@
 [environments.development]
-# Replace with your store's myshopify.com URL, e.g. my-store.myshopify.com
-store = ""
-# Theme ID — run `shopify theme list` after login to find it
-theme = ""
+store = "091ee8-79.myshopify.com"
+theme = "193145438500"

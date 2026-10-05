@@ -1,0 +1,66 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "cart-items": {
+      "type": "main-cart-items",
+      "settings": {
+        "cart_page_heading": "Shopping Cart",
+        "image_fit": "cover",
+        "show_vendor": false
+      }
+    },
+    "cart-footer": {
+      "type": "main-cart-footer",
+      "blocks": {
+        "subtotal": {
+          "type": "subtotal",
+          "settings": {}
+        },
+        "buttons": {
+          "type": "buttons",
+          "settings": {}
+        }
+      },
+      "block_order": ["subtotal", "buttons"],
+      "settings": {
+        "show_cart_note": false,
+        "padding_bottom": "m"
+      }
+    },
+    "3dc057ce-8d3c-4526-995e-9870460cbf02": {
+      "type": "popular-products",
+      "settings": {
+        "product_list": [],
+        "heading": "Shop Our Bestsellers",
+        "description": "",
+        "alignment": "center",
+        "autoplay": false,
+        "stop_autoplay": true,
+        "slideshow_speed": 0.5,
+        "slideshow_delay": 3,
+        "image_ratio": "portrait",
+        "image_fit": "cover",
+        "show_secondary_image": true,
+        "show_sku": false,
+        "show_vendor": false,
+        "show_color_swatch": false,
+        "show_desc": false,
+        "margin_top": "no-indent",
+        "margin_bottom": "l",
+        "padding_top": "no-indent",
+        "padding_bottom": "no-indent",
+        "enable_border_top": false,
+        "enable_border_bottom": false
+      }
+    }
+  },
+  "order": ["cart-items", "cart-footer", "3dc057ce-8d3c-4526-995e-9870460cbf02"]
+}

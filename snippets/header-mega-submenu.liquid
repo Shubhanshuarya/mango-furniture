@@ -1,0 +1,81 @@
+{% liquid
+  comment
+    case block.type
+    when 'mega_menu_collection'
+    assign menu_link = '#'
+    assign menu_link_class = 'cursor-default'
+    when 'mega_menu_collection'
+    assign menu_link = link.url
+    assign menu_link_class = ''
+    else
+    assign menu_link = '#'
+    assign menu_link_class = 'cursor-default'
+    endcase
+  endcomment
+  assign menu_link = link.url
+  assign menu_link_class = ''
+%}
+<a
+  href="{{ menu_link }}"
+  class="unstyled-link header__menu-item {{ menu_link_class }}{% if link.current %} current-link{% endif %}"
+  {% if link.current %}
+    aria-current="page"
+  {% endif %}
+>
+  {{- link.title | escape }}
+</a>
+<div class="header-mega-menu header-mega-submenu color-background-1">
+  <div class="header-mega-menu-container">
+    <div class="container">
+      <div class="header-mega-menu__wrapper">
+        <div class="header-mega-menu__lists">
+          {% if link.links != blank %}
+            <div class="header-mega-menu__list-wrapper">
+              <div class="subtitle">{{- link.title | escape }}</div>
+              <ul class="mega-menu-list list-unstyled extra-large-font">
+                {% for sublink in link.links %}
+                  <li data-click-action="30-{{ link.title | replace: " ", "-" }}">
+                    {%- if block.settings.enable_clickable_top_level -%}
+                      <a href="{{ sublink.url }}" data-tab-id="{{ current_tab_id }}">
+                        <span>
+                          {{- sublink.title | escape -}}
+                        </span>
+                      </a>
+                    {%- else -%}
+                      <span>
+                        {{- sublink.title | escape -}}
+                      </span>
+                    {%- endif -%}
+                    <ul
+                      class="mega-menu__submenu list-menu--disclosure list-menu motion-reduce color-background-1 list-unstyled"
+                      tabindex="-1"
+                    >
+                      {%- for grandchildlink in sublink.links -%}
+                        <li data-click-action="31">
+                          <a
+                            href="{{ grandchildlink.url }}"
+                            {% if grandchildlink.type == 'http_link' and settings.open_new_tab %}
+                              target="_blank"
+                            {% endif %}
+                            class="header__menu-item h5 medium-font list-menu__item focus-inset{% if grandchildlink.current %} header__menu-item--active{% endif %}"
+                            {% if grandchildlink.current %}
+                              aria-current="page"
+                            {% endif %}
+                          >
+                            <span>
+                              {{ grandchildlink.title | escape }}
+                            </span>
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

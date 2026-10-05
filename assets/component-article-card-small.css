@@ -1,0 +1,98 @@
+.article-card-small {
+  position: relative;
+  padding-bottom: 2.4rem;
+  margin-bottom: 2.4rem;
+  border-bottom: 1px rgb(var(--color-border)) solid;
+}
+.article-card-small:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border: none;
+}
+.article-card-small__info {
+  flex: 1 1 auto;
+}
+.article-card-small__image {
+  width: 8.8rem;
+  height: 8.8rem;
+  border-radius: 0.6rem;
+  padding: 0;
+  transition: transform var(--duration-default);
+}
+.article-card-small__image-wrapper {
+  overflow: hidden;
+  border-radius: 0.6rem;
+  transition: transform var(--duration-default);
+  flex: 1 0 auto;
+}
+.article-card-small__title {
+  margin: 0;
+  word-break: break-word;
+  transition: all var(--duration-default) ease;
+}
+.article-card-small__title a {
+  position: relative;
+  text-decoration: none;
+  transition: background-size var(--duration-long) ease;
+  font-size: inherit;
+  z-index: 5;
+}
+.article-card-small-link {
+  display: block !important;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+}
+.article-card-small__meta {
+  display: flex;
+  margin-top: 1.6rem;
+  color: rgba(var(--color-foreground), 0.6);
+  font-weight: 700;
+}
+.article-card-small__header {
+  line-height: 1;
+  text-transform: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.article-card-small__header:not(:last-child) {
+  margin-bottom: 1.6rem;
+}
+.article-card-small__header h5 {
+  margin: 0 0 0.2rem;
+  --font-heading-weight: 500;
+}
+.article-card-small__header h5:only-child {
+  margin: 0;
+}
+.article-card-small__header h5:not(:first-child) {
+  margin-top: 0.8rem;
+}
+.article-card-small__header span {
+  display: inline-flex;
+  font-size: 1.2rem;
+}
+.article-card-small__author span {
+  margin-left: 3px;
+}
+.article-card-small .line-divider::after {
+  background: rgba(var(--color-foreground), 0.6);
+}
+
+.article-small-content {
+  display: flex;
+  gap: 1.4rem;
+  transition: padding var(--duration-default) ease;
+  position: relative;
+}
+.article-small-content:hover .article-card-small__title {
+  opacity: 0.7;
+}
+.article-small-content:hover .article-card-small__image {
+  transform: scale(1.05);
+}

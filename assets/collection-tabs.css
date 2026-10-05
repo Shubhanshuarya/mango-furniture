@@ -1,0 +1,129 @@
+.collection-tabs {
+  position: relative;
+  z-index: 1;
+}
+.collection-tabs [data-tab-content] {
+  display: none;
+}
+.collection-tabs .active[data-tab-content] {
+  display: flex;
+}
+.collection-tabs .collection-tabs-header {
+  text-align: center;
+}
+.collection-tabs .collection-tabs-header .collection-tabs__title {
+  margin-bottom: 2.4rem;
+}
+.collection-tabs .collection-tabs-header .collection-tabs__desc {
+  max-width: 65rem;
+  margin: 0 auto;
+}
+.collection-tabs .collection-tabs_none {
+  margin-top: 5rem;
+}
+.collection-tabs .collection-tabs_card-item {
+  flex-wrap: wrap;
+  gap: 3.2rem 1.6rem;
+}
+@media screen and (min-width: 990px) {
+  .collection-tabs .collection-tabs_card-item {
+    gap: 6.4rem 1.6rem;
+  }
+}
+@media screen and (max-width: 576px) {
+  .collection-tabs .collection-tabs_card-item .collection-tabs_card.collection-product-list--2-mobile {
+    flex: 0 0 calc(50% - 0.8rem);
+  }
+}
+.collection-tabs .collection-tabs_card-item .collection-tabs_card {
+  flex: 0 0 100%;
+}
+@media screen and (min-width: 576px) {
+  .collection-tabs .collection-tabs_card-item .collection-tabs_card {
+    flex: 0 0 calc(50% - 0.8rem);
+  }
+}
+@media screen and (min-width: 990px) {
+  .collection-tabs .collection-tabs_card-item .collection-tabs_card {
+    flex: 0 0 calc(25% - 1.2rem);
+  }
+}
+.collection-tabs .collection-tabs-placeholder-item {
+  display: flex;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+}
+.collection-tabs .collection-tabs-placeholder-item .collection-tabs-placeholder {
+  flex: 0 0 100%;
+}
+.collection-tabs .collection-tabs-placeholder-item .collection-tabs-placeholder:hover .placeholder-svg {
+  transform: scale(1.12);
+}
+@media screen and (min-width: 576px) {
+  .collection-tabs .collection-tabs-placeholder-item .collection-tabs-placeholder {
+    flex: 0 0 calc(50% - 0.8rem);
+  }
+}
+@media screen and (min-width: 990px) {
+  .collection-tabs .collection-tabs-placeholder-item .collection-tabs-placeholder {
+    flex: 0 0 calc(25% - 1.2rem);
+  }
+}
+.collection-tabs .collection-tabs-list::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+.collection-tabs .collection-tabs-list::-webkit-scrollbar-thumb {
+  background-color: rgba(var(--color-foreground), 0.7);
+  border-radius: 100px;
+}
+.collection-tabs .collection-tabs-list {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
+  cursor: pointer;
+  row-gap: 1rem;
+  padding-bottom: 1rem;
+  max-width: max-content;
+}
+.collection-tabs .collection-tabs-list .active {
+  color: rgba(var(--color-foreground-title));
+}
+.collection-tabs .collection-tabs-list .active span {
+  border-bottom: 1px solid;
+}
+.collection-tabs .collection-tabs-list li {
+  padding: 0 1.2rem;
+  margin-bottom: 0;
+  flex: none;
+}
+.collection-tabs .collection-tabs-list li:first-child {
+  padding-left: 0;
+}
+.collection-tabs .collection-tabs-list li:last-child {
+  padding-right: 0;
+}
+.collection-tabs .collection-tabs_product-item {
+  margin-top: 0.8rem;
+}
+.collection-tabs .collection-tabs_collection-none {
+  margin-top: 2.2rem;
+}
+.collection-tabs .collection-product-card {
+  margin-right: 2.4rem;
+}
+.collection-tabs .text-center.collection-tabs-wrapper {
+  text-align: center;
+}
+.collection-tabs .text-center .collection-tabs-list {
+  margin: 0 auto;
+}
+.collection-tabs .text-right.collection-tabs-wrapper {
+  text-align: right;
+}
+.collection-tabs .text-right .collection-tabs-list {
+  margin: 0 0 0 auto;
+}
