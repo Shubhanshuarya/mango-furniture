@@ -4,6 +4,8 @@
       if ($(this).hasClass("slider_started")) {
         return "";
       }
+      const swiperEl = $(this).find(".swiper")[0];
+      if (!swiperEl) return;
       $(this).addClass("slider_started");
       const box = $(this).find(".announcement-bar");
       const autoplay = box.data("autoplay");
@@ -23,7 +25,7 @@
       } else {
         autoplayParm = {};
       }
-      const announcementSwiper = new Swiper($(this).find(".swiper")[0], {
+      const announcementSwiper = new Swiper(swiperEl, {
         direction: "vertical",
         slidesPerView: "1",
         autoHeight: true,

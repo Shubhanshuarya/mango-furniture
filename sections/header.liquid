@@ -34,9 +34,20 @@
 
 <style>
   :root {
+  	--header-row-height : {{ section.settings.height }}px;
+  	--header-nav-height : 4.8rem;
   	--header-height : {{ section.settings.height }}px;
   	--header-offset : {% if section.settings.header_overlay %}0px{% else %}{{ section.settings.height }}px{% endif %};
   }
+
+  {%- if section.settings.logo_position == 'center' and section.settings.menu != blank %}
+  @media screen and (min-width: 1100px) {
+  	:root {
+  		--header-height : calc({{ section.settings.height }}px + 4.8rem);
+  		--header-offset : {% if section.settings.header_overlay %}0px{% else %}calc({{ section.settings.height }}px + 4.8rem){% endif %};
+  	}
+  }
+  {%- endif %}
 
   @media screen and (min-width: 1100px) {
   	header-drawer {

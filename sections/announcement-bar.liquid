@@ -1,6 +1,34 @@
 <script src="{{ 'announcement.js' | asset_url }}" defer="defer"></script>
 
-{% if section.settings.height < 70 and section.settings.button_label_about != blank %}
+{% liquid
+  assign has_slides = false
+  assign has_social = false
+  for block in section.blocks
+    if block.type == 'slide' and block.settings.text != blank
+      assign has_slides = true
+    elsif block.type == 'social-links' and block.settings.button_link != blank
+      assign has_social = true
+    endif
+  endfor
+
+  assign show_about = false
+  if section.settings.button_label_about != blank and section.settings.button_link_about != blank
+    assign show_about = true
+  endif
+
+  assign show_bar = false
+  if has_slides or has_social or show_about
+    assign show_bar = true
+  endif
+%}
+
+{% if show_bar == false %}
+  <style>
+    :root {
+    	--announcement-height: 0px;
+    }
+  </style>
+{% elsif section.settings.height < 70 and show_about %}
   <style>
     :root {
     	--announcement-height: 67px;
@@ -25,8 +53,7 @@
   assign stop_autoplay = section.settings.is_hover_stop_autoplay
   assign slideshow_delay = section.settings.slideshow_delay
 %}
-{% assign block_count = section.blocks | size %}
-{% if block_count > 0 %}
+{% if show_bar %}
   <div
     class="announcement-bar color-{{ section.settings.color_scheme }} background"
     role="region"
@@ -44,14 +71,16 @@
     >
       <div class="announcement-wrapper">
         <div
-          class="announcement-wrapper_button {% if section.settings.button_label_about == blank %} announcement-wrapper_button-none {% endif %}"
+          class="announcement-wrapper_button {% unless show_about %} announcement-wrapper_button-none {% endunless %}"
         >
-          {% render 'button',
-            layout: block,
-            btn_style: 'simple',
-            btn_label: section.settings.button_label_about,
-            btn_link: section.settings.button_link_about
-          %}
+          {% if show_about %}
+            {% render 'button',
+              layout: block,
+              btn_style: 'simple',
+              btn_label: section.settings.button_label_about,
+              btn_link: section.settings.button_link_about
+            %}
+          {% endif %}
         </div>
         <div class="swiper announcement-js-{{ section.id }}">
           <div class="swiper-wrapper announcement-bar__slide-box">
@@ -82,6 +111,9 @@
           {% for block in section.blocks %}
             {%- case block.type -%}
               {%- when 'social-links' -%}
+                {%- if block.settings.button_link == blank -%}
+                  {%- continue -%}
+                {%- endif -%}
                 <div class="announcement-bar_soclal">
                   {% render 'button',
                     layout: block,
@@ -193,7 +225,6 @@
         {
           "type": "richtext",
           "id": "text",
-          "default": "t:sections.announcement-bar.blocks.slide.settings.text.default",
           "label": "t:sections.announcement-bar.blocks.slide.settings.text.label"
         }
       ]

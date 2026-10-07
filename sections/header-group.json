@@ -52,6 +52,7 @@
       "blocks": {
         "dropdown": {
           "type": "dropdown",
+          "disabled": true,
           "settings": {
             "dropdown_button_menu": "main-menu",
             "show_promo": true,

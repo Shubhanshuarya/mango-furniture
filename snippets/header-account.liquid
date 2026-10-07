@@ -32,10 +32,12 @@
           >
             <div slot="signed-out-avatar">
               <div
-                class="header__icon header__icon--account header__icon--summary button menu-drawer__account focus-inset"
+                class="menu-drawer__account-link focus-inset"
                 role="button"
+                tabindex="0"
               >
-                <span class="button-label button--primary" style="min-width: calc(100vw - 4rem);">
+                {% render 'icon-account' %}
+                <span>
                   {%- liquid
                     if customer.name
                       echo 'customer.account_fallback' | t
@@ -78,9 +80,10 @@
       {%- else -%}
         <a
           href="{%- if customer -%}{{ routes.account_profile_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-          class="button button--primary menu-drawer__account focus-inset"
+          class="menu-drawer__account-link focus-inset"
         >
-          <span class="button-label">
+          {% render 'icon-account' %}
+          <span>
             {%- liquid
               if customer.name
                 echo 'customer.account_fallback' | t

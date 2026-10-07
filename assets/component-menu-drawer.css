@@ -316,3 +316,230 @@ details[open] > .menu-drawer__submenu {
   align-items: center;
   border-top: 0.1rem solid rgb(var(--color-border));
 }
+/* ==========================================================================
+   Mobile & tablet menu drawer redesign (desktop unchanged)
+   Top-level rows: links get a right chevron, expandable rows a down chevron.
+   ========================================================================== */
+@media screen and (max-width: 1099px) {
+  .menu-drawer {
+    --drawer-chevron-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M6 3l5 5-5 5' fill='none' stroke='black' stroke-width='1.3'/%3E%3C/svg%3E");
+    --drawer-chevron-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 6l5 5 5-5' fill='none' stroke='black' stroke-width='1.3'/%3E%3C/svg%3E");
+    --drawer-gutter: 2rem;
+  }
+  .overflow-hidden-tablet .header-top .header-top__logo {
+    opacity: 1;
+  }
+
+  .menu-drawer__navigation-container .menu-drawer__navigation {
+    width: 100%;
+    max-width: 64rem;
+    padding: 0.8rem var(--drawer-gutter) 3.2rem;
+  }
+  .menu-drawer__navigation > .menu-drawer__menu > li {
+    border-bottom: 0.1rem solid rgb(var(--color-border));
+  }
+
+  /* Top-level rows (plain links and expandable summaries share one style) */
+  .menu-drawer__navigation > .menu-drawer__menu > li > a.menu-drawer__menu-item,
+  .menu-drawer__navigation > .menu-drawer__menu > li > details > summary.menu-drawer__menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.6rem;
+    min-height: 6rem;
+    margin: 0;
+    padding: 1rem 0;
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-weight: var(--font-heading-weight);
+    font-size: 2.4rem;
+    line-height: 1.1;
+    color: rgb(var(--color-foreground-title));
+    cursor: pointer;
+    list-style: none;
+  }
+  .menu-drawer__navigation > .menu-drawer__menu > li > details > summary.menu-drawer__menu-item > span {
+    display: block;
+    margin: 0;
+    font-size: inherit;
+    color: inherit;
+  }
+  .menu-drawer__navigation > .menu-drawer__menu > li > a.menu-drawer__menu-item::after,
+  .menu-drawer__navigation > .menu-drawer__menu > li > details > summary.menu-drawer__menu-item::after {
+    content: "";
+    flex-shrink: 0;
+    width: 1.4rem;
+    height: 1.4rem;
+    background-color: currentColor;
+    -webkit-mask: var(--drawer-chevron-right) center / contain no-repeat;
+    mask: var(--drawer-chevron-right) center / contain no-repeat;
+    opacity: 0.4;
+    transition: transform var(--duration-default) ease, opacity var(--duration-default) ease;
+  }
+  .menu-drawer__navigation > .menu-drawer__menu > li > details > summary.menu-drawer__menu-item::after {
+    -webkit-mask-image: var(--drawer-chevron-down);
+    mask-image: var(--drawer-chevron-down);
+  }
+  .menu-drawer__navigation > .menu-drawer__menu > li > a.menu-drawer__menu-item:hover::after {
+    opacity: 1;
+    transform: translateX(0.3rem);
+  }
+  .menu-drawer__navigation > .menu-drawer__menu > li > details > summary.menu-drawer__menu-item:hover::after {
+    opacity: 1;
+  }
+  .menu-drawer__navigation > .menu-drawer__menu > li > details[open] > summary.menu-drawer__menu-item::after {
+    opacity: 1;
+    transform: rotate(180deg);
+  }
+  .menu-drawer__navigation > .menu-drawer__menu > li > .menu-drawer__menu-item--active,
+  .menu-drawer__navigation > .menu-drawer__menu > li > details > .menu-drawer__menu-item--active {
+    font-style: italic;
+  }
+
+  /* Expanded sub-menu: quieter, indented list under its row */
+  .menu-drawer__navigation .menu-drawer__submenu {
+    padding: 0 0 1.6rem;
+  }
+  .menu-drawer__navigation .menu-drawer__submenu .menu-drawer__menu {
+    padding-left: 0;
+  }
+  .menu-drawer__navigation .menu-drawer__submenu .menu-drawer__menu-item {
+    display: flex;
+    align-items: center;
+    min-height: 4.4rem;
+    margin: 0;
+    padding: 0.4rem 0 0.4rem 1.6rem;
+    border-left: 0.1rem solid rgb(var(--color-border));
+    font-family: var(--font-body-family);
+    font-size: 1.9rem;
+    line-height: 1.2;
+    color: rgb(var(--color-foreground));
+    transition: color var(--duration-default) ease, border-color var(--duration-default) ease;
+  }
+  .menu-drawer__navigation .menu-drawer__submenu .menu-drawer__menu-item span {
+    margin: 0;
+    color: inherit;
+    font-size: inherit;
+  }
+  .menu-drawer__navigation .menu-drawer__submenu .menu-drawer__menu-item:hover,
+  .menu-drawer__navigation .menu-drawer__submenu .menu-drawer__menu-item--active {
+    color: rgb(var(--color-foreground-title));
+    border-left-color: rgb(var(--color-foreground-title));
+  }
+
+  .menu-drawer .menu-drawer__menu-item:focus-visible,
+  .menu-drawer .menu-drawer__account-link:focus-visible {
+    outline: 0.2rem solid rgb(var(--color-foreground-title));
+    outline-offset: -0.2rem;
+  }
+
+  /* Staggered entrance when the drawer opens */
+  .js .menu-drawer-container .menu-drawer__navigation > .menu-drawer__menu > li {
+    opacity: 0;
+    transform: translateY(0.8rem);
+    transition: opacity 0.3s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .js .menu-drawer-container.menu-opening .menu-drawer__navigation > .menu-drawer__menu > li {
+    opacity: 1;
+    transform: none;
+  }
+  .js .menu-drawer-container.menu-opening .menu-drawer__navigation > .menu-drawer__menu > li:nth-child(1) { transition-delay: 0.05s; }
+  .js .menu-drawer-container.menu-opening .menu-drawer__navigation > .menu-drawer__menu > li:nth-child(2) { transition-delay: 0.09s; }
+  .js .menu-drawer-container.menu-opening .menu-drawer__navigation > .menu-drawer__menu > li:nth-child(3) { transition-delay: 0.13s; }
+  .js .menu-drawer-container.menu-opening .menu-drawer__navigation > .menu-drawer__menu > li:nth-child(4) { transition-delay: 0.17s; }
+  .js .menu-drawer-container.menu-opening .menu-drawer__navigation > .menu-drawer__menu > li:nth-child(5) { transition-delay: 0.21s; }
+  .js .menu-drawer-container.menu-opening .menu-drawer__navigation > .menu-drawer__menu > li:nth-child(6) { transition-delay: 0.25s; }
+  .js .menu-drawer-container.menu-opening .menu-drawer__navigation > .menu-drawer__menu > li:nth-child(7) { transition-delay: 0.29s; }
+  .js .menu-drawer-container.menu-opening .menu-drawer__navigation > .menu-drawer__menu > li:nth-child(n + 8) { transition-delay: 0.33s; }
+
+  /* Account: a quiet row pinned to the bottom instead of a full-width button */
+  .menu-drawer__utility-links {
+    padding: 0 var(--drawer-gutter) env(safe-area-inset-bottom);
+    border-top: 0.1rem solid rgb(var(--color-border));
+  }
+  .menu-drawer__utility-links shopify-account {
+    width: 100%;
+  }
+  .menu-drawer .menu-drawer__account-link {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    width: 100%;
+    min-height: 6rem;
+    font-family: var(--font-subtitle-family);
+    font-weight: var(--font-subtitle-weight);
+    text-transform: var(--font-subtitle-text-transform);
+    letter-spacing: calc(var(--font-subtitle-letter-spacing) * 0.1);
+    font-size: calc(var(--font-subtitle-scale) * 1rem);
+    color: rgb(var(--color-foreground-title));
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .menu-drawer .menu-drawer__account-link .icon-account {
+    width: 2rem;
+    height: 2rem;
+    margin: 0;
+  }
+  .menu-drawer .menu-drawer__account-link span {
+    margin: 0;
+    color: inherit;
+  }
+  .menu-drawer .menu-drawer__account-link::after {
+    content: "";
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-left: auto;
+    background-color: currentColor;
+    -webkit-mask: var(--drawer-chevron-right) center / contain no-repeat;
+    mask: var(--drawer-chevron-right) center / contain no-repeat;
+    opacity: 0.4;
+    transition: transform var(--duration-default) ease, opacity var(--duration-default) ease;
+  }
+  .menu-drawer .menu-drawer__account-link:hover::after {
+    opacity: 1;
+    transform: translateX(0.3rem);
+  }
+  .menu-drawer__utility-account-header {
+    min-height: 6rem;
+    margin-bottom: 0;
+  }
+  .menu-drawer .menu-drawer__utility-name {
+    margin: 0;
+    font-family: var(--font-heading-family);
+    font-size: 2rem;
+    color: rgb(var(--color-foreground-title));
+  }
+  .menu-drawer .menu-drawer__utility-logout {
+    display: inline-flex;
+    align-items: center;
+    min-height: 4.4rem;
+    font-family: var(--font-subtitle-family);
+    font-weight: var(--font-subtitle-weight);
+    text-transform: var(--font-subtitle-text-transform);
+    letter-spacing: calc(var(--font-subtitle-letter-spacing) * 0.1);
+    font-size: calc(var(--font-subtitle-scale) * 1rem);
+    color: rgb(var(--color-foreground));
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 1099px) {
+  .menu-drawer {
+    --drawer-gutter: 4rem;
+  }
+  .menu-drawer__navigation-container .menu-drawer__navigation {
+    padding-top: 2.4rem;
+  }
+  .menu-drawer__navigation > .menu-drawer__menu > li > a.menu-drawer__menu-item,
+  .menu-drawer__navigation > .menu-drawer__menu > li > details > summary.menu-drawer__menu-item {
+    min-height: 7.2rem;
+    font-size: 2.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .menu-drawer-container .menu-drawer__navigation > .menu-drawer__menu > li {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -5838,3 +5838,130 @@ details[open] > .header__account-modal {
 .products-slider .products-slider_navigation .swiper-button.swiper-button-disabled + .swiper-button-disabled {
   display: none;
 }
+/* ==========================================================================
+   Header redesign
+   Centered-logo layout becomes two rows on desktop: burger · logo · icons,
+   then the main menu centered underneath, so long menus never wrap.
+   ========================================================================== */
+.header-top__logo .header__heading-link {
+  transition: opacity var(--duration-default) ease;
+}
+.header-top__logo .header__heading-link:hover {
+  opacity: 0.8;
+}
+.header-top__logo .header__heading-text {
+  font-size: clamp(1.7rem, 1.1rem + 2vw, 3.2rem);
+  line-height: 1;
+  text-align: center;
+  text-wrap: balance;
+  color: rgb(var(--color-foreground-title));
+}
+@media screen and (min-width: 390px) {
+  .header-top__logo .header__heading-text {
+    white-space: nowrap;
+  }
+}
+
+.header-top__right {
+  gap: 0;
+}
+.header-top__right > *:not(.header__localization) {
+  width: 4rem;
+  height: 4rem;
+}
+@media screen and (min-width: 1100px) {
+  .header-top__right {
+    gap: 0.4rem;
+  }
+  .header-top__right > *:not(.header__localization) {
+    width: 4.4rem;
+    height: 4.4rem;
+  }
+}
+
+.header .header__icon:focus-visible,
+.header .header__menu-item:focus-visible,
+.header .header__heading-link:focus-visible,
+.header .header__modal-icon-dropdown:focus-visible,
+.header .header__toggle-scheme:focus-visible {
+  outline: 0.2rem solid currentColor;
+  outline-offset: 0.2rem;
+  box-shadow: none;
+}
+
+/* Menu links: hairline underline that draws in on hover / current page */
+.header .list-menu--inline > li > .header__menu-item {
+  text-decoration: underline;
+  text-decoration-thickness: 0.1rem;
+  text-underline-offset: 0.6rem;
+  text-decoration-color: transparent;
+  transition: text-decoration-color var(--duration-default) ease;
+}
+.header .list-menu--inline > li:hover > .header__menu-item,
+.header .list-menu--inline > li:focus-within > .header__menu-item,
+.header .list-menu--inline > li > .header__menu-item.current-link {
+  text-decoration-color: currentColor;
+}
+
+@media screen and (min-width: 1100px) {
+  .header-top .header-top__wrapper:not(.header-top__wrapper-left) {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-rows: var(--header-row-height) var(--header-nav-height);
+    grid-template-areas:
+      "start logo end"
+      "nav nav nav";
+    row-gap: 0;
+  }
+  .header-top .header-top__wrapper:not(.header-top__wrapper-left) > .header-top__left-center {
+    display: contents;
+  }
+  .header-top .header-top__wrapper:not(.header-top__wrapper-left) .header__modal-icon-dropdown {
+    grid-area: start;
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.4rem;
+    height: 4.4rem;
+    margin-left: -1rem;
+  }
+  .header-top .header-top__wrapper:not(.header-top__wrapper-left) > .header-top__logo {
+    grid-area: logo;
+  }
+  .header-top .header-top__wrapper:not(.header-top__wrapper-left) > .header-top__right {
+    grid-area: end;
+    margin-right: -1rem;
+  }
+  .header-top .header-top__wrapper:not(.header-top__wrapper-left) .header__menu {
+    grid-area: nav;
+    justify-self: center;
+    align-self: stretch;
+    display: flex;
+  }
+  .header-top .header-top__wrapper:not(.header-top__wrapper-left) .list-menu--inline {
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+  .header-top .header-top__wrapper:not(.header-top__wrapper-left) .list-menu--inline > li {
+    display: flex;
+    align-items: center;
+  }
+  .header-top .header-top__wrapper:not(.header-top__wrapper-left) .list-menu--inline > li > .header__menu-item {
+    padding: 0.8rem 1.2rem 1.4rem;
+    white-space: nowrap;
+  }
+}
+@media screen and (min-width: 1360px) {
+  .header-top .header-top__wrapper:not(.header-top__wrapper-left) .list-menu--inline {
+    gap: 1.6rem;
+  }
+}
+
+/* Announcement bar: readable side links */
+.announcement-wrapper .button-label {
+  font-size: calc(var(--font-subtitle-scale) * 1rem);
+}
+.announcement-bar__text {
+  letter-spacing: calc(var(--font-subtitle-letter-spacing) * 0.1);
+}
