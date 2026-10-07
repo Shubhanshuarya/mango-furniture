@@ -2162,3 +2162,370 @@ fieldset.product-form__input .product-form__group-name-legend {
   outline-offset: -0.1rem;
   outline: 0.1rem solid rgb(var(--color-accent));
 }
+/* ==========================================================================
+   Product page redesign
+   .main-product-section only exists on the product page; Quick View injects
+   this section's inner HTML into .quick-add-modal. Buy-box rules are shared
+   by both; layout, gallery and details rules are product-page only.
+   ========================================================================== */
+:is(.main-product-section, .quick-add-modal) {
+  --pdp-gap: 4rem;
+  --pdp-rule: 0.1rem solid rgb(var(--color-border));
+}
+@media (min-width: 990px) {
+  :is(.main-product-section, .quick-add-modal) {
+    --pdp-gap: 5.6rem;
+  }
+}
+@media (min-width: 1360px) {
+  :is(.main-product-section, .quick-add-modal) {
+    --pdp-gap: 8rem;
+  }
+}
+
+/* Labels share the theme subtitle face (Syne) */
+:is(.main-product-section, .quick-add-modal) .product-form__group-name,
+:is(.main-product-section, .quick-add-modal) .inventory__title--default,
+:is(.main-product-section, .quick-add-modal) .product__nav-title,
+:is(.main-product-section, .quick-add-modal) .product__description-subheading,
+:is(.main-product-section, .quick-add-modal) .additional_description-subheading,
+:is(.main-product-section, .quick-add-modal) .product-about__subheading {
+  font-family: var(--font-subtitle-family);
+  font-weight: var(--font-subtitle-weight);
+  font-style: var(--font-subtitle-style);
+  text-transform: var(--font-subtitle-text-transform);
+  letter-spacing: calc(var(--font-subtitle-letter-spacing) * 0.1);
+  font-size: calc(var(--font-subtitle-scale) * 1rem);
+  color: rgb(var(--color-foreground-title));
+}
+
+/* ---- Hero layout: top-aligned columns, sticky buy box ---- */
+@media (min-width: 990px) {
+  .main-product-section .product__outer--center {
+    max-width: 136rem;
+    gap: var(--pdp-gap);
+    align-items: flex-start;
+  }
+  .main-product-section .product__outer--center .product__media-wrapper {
+    width: calc(58% - var(--pdp-gap) / 2);
+  }
+  .main-product-section .product__outer--center .product__info-wrapper {
+    width: calc(42% - var(--pdp-gap) / 2);
+    max-width: 52rem;
+    position: sticky;
+    top: calc(var(--header-height, 0px) + 2.4rem);
+    padding-top: 1.6rem;
+  }
+}
+
+/* ---- Gallery ---- */
+.main-product-section .product__media-list-wrapper {
+  gap: 1.2rem;
+}
+@media (min-width: 990px) {
+  .main-product-section .product__media-list-wrapper {
+    gap: 1.6rem;
+    align-items: flex-start;
+  }
+  .main-product-section .product__media-sublist {
+    max-width: 8.8rem;
+    max-height: 60rem;
+  }
+  .main-product-section .product__media-subitem {
+    height: 11rem !important;
+  }
+}
+.main-product-section .product__media-subitem {
+  opacity: 0.55;
+  border: 0.1rem solid transparent;
+  margin-bottom: 0.8rem;
+}
+.main-product-section .product__media-subitem:hover {
+  opacity: 0.9;
+}
+.main-product-section .product__media-subitem.swiper-slide-thumb-active,
+.main-product-section .product__media-subitem.active {
+  opacity: 1;
+  border-color: rgb(var(--color-foreground-title));
+}
+
+/* ---- Buy box: left-aligned editorial stack ---- */
+:is(.main-product-section, .quick-add-modal) .product__info-container {
+  text-align: left;
+}
+:is(.main-product-section, .quick-add-modal) .product__tags {
+  justify-content: flex-start;
+  gap: 0.4rem 1.6rem;
+  margin: 0 0 1.2rem;
+}
+:is(.main-product-section, .quick-add-modal) .product__title__wrapper {
+  justify-content: flex-start;
+  margin: 0;
+}
+:is(.main-product-section, .quick-add-modal) .product__title {
+  text-align: left;
+  font-size: calc(var(--font-heading-h3-scale) * clamp(3.2rem, 1.6rem + 1.8vw, 4.8rem));
+  line-height: 1.05;
+  text-wrap: balance;
+}
+:is(.main-product-section, .quick-add-modal) .product__info-container .product__text {
+  justify-content: flex-start;
+  text-align: left;
+  margin-top: 1.2rem;
+  max-width: 44ch;
+  line-height: 1.5;
+  color: rgb(var(--color-foreground));
+  text-wrap: pretty;
+}
+
+:is(.main-product-section, .quick-add-modal) .price-wrapper {
+  text-align: left;
+  margin-top: 2.4rem;
+}
+:is(.main-product-section, .quick-add-modal) .price {
+  justify-content: flex-start;
+  font-size: calc(var(--font-heading-h3-scale) * 2.6rem);
+}
+@media (min-width: 1100px) {
+  :is(.main-product-section, .quick-add-modal) .price {
+    font-size: calc(var(--font-heading-h3-scale) * 2.8rem);
+  }
+}
+:is(.main-product-section, .quick-add-modal) .installment-wrapper {
+  margin-top: 0.8rem;
+  padding-bottom: 2.4rem;
+  border-bottom: var(--pdp-rule);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: rgb(var(--color-foreground));
+  text-align: left;
+}
+:is(.main-product-section, .quick-add-modal) .installment-wrapper .installment {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+/* Stock: status dot + label instead of a button-like pill */
+:is(.main-product-section, .quick-add-modal) .inventory {
+  margin-top: 2.4rem;
+}
+:is(.main-product-section, .quick-add-modal) .inventory__title {
+  justify-content: flex-start;
+}
+:is(.main-product-section, .quick-add-modal) .inventory__title--default {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  gap: 1rem;
+}
+:is(.main-product-section, .quick-add-modal) .inventory__title--default svg {
+  display: none;
+}
+:is(.main-product-section, .quick-add-modal) .inventory__title--default::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background-color: rgb(var(--color-success));
+  box-shadow: 0 0 0 0.3rem rgba(var(--color-success), 0.15);
+}
+:is(.main-product-section, .quick-add-modal) .inventory__title--default.inventory__title--out_of_stock::before {
+  background-color: rgb(var(--color-foreground-secondary));
+  box-shadow: none;
+}
+
+/* Variant options: unboxed, left-aligned, button-shaped chips */
+:is(.main-product-section, .quick-add-modal) .product-parameters {
+  margin-top: 2.4rem;
+}
+:is(.main-product-section, .quick-add-modal) fieldset.product-form__input {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  text-align: left;
+}
+:is(.main-product-section, .quick-add-modal) fieldset.product-form__input + fieldset.product-form__input {
+  margin-top: 2.4rem;
+}
+:is(.main-product-section, .quick-add-modal) .product-form__group-name {
+  margin-bottom: 1.2rem;
+}
+:is(.main-product-section, .quick-add-modal) .product-form__controls-group {
+  justify-content: flex-start;
+  gap: 0.8rem;
+}
+:is(.main-product-section, .quick-add-modal) .product-form__input input[type=radio] + .pills-variant-labels {
+  min-height: 4.4rem;
+  height: auto;
+  padding: 0.6rem 1.8rem;
+  border: 0.1rem solid rgb(var(--color-border));
+  border-radius: var(--border-radius-button);
+  transition: border-color var(--duration-default) ease, box-shadow var(--duration-default) ease;
+}
+:is(.main-product-section, .quick-add-modal) .product-form__input input[type=radio] + .pills-variant-labels:hover {
+  border-color: rgb(var(--color-accent));
+}
+:is(.main-product-section, .quick-add-modal) .product-form__input input[type=radio]:checked:not(.disabled) + .pills-variant-labels {
+  border-color: rgb(var(--color-foreground-title));
+  box-shadow: inset 0 0 0 0.1rem rgb(var(--color-foreground-title));
+}
+:is(.main-product-section, .quick-add-modal) .product-form__input input[type=radio]:focus-visible + label {
+  outline: 0.2rem solid rgb(var(--color-foreground-title));
+  outline-offset: 0.3rem;
+}
+:is(.main-product-section, .quick-add-modal) .size-guide-btn {
+  margin-top: 1.2rem;
+}
+
+/* Add to cart */
+:is(.main-product-section, .quick-add-modal) .product-form {
+  margin-top: 2.8rem;
+}
+:is(.main-product-section, .quick-add-modal) .product-form__submit,
+:is(.main-product-section, .quick-add-modal) .shopify-payment-button__button {
+  min-height: 5.6rem;
+}
+:is(.main-product-section, .quick-add-modal) .product-form__submit:focus-visible {
+  outline: 0.2rem solid rgb(var(--color-foreground-title));
+  outline-offset: 0.3rem;
+}
+
+/* ---- Details: sticky tab bar + two-column editorial content ---- */
+.main-product-section .product-details {
+  max-width: 120rem;
+  margin: 4rem auto 0;
+}
+@media (min-width: 990px) {
+  .main-product-section .product-details {
+    margin-top: 8rem;
+  }
+}
+.main-product-section .product-details-nav {
+  justify-content: flex-start;
+  gap: 3.2rem;
+  padding: 0;
+  border-top: var(--pdp-rule);
+  border-bottom: var(--pdp-rule);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.main-product-section .product-details-nav::-webkit-scrollbar {
+  display: none;
+}
+.main-product-section .product-details-nav-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: 5.6rem;
+  text-decoration: none;
+}
+.main-product-section .product-details-nav-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0.2rem;
+  background-color: rgb(var(--color-foreground-title));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-default) ease;
+}
+.main-product-section .product-details-nav-item:hover::after,
+.main-product-section .product-details-nav-item.active::after {
+  transform: scaleX(1);
+}
+
+.main-product-section .product__description-box,
+.main-product-section .additional_description-block,
+.main-product-section .product-about {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 1.6rem;
+  text-align: left;
+  scroll-margin-top: 8rem;
+}
+@media (min-width: 990px) {
+  .main-product-section .product__description-box,
+  .main-product-section .additional_description-block,
+  .main-product-section .product-about {
+    grid-template-columns: minmax(16rem, 1fr) minmax(0, 2.6fr);
+    column-gap: 6.4rem;
+  }
+  .main-product-section .product__description-box > *,
+  .main-product-section .additional_description-block > *,
+  .main-product-section .product-about > * {
+    grid-column: 2;
+  }
+  .main-product-section .product__description-box > .product__description-subheading,
+  .main-product-section .additional_description-block > .additional_description-subheading,
+  .main-product-section .product-about > .product-about__subheading {
+    grid-column: 1;
+    grid-row: 1;
+    padding-top: 0.6rem;
+  }
+}
+.main-product-section .product-details .product__description-box .product__description-subheading,
+.main-product-section .additional_description-box .additional_description-block .additional_description-subheading,
+.main-product-section .additional_description-box .additional_description-block .additional_description-heading,
+.main-product-section .product-about .product-about__subheading,
+.main-product-section .product-about .product-about__heading {
+  margin: 0;
+  text-align: left;
+}
+.main-product-section .product-about {
+  max-width: none;
+}
+.main-product-section .additional_description-block .additional_description-content {
+  max-width: 68rem;
+  margin: 0;
+}
+
+.main-product-section .product-details .product__description {
+  max-width: 68rem;
+  line-height: 1.55;
+}
+.main-product-section .product-details .product__description p,
+.main-product-section .product-details .product__description ul,
+.main-product-section .product-details .product__description ol,
+.main-product-section .product-details .product__description table {
+  max-width: none;
+  margin: 0 0 2rem;
+}
+.main-product-section .product-details .product__description h1,
+.main-product-section .product-details .product__description h2,
+.main-product-section .product-details .product__description h3,
+.main-product-section .product-details .product__description h4,
+.main-product-section .product-details .product__description h5,
+.main-product-section .product-details .product__description h6 {
+  margin: 0 0 1.6rem;
+  text-align: left;
+}
+.main-product-section .product-details .product__description > :last-child {
+  margin-bottom: 0;
+}
+/* "<strong>Label:</strong> value" paragraphs read as a spec list */
+.main-product-section .product-details .product__description p:has(> strong:first-child) {
+  margin: 0;
+  padding: 1.2rem 0;
+  border-bottom: var(--pdp-rule);
+}
+.main-product-section .product-details .product__description p:not(:has(> strong:first-child)) + p:has(> strong:first-child) {
+  margin-top: 3.2rem;
+  border-top: var(--pdp-rule);
+}
+.main-product-section .product-details .product__description p > strong:first-child {
+  color: rgb(var(--color-foreground-title));
+}
+
+/* FAQ / care accordions */
+.main-product-section .product-about__accordion-title {
+  font-size: calc(var(--font-heading-h5-scale) * 2.2rem);
+  line-height: 1.3;
+  padding: 2.2rem 0;
+}
+.main-product-section .product-about__accordion-description {
+  max-width: 68rem;
+}

@@ -1308,8 +1308,7 @@
       {
         "type": "richtext",
         "id": "cart_text",
-        "label": "t:sections.all.text.label",
-        "default": "<p>Some text</p>"
+        "label": "t:sections.all.text.label"
       },
       {
         "type": "checkbox",

@@ -69,6 +69,7 @@
     },
     "notification_banner_8BGBj4": {
       "type": "notification-banner",
+      "disabled": true,
       "settings": {
         "color_scheme": "",
         "layout": "banner",

@@ -246,13 +246,13 @@
             aria-label="{{ 'products.product.choose_product_options' | t: product_name: product_card_product.title | escape }}"
             aria-modal="true"
             class="quick-add-modal__content global-settings-popup color-background-3"
+            tabindex="-1"
           >
             <button
               id="ModalClose-{{ product_card_product.id }}"
               type="button"
               class="quick-add-modal__toggle modal-close-button"
               aria-label="{{ 'accessibility.close' | t }}"
-              tabindex="-1"
             >
               {% render 'icon-close' %}
             </button>
