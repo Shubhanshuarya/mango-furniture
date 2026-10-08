@@ -43,7 +43,8 @@
       "error_name": "Please enter your name.",
       "error_email": "Enter an email like name@example.com.",
       "optional": "optional",
-      "select": "Select…"
+      "select": "Select…",
+      "error_message": "Please write a message."
     },
     "testimonials": {
       "editor_empty": "Add review blocks with real customer quotes. This section stays hidden on the storefront until it has at least one."
@@ -67,7 +68,13 @@
       "articles": "Journal",
       "see_all": "See all results for “{{ terms }}”",
       "no_results": "No results for “{{ terms }}”",
-      "no_results_hint": "Check the spelling, or try a broader term like “table” or “chair”."
+      "no_results_hint": "Check the spelling, or try a broader term like “table” or “chair”.",
+      "page_placeholder": "Search furniture…",
+      "results_for": {
+        "one": "{{ count }} result for “{{ terms }}”",
+        "other": "{{ count }} results for “{{ terms }}”"
+      },
+      "page": "Page"
     },
     "footer": {
       "email": "Email address",
@@ -157,6 +164,27 @@
       "search_placeholder": "Search e.g. “assembly”, “care”, “trade”",
       "no_match": "No questions match. Try another word or contact us.",
       "topics": "FAQ topics"
+    },
+    "blog": {
+      "topics": "Topics",
+      "all": "All",
+      "empty": "No stories yet.",
+      "showing": "Showing {{ shown }} of {{ total }}",
+      "read_time": {
+        "one": "{{ count }} min read",
+        "other": "{{ count }} min read"
+      },
+      "in_this_article": "In this article",
+      "copy_link": "Copy link",
+      "copied": "Link copied",
+      "comments": {
+        "one": "{{ count }} comment",
+        "other": "{{ count }} comments"
+      },
+      "leave_comment": "Leave a comment",
+      "comment_moderated": "Thanks! Your comment will appear once it's approved.",
+      "comment_posted": "Thanks! Your comment has been posted.",
+      "post_comment": "Post comment"
     }
   },
   "general": {

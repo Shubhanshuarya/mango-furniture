@@ -364,6 +364,9 @@
   .mf-product-grid.mf-cols-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mf-product-grid.mf-cols-1 { grid-template-columns: minmax(0, 1fr); }
 }
+.mf-status { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: var(--step--1); }
+.mf-status i { width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); }
+.mf-status--done i { background: var(--color-success); }
 .mf-btn { transition: background var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out), transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out); }
 .mf-btn--accent:hover { --btn-bg: var(--color-accent-hover); --btn-bd: var(--color-accent-hover); --btn-fg: var(--color-on-accent); box-shadow: 0 10px 24px -14px rgb(160 83 58 / 0.7); }
 .mf-btn--secondary:hover { --btn-bg: var(--color-ink); --btn-bd: var(--color-ink); --btn-fg: var(--color-bg); }

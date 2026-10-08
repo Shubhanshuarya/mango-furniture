@@ -93,6 +93,27 @@
     initRecs(scope);
   }
 
+  /* Generic load more: <a data-mf-more href="?page=2"> inside [data-mf-paged data-section-id], items in [data-mf-items] */
+  document.addEventListener('click', async (e) => {
+    const more = e.target.closest('a[data-mf-more]');
+    if (!more) return;
+    const root = more.closest('[data-mf-paged]');
+    if (!root) return;
+    e.preventDefault();
+    more.classList.add('loading');
+    try {
+      const u = new URL(more.href, location.origin);
+      u.searchParams.set('section_id', root.dataset.sectionId);
+      const html = await (await fetch(u)).text();
+      const next = new DOMParser().parseFromString(html, 'text/html').querySelector('[data-mf-paged]');
+      const items = root.querySelector('[data-mf-items]');
+      next.querySelectorAll('[data-mf-items] > :not([data-mf-first-page-only])').forEach((n) => items.append(n));
+      const pag = root.querySelector('[data-mf-pagination]'), npag = next.querySelector('[data-mf-pagination]');
+      if (pag) npag ? pag.replaceWith(npag) : pag.remove();
+      initReveals(root);
+    } catch (err) { location.href = more.href; }
+  });
+
   /* Horizontal scroller arrows ([data-mf-scroll] next to a [data-mf-scroller]) */
   document.addEventListener('click', (e) => {
     const b = e.target.closest('[data-mf-scroll]');

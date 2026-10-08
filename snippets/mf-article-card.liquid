@@ -1,0 +1,23 @@
+{%- comment -%} Article card. Accepts: article, index, feature (Boolean), show_excerpt (Boolean) {%- endcomment -%}
+<article class="mf-article-card{% if feature %} mf-article-card--feature{% endif %} mf-reveal" style="--i: {{ index | default: 0 | modulo: 3 }}">
+  <div class="mf-media">
+    {%- if article.image -%}
+      {%- if feature -%}{%- assign a_sizes = '(min-width: 990px) 55vw, 100vw' -%}{%- assign a_load = 'eager' -%}{%- else -%}{%- assign a_sizes = '(min-width: 990px) 33vw, 80vw' -%}{%- assign a_load = 'lazy' -%}{%- endif -%}
+      {{- article.image | image_url: width: 1400 | image_tag: widths: '400, 600, 900, 1200, 1400', sizes: a_sizes, loading: a_load, alt: article.image.alt | default: '' -}}
+    {%- else -%}
+      {{- 'lifestyle-2' | placeholder_svg_tag: 'mf-placeholder-svg' -}}
+    {%- endif -%}
+  </div>
+  <div style="display: grid; gap: var(--space-s)">
+    <div class="mf-meta">
+      {%- if article.tags.size > 0 -%}<span>{{ article.tags.first | escape }}</span><span aria-hidden="true">·</span>{%- endif -%}
+      <span>{{ article.published_at | time_tag: format: 'date' }}</span>
+      {%- if feature -%}{%- assign words = article.content | strip_html | split: ' ' | size -%}{%- assign mins = words | divided_by: 200 | at_least: 1 -%}<span aria-hidden="true">·</span><span>{{ 'mf.blog.read_time' | t: count: mins }}</span>{%- endif -%}
+    </div>
+    <h3><a href="{{ article.url }}">{{ article.title | escape }}</a></h3>
+    {%- if feature or show_excerpt -%}
+      <p>{{ article.excerpt_or_content | strip_html | truncatewords: 28 }}</p>
+    {%- endif -%}
+    {%- if feature -%}<span class="mf-link-arrow" style="justify-self: start">{{ 'mf.general.read_more' | t }} {% render 'mf-icon', icon: 'arrow', size: 16 %}</span>{%- endif -%}
+  </div>
+</article>

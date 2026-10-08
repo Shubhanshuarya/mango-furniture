@@ -29,13 +29,13 @@ GROUPS = {
     'collection': r'collection|coll-[\w-]+|subcats|toolbar[\w-]*|density|facets?[\w-]*|facet-[\w-]+|range|promo-tile|filter-[\w-]+',
     'product': r'product|pdp[\w-]*|gallery|g|g--media|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*|variant-picker|terms|dynamic-checkout|ar-btn|rte-sm|feature-cols?|recs',
     'cart': r'cart-[\w-]+|summary|trust-row|ship-note',
-    'pages': r'process|projects?|form-card|form-split|contact-list|values|v|about-gallery|big-quote|faq-[\w-]+|text-steps|loc',
+    'pages': r'progress|article-hero|article-cover|article-body|article-aside|inline-product|nf|num|process|projects?|form-card|form-split|contact-list|values|v|about-gallery|big-quote|faq-[\w-]+|text-steps|loc',
     # Later stages (enable when the page is built):
     # 'product': r'pdp[\w-]*|gallery|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*',
 }
 ENABLED = ['home', 'shell', 'collection', 'product', 'cart', 'pages']
 # Selectors from pages.css that belong to not-yet-built pages are skipped entirely.
-LATER = r'article-hero|article-cover|article-body|article-aside|inline-product|progress|auth[\w-]*|divider|btn--shop|account[\w-]*|order[\w-]*|status[\w-]*|timeline|nf|card\.is-soldout'
+LATER = r'auth[\w-]*|divider|btn--shop|account[\w-]*|order[\w-]*|timeline|card\.is-soldout'
 
 
 

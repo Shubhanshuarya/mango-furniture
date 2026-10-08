@@ -9,6 +9,13 @@
  */
 {
   "sections": {
+    "mf_search": {
+      "type": "mf-main-search",
+      "settings": {
+        "per_page": 24,
+        "suggestions": "Coffee table, Side table, Bench, Accent chair, Leather"
+      }
+    },
     "main": {
       "type": "main-search",
       "settings": {
@@ -33,8 +40,12 @@
         "enable_sorting": false,
         "padding_top": "no-indent",
         "padding_bottom": "l"
-      }
+      },
+      "disabled": true
     }
   },
-  "order": ["main"]
+  "order": [
+    "mf_search",
+    "main"
+  ]
 }

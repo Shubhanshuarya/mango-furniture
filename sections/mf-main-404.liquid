@@ -1,0 +1,35 @@
+{%- render 'mf-assets', css: 'mf-pages', preload_fonts: true -%}
+<div class="mf" data-mf-main>
+  <section class="mf-container mf-nf">
+    <div>
+      <p class="mf-num" aria-hidden="true">404</p>
+      <h1 class="mf-display mf-display-l">{{ section.settings.heading }}</h1>
+      <div class="mf-lede">{{ section.settings.text }}</div>
+      <form action="{{ routes.search_url }}" method="get" role="search">
+        <label class="mf-visually-hidden" for="MfNfQ">{{ 'general.search.search' | t }}</label>
+        <input class="mf-input" id="MfNfQ" name="q" type="search" placeholder="{{ 'mf.search.page_placeholder' | t }}">
+        <button class="mf-btn mf-btn--accent" type="submit">{{ 'general.search.search' | t }}</button>
+      </form>
+      {%- assign m = linklists[section.settings.menu] -%}
+      {%- if m.links.size > 0 -%}
+        <div class="mf-chips mf-mt-l">{%- for link in m.links -%}<a class="mf-chip" href="{{ link.url }}">{{ link.title | escape }}</a>{%- endfor -%}</div>
+      {%- endif -%}
+    </div>
+    <div class="mf-media">
+      {%- if section.settings.image != blank -%}{{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'eager', widths: '500, 800, 1200', sizes: '(min-width: 990px) 50vw, 100vw' }}{%- else -%}{{ 'lifestyle-2' | placeholder_svg_tag: 'mf-placeholder-svg' }}{%- endif -%}
+    </div>
+  </section>
+</div>
+{% schema %}
+{
+  "name": "Mango: 404",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "This page has <em>moved house.</em>" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>The link may be old or mistyped. Try a search, or start from one of our favourite rooms.</p>" },
+    { "type": "link_list", "id": "menu", "label": "Quick links menu", "default": "main-menu" },
+    { "type": "image_picker", "id": "image", "label": "Image" }
+  ]
+}
+{% endschema %}

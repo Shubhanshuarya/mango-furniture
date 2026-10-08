@@ -9,6 +9,25 @@
  */
 {
   "sections": {
+    "mf_article": {
+      "type": "mf-main-article",
+      "settings": {
+        "show_author": false
+      }
+    },
+    "mf_more": {
+      "type": "mf-featured-blog",
+      "settings": {
+        "eyebrow": "Keep reading",
+        "heading": "More from the Journal",
+        "blog": "news",
+        "post_limit": "3",
+        "show_date": true,
+        "show_tag": true,
+        "link_label": "All stories",
+        "background": "surface"
+      }
+    },
     "main": {
       "type": "main-article",
       "blocks": {
@@ -44,13 +63,18 @@
           }
         }
       },
-      "block_order": ["title", "content", "article_footer"],
+      "block_order": [
+        "title",
+        "content",
+        "article_footer"
+      ],
       "settings": {
         "margin_top": "no-indent",
         "margin_bottom": "l",
         "padding_top": "m",
         "padding_bottom": "s"
-      }
+      },
+      "disabled": true
     },
     "collection_tabs_jaWar3": {
       "type": "collection-tabs",
@@ -74,7 +98,8 @@
         "padding_bottom": "s",
         "enable_border_top": true,
         "enable_border_bottom": true
-      }
+      },
+      "disabled": true
     },
     "blog_post_YRNhMr": {
       "type": "blog-post",
@@ -96,8 +121,15 @@
         "image_fit": "cover",
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      }
+      },
+      "disabled": true
     }
   },
-  "order": ["main", "collection_tabs_jaWar3", "blog_post_YRNhMr"]
+  "order": [
+    "mf_article",
+    "mf_more",
+    "main",
+    "collection_tabs_jaWar3",
+    "blog_post_YRNhMr"
+  ]
 }

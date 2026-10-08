@@ -197,3 +197,5 @@
 .form--grid > .field--half { grid-column: auto; }
 @media (max-width: 749px) { .form--grid > .field--half { grid-column: 1 / -1; } }
 .lightbox img:not([src]) { visibility: hidden; }
+
+.nf .num { margin: 0 0 var(--space-m); }

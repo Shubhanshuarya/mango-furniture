@@ -1,0 +1,85 @@
+{%- render 'mf-assets', css: 'mf-home', preload_fonts: true -%}
+{{ 'mf-pages.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign words = article.content | strip_html | split: ' ' | size
+  assign mins = words | divided_by: 200 | at_least: 1
+-%}
+<div class="mf mf-progress" data-mf-progress aria-hidden="true"></div>
+<article class="mf" data-mf-main data-mf-article>
+  <header class="mf-container mf-article-hero">
+    <ol class="mf-crumbs" aria-label="{{ 'mf.collection.breadcrumb' | t }}" style="justify-content: center">
+      <li><a href="{{ routes.root_url }}">{{ 'mf.collection.home' | t }}</a></li>
+      <li><a href="{{ blog.url }}">{{ blog.title | escape }}</a></li>
+      {%- if article.tags.size > 0 -%}<li aria-current="page">{{ article.tags.first | escape }}</li>{%- endif -%}
+    </ol>
+    <h1 class="mf-display mf-display-xl" style="margin-top: var(--space-m)">{{ article.title | escape }}</h1>
+    <div class="mf-meta">
+      <span>{{ article.published_at | time_tag: format: 'date' }}</span>
+      <span aria-hidden="true">·</span><span>{{ 'mf.blog.read_time' | t: count: mins }}</span>
+      {%- if section.settings.show_author and article.author != blank -%}<span aria-hidden="true">·</span><span>{{ article.author | escape }}</span>{%- endif -%}
+    </div>
+  </header>
+  {%- if article.image -%}
+    <div class="mf-container"><div class="mf-article-cover">{{ article.image | image_url: width: 2400 | image_tag: widths: '600, 900, 1300, 1800, 2400', sizes: '100vw', loading: 'eager', fetchpriority: 'high', alt: article.image.alt | default: article.title }}</div></div>
+  {%- endif -%}
+  <div class="mf-container mf-article-body">
+    <aside class="mf-article-aside" aria-label="{{ 'mf.blog.in_this_article' | t }}" data-mf-toc hidden>
+      <b style="color: var(--color-ink)">{{ 'mf.blog.in_this_article' | t }}</b>
+      <nav data-mf-toc-links></nav>
+      <div style="margin-top: var(--space-m)"><button class="mf-btn mf-btn--secondary mf-btn--sm" type="button" data-mf-copy data-copied="{{ 'mf.blog.copied' | t }}">{{ 'mf.blog.copy_link' | t }}</button></div>
+    </aside>
+    <div class="mf-rte" data-mf-article-content>{{ article.content }}</div>
+  </div>
+
+  {%- if blog.comments_enabled? -%}
+    <section class="mf-container" style="max-width: calc(var(--container-text) + 2 * var(--gutter)); padding-bottom: var(--space-section)">
+      {%- if article.comments_count > 0 -%}
+        <h2 class="mf-display mf-display-s" style="margin-bottom: var(--space-m)">{{ 'mf.blog.comments' | t: count: article.comments_count }}</h2>
+        {%- paginate article.comments by 20 -%}
+          {%- for comment in article.comments -%}
+            <div style="padding-block: var(--space-m); border-top: 1px solid var(--color-line)"><div class="mf-rte-sm">{{ comment.content }}</div><p class="mf-muted" style="margin: 6px 0 0; font-size: 13px">{{ comment.author | escape }} · {{ comment.created_at | time_tag: format: 'date' }}</p></div>
+          {%- endfor -%}
+        {%- endpaginate -%}
+      {%- endif -%}
+      {%- form 'new_comment', article, class: 'mf-form mf-form--grid mf-mt-xl', data-mf-validate: 'true' -%}
+        <h2 class="mf-display mf-display-s">{{ 'mf.blog.leave_comment' | t }}</h2>
+        {%- if form.posted_successfully? -%}<div class="mf-form-status mf-form-status--success mf-is-visible" role="status">{% render 'mf-icon', icon: 'check' %}<div>{% if blog.moderated? %}{{ 'mf.blog.comment_moderated' | t }}{% else %}{{ 'mf.blog.comment_posted' | t }}{% endif %}</div></div>{%- endif -%}
+        {%- if form.errors -%}<div class="mf-form-status mf-form-status--error mf-is-visible" role="alert">{% render 'mf-icon', icon: 'alert' %}<div>{{ form.errors | default_errors }}</div></div>{%- endif -%}
+        <div class="mf-field mf-field--half"><label for="MfCAuthor">{{ 'mf.form.name' | t }}</label><input class="mf-input" id="MfCAuthor" name="comment[author]" value="{{ form.author }}" required autocomplete="name"><p class="mf-field-error">{% render 'mf-icon', icon: 'alert', size: 16 %}{{ 'mf.form.error_name' | t }}</p></div>
+        <div class="mf-field mf-field--half"><label for="MfCEmail">{{ 'mf.form.email' | t }}</label><input class="mf-input" id="MfCEmail" type="email" name="comment[email]" value="{{ form.email }}" required autocomplete="email"><p class="mf-field-error">{% render 'mf-icon', icon: 'alert', size: 16 %}{{ 'mf.form.error_email' | t }}</p></div>
+        <div class="mf-field"><label for="MfCBody">{{ 'mf.form.message' | t }}</label><textarea class="mf-textarea" id="MfCBody" name="comment[body]" required>{{ form.body }}</textarea><p class="mf-field-error">{% render 'mf-icon', icon: 'alert', size: 16 %}{{ 'mf.form.error_message' | t }}</p></div>
+        <button class="mf-btn mf-btn--accent" type="submit" style="justify-self: start">{{ 'mf.blog.post_comment' | t }}</button>
+      {%- endform -%}
+    </section>
+  {%- endif -%}
+</article>
+<script src="{{ 'mf-forms.js' | asset_url }}" defer="defer"></script>
+<script>
+  (() => {
+    const art = document.querySelector('[data-mf-article]');
+    const body = art?.querySelector('[data-mf-article-content]');
+    if (!body) return;
+    // Table of contents from H2s
+    let hs = [...body.querySelectorAll('h2')];
+    if (hs.length < 2) hs = [...body.querySelectorAll('h3')];
+    if (hs.length > 1) {
+      const nav = art.querySelector('[data-mf-toc-links]');
+      hs.forEach((h, i) => { if (!h.id) h.id = 'section-' + (i + 1); const a = document.createElement('a'); a.href = '#' + h.id; a.textContent = h.textContent.trim(); nav.append(a); });
+      art.querySelector('[data-mf-toc]').hidden = false;
+    }
+    // Reading progress
+    const bar = document.querySelector('[data-mf-progress]');
+    addEventListener('scroll', () => { const r = body.getBoundingClientRect(); bar.style.width = Math.min(100, Math.max(0, (-r.top / (r.height - innerHeight)) * 100)) + '%'; }, { passive: true });
+    // Copy link
+    art.querySelector('[data-mf-copy]')?.addEventListener('click', (e) => { navigator.clipboard?.writeText(location.href).then(() => (e.target.textContent = e.target.dataset.copied)).catch(() => {}); });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Mango: Article",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [{ "type": "checkbox", "id": "show_author", "label": "Show author", "default": false }]
+}
+{% endschema %}

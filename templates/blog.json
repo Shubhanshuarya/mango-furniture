@@ -9,6 +9,18 @@
  */
 {
   "sections": {
+    "mf_blog": {
+      "type": "mf-main-blog",
+      "settings": {
+        "eyebrow": "Journal",
+        "heading": "Where design meets <em>everyday living</em>",
+        "intro": "<p>Ideas, inspiration and stories to help you create a home that feels truly yours, from styling tips to behind-the-scenes looks at our craft.</p>",
+        "show_tags": true,
+        "feature_first": true,
+        "show_excerpt": false,
+        "per_page": 10
+      }
+    },
     "ec2d7443-f095-40ca-a77c-9e29889d2fd7": {
       "type": "slideshow",
       "blocks": {
@@ -72,7 +84,8 @@
         "slide_effects": "slide",
         "margin_top": "no-indent",
         "margin_bottom": "m"
-      }
+      },
+      "disabled": true
     },
     "main": {
       "type": "main-blog",
@@ -99,8 +112,13 @@
         "show_author": false,
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      }
+      },
+      "disabled": true
     }
   },
-  "order": ["ec2d7443-f095-40ca-a77c-9e29889d2fd7", "main"]
+  "order": [
+    "mf_blog",
+    "ec2d7443-f095-40ca-a77c-9e29889d2fd7",
+    "main"
+  ]
 }

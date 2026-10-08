@@ -1,0 +1,72 @@
+{%- render 'mf-assets', css: 'mf-home', preload_fonts: true -%}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+{%- paginate search.results by section.settings.per_page -%}
+<div class="mf" data-mf-main data-mf-paged data-section-id="{{ section.id }}">
+  <section class="mf-container mf-page-hero" style="padding-bottom: var(--space-m)">
+    <p class="mf-eyebrow">{{ 'general.search.search' | t }}</p>
+    <form class="mf-search-bar" action="{{ routes.search_url }}" method="get" role="search" style="border-bottom: 1px solid var(--color-ink); min-height: 72px">
+      {% render 'mf-icon', icon: 'search' %}
+      <label class="mf-visually-hidden" for="MfSearchPage">{{ 'general.search.search' | t }}</label>
+      <input id="MfSearchPage" name="q" type="search" value="{{ search.terms | escape }}" placeholder="{{ 'mf.search.page_placeholder' | t }}" autocomplete="off">
+      <input type="hidden" name="options[prefix]" value="last">
+      <button class="mf-btn mf-btn--sm" type="submit">{{ 'general.search.search' | t }}</button>
+    </form>
+    {%- if search.performed -%}
+      <p class="mf-muted" style="margin: var(--space-s) 0 0; font-size: var(--step--1)" role="status">{{ 'mf.search.results_for' | t: count: search.results_count, terms: search.terms }}</p>
+    {%- endif -%}
+  </section>
+
+  <section class="mf-container" style="padding-bottom: var(--space-section)">
+    {%- if search.performed and search.results_count == 0 -%}
+      <div class="mf-empty-state" style="padding-block: var(--space-2xl)">
+        <span class="mf-icon-circle">{% render 'mf-icon', icon: 'search' %}</span>
+        <h2 class="mf-display mf-display-m">{{ 'mf.search.no_results' | t: terms: search.terms }}</h2>
+        <p class="mf-muted" style="margin: 0; max-width: 40ch">{{ 'mf.search.no_results_hint' | t }}</p>
+        {%- assign sugg = section.settings.suggestions | split: ',' -%}
+        {%- if sugg.size > 0 -%}
+          <div class="mf-chips" style="justify-content: center">
+            {%- for s in sugg -%}{%- assign t = s | strip -%}<a class="mf-chip" href="{{ routes.search_url }}?q={{ t | url_encode }}&options%5Bprefix%5D=last">{{ t | escape }}</a>{%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- elsif search.performed -%}
+      <div class="mf-product-grid" data-mf-items>
+        {%- for item in search.results -%}
+          {%- case item.object_type -%}
+            {%- when 'product' -%}
+              {%- render 'mf-card-product', product: item, index: forloop.index0, section_id: section.id -%}
+            {%- when 'article' -%}
+              {%- render 'mf-article-card', article: item, index: forloop.index0 -%}
+            {%- when 'page' -%}
+              <a class="mf-service mf-reveal" href="{{ item.url }}" style="align-content: start">
+                <span class="mf-eyebrow" style="margin: 0">{{ 'mf.search.page' | t }}</span>
+                <h3 class="mf-display mf-display-s">{{ item.title | escape }}</h3>
+                <p>{{ item.content | strip_html | truncatewords: 20 }}</p>
+              </a>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        {%- assign shown = paginate.current_offset | plus: search.results.size -%}
+        <div class="mf-pagination" data-mf-pagination>
+          <span>{{ 'mf.blog.showing' | t: shown: shown, total: paginate.items }}</span>
+          {%- if paginate.next -%}<a class="mf-btn mf-btn--secondary" href="{{ paginate.next.url }}" data-mf-more>{{ 'mf.collection.load_more' | t }}</a>{%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </section>
+</div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Mango: Search results",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Results per page", "min": 8, "max": 36, "step": 4, "default": 24 },
+    { "type": "text", "id": "suggestions", "label": "Suggestions when nothing is found", "info": "Comma separated", "default": "Coffee table, Side table, Bench, Accent chair, Leather" }
+  ]
+}
+{% endschema %}
