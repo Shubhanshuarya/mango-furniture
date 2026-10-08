@@ -9,6 +9,34 @@
  */
 {
   "sections": {
+    "mf_collection": {
+      "type": "mf-main-collection",
+      "blocks": {
+        "promo_1": {
+          "type": "promo",
+          "settings": {
+            "position": 6,
+            "image": "shopify://shop_images/ds-slab-bench.webp",
+            "eyebrow": "Made to fit",
+            "heading": "Need a custom size or finish?",
+            "text": "We make pieces to fit your space. Tell us what you have in mind.",
+            "link_label": "Talk to our team",
+            "link": "shopify://pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "promo_1"
+      ],
+      "settings": {
+        "show_description": true,
+        "menu": "main-menu",
+        "per_page": 24,
+        "enable_filtering": true,
+        "open_filters": 3,
+        "enable_sorting": true
+      }
+    },
     "banner": {
       "type": "main-collection-banner",
       "settings": {
@@ -26,7 +54,8 @@
         "margin_bottom": "s",
         "padding_top": "no-indent",
         "padding_bottom": "no-indent"
-      }
+      },
+      "disabled": true
     },
     "product-grid": {
       "type": "main-collection-product-grid",
@@ -48,7 +77,8 @@
         "image_filter_columns": 2,
         "padding_top": "no-indent",
         "padding_bottom": "l"
-      }
+      },
+      "disabled": true
     },
     "rich_text_HEL3LA": {
       "type": "rich-text",
@@ -64,7 +94,9 @@
           }
         }
       },
-      "block_order": ["text_dHamBw"],
+      "block_order": [
+        "text_dHamBw"
+      ],
       "name": "t:sections.rich-text.presets.name",
       "settings": {
         "color_scheme": "",
@@ -76,8 +108,14 @@
         "padding_bottom": "no-indent",
         "enable_border_top": false,
         "enable_border_bottom": false
-      }
+      },
+      "disabled": true
     }
   },
-  "order": ["banner", "product-grid", "rich_text_HEL3LA"]
+  "order": [
+    "mf_collection",
+    "banner",
+    "product-grid",
+    "rich_text_HEL3LA"
+  ]
 }

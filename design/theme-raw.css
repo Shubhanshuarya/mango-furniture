@@ -30,3 +30,8 @@ cart-drawer .cart__checkout-button:hover { background: #87432f !important; borde
 cart-drawer .cart__checkout-button .button-label { color: #fff8f2 !important; }
 cart-drawer .cart-link.button { border-radius: 999px !important; text-transform: none; letter-spacing: 0.01em; font-family: "MF Figtree", system-ui, sans-serif; }
 cart-drawer .cart__empty-title { font-family: "MF Fraunces", Georgia, serif; font-weight: 380; text-transform: none; color: #2a211b; }
+
+/* The theme prints a global breadcrumb (settings.show_breadcrumbs). Redesigned main sections render their
+   own, so hide the theme one only on pages that contain one ([data-mf-main]). */
+#MainContent:has([data-mf-main]) > :has(> nav.breadcrumb),
+#MainContent:has([data-mf-main]) > nav.breadcrumb { display: none; }

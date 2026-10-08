@@ -26,13 +26,13 @@ ASSETS = ROOT / 'assets'
 SHELL = r'announcement|site-header|header-\w+|header-inner|logo|nav-trigger|mega[\w-]*|drawer[\w-]*|mnav[\w-]*|search-panel|search-bar|search-results|suggest|search-cards|modal[\w-]*|quickview|qv-\w+|lightbox[\w-]*|toast[\w-]*|site-footer|footer-\w+|newsletter|wa-fab|sticky-atc|skip-link|state-note|scrim|filter-drawer-foot'
 GROUPS = {
     'home': r'hero[\w-]*|bento|tile[\w-]*|lookbook[\w-]*|hotspot[\w-]*|look-\w+|inverse|ds-\w+|quotes?|ugc|stats?|split[\w-]*|steps|services?|articles?|article-card[\w-]*',
+    'collection': r'collection|coll-[\w-]+|subcats|toolbar[\w-]*|density|facets?[\w-]*|facet-[\w-]+|range|promo-tile|filter-[\w-]+',
     # Later stages (enable when the page is built):
-    # 'collection': r'coll-\w+|subcats|toolbar[\w-]*|density|facets?[\w-]*|facet-\w+|range|promo-tile|filter-\w+',
     # 'product': r'pdp[\w-]*|gallery|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*',
 }
-ENABLED = ['home', 'shell']
+ENABLED = ['home', 'shell', 'collection']
 # Selectors from pages.css that belong to not-yet-built pages are skipped entirely.
-LATER = r'coll-\w+|subcats|toolbar[\w-]*|density|facets?|facet-\w+|range|promo-tile|filter-\w+|pdp[\w-]*|gallery|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*|cart-\w+|summary|trust-row|process|projects?|form-card|form-split|contact-list|benefits|values|about-gallery|big-quote|faq-[\w-]+|article-hero|article-cover|article-body|article-aside|inline-product|progress|auth[\w-]*|divider|btn--shop|account[\w-]*|order[\w-]*|status[\w-]*|timeline|nf|card\.is-soldout'
+LATER = r'pdp[\w-]*|gallery|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*|cart-\w+|summary|trust-row|process|projects?|form-card|form-split|contact-list|benefits|values|about-gallery|big-quote|faq-[\w-]+|article-hero|article-cover|article-body|article-aside|inline-product|progress|auth[\w-]*|divider|btn--shop|account[\w-]*|order[\w-]*|status[\w-]*|timeline|nf|card\.is-soldout'
 
 
 

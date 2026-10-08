@@ -97,7 +97,7 @@
 .subcats a:hover, .subcats a[aria-current="page"] { border-color: var(--color-ink); }
 .subcats img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: var(--color-surface-media); }
 .toolbar { position: sticky; top: 72px; z-index: 10; background: color-mix(in srgb, var(--color-bg) 94%, transparent); backdrop-filter: blur(10px); border-block: 1px solid var(--color-line); transition: top var(--dur-3) var(--ease-out); }
-body.header-hidden .toolbar { top: 0; }
+.header-hidden .toolbar { top: 0; }
 .toolbar-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-s); min-height: 60px; }
 .toolbar .left, .toolbar .right { display: flex; align-items: center; gap: var(--space-s); }
 .toolbar .count { font-size: var(--step--1); color: var(--color-ink-muted); }
