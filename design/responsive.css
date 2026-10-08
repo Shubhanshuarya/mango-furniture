@@ -1,0 +1,121 @@
+/* ==========================================================================
+   Responsive refinement layer (loaded last).
+   Desktop (≥ 990px) is the approved design and is not changed here.
+   Tablet  (750–989px): two-column layouts, 3-up grids, less vertical scroll.
+   Phone   (≤ 749px):   decluttered: shorter media, rails instead of tall stacks,
+                         compact stats and services, single primary action per block.
+   ========================================================================== */
+
+/* ---------- Buttons: refined hover / focus / press ---------- */
+.btn { transition: background var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out), transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out); }
+.btn--accent:hover { --btn-bg: var(--color-accent-hover); --btn-bd: var(--color-accent-hover); --btn-fg: var(--color-on-accent); box-shadow: 0 10px 24px -14px rgb(160 83 58 / 0.7); }
+.btn--secondary:hover { --btn-bg: var(--color-ink); --btn-bd: var(--color-ink); --btn-fg: var(--color-bg); }
+.btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.btn:active { transform: scale(0.98); box-shadow: none; }
+@media (hover: hover) { .btn:hover { transform: translateY(-1px); } }
+.link-arrow { transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out); }
+.link-arrow:hover { color: var(--color-accent); border-color: var(--color-accent); }
+
+/* ---------- Tablet ---------- */
+@media (min-width: 750px) and (max-width: 989px) {
+  .display-xl { font-size: clamp(2.25rem, 0.9rem + 3.4vw, 3rem); }
+  .hero { grid-template-columns: 1fr 1fr; gap: var(--space-l); align-items: center; padding-top: var(--space-l); }
+  .hero-media { order: 0; aspect-ratio: 4 / 5; margin-inline: 0; border-radius: var(--radius-media); }
+  .hero-ctas .btn { flex: 0 0 auto; }
+
+  .bento { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 30vw; gap: var(--space-xs); }
+  .tile--tall, .tile--wide, .tile:last-child:nth-child(even) { grid-row: auto; grid-column: auto; }
+
+  .product-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-l) var(--space-s); }
+  .product-grid[data-mobile-limit] > :nth-child(n+5) { display: flex; }
+  .product-grid[data-mobile-limit] > :nth-child(n+7) { display: none; }
+
+  .split { grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
+  .lookbook { grid-template-columns: 1fr 1fr; gap: var(--space-l); }
+  .lookbook-media { aspect-ratio: 4 / 5; }
+  .ds-teaser { grid-template-columns: 1.1fr 1fr; gap: var(--space-xl); }
+
+  .stats { grid-template-columns: repeat(3, 1fr); }
+  .stat, .stat + .stat { display: block; padding: var(--space-m) var(--space-s) 0; border-bottom: 0; }
+  .stat + .stat { border-left: 1px solid var(--color-line); }
+
+  .services { grid-template-columns: repeat(3, 1fr); gap: var(--space-s); }
+  .service { display: grid; grid-template-columns: none; padding: var(--space-m); }
+  .service > :not(.ico) { grid-column: auto; }
+  .service .ico { grid-row: auto; }
+
+  .articles { grid-template-columns: repeat(3, 1fr); gap: var(--space-m); }
+  .article-card h3 { font-size: var(--step-1); }
+  .ugc { grid-template-columns: repeat(6, 1fr); }
+}
+
+/* ---------- Phone ---------- */
+@media (max-width: 749px) {
+  :root { --space-section: 3rem; }
+  .section-head { margin-bottom: var(--space-m); align-items: flex-end; }
+  .section-head .link-arrow { font-size: var(--step--1); }
+  .display-xl { font-size: clamp(2.25rem, 1.5rem + 3vw, 2.625rem); }
+  .display-l { font-size: clamp(1.75rem, 1.3rem + 2vw, 2rem); }
+  .lede { font-size: var(--step-0); margin-top: var(--space-s); }
+
+  /* Hero: shorter image, one primary button, proof points on one swipeable line */
+  .hero { gap: var(--space-m); padding-bottom: var(--space-xl); }
+  .hero-media { aspect-ratio: 5 / 4; }
+  .hero-stamp { left: 12px; bottom: 12px; padding: 6px 12px; font-size: 12px; }
+  .hero-ctas { flex-direction: column; align-items: stretch; gap: 4px; margin-top: var(--space-m); }
+  .hero-ctas a.btn--secondary, .hero-ctas a.btn--secondary:hover { --btn-bg: transparent; --btn-bd: transparent; --btn-fg: var(--color-ink); text-decoration: underline; text-underline-offset: 0.25em; box-shadow: none; transform: none; }
+  .hero-proof { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; white-space: nowrap; gap: var(--space-m); margin: var(--space-m) calc(var(--gutter) * -1) 0; padding-inline: var(--gutter); }
+  .hero-proof::-webkit-scrollbar { display: none; }
+
+  /* Categories: one swipeable row with labels under the image */
+  .bento { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 42%; grid-auto-rows: auto; gap: var(--space-xs); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); }
+  .bento::-webkit-scrollbar { display: none; }
+  .tile, .tile--tall, .tile--wide, .tile:last-child:nth-child(even) { grid-row: auto; grid-column: auto; display: grid; gap: 8px; scroll-snap-align: start; }
+  .tile-media { position: relative; inset: auto; aspect-ratio: 4 / 5; }
+  .tile-label { position: static; background: none; padding: 0; font-size: var(--step--1); }
+  .tile-label span:last-child { display: none; }
+
+  /* Product cards: tighter, no dimension line (shown on the product page) */
+  .product-grid { gap: var(--space-l) 12px; }
+  .card { gap: 6px; }
+  .card-title { font-size: 14px; }
+  .card .dim { display: none; }
+
+  /* Story + lookbook: shorter media, titles-only steps */
+  .split { gap: var(--space-m); }
+  .split-media { aspect-ratio: 4 / 3; }
+  .steps { gap: var(--space-s); margin-top: var(--space-m); }
+  .steps p { display: none; }
+  .lookbook { gap: var(--space-m); }
+  .lookbook-media { aspect-ratio: 4 / 3; }
+  .hotspot-card { display: none; }
+  .look-item { grid-template-columns: 64px 1fr auto; gap: 12px; padding-bottom: var(--space-xs); }
+
+  /* Stats: one compact row */
+  .stats { grid-template-columns: repeat(3, 1fr); }
+  .stat, .stat + .stat { display: block; padding: var(--space-s) 10px 0; border-bottom: 0; }
+  .stat:first-child { padding-left: 0; }
+  .stat + .stat { border-left: 1px solid var(--color-line); }
+  .stat b { font-size: var(--step-3); }
+  .stat p { font-size: 12px; margin-top: 4px; }
+
+  /* Design teaser: one image on top, titles-only steps, stacked form */
+  .ds-mosaic { order: -1; grid-template-columns: 1fr; }
+  .ds-mosaic .m:not(:first-child) { display: none; }
+  .ds-mosaic .m:first-child { grid-row: auto; aspect-ratio: 16 / 10; }
+  .ds-form { flex-direction: column; }
+  .ds-form .input { flex: none; }
+
+  /* Services: a clean list instead of three stacked cards */
+  .services { gap: 0; border-top: 1px solid var(--color-line); }
+  .service { background: none; border: 0; border-bottom: 1px solid var(--color-line); border-radius: 0; padding: var(--space-m) 0; }
+  a.service:hover { transform: none; }
+
+  /* Journal: swipeable row */
+  .articles { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; gap: var(--space-s); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); }
+  .articles::-webkit-scrollbar { display: none; }
+  .article-card { scroll-snap-align: start; }
+  .article-card h3 { font-size: var(--step-1); }
+
+  .ugc { gap: 4px; }
+}

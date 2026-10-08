@@ -143,8 +143,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* ---------- Category bento ---------- */
 .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(220px, 26vw); gap: var(--space-s); max-height: none; }
 @media (min-width: 1440px) { .bento { grid-auto-rows: 360px; } }
-.tile { position: relative; overflow: hidden; border-radius: var(--radius-media); background: var(--color-surface-media); text-decoration: none; isolation: isolate; }
-.tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 900ms var(--ease-out); }
+.tile { position: relative; display: block; text-decoration: none; isolation: isolate; }
+.tile-media { position: absolute; inset: 0; overflow: hidden; border-radius: var(--radius-media); background: var(--color-surface-media); }
+.tile img, .tile-media svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 900ms var(--ease-out); }
 .tile:hover img { transform: scale(1.04); }
 .tile-label { position: absolute; left: var(--space-s); right: var(--space-s); bottom: var(--space-s); display: flex; align-items: center; justify-content: space-between; gap: var(--space-2xs); background: var(--color-bg); border-radius: var(--radius-pill); padding: 10px 10px 10px 18px; font-weight: 600; }
 .tile-label span:last-child { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--color-ink); color: var(--color-bg); transition: background var(--dur-1) var(--ease-out); }

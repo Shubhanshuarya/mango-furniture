@@ -14,6 +14,7 @@
   --color-ink-muted: #6b5d52;     /* 5.6:1 on bg */
   --color-line: #d9cebf;
   --color-accent: #a0533a;        /* terracotta — 5.3:1 with on-accent */
+  --color-accent-hover: #87432f;  /* pressed/hover terracotta — 6.9:1 with on-accent */
   --color-on-accent: #fff8f2;
   --color-accent-soft: #ecd6ca;
   --color-inverse-bg: #2a211b;
