@@ -1,0 +1,75 @@
+{%- render 'mf-assets', css: 'mf-home' -%}
+
+<div class="mf mf-section{% if section.settings.background == 'surface' %} mf-section--surface{% endif %}" id="MfImageText-{{ section.id }}">
+  <div class="mf-container mf-split{% if section.settings.image_position == 'right' %} mf-split--reverse{% endif %}">
+    <div class="mf-split-media mf-reveal">
+      {%- if section.settings.image != blank -%}
+        {{- section.settings.image | image_url: width: 1600 | image_tag: widths: '540, 720, 1000, 1300, 1600', sizes: '(min-width: 990px) 50vw, 100vw', loading: 'lazy' -}}
+      {%- else -%}
+        {{- 'lifestyle-2' | placeholder_svg_tag: 'mf-placeholder-svg' -}}
+      {%- endif -%}
+    </div>
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<p class="mf-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="mf-display mf-display-l">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="mf-lede">{{ section.settings.text }}</div>{%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ol class="mf-steps">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}><div><b>{{ block.settings.title | escape }}</b>{% if block.settings.text != blank %}<p>{{ block.settings.text }}</p>{% endif %}</div></li>
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
+
+      {%- if section.settings.link_label != blank -%}
+        <p class="mf-mt-l"><a class="mf-link-arrow" href="{{ section.settings.link_url | default: '#' }}">{{ section.settings.link_label | escape }} {% render 'mf-icon', icon: 'arrow', size: 16 %}</a></p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Image with text",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Portrait 4:5 works best." },
+    {
+      "type": "select", "id": "image_position", "label": "Image position", "default": "left",
+      "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }]
+    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A family business" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Twenty years of export craft, <em>now direct to you</em>" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Every piece is made in our family manufacturing unit in Jodhpur, where East meets West: contemporary forms with the warmth and storytelling of Indian craft.</p>" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Our story" },
+    { "type": "url", "id": "link_url", "label": "Link" },
+    {
+      "type": "select", "id": "background", "label": "Background", "default": "surface",
+      "options": [{ "value": "default", "label": "Limewash" }, { "value": "surface", "label": "Plaster" }]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "limit": 5,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Step title" },
+        { "type": "inline_richtext", "id": "text", "label": "Text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mango: Image with text",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Sustainably sourced mango wood", "text": "A dense, richly grained hardwood, finished to bring out its natural character." } },
+        { "type": "step", "settings": { "title": "Shaped and finished by hand", "text": "Joinery, carving and finishing by skilled artisans, one piece at a time." } },
+        { "type": "step", "settings": { "title": "Made to your space", "text": "Custom sizes and finishes through our design services." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

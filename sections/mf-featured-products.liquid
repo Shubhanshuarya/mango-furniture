@@ -1,0 +1,74 @@
+{%- render 'mf-assets', css: 'mf-home' -%}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign source = section.settings.product_list
+  if source == blank or source.size == 0
+    assign source = section.settings.collection.products
+  endif
+  assign max = section.settings.products_to_show
+  assign shown = 0
+-%}
+
+<div class="mf mf-section{% if section.settings.background == 'surface' %} mf-section--surface{% endif %}" id="MfFeatured-{{ section.id }}">
+  <div class="mf-container">
+    {%- assign link_url = section.settings.link_url | default: section.settings.collection.url -%}
+    {%- render 'mf-section-head',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      text: section.settings.text,
+      link_label: section.settings.link_label,
+      link_url: link_url
+    -%}
+
+    <div class="mf-product-grid"{% if section.settings.mobile_limit %} data-mobile-limit{% endif %}>
+      {%- if source != blank and source.size > 0 -%}
+        {%- for product in source -%}
+          {%- if section.settings.hide_sold_out and product.available == false -%}{%- continue -%}{%- endif -%}
+          {%- if shown >= max -%}{%- break -%}{%- endif -%}
+          {%- render 'mf-card-product', product: product, index: shown, section_id: section.id -%}
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..4) -%}
+          <div class="mf-card">
+            <div class="mf-card-media">{{ 'product-' | append: i | placeholder_svg_tag: 'mf-placeholder-svg' }}</div>
+            <h3 class="mf-card-title">Product title</h3>
+            <div class="mf-card-meta"><span class="mf-price">$0</span></div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.mobile_limit and section.settings.link_label != blank -%}
+      <a class="mf-btn mf-btn--secondary mf-btn--block mf-show-mobile mf-mt-l" href="{{ link_url | default: routes.all_products_collection_url }}">{{ section.settings.link_label | escape }}</a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Featured products",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Signature pieces" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Made in solid wood, <em>finished by hand</em>" },
+    { "type": "inline_richtext", "id": "text", "label": "Text" },
+    { "type": "header", "content": "Products" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "product_list", "id": "product_list", "label": "Or pick products", "limit": 12, "info": "Overrides the collection when set." },
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 2, "max": 12, "step": 1, "default": 8 },
+    { "type": "checkbox", "id": "hide_sold_out", "label": "Hide sold-out products", "default": true },
+    { "type": "checkbox", "id": "mobile_limit", "label": "Show 4 products on mobile with a 'shop all' button", "default": true },
+    { "type": "header", "content": "Link" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop all" },
+    { "type": "url", "id": "link_url", "label": "Link", "info": "Defaults to the collection." },
+    {
+      "type": "select", "id": "background", "label": "Background", "default": "default",
+      "options": [{ "value": "default", "label": "Limewash" }, { "value": "surface", "label": "Plaster" }]
+    }
+  ],
+  "presets": [{ "name": "Mango: Featured products" }]
+}
+{% endschema %}

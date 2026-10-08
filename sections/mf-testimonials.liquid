@@ -1,0 +1,57 @@
+{%- comment -%}
+  Shows only real customer quotes added as blocks. With no blocks the section renders nothing on the
+  storefront (an editor-only note is shown in the theme editor), so no placeholder reviews ever go live.
+{%- endcomment -%}
+{%- if section.blocks.size > 0 or request.design_mode -%}
+  {%- render 'mf-assets', css: 'mf-home' -%}
+  <div class="mf mf-section{% if section.settings.background == 'surface' %} mf-section--surface{% endif %}" id="MfTestimonials-{{ section.id }}">
+    <div class="mf-container">
+      {%- render 'mf-section-head', eyebrow: section.settings.eyebrow, heading: section.settings.heading -%}
+      {%- if section.blocks.size > 0 -%}
+        <div class="mf-quotes">
+          {%- for block in section.blocks -%}
+            <figure class="mf-quote mf-reveal" style="margin: 0; --i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+              <blockquote class="mf-quote-text">{{ block.settings.quote }}</blockquote>
+              <figcaption>
+                {%- if block.settings.avatar != blank -%}{{ block.settings.avatar | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+                <span><b>{{ block.settings.author | escape }}</b>{% if block.settings.detail != blank %}<br>{{ block.settings.detail | escape }}{% endif %}</span>
+              </figcaption>
+            </figure>
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <p class="mf-editor-note">{{ 'mf.testimonials.editor_empty' | t }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Mango: Testimonials",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "In their homes" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "What customers say" },
+    {
+      "type": "select", "id": "background", "label": "Background", "default": "default",
+      "options": [{ "value": "default", "label": "Limewash" }, { "value": "surface", "label": "Plaster" }]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Customer quote",
+      "limit": 6,
+      "settings": [
+        { "type": "richtext", "id": "quote", "label": "Quote", "info": "Use real, verifiable customer quotes only." },
+        { "type": "text", "id": "author", "label": "Customer name" },
+        { "type": "text", "id": "detail", "label": "Detail", "info": "e.g. product purchased or city" },
+        { "type": "image_picker", "id": "avatar", "label": "Photo (optional)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Mango: Testimonials" }]
+}
+{% endschema %}

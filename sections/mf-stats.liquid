@@ -1,0 +1,48 @@
+{%- render 'mf-assets', css: 'mf-home' -%}
+
+<div class="mf mf-section--tight" id="MfStats-{{ section.id }}">
+  <div class="mf-container">
+    {%- render 'mf-section-head', eyebrow: section.settings.eyebrow, heading: section.settings.heading -%}
+    <div class="mf-stats">
+      {%- for block in section.blocks -%}
+        <div class="mf-stat mf-reveal" style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <b>{{ block.settings.value | escape }}</b>
+          <p>{{ block.settings.label | escape }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Stats",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value", "default": "100%" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Handcrafted by skilled artisans" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mango: Stats",
+      "blocks": [
+        { "type": "stat", "settings": { "value": "100+", "label": "Signature designs" } },
+        { "type": "stat", "settings": { "value": "100%", "label": "Handcrafted by skilled artisans" } },
+        { "type": "stat", "settings": { "value": "20+", "label": "Years of furniture-making and export" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

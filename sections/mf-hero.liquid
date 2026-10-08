@@ -1,0 +1,100 @@
+{%- render 'mf-assets', css: 'mf-home', preload_fonts: true -%}
+
+<div class="mf mf-hero-section" id="MfHero-{{ section.id }}">
+  <div class="mf-container mf-hero">
+    <div class="mf-hero-copy">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="mf-eyebrow mf-reveal">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h1 class="mf-display mf-display-xl mf-reveal" style="--i: 1">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+      {%- if section.settings.text != blank -%}
+        <p class="mf-lede mf-reveal" style="--i: 2">{{ section.settings.text }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank or section.settings.button_label_2 != blank -%}
+        <div class="mf-hero-ctas mf-reveal" style="--i: 3">
+          {%- if section.settings.button_label != blank -%}
+            <a class="mf-btn mf-btn--accent" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">
+              {{- section.settings.button_label | escape }}
+              {% render 'mf-icon', icon: 'arrow', size: 18 -%}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.button_label_2 != blank -%}
+            <a class="mf-btn mf-btn--secondary" href="{{ section.settings.button_link_2 | default: '#' }}">{{ section.settings.button_label_2 | escape }}</a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="mf-hero-proof mf-reveal" style="--i: 4">
+          {%- for block in section.blocks -%}
+            <li {{ block.shopify_attributes }}>{% render 'mf-icon', icon: 'check', size: 16 %} {{ block.settings.text | escape }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    <div class="mf-hero-media">
+      {%- if section.settings.image != blank -%}
+        {%- assign focal = section.settings.image.presentation.focal_point | default: 'center' -%}
+        {%- assign img_style = 'object-position: ' | append: focal -%}
+        {{-
+          section.settings.image
+          | image_url: width: 2400
+          | image_tag:
+            widths: '600, 900, 1200, 1600, 2000, 2400',
+            sizes: '(min-width: 990px) 58vw, 100vw',
+            loading: 'eager',
+            fetchpriority: 'high',
+            style: img_style
+        -}}
+      {%- else -%}
+        {{- 'lifestyle-1' | placeholder_svg_tag: 'mf-placeholder-svg' -}}
+      {%- endif -%}
+      {%- if section.settings.stamp != blank -%}
+        <span class="mf-hero-stamp"><i aria-hidden="true"></i> {{ section.settings.stamp | escape }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Hero",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "limit": 1,
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Landscape, at least 2400px wide. Set the focal point in the image picker." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Handmade in Jodhpur, India" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Italic text is shown in the accent colour.", "default": "Because true luxury begins <em>where you live.</em>" },
+    { "type": "inline_richtext", "id": "text", "label": "Text", "default": "Solid mango wood furniture, shaped by hand in our family workshop and made to be lived with for decades." },
+    { "type": "header", "content": "Buttons" },
+    { "type": "text", "id": "button_label", "label": "Primary button label", "default": "Shop the collection" },
+    { "type": "url", "id": "button_link", "label": "Primary button link" },
+    { "type": "text", "id": "button_label_2", "label": "Secondary button label", "default": "Design services" },
+    { "type": "url", "id": "button_link_2", "label": "Secondary button link" },
+    { "type": "text", "id": "stamp", "label": "Image label", "default": "Made to order in solid wood" }
+  ],
+  "blocks": [
+    {
+      "type": "proof",
+      "name": "Proof point",
+      "limit": 4,
+      "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "Solid mango wood" }]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mango: Hero",
+      "blocks": [
+        { "type": "proof", "settings": { "text": "Solid mango wood" } },
+        { "type": "proof", "settings": { "text": "Free US shipping" } },
+        { "type": "proof", "settings": { "text": "Shop Pay Installments" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

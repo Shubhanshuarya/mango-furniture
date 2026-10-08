@@ -1,0 +1,137 @@
+{%- comment -%}
+  Mango redesign product card.
+
+  Accepts:
+  - product {Object} Product (required)
+  - index {Number} Position in grid, used for reveal stagger and eager-loading the first row
+  - sizes {String} Image sizes attribute (optional)
+  - section_id {String} For unique form ids
+
+  Quick add re-uses the theme's own <product-form> element (assets/product-form.js), so the
+  existing cart drawer updates exactly as it does elsewhere. Without JS the form posts to /cart/add.
+
+  Dimensions and material come from metafields custom.dimensions and custom.material
+  (single line text). The lines are hidden when the metafield is empty.
+{%- endcomment -%}
+{%- liquid
+  assign i = index | default: 0
+  assign stagger = i | modulo: 4
+  assign img_sizes = sizes | default: '(min-width: 990px) 25vw, 50vw'
+  if i < 4
+    assign loading = 'eager'
+  else
+    assign loading = 'lazy'
+  endif
+
+  assign first_media = product.featured_media
+  assign second_media = nil
+  if product.media.size > 1
+    assign second_media = product.media[1]
+  endif
+
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+    assign savings = product.compare_at_price | minus: product.price | money_without_trailing_zeros
+  endif
+
+  assign color_option = nil
+  for option in product.options_with_values
+    assign oname = option.name | downcase
+    if oname == 'color' or oname == 'colour' or oname == 'finish'
+      assign color_option = option
+      break
+    endif
+  endfor
+
+  assign form_id = 'MfCardForm-' | append: section_id | append: '-' | append: product.id
+  assign material = product.metafields.custom.material.value
+  assign dimensions = product.metafields.custom.dimensions.value
+-%}
+<article class="mf-card{% unless product.available %} mf-is-soldout{% endunless %} mf-reveal" style="--i: {{ stagger }}">
+  <div class="mf-card-media">
+    <div class="mf-card-badges">
+      {%- if product.available == false -%}
+        <span class="mf-badge mf-badge--soldout">{{ 'mf.card.sold_out' | t }}</span>
+      {%- elsif on_sale -%}
+        <span class="mf-badge mf-badge--sale">{{ 'mf.card.save' | t: amount: savings }}</span>
+      {%- endif -%}
+    </div>
+    {%- if first_media -%}
+      {{- first_media.preview_image | image_url: width: 1200 | image_tag: widths: '360, 540, 720, 900, 1200', sizes: img_sizes, loading: loading, alt: first_media.alt | default: product.title -}}
+      {%- if second_media -%}
+        {{- second_media.preview_image | image_url: width: 1200 | image_tag: widths: '360, 540, 720, 900, 1200', sizes: img_sizes, loading: 'lazy', alt: '' -}}
+      {%- endif -%}
+    {%- else -%}
+      {{- 'product-1' | placeholder_svg_tag: 'mf-placeholder-svg' -}}
+    {%- endif -%}
+
+    {%- if product.available and product.has_only_default_variant -%}
+      <product-form class="mf-card-form" data-hide-errors="false">
+        {%- form 'product', product, id: form_id, class: 'mf-card-form__form', novalidate: 'novalidate' -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <button type="submit" class="mf-card-quick" aria-label="{{ 'mf.card.quick_add_aria' | t: title: product.title | escape }}">
+            <span>{{ 'mf.card.quick_add' | t }}</span>
+          </button>
+          <div class="product-form__error-message-wrapper mf-card-error" role="alert" hidden><span class="product-form__error-message"></span></div>
+        {%- endform -%}
+      </product-form>
+    {%- elsif product.available -%}
+      <a class="mf-card-quick" href="{{ product.url }}" tabindex="-1" aria-hidden="true"><span>{{ 'mf.card.choose_options' | t }}</span></a>
+    {%- endif -%}
+  </div>
+
+  <h3 class="mf-card-title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+
+  <div class="mf-card-meta">
+    <span class="mf-price">
+      {%- if product.available -%}
+        <span>{% if product.price_varies %}{{ 'mf.card.from' | t }} {% endif %}{{ product.price | money_without_trailing_zeros }}</span>
+        {%- if on_sale -%}<s><span class="mf-visually-hidden">{{ 'mf.card.regular_price' | t }}</span>{{ product.compare_at_price | money_without_trailing_zeros }}</s>{%- endif -%}
+      {%- else -%}
+        <span class="mf-muted">{{ product.price | money_without_trailing_zeros }}</span>
+      {%- endif -%}
+    </span>
+    {%- if color_option and color_option.values.size > 1 -%}
+      <ul class="mf-swatches" aria-label="{{ 'mf.card.colours' | t: count: color_option.values.size }}">
+        {%- for value in color_option.values limit: 5 -%}
+          {%- liquid
+            assign sw = value.swatch.color
+            if sw == blank
+              assign vname = value.name | downcase
+              case vname
+                when 'black'
+                  assign sw = '#1f1b18'
+                when 'brown', 'dark brown', 'walnut'
+                  assign sw = '#4a3326'
+                when 'light brown', 'honey'
+                  assign sw = '#a77a55'
+                when 'natural'
+                  assign sw = '#c9a77c'
+                when 'whitewash', 'white', 'white/black'
+                  assign sw = '#e9e3d8'
+                when 'cream', 'ivory'
+                  assign sw = '#efe6d6'
+                when 'grey', 'gray', 'slate grey'
+                  assign sw = '#8b8680'
+                when 'bourbon'
+                  assign sw = '#7a4422'
+                when 'green'
+                  assign sw = '#5b6b4a'
+                else
+                  assign sw = '#cfc6b8'
+              endcase
+            endif
+          -%}
+          <li class="mf-swatch" style="--sw: {{ sw }}" title="{{ value.name | escape }}"{% if forloop.first %} aria-current="true"{% endif %}><span class="mf-visually-hidden">{{ value.name | escape }}</span></li>
+        {%- endfor -%}
+      </ul>
+    {%- elsif material != blank -%}
+      <span class="mf-card-material">{{ material | escape }}</span>
+    {%- endif -%}
+  </div>
+
+  {%- if dimensions != blank -%}
+    <div class="mf-dim">{{ dimensions | escape }}</div>
+  {%- endif -%}
+</article>

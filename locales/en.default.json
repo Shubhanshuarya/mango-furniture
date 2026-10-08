@@ -8,6 +8,48 @@
  * ------------------------------------------------------------
  */
 {
+  "mf": {
+    "card": {
+      "sold_out": "Sold out",
+      "save": "Save {{ amount }}",
+      "quick_add": "Quick add",
+      "quick_add_aria": "Quick add {{ title }}",
+      "choose_options": "Choose options",
+      "from": "From",
+      "regular_price": "Regular price",
+      "colours": "{{ count }} colours"
+    },
+    "general": {
+      "view_all": "View all",
+      "read_more": "Read the story",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "look": {
+      "add": "Add",
+      "add_aria": "Add {{ title }} to cart",
+      "add_all": "Add all {{ count }}",
+      "complete_set": "Complete set",
+      "hotspot_aria": "{{ title }}, {{ price }}",
+      "added": "Added"
+    },
+    "form": {
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "success": "Thank you. We'll be in touch soon.",
+      "error_heading": "Please check the form.",
+      "error_name": "Please enter your name.",
+      "error_email": "Enter an email like name@example.com."
+    },
+    "testimonials": {
+      "editor_empty": "Add review blocks with real customer quotes. This section stays hidden on the storefront until it has at least one."
+    },
+    "ugc": {
+      "post_aria": "Open post on Instagram"
+    }
+  },
   "general": {
     "size": "Size",
     "color": "Color",

@@ -1,0 +1,53 @@
+{%- render 'mf-assets', css: 'mf-home' -%}
+
+<div class="mf mf-section--tight" id="MfUgc-{{ section.id }}">
+  <div class="mf-container">
+    {%- render 'mf-section-head',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      heading_size: 'm',
+      link_label: section.settings.link_label,
+      link_url: section.settings.link_url
+    -%}
+    <div class="mf-ugc">
+      {%- for block in section.blocks -%}
+        {%- assign url = block.settings.link | default: section.settings.link_url -%}
+        <a href="{{ url | default: '#' }}"{% if url contains 'http' %} target="_blank" rel="noopener"{% endif %} aria-label="{{ 'mf.ugc.post_aria' | t }}" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {{- block.settings.image | image_url: width: 600 | image_tag: widths: '200, 300, 450, 600', sizes: '(min-width: 990px) 16vw, 33vw', loading: 'lazy', alt: block.settings.image.alt | default: '' -}}
+          {%- else -%}
+            {{- 'image' | placeholder_svg_tag: 'mf-placeholder-svg' -}}
+          {%- endif -%}
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Instagram grid",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Follow along" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "@mangofurnitureinc" },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "Instagram" },
+    { "type": "url", "id": "link_url", "label": "Profile link" }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "limit": 12,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "url", "id": "link", "label": "Post link", "info": "Defaults to the profile link." }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Mango: Instagram grid", "blocks": [{ "type": "image" }, { "type": "image" }, { "type": "image" }, { "type": "image" }, { "type": "image" }, { "type": "image" }] }
+  ]
+}
+{% endschema %}

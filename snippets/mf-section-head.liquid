@@ -1,0 +1,18 @@
+{%- comment -%}
+  Section heading row: eyebrow + heading (+ optional lede) with an optional link on the right.
+  Accepts: eyebrow, heading (inline richtext), text, link_label, link_url, heading_size ('l' default | 'm')
+{%- endcomment -%}
+{%- if eyebrow != blank or heading != blank or link_label != blank -%}
+  <div class="mf-section-head">
+    <div>
+      {%- if eyebrow != blank -%}<p class="mf-eyebrow">{{ eyebrow | escape }}</p>{%- endif -%}
+      {%- if heading != blank -%}<h2 class="mf-display mf-display-{{ heading_size | default: 'l' }}">{{ heading }}</h2>{%- endif -%}
+      {%- if text != blank -%}<p class="mf-lede">{{ text }}</p>{%- endif -%}
+    </div>
+    {%- if link_label != blank -%}
+      <a class="mf-link-arrow" href="{{ link_url | default: routes.all_products_collection_url }}">
+        {{- link_label | escape }} {% render 'mf-icon', icon: 'arrow', size: 16 -%}
+      </a>
+    {%- endif -%}
+  </div>
+{%- endif -%}

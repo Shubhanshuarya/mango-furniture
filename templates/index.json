@@ -9,6 +9,435 @@
  */
 {
   "sections": {
+    "mf_hero": {
+      "type": "mf-hero",
+      "blocks": {
+        "proof_1": {
+          "type": "proof",
+          "settings": {
+            "text": "Solid mango wood"
+          }
+        },
+        "proof_2": {
+          "type": "proof",
+          "settings": {
+            "text": "Free US shipping"
+          }
+        },
+        "proof_3": {
+          "type": "proof",
+          "settings": {
+            "text": "Shop Pay Installments"
+          }
+        }
+      },
+      "block_order": [
+        "proof_1",
+        "proof_2",
+        "proof_3"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/hero-daybed.webp",
+        "eyebrow": "Handmade in Jodhpur, India",
+        "heading": "Because true luxury begins <em>where you live.</em>",
+        "text": "Solid mango wood furniture, shaped by hand in our family workshop and made to be lived with for decades.",
+        "button_label": "Shop the collection",
+        "button_link": "shopify://collections/all",
+        "button_label_2": "Talk to our team",
+        "button_link_2": "shopify://pages/contact",
+        "stamp": "Made to order in solid wood"
+      }
+    },
+    "mf_bento": {
+      "type": "mf-category-bento",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "collection": "accent-chair",
+            "label": "Accent Chairs",
+            "image": "shopify://shop_images/cat-accent-chairs.webp",
+            "size": "tall"
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "collection": "side-table",
+            "label": "Side Tables",
+            "image": "shopify://shop_images/cat-side-tables.webp",
+            "size": "normal"
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "collection": "coffee-table",
+            "label": "Coffee Tables",
+            "image": "shopify://shop_images/cat-coffee-tables.webp",
+            "size": "wide"
+          }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": {
+            "collection": "bench",
+            "label": "Benches",
+            "image": "shopify://shop_images/cat-benches.webp",
+            "size": "normal"
+          }
+        },
+        "cat_5": {
+          "type": "category",
+          "settings": {
+            "collection": "console",
+            "label": "Consoles & Shelving",
+            "image": "shopify://shop_images/cat-console-shelving.webp",
+            "size": "normal"
+          }
+        },
+        "cat_6": {
+          "type": "category",
+          "settings": {
+            "collection": "counter-stool-chair",
+            "label": "Dining & Stools",
+            "image": "shopify://shop_images/cat-dining.webp",
+            "size": "normal"
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4",
+        "cat_5",
+        "cat_6"
+      ],
+      "settings": {
+        "eyebrow": "Shop by category",
+        "heading": "Pieces for every room",
+        "link_label": "All furniture",
+        "link_url": "shopify://collections/all"
+      }
+    },
+    "mf_featured": {
+      "type": "mf-featured-products",
+      "settings": {
+        "eyebrow": "Signature pieces",
+        "heading": "Made in solid wood, <em>finished by hand</em>",
+        "text": "",
+        "collection": "all",
+        "product_list": [
+          "landon-mango-wood-and-boucle-fabric-accent-chair",
+          "annabel-bench",
+          "osiac-solid-wood-console-table",
+          "jorf-side-table",
+          "zehara-bench",
+          "enzo-coffee-table-copy",
+          "rihana-solid-wood-and-top-grain-leather-accent-chair",
+          "griffith-oval-book-case"
+        ],
+        "products_to_show": 8,
+        "hide_sold_out": true,
+        "mobile_limit": true,
+        "link_label": "Shop all",
+        "link_url": "shopify://collections/all",
+        "background": "default"
+      }
+    },
+    "mf_story": {
+      "type": "mf-image-text",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Sustainably sourced mango wood",
+            "text": "A dense, richly grained hardwood, finished to bring out its natural character."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Shaped and finished by hand",
+            "text": "Joinery, carving and finishing by skilled artisans, one piece at a time."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Made to your space",
+            "text": "Custom sizes and finishes on request. Just ask our team."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/craft-faceted-drum-table.webp",
+        "image_position": "left",
+        "eyebrow": "A family business",
+        "heading": "Twenty years of export craft, <em>now direct to you</em>",
+        "text": "<p>Every piece is made in our family manufacturing unit in Jodhpur, where East meets West: contemporary forms with the warmth and storytelling of Indian craft.</p>",
+        "link_label": "Our story",
+        "link_url": "shopify://pages/about-us",
+        "background": "surface"
+      }
+    },
+    "mf_look": {
+      "type": "mf-shop-the-look",
+      "blocks": {
+        "look_1": {
+          "type": "product",
+          "settings": {
+            "product": "osiac-solid-wood-coffee-table",
+            "show_hotspot": true,
+            "x": 46,
+            "y": 44
+          }
+        },
+        "look_2": {
+          "type": "product",
+          "settings": {
+            "product": "landon-mango-wood-and-boucle-fabric-accent-chair",
+            "show_hotspot": false,
+            "x": 50,
+            "y": 50
+          }
+        },
+        "look_3": {
+          "type": "product",
+          "settings": {
+            "product": "jorf-side-table",
+            "show_hotspot": false,
+            "x": 50,
+            "y": 50
+          }
+        }
+      },
+      "block_order": [
+        "look_1",
+        "look_2",
+        "look_3"
+      ],
+      "settings": {
+        "eyebrow": "Shop the room",
+        "heading": "The living room edit",
+        "text": "Three pieces in warm walnut tones that sit together without trying too hard.",
+        "image": "",
+        "background": "default"
+      }
+    },
+    "mf_stats": {
+      "type": "mf-stats",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Handcrafted by skilled artisans"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "value": "20+",
+            "label": "Years of furniture-making and export"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "value": "Free",
+            "label": "Shipping across the US"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ],
+      "settings": {
+        "eyebrow": "",
+        "heading": ""
+      }
+    },
+    "mf_design": {
+      "type": "mf-design-teaser",
+      "blocks": {
+        "ds_1": {
+          "type": "step",
+          "settings": {
+            "title": "Tell us about your space",
+            "text": "Share your room, style and requirements."
+          }
+        },
+        "ds_2": {
+          "type": "step",
+          "settings": {
+            "title": "Discovery call",
+            "text": "We talk through your needs and the scope of the project."
+          }
+        },
+        "ds_3": {
+          "type": "step",
+          "settings": {
+            "title": "3D renderings and custom pieces",
+            "text": "End-to-end design, then furniture made to fit."
+          }
+        }
+      },
+      "block_order": [
+        "ds_1",
+        "ds_2",
+        "ds_3"
+      ],
+      "settings": {
+        "eyebrow": "Design services",
+        "heading": "Need an interior designer? <em>We'll take it from here.</em>",
+        "text": "<p>Start-to-finish design services that turn a house into a home: customised furniture, bespoke design and quality construction, straight from the maker.</p>",
+        "show_form": true,
+        "form_tag": "design-services",
+        "button_label": "Start a project",
+        "button_link": "",
+        "success_message": "Thank you. Our design team will be in touch soon.",
+        "image_1": "shopify://shop_images/ds-travertine-table.webp",
+        "image_2": "shopify://shop_images/about-fluted-console.webp",
+        "image_3": "shopify://shop_images/ds-slab-bench.webp"
+      }
+    },
+    "mf_services": {
+      "type": "mf-service-cards",
+      "blocks": {
+        "svc_1": {
+          "type": "card",
+          "settings": {
+            "icon": "tag",
+            "title": "Trade pricing",
+            "text": "Exclusive pricing, free fabric swatches and priority support for designers and architects.",
+            "link_label": "Ask about trade",
+            "link": "shopify://pages/contact"
+          }
+        },
+        "svc_2": {
+          "type": "card",
+          "settings": {
+            "icon": "truck",
+            "title": "Shipping & Returns",
+            "text": "Free shipping across the US. Orders are processed in 1–4 business days and arrive in 3–10.",
+            "link_label": "Shipping policy",
+            "link": "/policies/shipping-policy"
+          }
+        },
+        "svc_3": {
+          "type": "card",
+          "settings": {
+            "icon": "chat",
+            "title": "Expert Customer Service",
+            "text": "Help by phone, chat or email through every step of designing and shopping.",
+            "link_label": "Get in touch",
+            "link": "shopify://pages/contact"
+          }
+        }
+      },
+      "block_order": [
+        "svc_1",
+        "svc_2",
+        "svc_3"
+      ],
+      "settings": {
+        "eyebrow": "Why buy direct",
+        "heading": "Service as considered as the furniture",
+        "text": "",
+        "background": "surface"
+      }
+    },
+    "mf_testimonials": {
+      "type": "mf-testimonials",
+      "settings": {
+        "eyebrow": "In their homes",
+        "heading": "What customers say",
+        "background": "default"
+      }
+    },
+    "mf_blog": {
+      "type": "mf-featured-blog",
+      "settings": {
+        "eyebrow": "Journal",
+        "heading": "Ideas for living well",
+        "blog": "news",
+        "post_limit": "3",
+        "show_date": true,
+        "show_tag": true,
+        "link_label": "All stories",
+        "background": "surface"
+      }
+    },
+    "mf_ugc": {
+      "type": "mf-ugc-grid",
+      "blocks": {
+        "ugc_1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/look-loop-leg-table.webp",
+            "link": ""
+          }
+        },
+        "ugc_2": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/about-sling-chair.webp",
+            "link": ""
+          }
+        },
+        "ugc_3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/blog-scallop-table.webp",
+            "link": ""
+          }
+        },
+        "ugc_4": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/contact-annabel-bench.webp",
+            "link": ""
+          }
+        },
+        "ugc_5": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/about-slim-side-table.webp",
+            "link": ""
+          }
+        },
+        "ugc_6": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/trade-abel-bench.webp",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "ugc_1",
+        "ugc_2",
+        "ugc_3",
+        "ugc_4",
+        "ugc_5",
+        "ugc_6"
+      ],
+      "settings": {
+        "eyebrow": "Follow along",
+        "heading": "@mangofurnitureinc",
+        "link_label": "Instagram",
+        "link_url": "https://www.instagram.com/mangofurnitureinc/"
+      }
+    },
     "slideshow": {
       "type": "slideshow",
       "blocks": {
@@ -69,7 +498,8 @@
         "slide_effects": "slide",
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      }
+      },
+      "disabled": true
     },
     "collection-grid": {
       "type": "collection-grid",
@@ -105,7 +535,11 @@
           }
         }
       },
-      "block_order": ["categories-1", "categories-2", "categories-3"],
+      "block_order": [
+        "categories-1",
+        "categories-2",
+        "categories-3"
+      ],
       "settings": {
         "columns": 3,
         "blocks_spacing": "m",
@@ -117,7 +551,8 @@
         "show_collection_button": true,
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      }
+      },
+      "disabled": true
     },
     "popular-products": {
       "type": "popular-products",
@@ -143,7 +578,8 @@
         "padding_bottom": "no-indent",
         "enable_border_top": true,
         "enable_border_bottom": false
-      }
+      },
+      "disabled": true
     },
     "grid-banner": {
       "type": "grid-banner",
@@ -192,12 +628,16 @@
           }
         }
       },
-      "block_order": ["column-1", "column-2"],
+      "block_order": [
+        "column-1",
+        "column-2"
+      ],
       "settings": {
         "columns": 2,
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      }
+      },
+      "disabled": true
     },
     "fa0130ad-1353-49bf-b178-b562783abf82": {
       "type": "brands",
@@ -257,7 +697,8 @@
       "settings": {
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      }
+      },
+      "disabled": true
     },
     "d36c1fcf-5d88-4f60-9edd-8d03e896463d": {
       "type": "product-markers",
@@ -328,7 +769,8 @@
         "margin_bottom": "l",
         "padding_top": "no-indent",
         "padding_bottom": "no-indent"
-      }
+      },
+      "disabled": true
     },
     "collection_tabs_kR6ndA": {
       "type": "collection-tabs",
@@ -352,7 +794,8 @@
         "padding_bottom": "no-indent",
         "enable_border_top": false,
         "enable_border_bottom": false
-      }
+      },
+      "disabled": true
     },
     "countdown": {
       "type": "countdown",
@@ -404,7 +847,8 @@
         "padding_bottom": "l",
         "enable_border_top": true,
         "enable_border_bottom": true
-      }
+      },
+      "disabled": true
     },
     "split-screen-slideshow": {
       "type": "split-screen-slideshow",
@@ -446,7 +890,11 @@
           }
         }
       },
-      "block_order": ["slide-1", "slide-2", "slide-3"],
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3"
+      ],
       "settings": {
         "sliding_types": "scroll",
         "image_size": "75",
@@ -460,7 +908,8 @@
         "slide_effects": "fade",
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      }
+      },
+      "disabled": true
     },
     "39c2ce61-61c0-4425-9eaf-db1df93f34ce": {
       "type": "collapsible-content",
@@ -510,7 +959,8 @@
         "padding_bottom": "no-indent",
         "enable_border_top": false,
         "enable_border_bottom": false
-      }
+      },
+      "disabled": true
     },
     "blog-post": {
       "type": "blog-post",
@@ -530,7 +980,8 @@
         "image_fit": "cover",
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      }
+      },
+      "disabled": true
     },
     "image-banner": {
       "type": "image-banner",
@@ -553,10 +1004,22 @@
         "padding_bottom": "no-indent",
         "enable_border_top": true,
         "enable_border_bottom": false
-      }
+      },
+      "disabled": true
     }
   },
   "order": [
+    "mf_hero",
+    "mf_bento",
+    "mf_featured",
+    "mf_story",
+    "mf_look",
+    "mf_stats",
+    "mf_design",
+    "mf_services",
+    "mf_testimonials",
+    "mf_blog",
+    "mf_ugc",
     "slideshow",
     "collection-grid",
     "popular-products",

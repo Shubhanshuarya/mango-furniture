@@ -1,0 +1,63 @@
+{%- render 'mf-assets', css: 'mf-home' -%}
+
+{%- assign blog = section.settings.blog -%}
+{%- assign post_limit = section.settings.post_limit | plus: 0 -%}
+<div class="mf mf-section{% if section.settings.background == 'surface' %} mf-section--surface{% endif %}" id="MfBlog-{{ section.id }}">
+  <div class="mf-container">
+    {%- render 'mf-section-head',
+      eyebrow: section.settings.eyebrow,
+      heading: section.settings.heading,
+      link_label: section.settings.link_label,
+      link_url: blog.url
+    -%}
+    <div class="mf-articles">
+      {%- if blog != blank and blog.articles_count > 0 -%}
+        {%- for article in blog.articles limit: post_limit -%}
+          <article class="mf-article-card mf-reveal" style="--i: {{ forloop.index0 }}">
+            <div class="mf-media">
+              {%- if article.image -%}
+                {{- article.image | image_url: width: 1000 | image_tag: widths: '360, 540, 720, 1000', sizes: '(min-width: 990px) 33vw, 100vw', loading: 'lazy', alt: '' -}}
+              {%- else -%}
+                {{- 'lifestyle-2' | placeholder_svg_tag: 'mf-placeholder-svg' -}}
+              {%- endif -%}
+            </div>
+            <div class="mf-meta">
+              {%- if section.settings.show_tag and article.tags.size > 0 -%}<span>{{ article.tags.first | escape }}</span><span aria-hidden="true">·</span>{%- endif -%}
+              {%- if section.settings.show_date -%}{{ article.published_at | time_tag: format: 'date' }}{%- endif -%}
+            </div>
+            <h3><a href="{{ article.url }}">{{ article.title | escape }}</a></h3>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..3) -%}
+          <article class="mf-article-card">
+            <div class="mf-media">{{ 'lifestyle-2' | placeholder_svg_tag: 'mf-placeholder-svg' }}</div>
+            <h3>Blog post title</h3>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Featured blog",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Journal" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Ideas for living well" },
+    { "type": "blog", "id": "blog", "label": "Blog" },
+    { "type": "select", "id": "post_limit", "label": "Posts", "default": "3", "options": [{ "value": "3", "label": "3" }, { "value": "6", "label": "6" }] },
+    { "type": "checkbox", "id": "show_date", "label": "Show date", "default": true },
+    { "type": "checkbox", "id": "show_tag", "label": "Show first tag", "default": true },
+    { "type": "text", "id": "link_label", "label": "Link label", "default": "All stories" },
+    {
+      "type": "select", "id": "background", "label": "Background", "default": "surface",
+      "options": [{ "value": "default", "label": "Limewash" }, { "value": "surface", "label": "Plaster" }]
+    }
+  ],
+  "presets": [{ "name": "Mango: Featured blog" }]
+}
+{% endschema %}

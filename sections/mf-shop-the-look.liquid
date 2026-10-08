@@ -1,0 +1,124 @@
+{%- render 'mf-assets', css: 'mf-home' -%}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign total = 0
+  assign variant_ids = ''
+  assign available_count = 0
+  for block in section.blocks
+    assign p = block.settings.product
+    if p != blank and p.available
+      assign total = total | plus: p.price
+      assign variant_ids = variant_ids | append: p.selected_or_first_available_variant.id | append: ','
+      assign available_count = available_count | plus: 1
+    endif
+  endfor
+-%}
+
+<div class="mf mf-section{% if section.settings.background == 'surface' %} mf-section--surface{% endif %}" id="MfLook-{{ section.id }}">
+  <div class="mf-container">
+    {%- render 'mf-section-head', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text -%}
+
+    <div class="mf-lookbook">
+      <div class="mf-lookbook-media mf-reveal">
+        {%- liquid
+          assign look_image = section.settings.image
+          if look_image == blank
+            assign first_product = section.blocks.first.settings.product
+            assign look_image = first_product.featured_image
+          endif
+        -%}
+        {%- if look_image != blank -%}
+          {{- look_image | image_url: width: 1800 | image_tag: widths: '720, 1000, 1400, 1800', sizes: '(min-width: 990px) 58vw, 100vw', loading: 'lazy' -}}
+        {%- else -%}
+          {{- 'lifestyle-1' | placeholder_svg_tag: 'mf-placeholder-svg' -}}
+        {%- endif -%}
+
+        {%- for block in section.blocks -%}
+          {%- assign p = block.settings.product -%}
+          {%- if p != blank and block.settings.show_hotspot -%}
+            {%- assign price = p.price | money_without_trailing_zeros -%}
+            <button type="button" class="mf-hotspot" style="left: {{ block.settings.x }}%; top: {{ block.settings.y }}%" aria-expanded="false" aria-label="{{ 'mf.look.hotspot_aria' | t: title: p.title, price: price | escape }}" {{ block.shopify_attributes }}></button>
+            <a class="mf-hotspot-card" href="{{ p.url }}" style="left: calc({{ block.settings.x }}% + 26px); top: calc({{ block.settings.y }}% - 30px)">
+              {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+              <span><b>{{ p.title | escape }}</b><br><span class="mf-price"><span>{{ price }}</span>{% if p.compare_at_price > p.price %} <s>{{ p.compare_at_price | money_without_trailing_zeros }}</s>{% endif %}</span></span>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <div class="mf-look-list">
+        {%- for block in section.blocks -%}
+          {%- assign p = block.settings.product -%}
+          {%- if p == blank -%}
+            <div class="mf-look-item" {{ block.shopify_attributes }}><span class="mf-editor-note" style="grid-column: 1 / -1">Select a product for this block.</span></div>
+            {%- continue -%}
+          {%- endif -%}
+          <div class="mf-look-item mf-reveal" style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            <a href="{{ p.url }}">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 240 | image_tag: loading: 'lazy', alt: p.title }}{%- endif -%}</a>
+            <div>
+              <a href="{{ p.url }}" style="text-decoration: none"><b>{{ p.title | escape }}</b></a>
+              <span class="mf-price"><span>{{ p.price | money_without_trailing_zeros }}</span>{% if p.compare_at_price > p.price %}<s>{{ p.compare_at_price | money_without_trailing_zeros }}</s>{% endif %}</span>
+            </div>
+            {%- if p.available and p.has_only_default_variant -%}
+              <product-form data-hide-errors="false">
+                {%- assign look_form_id = 'MfLookForm-' | append: section.id | append: '-' | append: block.id -%}
+                {%- form 'product', p, id: look_form_id, novalidate: 'novalidate' -%}
+                  <input type="hidden" name="id" value="{{ p.selected_or_first_available_variant.id }}">
+                  <button type="submit" class="mf-btn mf-btn--secondary mf-btn--sm" aria-label="{{ 'mf.look.add_aria' | t: title: p.title | escape }}">{{ 'mf.look.add' | t }}</button>
+                  <div class="product-form__error-message-wrapper" role="alert" hidden><span class="product-form__error-message"></span></div>
+                {%- endform -%}
+              </product-form>
+            {%- elsif p.available -%}
+              <a class="mf-btn mf-btn--secondary mf-btn--sm" href="{{ p.url }}">{{ 'mf.card.choose_options' | t }}</a>
+            {%- else -%}
+              <span class="mf-badge mf-badge--soldout">{{ 'mf.card.sold_out' | t }}</span>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+
+        {%- if available_count > 1 -%}
+          <div class="mf-look-total">
+            <span><span class="mf-muted">{{ 'mf.look.complete_set' | t }}</span><br><b class="mf-tabular" style="font-size: var(--step-2)">{{ total | money_without_trailing_zeros }}</b></span>
+            <button class="mf-btn mf-btn--accent" type="button" data-mf-add-all="{{ variant_ids }}">{{ 'mf.look.add_all' | t: count: available_count }}</button>
+          </div>
+          <p class="mf-look-error" style="color: var(--color-error); font-size: 14px; margin: 8px 0 0" data-mf-add-all-error hidden role="alert"></p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Shop the look",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop the room" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "The living room edit" },
+    { "type": "inline_richtext", "id": "text", "label": "Text", "default": "Three pieces in warm walnut tones that sit together without trying too hard." },
+    { "type": "image_picker", "id": "image", "label": "Room image", "info": "A room photo showing the pieces below. Falls back to the first product's image. Position hotspots on each product block." },
+    {
+      "type": "select", "id": "background", "label": "Background", "default": "default",
+      "options": [{ "value": "default", "label": "Limewash" }, { "value": "surface", "label": "Plaster" }]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "limit": 6,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "checkbox", "id": "show_hotspot", "label": "Show hotspot on image", "default": true },
+        { "type": "range", "id": "x", "label": "Hotspot horizontal position", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
+        { "type": "range", "id": "y", "label": "Hotspot vertical position", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Mango: Shop the look", "blocks": [{ "type": "product" }, { "type": "product" }, { "type": "product" }] }
+  ]
+}
+{% endschema %}
