@@ -19,34 +19,34 @@
 /* ---------- Tablet ---------- */
 @media (min-width: 750px) and (max-width: 989px) {
   .display-xl { font-size: clamp(2.25rem, 0.9rem + 3.4vw, 3rem); }
-  .hero { grid-template-columns: 1fr 1fr; gap: var(--space-l); align-items: center; padding-top: var(--space-l); }
+  .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-l); align-items: center; padding-top: var(--space-l); }
   .hero-media { order: 0; aspect-ratio: 4 / 5; margin-inline: 0; border-radius: var(--radius-media); }
   .hero-ctas .btn { flex: 0 0 auto; }
 
-  .bento { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 30vw; gap: var(--space-xs); }
+  .bento { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 30vw; gap: var(--space-xs); }
   .tile--tall, .tile--wide, .tile:last-child:nth-child(even) { grid-row: auto; grid-column: auto; }
 
-  .product-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-l) var(--space-s); }
+  .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-l) var(--space-s); }
   .product-grid[data-mobile-limit] > :nth-child(n+5) { display: flex; }
   .product-grid[data-mobile-limit] > :nth-child(n+7) { display: none; }
 
-  .split { grid-template-columns: 1fr 1fr; gap: var(--space-xl); }
-  .lookbook { grid-template-columns: 1fr 1fr; gap: var(--space-l); }
+  .split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-xl); }
+  .lookbook { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-l); }
   .lookbook-media { aspect-ratio: 4 / 5; }
-  .ds-teaser { grid-template-columns: 1.1fr 1fr; gap: var(--space-xl); }
+  .ds-teaser { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--space-xl); }
 
-  .stats { grid-template-columns: repeat(3, 1fr); }
+  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .stat, .stat + .stat { display: block; padding: var(--space-m) var(--space-s) 0; border-bottom: 0; }
   .stat + .stat { border-left: 1px solid var(--color-line); }
 
-  .services { grid-template-columns: repeat(3, 1fr); gap: var(--space-s); }
+  .services { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-s); }
   .service { display: grid; grid-template-columns: none; padding: var(--space-m); }
   .service > :not(.ico) { grid-column: auto; }
   .service .ico { grid-row: auto; }
 
-  .articles { grid-template-columns: repeat(3, 1fr); gap: var(--space-m); }
+  .articles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-m); }
   .article-card h3 { font-size: var(--step-1); }
-  .ugc { grid-template-columns: repeat(6, 1fr); }
+  .ugc { grid-template-columns: repeat(6, minmax(0, 1fr)); }
 }
 
 /* ---------- Phone ---------- */
@@ -54,6 +54,8 @@
   :root { --space-section: 3rem; }
   .section-head { margin-bottom: var(--space-m); align-items: flex-end; }
   .section-head .link-arrow { font-size: var(--step--1); }
+  .section-head > div { min-width: 0; }
+  .eyebrow { white-space: nowrap; letter-spacing: 0.12em; }
   .display-xl { font-size: clamp(2.25rem, 1.5rem + 3vw, 2.625rem); }
   .display-l { font-size: clamp(1.75rem, 1.3rem + 2vw, 2rem); }
   .lede { font-size: var(--step-0); margin-top: var(--space-s); }
@@ -92,7 +94,7 @@
   .look-item { grid-template-columns: 64px 1fr auto; gap: 12px; padding-bottom: var(--space-xs); }
 
   /* Stats: one compact row */
-  .stats { grid-template-columns: repeat(3, 1fr); }
+  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .stat, .stat + .stat { display: block; padding: var(--space-s) 10px 0; border-bottom: 0; }
   .stat:first-child { padding-left: 0; }
   .stat + .stat { border-left: 1px solid var(--color-line); }
@@ -100,7 +102,7 @@
   .stat p { font-size: 12px; margin-top: 4px; }
 
   /* Design teaser: one image on top, titles-only steps, stacked form */
-  .ds-mosaic { order: -1; grid-template-columns: 1fr; }
+  .ds-mosaic { order: -1; grid-template-columns: minmax(0, 1fr); }
   .ds-mosaic .m:not(:first-child) { display: none; }
   .ds-mosaic .m:first-child { grid-row: auto; aspect-ratio: 16 / 10; }
   .ds-form { flex-direction: column; }
