@@ -35,7 +35,7 @@
     </div>
 
     <div class="mf-form-card">
-      {%- form 'contact', id: fid, class: 'mf-form', novalidate: 'novalidate', data-mf-validate: 'true' -%}
+      {%- form 'contact', id: fid, class: 'mf-form mf-form--grid', novalidate: 'novalidate', data-mf-validate: 'true' -%}
         {%- if section.settings.tag != blank -%}<input type="hidden" name="contact[tags]" value="{{ section.settings.tag | escape }}">{%- endif -%}
         {%- if section.settings.form_name != blank -%}<input type="hidden" name="contact[form]" value="{{ section.settings.form_name | escape }}">{%- endif -%}
 
@@ -48,7 +48,6 @@
         </div>
 
         {%- unless form.posted_successfully? -%}
-          {%- assign row_open = false -%}
           {%- for block in fields -%}
             {%- liquid
               assign fname = block.settings.name | handleize | replace: '-', '_'
@@ -68,9 +67,7 @@
                 assign half = true
               endif
             -%}
-            {%- if half and row_open == false -%}<div class="mf-form-row">{%- assign row_open = true -%}{%- elsif half == false and row_open -%}</div>{%- assign row_open = false -%}{%- endif -%}
-
-            <div class="mf-field" {{ block.shopify_attributes }}>
+            <div class="mf-field{% if half %} mf-field--half{% endif %}" {{ block.shopify_attributes }}>
               {%- case block.settings.type -%}
                 {%- when 'checkbox' -%}
                   <label class="mf-check"><input type="checkbox" name="{{ input_name }}" value="Yes"{% if block.settings.required %} required{% endif %}> {{ block.settings.label }}</label>
@@ -120,7 +117,6 @@
               <p class="mf-field-error" id="{{ iid }}-e">{% render 'mf-icon', icon: 'alert', size: 16 %}{{ block.settings.error | default: 'Please fill in this field.' | escape }}</p>
             </div>
           {%- endfor -%}
-          {%- if row_open -%}</div>{%- endif -%}
 
           <button class="mf-btn mf-btn--accent mf-btn--block" type="submit">{{ section.settings.button_label | escape }}</button>
           {%- if section.settings.small_print != blank -%}<p class="mf-help" style="margin: 0">{{ section.settings.small_print }}</p>{%- endif -%}

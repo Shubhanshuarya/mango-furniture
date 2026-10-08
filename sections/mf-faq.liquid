@@ -27,23 +27,34 @@
         </nav>
       {%- endif -%}
       <div>
-        {%- assign open_group = false -%}
+        {%- liquid
+          comment
+            Each group renders the questions that follow it (until the next group). Questions placed
+            before the first group are rendered in an untitled group.
+          endcomment
+          assign first = section.blocks.first
+        -%}
+        {%- if first and first.type == 'question' -%}
+          <div class="mf-faq-group" data-mf-faq-group><div class="mf-accordion">
+            {%- for q in section.blocks -%}
+              {%- if q.type == 'group' -%}{%- break -%}{%- endif -%}
+              {%- render 'mf-faq-item', block: q -%}
+            {%- endfor -%}
+          </div></div>
+        {%- endif -%}
         {%- for block in section.blocks -%}
           {%- if block.type == 'group' -%}
-            {%- if open_group -%}</div></div>{%- endif -%}
             <div class="mf-faq-group" id="faq-{{ block.id }}" data-mf-faq-group {{ block.shopify_attributes }}>
               <h2 class="mf-display">{{ block.settings.title | escape }}</h2>
               <div class="mf-accordion">
-            {%- assign open_group = true -%}
-          {%- else -%}
-            {%- unless open_group -%}<div class="mf-faq-group" data-mf-faq-group><div class="mf-accordion">{%- assign open_group = true -%}{%- endunless -%}
-            <details {{ block.shopify_attributes }}>
-              <summary>{{ block.settings.question | escape }}<span class="mf-plus" aria-hidden="true"></span></summary>
-              <div class="mf-acc-body mf-rte-sm">{{ block.settings.answer }}</div>
-            </details>
+                {%- for q in section.blocks offset: forloop.index -%}
+                  {%- if q.type == 'group' -%}{%- break -%}{%- endif -%}
+                  {%- render 'mf-faq-item', block: q -%}
+                {%- endfor -%}
+              </div>
+            </div>
           {%- endif -%}
         {%- endfor -%}
-        {%- if open_group -%}</div></div>{%- endif -%}
         {%- if section.settings.footer_note != blank -%}
           <div class="mf-callout" style="margin-top: var(--space-2xl)">{% render 'mf-icon', icon: 'chat' %}<span>{{ section.settings.footer_note }}</span></div>
         {%- endif -%}

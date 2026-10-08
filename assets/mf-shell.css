@@ -161,6 +161,7 @@ body.mf-is-locked { overflow: hidden; }
 @media (max-width: 989px) {
   body.mf-has-sticky-atc .mf-wa-fab { bottom: calc(88px + env(safe-area-inset-bottom)); }
 }
+.mf-lightbox img:not([src]) { visibility: hidden; }
 
 /* ---- theme integration (design/theme-raw.css, not prefixed) ---- */
 /* Unprefixed rules for the theme's own markup that the redesign reuses.

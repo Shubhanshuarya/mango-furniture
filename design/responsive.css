@@ -190,3 +190,10 @@
 .faq-group h2 { font-size: var(--step-3); margin-bottom: var(--space-m); }
 @media (max-width: 989px) { .text-steps { grid-template-columns: minmax(0, 1fr); gap: var(--space-l); } }
 @media (max-width: 749px) { .big-quote { font-size: var(--step-3); } .process li::before { font-size: var(--step-3); } }
+
+/* Enquiry form: two-column grid; half fields pair up, everything else spans */
+.form--grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--space-m); }
+.form--grid > * { grid-column: 1 / -1; }
+.form--grid > .field--half { grid-column: auto; }
+@media (max-width: 749px) { .form--grid > .field--half { grid-column: 1 / -1; } }
+.lightbox img:not([src]) { visibility: hidden; }

@@ -1,0 +1,5 @@
+{%- comment -%} One FAQ question (accordion item). Accepts: block {%- endcomment -%}
+<details {{ block.shopify_attributes }}>
+  <summary>{{ block.settings.question | escape }}<span class="mf-plus" aria-hidden="true"></span></summary>
+  <div class="mf-acc-body mf-rte-sm">{{ block.settings.answer }}</div>
+</details>
