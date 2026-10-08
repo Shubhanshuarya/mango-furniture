@@ -1,0 +1,46 @@
+{%- render 'mf-assets', css: 'mf-home', preload_fonts: true -%}
+<div class="mf" data-mf-main>
+  <section class="mf-container mf-page-hero">
+    {%- if section.settings.eyebrow != blank -%}<p class="mf-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    <h1 class="mf-display mf-display-xl">{{ section.settings.heading }}</h1>
+  </section>
+  <section class="mf-container" style="padding-bottom: var(--space-section)">
+    {%- liquid
+      case section.settings.sort
+        when 'products_high', 'products_low'
+          assign list = collections | sort: 'all_products_count'
+          if section.settings.sort == 'products_high'
+            assign list = list | reverse
+          endif
+        when 'alphabetical'
+          assign list = collections | sort: 'title'
+        else
+          assign list = collections
+      endcase
+    -%}
+    <div class="mf-coll-tiles">
+      {%- for c in list -%}
+        {%- if c.handle == 'frontpage' or c.all_products_count == 0 -%}{%- continue -%}{%- endif -%}
+        <a class="mf-tile mf-reveal" style="--i: {{ forloop.index0 | modulo: 4 }}" href="{{ c.url }}">
+          <span class="mf-tile-media">
+            {%- assign ci = c.featured_image | default: c.products.first.featured_image -%}
+            {%- if ci -%}{{ ci | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', sizes: '(min-width: 990px) 25vw, 50vw', alt: '' }}{%- else -%}{{ 'collection-1' | placeholder_svg_tag: 'mf-placeholder-svg' }}{%- endif -%}
+          </span>
+          <span class="mf-tile-label"><span>{{ c.title | escape }}</span><span>{% render 'mf-icon', icon: 'arrow', size: 16 %}</span></span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </section>
+</div>
+{% schema %}
+{
+  "name": "Mango: All collections",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "All categories" },
+    { "type": "select", "id": "sort", "label": "Sort", "default": "alphabetical", "options": [{ "value": "alphabetical", "label": "Alphabetical" }, { "value": "products_high", "label": "Most products first" }, { "value": "products_low", "label": "Fewest products first" }, { "value": "date", "label": "Store order" }] }
+  ]
+}
+{% endschema %}

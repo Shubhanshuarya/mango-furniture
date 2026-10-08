@@ -9,6 +9,14 @@
  */
 {
   "sections": {
+    "mf_collections": {
+      "type": "mf-main-list-collections",
+      "settings": {
+        "eyebrow": "Shop",
+        "heading": "All categories",
+        "sort": "alphabetical"
+      }
+    },
     "main": {
       "type": "main-list-collections",
       "settings": {
@@ -23,8 +31,12 @@
         "show_collection_button": true,
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      }
+      },
+      "disabled": true
     }
   },
-  "order": ["main"]
+  "order": [
+    "mf_collections",
+    "main"
+  ]
 }

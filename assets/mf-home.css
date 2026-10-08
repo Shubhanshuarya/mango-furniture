@@ -221,3 +221,12 @@
   .mf-article-card h3 { font-size: var(--step-1); }
   .mf-ugc { gap: 4px; }
 }
+.mf-coll-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-s); }
+.mf-coll-tiles .mf-tile { aspect-ratio: 4 / 5; }
+@media (max-width: 989px) {
+  .mf-coll-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 749px) {
+  .mf-coll-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xs); }
+  .mf-coll-tiles .mf-tile { aspect-ratio: auto; display: grid; gap: 8px; }
+}

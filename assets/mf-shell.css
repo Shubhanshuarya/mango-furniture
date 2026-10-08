@@ -201,3 +201,12 @@ cart-drawer .cart__empty-title { font-family: "MF Fraunces", Georgia, serif; fon
    own, so hide the theme one only on pages that contain one ([data-mf-main]). */
 #MainContent:has([data-mf-main]) > :has(> nav.breadcrumb),
 #MainContent:has([data-mf-main]) > nav.breadcrumb { display: none; }
+
+/* Policy pages (/policies/*): rendered by Shopify without sections; style the standard container. */
+.shopify-policy__container { max-width: 760px !important; margin: 0 auto; padding: 48px 16px 112px; color: #2a211b; font-family: "MF Figtree", system-ui, sans-serif; font-size: 17px; line-height: 1.7; }
+.shopify-policy__title { text-align: left !important; margin-bottom: 32px; }
+.shopify-policy__title h1 { font-family: "MF Fraunces", Georgia, serif; font-weight: 380; letter-spacing: -0.015em; font-size: clamp(38px, 25.6px + 3.2vw, 76px); line-height: 1.08; text-transform: none; color: #2a211b; margin: 0; }
+.shopify-policy__body h2, .shopify-policy__body h3, .shopify-policy__body strong { color: #2a211b; }
+.shopify-policy__body h2, .shopify-policy__body h3 { font-family: "MF Fraunces", Georgia, serif; font-weight: 380; text-transform: none; letter-spacing: -0.01em; margin: 1.8em 0 0.5em; }
+.shopify-policy__body p, .shopify-policy__body li { color: #2a211b; }
+.shopify-policy__body a { color: #a0533a; }

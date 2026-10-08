@@ -199,3 +199,12 @@
 .lightbox img:not([src]) { visibility: hidden; }
 
 .nf .num { margin: 0 0 var(--space-m); }
+
+/* All collections grid */
+.coll-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-s); }
+.coll-tiles .tile { aspect-ratio: 4 / 5; }
+@media (max-width: 989px) { .coll-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 749px) {
+  .coll-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xs); }
+  .coll-tiles .tile { aspect-ratio: auto; display: grid; gap: 8px; }
+}
