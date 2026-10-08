@@ -145,3 +145,32 @@
   .coll-hero .display-l { font-size: var(--step-3); }
   .toolbar-inner { min-height: 52px; }
 }
+
+/* ---------- Product page (theme build additions) ---------- */
+.gallery .g--extra { display: none; }
+.gallery .g--more { display: grid; place-items: center; border: 1px solid var(--color-line); background: var(--color-surface); cursor: pointer; font-weight: 600; font-size: var(--step--1); color: var(--color-ink); }
+.gallery .g--more span { display: grid; justify-items: center; gap: 8px; }
+.gallery .g--more:hover { background: var(--color-accent-soft); }
+.product .pill input.is-unavailable + span { color: var(--color-ink-muted); text-decoration: line-through; }
+.product .swatch-btn input.is-unavailable + span { opacity: 0.4; }
+.pdp-info > * + * { margin-top: 0; }
+.pdp-info .accordion + .accordion { border-top: 0; }
+.rte-sm { font-size: var(--step--1); line-height: 1.65; }
+.rte-sm p { margin: 0 0 0.8em; }
+.rte-sm ul { padding-left: 1.1em; margin: 0 0 0.8em; }
+.terms { font-size: var(--step--1); color: var(--color-ink-muted); margin-top: 6px; }
+.dynamic-checkout { margin-top: var(--space-xs); }
+.dynamic-checkout .shopify-payment-button__button { border-radius: var(--radius-pill) !important; min-height: 52px; overflow: hidden; }
+.dynamic-checkout .shopify-payment-button__more-options { color: var(--color-ink-muted); font-size: var(--step--1); text-decoration: underline; margin-top: 10px; }
+.g--media { grid-column: span 2; border-radius: var(--radius-sm); overflow: hidden; background: var(--color-surface-media); position: relative; }
+.g--media video, .g--media iframe, .g--media model-viewer { width: 100%; aspect-ratio: 16 / 9; height: auto; display: block; }
+.ar-btn { position: absolute; left: 12px; bottom: 12px; }
+.mobile-gallery .g--media { flex: 0 0 100%; scroll-snap-align: start; aspect-ratio: auto; }
+.badge-row .badge { box-shadow: var(--shadow-1); }
+.product .accordion summary { font-size: var(--step-0); }
+.recs .scroller { padding-bottom: var(--space-2xs); }
+@media (max-width: 749px) {
+  .pdp-info h1.display { font-size: var(--step-3); }
+  .pdp-price { font-size: var(--step-1); }
+  .buy-row .btn { font-size: var(--step-0); }
+}

@@ -1,0 +1,343 @@
+{%- comment -%}
+  Mango redesign product page.
+  - Add to cart re-uses the theme's <product-form> (cart drawer opens as before) + Shopify dynamic checkout.
+  - Variant switching: assets/mf-product.js (price, availability, URL, media, sticky bar).
+  - Optional metafields (product, single line text unless noted):
+    custom.dimensions, custom.box_dimensions, custom.net_weight, custom.shipping_weight, custom.assembly,
+    custom.material, custom.care (multi-line), custom.width / custom.depth / custom.height (numbers, inches → diagram).
+{%- endcomment -%}
+{%- render 'mf-assets', css: 'mf-product', preload_fonts: true -%}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'mf-product.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign form_id = 'MfProductForm-' | append: section.id
+  assign mf = product.metafields.custom
+  assign first_media = current.featured_media | default: product.featured_media
+  assign save_amt = ''
+  if current.compare_at_price > current.price
+    assign save_amt = current.compare_at_price | minus: current.price | money_without_trailing_zeros
+  endif
+-%}
+
+<div class="mf mf-product" id="MfProduct-{{ section.id }}" data-mf-product data-mf-main data-section-id="{{ section.id }}" data-url="{{ product.url }}">
+  <div class="mf-container" style="padding-top: var(--space-m)">
+    <ol class="mf-crumbs mf-hide-mobile" aria-label="{{ 'mf.collection.breadcrumb' | t }}">
+      <li><a href="{{ routes.root_url }}">{{ 'mf.collection.home' | t }}</a></li>
+      {%- if collection -%}<li><a href="{{ collection.url }}">{{ collection.title | escape }}</a></li>{%- endif -%}
+      <li aria-current="page">{{ product.title | escape }}</li>
+    </ol>
+  </div>
+
+  <section class="mf-container mf-pdp">
+    {%- comment -%} Gallery {%- endcomment -%}
+    <div>
+      <div class="mf-gallery" data-mf-gallery>
+        {%- for media in product.media -%}
+          {%- case media.media_type -%}
+            {%- when 'image' -%}
+              <button class="mf-g{% if forloop.index > section.settings.gallery_limit %} mf-g--extra{% endif %}" type="button" data-mf-zoom="{{ forloop.index0 }}" data-media-id="{{ media.id }}" data-full="{{ media | image_url: width: 2400 }}" data-alt="{{ media.alt | default: product.title | escape }}" aria-label="{{ 'mf.product.zoom' | t: index: forloop.index, total: product.media.size }}">
+                {%- if forloop.first -%}{%- assign g_load = 'eager' -%}{%- else -%}{%- assign g_load = 'lazy' -%}{%- endif -%}
+                {{- media | image_url: width: 1800 | image_tag: widths: '540, 720, 1000, 1400, 1800', sizes: '(min-width: 990px) 55vw, 100vw', loading: g_load, alt: media.alt | default: product.title -}}
+                <span class="mf-zoom-ico">{% render 'mf-icon', icon: 'zoom' %}</span>
+              </button>
+            {%- when 'video', 'external_video' -%}
+              <div class="mf-g mf-g--media" data-media-id="{{ media.id }}">{{ media | media_tag: image_size: '1600x', autoplay: false, loop: false, controls: true, muted: false }}</div>
+            {%- when 'model' -%}
+              <div class="mf-g mf-g--media" data-media-id="{{ media.id }}">
+                {{ media | model_viewer_tag: image_size: '1600x', reveal: 'interaction', toggleable: true }}
+                <button class="mf-btn mf-btn--secondary mf-btn--sm mf-ar-btn" type="button" data-shopify-xr data-shopify-model3d-id="{{ media.id }}" data-shopify-title="{{ product.title | escape }}" data-shopify-xr-hidden>{% render 'mf-icon', icon: 'cube', size: 16 %} {{ 'mf.product.view_in_room' | t }}</button>
+              </div>
+          {%- endcase -%}
+        {%- else -%}
+          <div class="mf-g">{{ 'product-1' | placeholder_svg_tag: 'mf-placeholder-svg' }}</div>
+        {%- endfor -%}
+        {%- assign image_count = product.media | where: 'media_type', 'image' | size -%}
+        {%- if image_count > section.settings.gallery_limit -%}
+          <button class="mf-g mf-g--more" type="button" data-mf-zoom="{{ section.settings.gallery_limit }}">
+            <span>{% render 'mf-icon', icon: 'zoom' %}{{ 'mf.product.view_all_photos' | t: count: image_count }}</span>
+          </button>
+        {%- endif -%}
+      </div>
+
+      <div class="mf-mobile-gallery">
+        <div class="mf-track" data-mf-mtrack>
+          {%- for media in product.media -%}
+            {%- if media.media_type == 'image' -%}
+              <button type="button" data-mf-zoom="{{ forloop.index0 }}" data-media-id="{{ media.id }}" aria-label="{{ 'mf.product.zoom' | t: index: forloop.index, total: product.media.size }}">
+                {%- if forloop.first -%}{%- assign m_load = 'eager' -%}{%- else -%}{%- assign m_load = 'lazy' -%}{%- endif -%}
+                {{- media | image_url: width: 1000 | image_tag: widths: '390, 600, 800, 1000', sizes: '100vw', loading: m_load, alt: media.alt | default: product.title -}}
+              </button>
+            {%- else -%}
+              <div class="mf-g--media" data-media-id="{{ media.id }}">{{ media | media_tag: image_size: '1000x' }}</div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {%- if current.compare_at_price > current.price -%}
+          <div class="mf-badge-row"><span class="mf-badge mf-badge--sale" data-mf-save-badge>{{ 'mf.card.save' | t: amount: save_amt }}</span></div>
+        {%- endif -%}
+        {%- if product.media.size > 1 -%}
+          <div class="mf-dots" aria-hidden="true">{%- for media in product.media -%}<i{% if forloop.first %} class="mf-on"{% endif %}></i>{%- endfor -%}</div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} Info column: blocks in editor order {%- endcomment -%}
+    <div class="mf-pdp-info">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'title' -%}
+            <div {{ block.shopify_attributes }}>
+              {%- liquid
+                assign eyebrow = block.settings.eyebrow
+                if eyebrow == blank and block.settings.show_type and product.type != blank
+                  assign eyebrow = product.type
+                endif
+              -%}
+              {%- if eyebrow != blank -%}<p class="mf-eyebrow" style="margin-bottom: var(--space-xs)">{{ eyebrow | escape }}</p>{%- endif -%}
+              <h1 class="mf-display">{{ product.title | escape }}</h1>
+            </div>
+
+          {%- when 'price' -%}
+            <div {{ block.shopify_attributes }}>
+              <div class="mf-pdp-price" data-mf-price>
+                <span data-mf-price-current>{{ current.price | money_without_trailing_zeros }}</span>
+                <s data-mf-price-compare{% unless current.compare_at_price > current.price %} hidden{% endunless %}>{{ current.compare_at_price | money_without_trailing_zeros }}</s>
+                <span class="mf-badge mf-badge--sale" data-mf-price-save{% unless current.compare_at_price > current.price %} hidden{% endunless %}>
+                  {%- if save_amt != '' -%}{{ 'mf.card.save' | t: amount: save_amt }}{%- endif -%}
+                </span>
+              </div>
+              {%- assign terms_form_id = 'MfTerms-' | append: section.id -%}
+              {%- form 'product', product, id: terms_form_id, class: 'mf-terms' -%}
+                <input type="hidden" name="id" value="{{ current.id }}">
+                {{ form | payment_terms }}
+              {%- endform -%}
+              {%- if block.settings.tax_note -%}<p class="mf-installments" style="margin: 4px 0 0">{{ 'mf.product.tax_note' | t }}</p>{%- endif -%}
+            </div>
+
+          {%- when 'meta' -%}
+            <div class="mf-pdp-sub" {{ block.shopify_attributes }}>
+              {%- if mf.dimensions != blank -%}<span>{{ mf.dimensions.value | escape }}</span>{%- endif -%}
+              {%- if block.settings.extra != blank -%}<span>{{ block.settings.extra | escape }}</span>{%- endif -%}
+              <span data-mf-stock>
+                {%- if current.available -%}
+                  {%- if current.inventory_management == 'shopify' and current.inventory_quantity > 0 and current.inventory_quantity <= block.settings.low_stock -%}
+                    <span class="mf-status"><i></i>{{ 'mf.product.low_stock' | t: count: current.inventory_quantity }}</span>
+                  {%- else -%}
+                    <span class="mf-status mf-status--done"><i></i>{{ 'mf.product.in_stock' | t }}</span>
+                  {%- endif -%}
+                {%- else -%}
+                  <span class="mf-status"><i></i>{{ 'mf.card.sold_out' | t }}</span>
+                {%- endif -%}
+              </span>
+            </div>
+
+          {%- when 'variant_picker' -%}
+            {%- unless product.has_only_default_variant -%}
+              <div class="mf-variant-picker" data-mf-variants {{ block.shopify_attributes }}>
+                {%- for option in product.options_with_values -%}
+                  {%- assign oname = option.name | downcase -%}
+                  <fieldset class="mf-option" data-mf-option="{{ forloop.index0 }}">
+                    <legend>{{ option.name | escape }}: <span data-mf-option-label>{{ option.selected_value | escape }}</span></legend>
+                    {%- if oname == 'color' or oname == 'colour' or oname == 'finish' -%}
+                      <div class="mf-swatch-btns">
+                        {%- for value in option.values -%}
+                          {%- capture sw -%}{%- render 'mf-swatch-color', value: value -%}{%- endcapture -%}
+                          <label class="mf-swatch-btn" title="{{ value.name | escape }}">
+                            <input type="radio" name="mf-option-{{ section.id }}-{{ forloop.parentloop.index0 }}" value="{{ value.name | escape }}" form="{{ form_id }}-options"{% if value.selected %} checked{% endif %}>
+                            <span style="--sw: {{ sw }}"></span><span class="mf-visually-hidden">{{ value.name | escape }}</span>
+                          </label>
+                        {%- endfor -%}
+                      </div>
+                    {%- else -%}
+                      <div class="mf-pills">
+                        {%- for value in option.values -%}
+                          <label class="mf-pill"><input type="radio" name="mf-option-{{ section.id }}-{{ forloop.parentloop.index0 }}" value="{{ value.name | escape }}" form="{{ form_id }}-options"{% if value.selected %} checked{% endif %}><span>{{ value.name | escape }}</span></label>
+                        {%- endfor -%}
+                      </div>
+                    {%- endif -%}
+                  </fieldset>
+                {%- endfor -%}
+                <script type="application/json" data-mf-variant-json>{{ product.variants | json }}</script>
+              </div>
+            {%- endunless -%}
+
+          {%- when 'buy_buttons' -%}
+            <div {{ block.shopify_attributes }}>
+              <product-form class="mf-product-form" data-hide-errors="false" data-section-id="{{ section.id }}">
+                {%- form 'product', product, id: form_id, class: 'mf-form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                  <input type="hidden" name="id" value="{{ current.id }}" data-mf-variant-id>
+                  <div class="mf-buy-row" data-mf-buy>
+                    {%- if block.settings.show_quantity -%}
+                      <div class="mf-qty">
+                        <button type="button" data-mf-qty="-1" aria-label="{{ 'mf.product.decrease' | t }}">−</button>
+                        <input type="number" name="quantity" value="1" min="1" aria-label="{{ 'mf.product.quantity' | t }}" data-mf-qty-input>
+                        <button type="button" data-mf-qty="1" aria-label="{{ 'mf.product.increase' | t }}">+</button>
+                      </div>
+                    {%- endif -%}
+                    <button type="submit" name="add" class="mf-btn mf-btn--accent" data-mf-atc{% unless current.available %} disabled aria-disabled="true"{% endunless %}
+                      data-label-add="{{ 'mf.product.add_to_cart' | t }}" data-label-soldout="{{ 'mf.card.sold_out' | t }}" data-label-unavailable="{{ 'mf.product.unavailable' | t }}">
+                      <span>{%- if current.available -%}{{ 'mf.product.add_to_cart' | t }}{%- else -%}{{ 'mf.card.sold_out' | t }}{%- endif -%}</span>
+                    </button>
+                  </div>
+                  <div class="product-form__error-message-wrapper mf-form-status mf-form-status--error" role="alert" hidden>
+                    {% render 'mf-icon', icon: 'alert' %}<span class="product-form__error-message"></span>
+                  </div>
+                  {%- if block.settings.show_dynamic_checkout -%}
+                    <div class="mf-dynamic-checkout">{{ form | payment_button }}</div>
+                  {%- endif -%}
+                {%- endform -%}
+              </product-form>
+              <form id="{{ form_id }}-options" hidden></form>
+            </div>
+
+          {%- when 'delivery' -%}
+            <div class="mf-delivery" {{ block.shopify_attributes }}>
+              {%- if block.settings.text_1 != blank -%}<div>{% render 'mf-icon', icon: block.settings.icon_1 %}<span>{{ block.settings.text_1 }}</span></div>{%- endif -%}
+              {%- if block.settings.text_2 != blank -%}<div>{% render 'mf-icon', icon: block.settings.icon_2 %}<span>{{ block.settings.text_2 }}</span></div>{%- endif -%}
+            </div>
+
+          {%- when 'links' -%}
+            <div class="mf-pdp-links" {{ block.shopify_attributes }}>
+              {%- for i in (1..2) -%}
+                {%- assign t_key = 'title_' | append: i -%}{%- assign s_key = 'subtitle_' | append: i -%}{%- assign l_key = 'link_' | append: i -%}{%- assign i_key = 'icon_' | append: i -%}
+                {%- if block.settings[t_key] != blank -%}
+                  <a href="{{ block.settings[l_key] | default: '#' }}">{% render 'mf-icon', icon: block.settings[i_key] %}<span>{{ block.settings[t_key] | escape }}<small>{{ block.settings[s_key] | escape }}</small></span></a>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+
+          {%- when 'accordion' -%}
+            {%- capture acc_body -%}
+              {%- case block.settings.source -%}
+                {%- when 'description' -%}{{ product.description }}
+                {%- when 'specs' -%}
+                  {%- render 'mf-product-specs', product: product -%}
+                {%- when 'materials' -%}
+                  {%- if mf.material != blank -%}<p><b style="color: var(--color-ink)">{{ 'mf.product.materials' | t }}:</b> {{ mf.material.value | escape }}</p>{%- endif -%}
+                  {%- if mf.care != blank -%}{{ mf.care | metafield_tag }}{%- endif -%}
+                  {{ block.settings.content }}
+                {%- when 'page' -%}{{ block.settings.page.content }}
+                {%- else -%}{{ block.settings.content }}
+              {%- endcase -%}
+            {%- endcapture -%}
+            {%- if acc_body != blank -%}
+              <div class="mf-accordion" style="border-top: 0" {{ block.shopify_attributes }}>
+                <details{% if block.settings.open %} open{% endif %}>
+                  <summary>{{ block.settings.heading | escape }}<span class="mf-plus" aria-hidden="true"></span></summary>
+                  <div class="mf-acc-body mf-rte-sm">{{ acc_body }}</div>
+                </details>
+              </div>
+            {%- endif -%}
+
+          {%- when 'text' -%}
+            <div class="mf-rte-sm mf-muted" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </section>
+
+  {%- if section.settings.sticky_atc -%}
+    <div class="mf-sticky-atc" data-mf-sticky aria-hidden="true">
+      {%- if first_media -%}{{ first_media.preview_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+      <div><b>{{ product.title | escape }}</b><span class="mf-price"><span data-mf-price-current>{{ current.price | money_without_trailing_zeros }}</span><s data-mf-price-compare{% unless current.compare_at_price > current.price %} hidden{% endunless %}>{{ current.compare_at_price | money_without_trailing_zeros }}</s></span> <span class="mf-muted mf-hide-mobile" style="font-size: 13px" data-mf-sticky-variant>{% unless product.has_only_default_variant %}· {{ current.title | escape }}{% endunless %}</span></div>
+      <span class="mf-hide-mobile mf-muted" style="font-size: 13px">{%- if mf.dimensions != blank -%}{{ mf.dimensions.value | escape }}{%- endif -%}</span>
+      <button class="mf-btn mf-btn--accent" type="button" data-mf-sticky-atc tabindex="-1"{% unless current.available %} disabled{% endunless %}>{{ 'mf.product.add_to_cart' | t }}</button>
+    </div>
+  {%- endif -%}
+
+  <div class="mf mf-modal mf-lightbox" id="MfLightbox-{{ section.id }}" role="dialog" aria-modal="true" aria-label="{{ 'mf.product.image_zoom' | t }}" tabindex="-1" data-mf-lightbox>
+    <div class="mf-modal-panel">
+      <button class="mf-icon-btn mf-modal-close" type="button" data-mf-lightbox-close aria-label="{{ 'accessibility.close' | t }}">{% render 'mf-icon', icon: 'close' %}</button>
+      <img data-mf-lb-img src="" alt="">
+      <div class="mf-lightbox-nav">
+        <button class="mf-icon-btn" type="button" data-mf-lb="-1" aria-label="{{ 'mf.general.previous' | t }}">{% render 'mf-icon', icon: 'left' %}</button>
+        <span data-mf-lb-count class="mf-tabular"></span>
+        <button class="mf-icon-btn" type="button" data-mf-lb="1" aria-label="{{ 'mf.general.next' | t }}">{% render 'mf-icon', icon: 'right' %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Product",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "checkbox", "id": "sticky_atc", "label": "Show sticky add-to-cart bar", "default": true },
+    { "type": "range", "id": "gallery_limit", "label": "Photos shown in the desktop gallery", "min": 3, "max": 15, "step": 1, "default": 5, "info": "The rest open from a 'View all photos' tile." }
+  ],
+  "blocks": [
+    {
+      "type": "title", "name": "Title", "limit": 1,
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow text", "info": "Leave empty to use the product type." },
+        { "type": "checkbox", "id": "show_type", "label": "Use product type as eyebrow", "default": true }
+      ]
+    },
+    {
+      "type": "price", "name": "Price", "limit": 1,
+      "settings": [{ "type": "checkbox", "id": "tax_note", "label": "Show 'taxes calculated at checkout'", "default": false }]
+    },
+    {
+      "type": "meta", "name": "Size & stock line", "limit": 1,
+      "settings": [
+        { "type": "text", "id": "extra", "label": "Extra text", "info": "e.g. Seats 3–4. Dimensions come from the custom.dimensions metafield." },
+        { "type": "range", "id": "low_stock", "label": "Show 'only X left' at or below", "min": 0, "max": 10, "step": 1, "default": 3 }
+      ]
+    },
+    { "type": "variant_picker", "name": "Variant picker", "limit": 1, "settings": [] },
+    {
+      "type": "buy_buttons", "name": "Buy buttons", "limit": 1,
+      "settings": [
+        { "type": "checkbox", "id": "show_quantity", "label": "Show quantity selector", "default": true },
+        { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show dynamic checkout buttons", "default": true, "info": "Shop Pay and other express checkouts." }
+      ]
+    },
+    {
+      "type": "delivery", "name": "Delivery & craft notes", "limit": 2,
+      "settings": [
+        { "type": "select", "id": "icon_1", "label": "Icon 1", "default": "truck", "options": [{ "value": "truck", "label": "Truck" }, { "value": "hand", "label": "Hand" }, { "value": "ruler", "label": "Ruler" }, { "value": "leaf", "label": "Leaf" }, { "value": "lock", "label": "Lock" }, { "value": "check", "label": "Check" }] },
+        { "type": "inline_richtext", "id": "text_1", "label": "Line 1", "default": "<b>Free US shipping.</b> Processed in 1–4 business days, delivered in 3–10 business days." },
+        { "type": "select", "id": "icon_2", "label": "Icon 2", "default": "hand", "options": [{ "value": "truck", "label": "Truck" }, { "value": "hand", "label": "Hand" }, { "value": "ruler", "label": "Ruler" }, { "value": "leaf", "label": "Leaf" }, { "value": "lock", "label": "Lock" }, { "value": "check", "label": "Check" }] },
+        { "type": "inline_richtext", "id": "text_2", "label": "Line 2", "default": "Handcrafted in our family workshop in Jodhpur, India." }
+      ]
+    },
+    {
+      "type": "links", "name": "Link cards", "limit": 1,
+      "settings": [
+        { "type": "select", "id": "icon_1", "label": "Card 1 icon", "default": "ruler", "options": [{ "value": "ruler", "label": "Ruler" }, { "value": "tag", "label": "Tag" }, { "value": "chat", "label": "Chat" }, { "value": "cube", "label": "Cube" }] },
+        { "type": "text", "id": "title_1", "label": "Card 1 title", "default": "Custom size or finish" },
+        { "type": "text", "id": "subtitle_1", "label": "Card 1 subtitle", "default": "Made to fit your space" },
+        { "type": "url", "id": "link_1", "label": "Card 1 link" },
+        { "type": "select", "id": "icon_2", "label": "Card 2 icon", "default": "tag", "options": [{ "value": "ruler", "label": "Ruler" }, { "value": "tag", "label": "Tag" }, { "value": "chat", "label": "Chat" }, { "value": "cube", "label": "Cube" }] },
+        { "type": "text", "id": "title_2", "label": "Card 2 title", "default": "Trade pricing" },
+        { "type": "text", "id": "subtitle_2", "label": "Card 2 subtitle", "default": "For designers & architects" },
+        { "type": "url", "id": "link_2", "label": "Card 2 link" }
+      ]
+    },
+    {
+      "type": "accordion", "name": "Accordion",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Description" },
+        {
+          "type": "select", "id": "source", "label": "Content", "default": "description",
+          "options": [
+            { "value": "description", "label": "Product description" },
+            { "value": "specs", "label": "Dimensions & specs (metafields)" },
+            { "value": "materials", "label": "Materials & care (metafields + text)" },
+            { "value": "richtext", "label": "Custom text" },
+            { "value": "page", "label": "Page content" }
+          ]
+        },
+        { "type": "richtext", "id": "content", "label": "Custom text" },
+        { "type": "page", "id": "page", "label": "Page", "info": "For 'Page content', e.g. your shipping page." },
+        { "type": "checkbox", "id": "open", "label": "Open by default", "default": false }
+      ]
+    },
+    { "type": "text", "name": "Text", "settings": [{ "type": "richtext", "id": "text", "label": "Text" }] }
+  ]
+}
+{% endschema %}

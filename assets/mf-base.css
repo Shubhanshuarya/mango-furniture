@@ -394,6 +394,7 @@
   .mf-card-title { font-size: 14px; }
   .mf-card .mf-dim { display: none; }
 }
+.mf-badge-row .mf-badge { box-shadow: var(--shadow-1); }
 .mf { font-size: 16px; }
 .mf h1, .mf h2, .mf h3, .mf h4 { margin: 0; text-transform: none; max-width: none; color: inherit; letter-spacing: var(--display-tracking); }
 .mf .mf-card-title, .mf .mf-card-title a, .mf h3.mf-card-title { letter-spacing: 0; }

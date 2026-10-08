@@ -9,6 +9,170 @@
  */
 {
   "sections": {
+    "mf_product": {
+      "type": "mf-main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "eyebrow": "",
+            "show_type": true
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "tax_note": false
+          }
+        },
+        "meta": {
+          "type": "meta",
+          "settings": {
+            "extra": "",
+            "low_stock": 3
+          }
+        },
+        "variants": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "buy": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity": true,
+            "show_dynamic_checkout": true
+          }
+        },
+        "delivery": {
+          "type": "delivery",
+          "settings": {
+            "icon_1": "truck",
+            "text_1": "<b>Free US shipping.</b> Processed in 1–4 business days, delivered in 3–10 business days.",
+            "icon_2": "hand",
+            "text_2": "Handcrafted in our family workshop in Jodhpur, India."
+          }
+        },
+        "links": {
+          "type": "links",
+          "settings": {
+            "icon_1": "ruler",
+            "title_1": "Custom size or finish",
+            "subtitle_1": "Made to fit your space",
+            "link_1": "shopify://pages/contact",
+            "icon_2": "tag",
+            "title_2": "Trade pricing",
+            "subtitle_2": "For designers & architects",
+            "link_2": "shopify://pages/contact"
+          }
+        },
+        "acc_desc": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Description",
+            "source": "description",
+            "content": "",
+            "open": true
+          }
+        },
+        "acc_specs": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Dimensions & specs",
+            "source": "specs",
+            "content": "",
+            "open": false
+          }
+        },
+        "acc_care": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Materials & care",
+            "source": "materials",
+            "content": "<p>Clean regularly with a soft dry or slightly damp cloth and avoid harsh chemicals or abrasive cleaners. Wipe spills immediately. Keep the piece out of prolonged direct sunlight and away from heat sources. Natural variation in grain and colour makes every piece unique.</p>",
+            "open": false
+          }
+        },
+        "acc_ship": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Shipping & returns",
+            "source": "richtext",
+            "content": "<p><b>Free shipping across the US.</b> Orders are processed within 1–4 business days (orders after 2 PM PST process the next business day) and delivered in 3–10 business days, with tracking by email.</p><p>See our <a href=\"/policies/shipping-policy\">shipping policy</a> and <a href=\"/policies/refund-policy\">refund policy</a>.</p>",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "meta",
+        "variants",
+        "buy",
+        "delivery",
+        "links",
+        "acc_desc",
+        "acc_specs",
+        "acc_care",
+        "acc_ship"
+      ],
+      "settings": {
+        "sticky_atc": true,
+        "gallery_limit": 5
+      }
+    },
+    "mf_story": {
+      "type": "mf-feature-columns",
+      "blocks": {
+        "c1": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/craft-faceted-drum-table.webp",
+            "title": "Solid mango wood",
+            "text": "A dense, richly grained hardwood. Every board has its own figure, so no two pieces are identical.",
+            "link": ""
+          }
+        },
+        "c2": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/contact-annabel-bench.webp",
+            "title": "Finished by hand",
+            "text": "Joinery, carving and finishing by skilled artisans, one piece at a time.",
+            "link": ""
+          }
+        },
+        "c3": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/about-sling-chair.webp",
+            "title": "Made in Jodhpur",
+            "text": "Shaped and finished in our family workshop in Jodhpur, India.",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "eyebrow": "The making of",
+        "heading": "Built for daily life, <em>finished by hand</em>",
+        "text": "",
+        "background": "surface"
+      }
+    },
+    "mf_recs": {
+      "type": "mf-product-recommendations",
+      "settings": {
+        "eyebrow": "Complete the look",
+        "heading": "Pairs well with",
+        "intent": "related",
+        "limit": 8,
+        "background": "default"
+      }
+    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -133,7 +297,8 @@
         "animation": true,
         "padding_top": "no-indent",
         "padding_bottom": "no-indent"
-      }
+      },
+      "disabled": true
     },
     "product-recommendations": {
       "type": "product-recommendations",
@@ -155,8 +320,15 @@
         "show_desc": false,
         "margin_top": "s",
         "margin_bottom": "l"
-      }
+      },
+      "disabled": true
     }
   },
-  "order": ["main", "product-recommendations"]
+  "order": [
+    "mf_product",
+    "mf_story",
+    "mf_recs",
+    "main",
+    "product-recommendations"
+  ]
 }

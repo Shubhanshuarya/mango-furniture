@@ -1,0 +1,52 @@
+{%- comment -%}
+  Loaded asynchronously from Shopify's recommendations API (assets/mf-sections.js).
+  Intent "complementary" uses products set in the Search & Discovery app; "related" is automatic.
+{%- endcomment -%}
+{%- render 'mf-assets', css: 'mf-product' -%}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+<div class="mf mf-section{% if section.settings.background == 'surface' %} mf-section--surface{% endif %} mf-recs"
+  data-mf-recs="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.limit }}&intent={{ section.settings.intent }}">
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <div class="mf-container">
+      <div class="mf-section-head">
+        <div>
+          {%- if section.settings.eyebrow != blank -%}<p class="mf-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+          <h2 class="mf-display mf-display-l">{{ section.settings.heading }}</h2>
+        </div>
+        <div class="mf-scroller-nav mf-hide-mobile">
+          <button type="button" data-mf-scroll="-1" aria-label="{{ 'mf.general.previous' | t }}">{% render 'mf-icon', icon: 'left' %}</button>
+          <button type="button" data-mf-scroll="1" aria-label="{{ 'mf.general.next' | t }}">{% render 'mf-icon', icon: 'right' %}</button>
+        </div>
+      </div>
+      <div class="mf-scroller" data-mf-scroller>
+        {%- for product in recommendations.products -%}
+          {%- render 'mf-card-product', product: product, index: forloop.index0, section_id: section.id, sizes: '(min-width: 990px) 25vw, 72vw' -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Recommendations",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Complete the look" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Pairs well with" },
+    {
+      "type": "select", "id": "intent", "label": "Products", "default": "related",
+      "options": [{ "value": "related", "label": "Related (automatic)" }, { "value": "complementary", "label": "Complementary (set in Search & Discovery)" }]
+    },
+    { "type": "range", "id": "limit", "label": "Maximum products", "min": 4, "max": 10, "step": 1, "default": 8 },
+    {
+      "type": "select", "id": "background", "label": "Background", "default": "default",
+      "options": [{ "value": "default", "label": "Limewash" }, { "value": "surface", "label": "Plaster" }]
+    }
+  ],
+  "presets": [{ "name": "Mango: Recommendations" }]
+}
+{% endschema %}

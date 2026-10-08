@@ -95,34 +95,7 @@
     {%- if color_option and color_option.values.size > 1 -%}
       <ul class="mf-swatches" aria-label="{{ 'mf.card.colours' | t: count: color_option.values.size }}">
         {%- for value in color_option.values limit: 5 -%}
-          {%- liquid
-            assign sw = value.swatch.color
-            if sw == blank
-              assign vname = value.name | downcase
-              case vname
-                when 'black'
-                  assign sw = '#1f1b18'
-                when 'brown', 'dark brown', 'walnut'
-                  assign sw = '#4a3326'
-                when 'light brown', 'honey'
-                  assign sw = '#a77a55'
-                when 'natural'
-                  assign sw = '#c9a77c'
-                when 'whitewash', 'white', 'white/black'
-                  assign sw = '#e9e3d8'
-                when 'cream', 'ivory'
-                  assign sw = '#efe6d6'
-                when 'grey', 'gray', 'slate grey'
-                  assign sw = '#8b8680'
-                when 'bourbon'
-                  assign sw = '#7a4422'
-                when 'green'
-                  assign sw = '#5b6b4a'
-                else
-                  assign sw = '#cfc6b8'
-              endcase
-            endif
-          -%}
+          {%- capture sw -%}{%- render 'mf-swatch-color', value: value -%}{%- endcapture -%}
           <li class="mf-swatch" style="--sw: {{ sw }}" title="{{ value.name | escape }}"{% if forloop.first %} aria-current="true"{% endif %}><span class="mf-visually-hidden">{{ value.name | escape }}</span></li>
         {%- endfor -%}
       </ul>

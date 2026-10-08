@@ -110,6 +110,26 @@
       "empty_text": "Try removing a filter, or ask us about a custom piece.",
       "showing": "Showing {{ shown }} of {{ total }}",
       "load_more": "Load more"
+    },
+    "product": {
+      "zoom": "Zoom image {{ index }} of {{ total }}",
+      "view_in_room": "View in your room",
+      "tax_note": "Taxes and shipping calculated at checkout.",
+      "low_stock": "Only {{ count }} left",
+      "in_stock": "In stock",
+      "add_to_cart": "Add to cart",
+      "unavailable": "Unavailable",
+      "decrease": "Decrease quantity",
+      "increase": "Increase quantity",
+      "quantity": "Quantity",
+      "materials": "Materials",
+      "dimensions": "Dimensions",
+      "box_size": "Box size",
+      "net_weight": "Net weight",
+      "shipping_weight": "Shipping weight",
+      "assembly": "Assembly",
+      "image_zoom": "Image zoom",
+      "view_all_photos": "View all {{ count }} photos"
     }
   },
   "general": {

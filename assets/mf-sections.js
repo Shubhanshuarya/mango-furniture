@@ -72,11 +72,34 @@
     });
   }
 
+  /* Product recommendations: fetch the section from the recommendations API ---- */
+  function initRecs(scope) {
+    scope.querySelectorAll('[data-mf-recs]').forEach(async (el) => {
+      if (el.dataset.mfBound || el.querySelector('[data-mf-scroller]')) return;
+      el.dataset.mfBound = '1';
+      try {
+        const html = await (await fetch(el.dataset.mfRecs)).text();
+        const fresh = new DOMParser().parseFromString(html, 'text/html').querySelector('[data-mf-recs]');
+        if (fresh && fresh.innerHTML.trim()) { el.innerHTML = fresh.innerHTML; initReveals(el); }
+        else el.hidden = true;
+      } catch (e) { el.hidden = true; }
+    });
+  }
+
   function init(scope = document) {
     initReveals(scope);
     initHotspots(scope);
     initAddAll(scope);
+    initRecs(scope);
   }
+
+  /* Horizontal scroller arrows ([data-mf-scroll] next to a [data-mf-scroller]) */
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-mf-scroll]');
+    if (!b) return;
+    const s = b.closest('.mf-container, .mf')?.querySelector('[data-mf-scroller]');
+    if (s) s.scrollBy({ left: s.clientWidth * 0.75 * Number(b.dataset.mfScroll), behavior: reduced ? 'auto' : 'smooth' });
+  });
 
   window.MFSections = { init };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => init());

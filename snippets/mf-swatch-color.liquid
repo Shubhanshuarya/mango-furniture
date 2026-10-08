@@ -1,0 +1,33 @@
+{%- comment -%}
+  Outputs a CSS colour for an option value: the Shopify swatch colour if set, else a best guess from the name.
+  Accepts: value (product_option_value or String)
+{%- endcomment -%}
+{%- liquid
+  assign sw = value.swatch.color
+  if sw == blank
+    assign vname = value.name | default: value | downcase | strip
+    case vname
+      when 'black', 'ebony'
+        assign sw = '#1f1b18'
+      when 'brown', 'dark brown', 'walnut', 'espresso'
+        assign sw = '#4a3326'
+      when 'light brown', 'honey', 'tan'
+        assign sw = '#a77a55'
+      when 'natural', 'oak', 'teak'
+        assign sw = '#c9a77c'
+      when 'whitewash', 'white', 'white/black'
+        assign sw = '#e9e3d8'
+      when 'cream', 'ivory', 'beige'
+        assign sw = '#efe6d6'
+      when 'grey', 'gray', 'slate grey', 'slate gray'
+        assign sw = '#8b8680'
+      when 'bourbon', 'cognac'
+        assign sw = '#7a4422'
+      when 'green', 'olive'
+        assign sw = '#5b6b4a'
+      else
+        assign sw = '#cfc6b8'
+    endcase
+  endif
+  echo sw
+-%}

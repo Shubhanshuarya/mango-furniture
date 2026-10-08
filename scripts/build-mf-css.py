@@ -27,12 +27,13 @@ SHELL = r'announcement|site-header|header-\w+|header-inner|logo|nav-trigger|mega
 GROUPS = {
     'home': r'hero[\w-]*|bento|tile[\w-]*|lookbook[\w-]*|hotspot[\w-]*|look-\w+|inverse|ds-\w+|quotes?|ugc|stats?|split[\w-]*|steps|services?|articles?|article-card[\w-]*',
     'collection': r'collection|coll-[\w-]+|subcats|toolbar[\w-]*|density|facets?[\w-]*|facet-[\w-]+|range|promo-tile|filter-[\w-]+',
+    'product': r'product|pdp[\w-]*|gallery|g|g--media|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*|variant-picker|terms|dynamic-checkout|ar-btn|rte-sm|feature-cols?|recs',
     # Later stages (enable when the page is built):
     # 'product': r'pdp[\w-]*|gallery|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*',
 }
-ENABLED = ['home', 'shell', 'collection']
+ENABLED = ['home', 'shell', 'collection', 'product']
 # Selectors from pages.css that belong to not-yet-built pages are skipped entirely.
-LATER = r'pdp[\w-]*|gallery|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*|cart-\w+|summary|trust-row|process|projects?|form-card|form-split|contact-list|benefits|values|about-gallery|big-quote|faq-[\w-]+|article-hero|article-cover|article-body|article-aside|inline-product|progress|auth[\w-]*|divider|btn--shop|account[\w-]*|order[\w-]*|status[\w-]*|timeline|nf|card\.is-soldout'
+LATER = r'cart-\w+|summary|trust-row|process|projects?|form-card|form-split|contact-list|benefits|values|about-gallery|big-quote|faq-[\w-]+|article-hero|article-cover|article-body|article-aside|inline-product|progress|auth[\w-]*|divider|btn--shop|account[\w-]*|order[\w-]*|status[\w-]*|timeline|nf|card\.is-soldout'
 
 
 
@@ -116,6 +117,8 @@ def scope_selector(sel):
         return '.js ' + s
     if s in (':root',) or s.startswith(':root'):
         return '.mf' + s[len(':root'):]
+    if s.startswith('body.'):
+        return s  # state classes toggled on <body> by mf scripts (e.g. body.mf-has-sticky-atc)
     if s.startswith('body'):
         return '.mf' + s[len('body'):]
     if s.startswith('.mf-'):

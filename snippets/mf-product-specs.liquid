@@ -1,0 +1,29 @@
+{%- comment -%}
+  Dimensions/spec table from product metafields (custom.*). Renders nothing when none are set.
+  Optional diagram when custom.width, custom.depth and custom.height (numbers, inches) exist.
+{%- endcomment -%}
+{%- liquid
+  assign mf = product.metafields.custom
+  assign w = mf.width.value
+  assign d = mf.depth.value
+  assign h = mf.height.value
+-%}
+{%- if w and d and h -%}
+  <div class="mf-dim-diagram">
+    <svg viewBox="0 0 320 150" fill="none" stroke="currentColor" stroke-width="1.2" role="img" aria-label="{{ w }} by {{ d }} by {{ h }} inches">
+      <rect x="30" y="40" width="220" height="70" rx="6"/>
+      <path d="M30 128h220M30 123v10M250 123v10" stroke-width="1"/><text x="140" y="146" text-anchor="middle" font-size="11" fill="currentColor" stroke="none">{{ w }}″ W</text>
+      <path d="M270 40v70M265 40h10M265 110h10" stroke-width="1"/><text x="282" y="79" font-size="11" fill="currentColor" stroke="none">{{ h }}″ H</text>
+      <path d="M30 22h46M30 17v10M76 17v10" stroke-width="1"/><text x="53" y="12" text-anchor="middle" font-size="11" fill="currentColor" stroke="none">{{ d }}″ D</text>
+    </svg>
+  </div>
+{%- endif -%}
+{%- capture rows -%}
+  {%- if mf.dimensions != blank -%}<tr><th scope="row">{{ 'mf.product.dimensions' | t }}</th><td>{{ mf.dimensions.value | escape }}</td></tr>{%- endif -%}
+  {%- if mf.box_dimensions != blank -%}<tr><th scope="row">{{ 'mf.product.box_size' | t }}</th><td>{{ mf.box_dimensions.value | escape }}</td></tr>{%- endif -%}
+  {%- if mf.net_weight != blank -%}<tr><th scope="row">{{ 'mf.product.net_weight' | t }}</th><td>{{ mf.net_weight.value | escape }}</td></tr>{%- endif -%}
+  {%- if mf.shipping_weight != blank -%}<tr><th scope="row">{{ 'mf.product.shipping_weight' | t }}</th><td>{{ mf.shipping_weight.value | escape }}</td></tr>{%- endif -%}
+  {%- if mf.assembly != blank -%}<tr><th scope="row">{{ 'mf.product.assembly' | t }}</th><td>{{ mf.assembly.value | escape }}</td></tr>{%- endif -%}
+  {%- if mf.material != blank -%}<tr><th scope="row">{{ 'mf.product.materials' | t }}</th><td>{{ mf.material.value | escape }}</td></tr>{%- endif -%}
+{%- endcapture -%}
+{%- if rows != blank -%}<table class="mf-spec"><tbody>{{ rows }}</tbody></table>{%- endif -%}
