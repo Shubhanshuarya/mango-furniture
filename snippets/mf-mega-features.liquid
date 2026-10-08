@@ -1,0 +1,29 @@
+{%- comment -%}
+  Feature tiles in the mega menu. Accepts: features (array of 'feature' blocks), menu_title (String; '' = combined menu).
+{%- endcomment -%}
+{%- capture tiles -%}
+  {%- for block in features -%}
+    {%- liquid
+      if menu_title != '' and block.settings.menu_item != blank
+        assign mi = block.settings.menu_item | downcase | strip
+        assign mt = menu_title | downcase | strip
+        if mi != mt
+          continue
+        endif
+      endif
+      assign p = block.settings.product
+      assign f_img = block.settings.image | default: p.featured_image
+      assign f_title = block.settings.title
+      if p != blank and block.settings.title == blank
+        assign f_title = p.title
+      endif
+      assign f_link = block.settings.link | default: p.url
+    -%}
+    <a href="{{ f_link | default: '#' }}" {{ block.shopify_attributes }}>
+      <span class="mf-media">{%- if f_img -%}{{ f_img | image_url: width: 500 | image_tag: loading: 'lazy', alt: '', widths: '250, 375, 500', sizes: '200px' }}{%- endif -%}</span>
+      {{ f_title | escape }}
+      {%- if block.settings.subtitle != blank -%}<small>{{ block.settings.subtitle | escape }}</small>{%- elsif p != blank -%}<small>{{ p.price | money_without_trailing_zeros }}</small>{%- endif -%}
+    </a>
+  {%- endfor -%}
+{%- endcapture -%}
+{%- if tiles != blank -%}<div class="mf-mega-feature">{{ tiles }}</div>{%- endif -%}

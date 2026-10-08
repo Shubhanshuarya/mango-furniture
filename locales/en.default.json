@@ -48,6 +48,40 @@
     },
     "ugc": {
       "post_aria": "Open post on Instagram"
+    },
+    "header": {
+      "primary_nav": "Primary",
+      "whatsapp": "Chat with us on WhatsApp",
+      "account": "Account",
+      "sign_in": "Sign in / Create account",
+      "view_all_in": "All {{ title }}"
+    },
+    "search": {
+      "popular": "Popular searches",
+      "suggestions": "Suggestions",
+      "products": "Products",
+      "collections": "Collections",
+      "pages": "Pages",
+      "articles": "Journal",
+      "see_all": "See all results for “{{ terms }}”",
+      "no_results": "No results for “{{ terms }}”",
+      "no_results_hint": "Check the spelling, or try a broader term like “table” or “chair”."
+    },
+    "footer": {
+      "email": "Email address",
+      "subscribe": "Sign up",
+      "newsletter_success": "Thanks for subscribing.",
+      "newsletter_error": "Please enter a valid email address.",
+      "payment_methods": "Payment methods",
+      "social": "Follow us",
+      "instagram": "Instagram",
+      "facebook": "Facebook",
+      "pinterest": "Pinterest",
+      "tiktok": "TikTok",
+      "youtube": "YouTube"
+    },
+    "announcement": {
+      "label": "Announcement"
     }
   },
   "general": {
@@ -218,7 +252,6 @@
     "product_title": "Example product title",
     "collection_title": "Your collection's name"
   },
-
   "collection": {
     "collection_title": "Collection name",
     "collection_desc": "Use this space to describe what makes this collection unique.",

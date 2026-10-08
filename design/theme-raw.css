@@ -1,0 +1,32 @@
+/* Unprefixed rules for the theme's own markup that the redesign reuses.
+   Kept tightly scoped (.mf-header-section, cart-drawer) so nothing else is affected. */
+
+/* Cart bubble: markup comes from sections/cart-icon-bubble.liquid (the theme's cart drawer re-renders it). */
+.mf-header-section #cart-icon-bubble { position: relative; }
+.mf-header-section #cart-icon-bubble svg { width: 22px; height: 22px; }
+.mf-header-section #cart-icon-bubble .header__cart-text { display: none !important; }
+.mf-header-section #cart-icon-bubble .cart-count-bubble { display: none !important; }
+.mf-header-section #cart-icon-bubble .cart-count-bubble.show-count {
+  display: grid !important; place-items: center; position: absolute; top: 4px; right: 2px;
+  min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px;
+  background: #a0533a; color: #fff8f2; font: 700 11px/1 "MF Figtree", system-ui, sans-serif;
+}
+.mf-header-section #cart-icon-bubble .cart-count-bubble .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* Cart drawer reskin (theme snippet cart-drawer.liquid; behaviour unchanged). */
+cart-drawer .drawer__inner { background: #f5f0e8; color: #2a211b; font-family: "MF Figtree", system-ui, sans-serif; border: 0; box-shadow: 0 24px 64px -16px rgb(42 33 27 / 0.32); }
+cart-drawer .drawer__header { border-bottom: 1px solid #d9cebf; }
+cart-drawer .drawer__heading { font-family: "MF Fraunces", Georgia, serif; font-weight: 380; letter-spacing: -0.015em; text-transform: none; color: #2a211b; }
+cart-drawer .drawer__count { color: #6b5d52; }
+cart-drawer .cart-item { border-bottom: 1px solid #d9cebf; }
+cart-drawer .cart-item__media img { border-radius: 6px; background: #e8e0d3; }
+cart-drawer .cart-item__name { font-weight: 600; text-transform: none; letter-spacing: 0; color: #2a211b; }
+cart-drawer .product-option, cart-drawer .tax-note { color: #6b5d52; }
+cart-drawer quantity-input.quantity { border: 1px solid #d9cebf; border-radius: 999px; background: transparent; }
+cart-drawer .cart-item__remove { color: #6b5d52; }
+cart-drawer .totals__subtotal, cart-drawer .totals__subtotal-value { color: #2a211b; font-weight: 600; text-transform: none; letter-spacing: 0; }
+cart-drawer .cart__checkout-button { background: #a0533a !important; border-color: #a0533a !important; color: #fff8f2 !important; border-radius: 999px !important; min-height: 52px; font-family: "MF Figtree", system-ui, sans-serif; font-weight: 600; text-transform: none; letter-spacing: 0.01em; }
+cart-drawer .cart__checkout-button:hover { background: #87432f !important; border-color: #87432f !important; }
+cart-drawer .cart__checkout-button .button-label { color: #fff8f2 !important; }
+cart-drawer .cart-link.button { border-radius: 999px !important; text-transform: none; letter-spacing: 0.01em; font-family: "MF Figtree", system-ui, sans-serif; }
+cart-drawer .cart__empty-title { font-family: "MF Fraunces", Georgia, serif; font-weight: 380; text-transform: none; color: #2a211b; }

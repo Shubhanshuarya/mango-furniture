@@ -11,6 +11,55 @@
   "type": "footer",
   "name": "t:sections.footer.settings.footer-group.label",
   "sections": {
+    "mf_footer": {
+      "type": "mf-footer",
+      "blocks": {
+        "nl": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Home-décor inspiration and first looks at new arrivals.",
+            "text": ""
+          }
+        },
+        "shop": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop",
+            "menu": "main-menu",
+            "flatten": false,
+            "limit": 8
+          }
+        },
+        "help": {
+          "type": "menu",
+          "settings": {
+            "heading": "Help",
+            "menu": "footer",
+            "flatten": false,
+            "limit": 8
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+            "heading": "Connect",
+            "email": "info@mangofurnitureinc.com",
+            "phone": "530-751-0933",
+            "instagram": "https://www.instagram.com/mangofurnitureinc/"
+          }
+        }
+      },
+      "block_order": [
+        "nl",
+        "shop",
+        "help",
+        "contact"
+      ],
+      "settings": {
+        "address": "919 Garden Hwy, Yuba City, CA 95991",
+        "show_payment": true
+      }
+    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -44,8 +93,12 @@
         "footer-3",
         "footer-5"
       ],
-      "settings": {}
+      "settings": {},
+      "disabled": true
     }
   },
-  "order": ["footer"]
+  "order": [
+    "mf_footer",
+    "footer"
+  ]
 }

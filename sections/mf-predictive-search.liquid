@@ -1,0 +1,59 @@
+{%- comment -%}
+  Rendered via the Section Rendering API from mf-shell.js:
+  /search/suggest?q=…&section_id=mf-predictive-search
+  Not meant to be added to templates.
+{%- endcomment -%}
+<div data-mf-predictive>
+  {%- if predictive_search.performed -%}
+    {%- liquid
+      assign r = predictive_search.resources
+      assign total = r.products.size | plus: r.collections.size | plus: r.pages.size | plus: r.articles.size
+      assign terms = predictive_search.terms
+    -%}
+    {%- if total == 0 and r.queries.size == 0 -%}
+      <div class="mf-empty-state">
+        <span class="mf-icon-circle">{% render 'mf-icon', icon: 'search' %}</span>
+        <h3 class="mf-display mf-display-s">{{ 'mf.search.no_results' | t: terms: terms }}</h3>
+        <p class="mf-muted" style="margin: 0">{{ 'mf.search.no_results_hint' | t }}</p>
+      </div>
+    {%- else -%}
+      <div class="mf-search-results">
+        <div>
+          {%- if r.queries.size > 0 -%}
+            <h3>{{ 'mf.search.suggestions' | t }}</h3>
+            <ul class="mf-suggest">
+              {%- for q in r.queries -%}<li><a href="{{ q.url }}">{{ q.styled_text }}</a></li>{%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if r.collections.size > 0 -%}
+            <h3 style="margin-top: var(--space-l)">{{ 'mf.search.collections' | t }}</h3>
+            <ul class="mf-suggest">{%- for c in r.collections -%}<li><a href="{{ c.url }}">{{ c.title | escape }}</a></li>{%- endfor -%}</ul>
+          {%- endif -%}
+          {%- assign pa = r.pages | concat: r.articles -%}
+          {%- if pa.size > 0 -%}
+            <h3 style="margin-top: var(--space-l)">{{ 'mf.search.pages' | t }}</h3>
+            <ul class="mf-suggest">{%- for x in pa -%}<li><a href="{{ x.url }}">{{ x.title | escape }}</a></li>{%- endfor -%}</ul>
+          {%- endif -%}
+        </div>
+        <div>
+          {%- if r.products.size > 0 -%}
+            <h3>{{ 'mf.search.products' | t }}</h3>
+            <div class="mf-search-cards">
+              {%- for product in r.products -%}
+                {%- render 'mf-card-product', product: product, index: forloop.index0, section_id: 'ps', sizes: '(min-width: 990px) 18vw, 45vw' -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+          <p class="mf-mt-l"><a class="mf-link-arrow" href="{{ routes.search_url }}?q={{ terms | url_encode }}&options%5Bprefix%5D=last">{{ 'mf.search.see_all' | t: terms: terms }} {% render 'mf-icon', icon: 'arrow', size: 16 %}</a></p>
+        </div>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Predictive search",
+  "tag": "div"
+}
+{% endschema %}

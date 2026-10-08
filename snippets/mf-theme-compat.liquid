@@ -1,0 +1,30 @@
+{%- comment -%}
+  The theme's original header section also loaded these global stylesheets/scripts, which other
+  (not yet redesigned) templates and the theme cart drawer depend on. The Mango header renders this
+  snippet so disabling the old header breaks nothing. Mirrors sections/header.liquid lines 1–32, 85–90.
+{%- endcomment -%}
+<link rel="stylesheet" href="{{ 'component-localization-form.css' | asset_url }}" media="all">
+{{ 'component-search.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="all">
+<link rel="stylesheet" href="{{ 'component-slider.css' | asset_url }}" media="all">
+<link rel="stylesheet" href="{{ 'template-collection.css' | asset_url }}" media="all">
+<link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'disclosure.css' | asset_url }}" media="print" onload="this.media='all'">
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+{%- if settings.cart_type == 'drawer' -%}
+  {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+  {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+{%- if settings.show_discount_code_field_drawer -%}
+  {{ 'component-cart-discount-code.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
+<noscript>{{ 'component-menu-drawer.css' | asset_url | stylesheet_tag }}{{ 'component-slider.css' | asset_url | stylesheet_tag }}{{ 'template-collection.css' | asset_url | stylesheet_tag }}{{ 'component-price.css' | asset_url | stylesheet_tag }}</noscript>
+{{ 'component-card-horizontal.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
+{%- if settings.cart_type == 'drawer' -%}
+  {%- comment -%} cart.js is already loaded by snippets/cart-drawer.liquid (loading it twice throws a redeclaration error). {%- endcomment -%}
+  <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}

@@ -30,7 +30,7 @@ GROUPS = {
     # 'collection': r'coll-\w+|subcats|toolbar[\w-]*|density|facets?[\w-]*|facet-\w+|range|promo-tile|filter-\w+',
     # 'product': r'pdp[\w-]*|gallery|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*',
 }
-ENABLED = ['home']
+ENABLED = ['home', 'shell']
 # Selectors from pages.css that belong to not-yet-built pages are skipped entirely.
 LATER = r'coll-\w+|subcats|toolbar[\w-]*|density|facets?|facet-\w+|range|promo-tile|filter-\w+|pdp[\w-]*|gallery|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*|cart-\w+|summary|trust-row|process|projects?|form-card|form-split|contact-list|benefits|values|about-gallery|big-quote|faq-[\w-]+|article-hero|article-cover|article-body|article-aside|inline-product|progress|auth[\w-]*|divider|btn--shop|account[\w-]*|order[\w-]*|status[\w-]*|timeline|nf|card\.is-soldout'
 
@@ -190,6 +190,9 @@ def main():
     print(f'assets/mf-base.css  {len(base) / 1024:.1f} KB')
     for g in ENABLED:
         css = emit(rules, g)
+        if g == 'shell':
+            # Hand-written, unprefixed rules that must target the theme's own markup (cart drawer, cart bubble).
+            css += '\n/* ---- theme integration (design/theme-raw.css, not prefixed) ---- */\n' + (DESIGN / 'theme-raw.css').read_text()
         (ASSETS / f'mf-{g}.css').write_text(header + css)
         print(f'assets/mf-{g}.css  {len(css) / 1024:.1f} KB')
 

@@ -1,0 +1,291 @@
+{%- comment -%}
+  Mango redesign header. Navigation comes from Admin → Navigation (menu setting).
+  - Top-level items WITH sub-items are combined into one mega menu ("Shop") when combine_mega is on;
+    each such item becomes a column, its sub-items the links. Otherwise each gets its own mega panel.
+  - Top-level items WITHOUT sub-items render as plain links (URLs are kept exactly, e.g. app hooks).
+  The cart button keeps id="cart-icon-bubble" and the theme's cart-icon-bubble markup, so the theme's
+  cart drawer (snippets/cart-drawer.liquid) keeps opening and re-rendering it.
+{%- endcomment -%}
+{%- render 'mf-theme-compat' -%}
+{%- render 'mf-assets' -%}
+{{ 'mf-shell.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'mf-shell.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+  assign mega_parents = menu.links | where: 'levels', 1
+  assign deep_parents = menu.links | where: 'levels', 2
+  assign has_mega = false
+  if mega_parents.size > 0 or deep_parents.size > 0
+    assign has_mega = true
+  endif
+  assign features = section.blocks | where: 'type', 'feature'
+  assign tiles = section.blocks | where: 'type', 'drawer_tile'
+  assign wa_digits = section.settings.whatsapp_number | remove: '+' | remove: ' ' | remove: '-' | remove: '(' | remove: ')'
+  if wa_digits != blank
+    assign wa_url = 'https://wa.me/' | append: wa_digits
+    if section.settings.whatsapp_message != blank
+      assign wa_url = wa_url | append: '?text=' | append: section.settings.whatsapp_message | url_encode
+    endif
+  endif
+-%}
+
+<div class="mf mf-header-root" data-mf-header>
+  <header class="mf-site-header" id="MfSiteHeader">
+    <div class="mf-container mf-header-inner">
+      <button class="mf-icon-btn mf-header-menu-btn" type="button" aria-label="{{ 'sections.header.menu' | t }}" aria-controls="MfMenuDrawer" aria-expanded="false" data-mf-open="MfMenuDrawer">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h12"/></svg>
+      </button>
+
+      <nav class="mf-header-nav" aria-label="{{ 'mf.header.primary_nav' | t }}">
+        <ul>
+          {%- if section.settings.combine_mega and has_mega -%}
+            <li><button class="mf-nav-trigger" type="button" aria-expanded="false" aria-controls="MfMega-combined" data-mf-mega="MfMega-combined">{{ section.settings.mega_label | escape }} {% render 'mf-icon', icon: 'chevron', size: 12 %}</button></li>
+          {%- endif -%}
+          {%- for link in menu.links -%}
+            {%- if link.links.size > 0 -%}
+              {%- unless section.settings.combine_mega -%}
+                <li><button class="mf-nav-trigger" type="button" aria-expanded="false" aria-controls="MfMega-{{ forloop.index }}" data-mf-mega="MfMega-{{ forloop.index }}">{{ link.title | escape }} {% render 'mf-icon', icon: 'chevron', size: 12 %}</button></li>
+              {%- endunless -%}
+            {%- else -%}
+              <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </nav>
+
+      <a class="mf-logo" href="{{ routes.root_url }}">
+        {%- if section.settings.logo != blank -%}
+          {%- assign logo_h = section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round -%}
+          {{- section.settings.logo | image_url: width: 600 | image_tag: width: section.settings.logo_width, height: logo_h, alt: shop.name, loading: 'eager', widths: '200, 300, 400, 600' -}}
+        {%- else -%}
+          {{ section.settings.logo_text | default: shop.name | escape }}
+          {%- if section.settings.logo_tagline != blank -%}<small>{{ section.settings.logo_tagline | escape }}</small>{%- endif -%}
+        {%- endif -%}
+      </a>
+
+      <div class="mf-header-actions">
+        {%- if wa_url -%}
+          <a class="mf-icon-btn mf-hide-mobile" href="{{ wa_url }}" target="_blank" rel="noopener" aria-label="{{ 'mf.header.whatsapp' | t }}">{% render 'mf-icon', icon: 'whatsapp' %}</a>
+        {%- endif -%}
+        <a class="mf-icon-btn" href="{{ routes.search_url }}" aria-label="{{ 'general.search.search' | t }}" aria-controls="MfSearchPanel" aria-expanded="false" data-mf-open="MfSearchPanel">{% render 'mf-icon', icon: 'search' %}</a>
+        {%- if shop.customer_accounts_enabled -%}
+          <a class="mf-icon-btn mf-hide-mobile" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" aria-label="{{ 'mf.header.account' | t }}">{% render 'mf-icon', icon: 'user' %}</a>
+        {%- endif -%}
+        <a class="mf-icon-btn" href="{{ routes.cart_url }}" id="cart-icon-bubble">
+          {%- render 'icon-cart' -%}
+          <span class="header__cart-text hidden">{{ 'templates.cart.cart' | t }}</span>
+          <span class="cart-count-bubble hidden {% if cart.item_count > 0 %}show-count{% endif %}">
+            {%- if cart.item_count < 100 -%}<span aria-hidden="true">{{- cart.item_count -}}</span>{%- endif -%}
+            <span class="visually-hidden hidden">{{- 'sections.header.cart_count' | t: count: cart.item_count -}}</span>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    {%- comment -%} Mega panels {%- endcomment -%}
+    {%- if has_mega -%}
+      {%- if section.settings.combine_mega -%}
+        <div class="mf-mega" id="MfMega-combined" role="region" aria-label="{{ section.settings.mega_label | escape }}">
+          <div class="mf-container mf-mega-inner">
+            {%- for link in menu.links -%}
+              {%- if link.links.size > 0 -%}
+                <div>
+                  <h3><a href="{{ link.url }}" style="text-decoration: none">{{ link.title | escape }}</a></h3>
+                  <ul>
+                    {%- for child in link.links -%}<li><a href="{{ child.url }}"{% if child.current %} aria-current="page"{% endif %}>{{ child.title | escape }}</a></li>{%- endfor -%}
+                  </ul>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+            {%- render 'mf-mega-features', features: features, menu_title: '' -%}
+            {%- if section.settings.mega_note != blank or section.settings.mega_all_label != blank -%}
+              <div class="mf-mega-all">
+                <span>{{ section.settings.mega_note | escape }}</span>
+                {%- if section.settings.mega_all_label != blank -%}
+                  <a class="mf-link-arrow" href="{{ section.settings.mega_all_link | default: routes.all_products_collection_url }}">{{ section.settings.mega_all_label | escape }} {% render 'mf-icon', icon: 'arrow', size: 16 %}</a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- else -%}
+        {%- for link in menu.links -%}
+          {%- if link.links.size > 0 -%}
+            <div class="mf-mega" id="MfMega-{{ forloop.index }}" role="region" aria-label="{{ link.title | escape }}">
+              <div class="mf-container mf-mega-inner">
+                {%- for child in link.links -%}
+                  <div>
+                    <h3><a href="{{ child.url }}" style="text-decoration: none">{{ child.title | escape }}</a></h3>
+                    {%- if child.links.size > 0 -%}
+                      <ul>{%- for grandchild in child.links -%}<li><a href="{{ grandchild.url }}">{{ grandchild.title | escape }}</a></li>{%- endfor -%}</ul>
+                    {%- endif -%}
+                  </div>
+                {%- endfor -%}
+                {%- render 'mf-mega-features', features: features, menu_title: link.title -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endif -%}
+  </header>
+</div>
+
+{%- comment -%} Overlays: moved to <body> by mf-shell.js so the sticky/transformed header never traps them. {%- endcomment -%}
+<div class="mf" data-mf-overlays="{{ section.id }}">
+  <aside class="mf-drawer mf-drawer--left" id="MfMenuDrawer" role="dialog" aria-modal="true" aria-label="{{ 'sections.header.menu' | t }}" tabindex="-1">
+    <div class="mf-drawer-head">
+      <a class="mf-logo" href="{{ routes.root_url }}" style="justify-self: start">{{ section.settings.logo_text | default: shop.name | escape }}{% if section.settings.logo_tagline != blank %}<small>{{ section.settings.logo_tagline | escape }}</small>{% endif %}</a>
+      <button class="mf-icon-btn" type="button" data-mf-close aria-label="{{ 'accessibility.close' | t }}">{% render 'mf-icon', icon: 'close' %}</button>
+    </div>
+    <div class="mf-drawer-body mf-mnav">
+      {%- if tiles.size > 0 -%}
+        <div class="mf-mnav-tiles">
+          {%- for block in tiles -%}
+            {%- liquid
+              assign c = block.settings.collection
+              assign t_img = block.settings.image | default: c.featured_image
+              assign t_label = block.settings.label | default: c.title
+            -%}
+            <a href="{{ c.url | default: routes.collections_url }}" {{ block.shopify_attributes }}>
+              <span class="mf-media">{%- if t_img -%}{{ t_img | image_url: width: 300 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}</span>{{ t_label | escape }}
+            </a>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      <ul class="mf-mnav-list">
+        {%- for link in menu.links -%}
+          <li>
+            {%- if link.links.size > 0 -%}
+              <details>
+                <summary>{{ link.title | escape }} {% render 'mf-icon', icon: 'chevron', size: 16 %}</summary>
+                <ul>
+                  <li><a href="{{ link.url }}">{{ 'mf.header.view_all_in' | t: title: link.title }}</a></li>
+                  {%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>{%- endfor -%}
+                </ul>
+              </details>
+            {%- else -%}
+              <a href="{{ link.url }}">{{ link.title | escape }} {% render 'mf-icon', icon: 'arrow', size: 18 %}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+      <div class="mf-mnav-secondary">
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">{% render 'mf-icon', icon: 'user' %} {% if customer %}{{ 'mf.header.account' | t }}{% else %}{{ 'mf.header.sign_in' | t }}{% endif %}</a>
+        {%- endif -%}
+        {%- if section.settings.phone != blank -%}
+          <a href="tel:{{ section.settings.phone | remove: ' ' | remove: '-' }}">{% render 'mf-icon', icon: 'phone' %} {{ section.settings.phone | escape }}</a>
+        {%- endif -%}
+        {%- if wa_url -%}
+          <a href="{{ wa_url }}" target="_blank" rel="noopener">{% render 'mf-icon', icon: 'whatsapp' %} {{ 'mf.header.whatsapp' | t }}</a>
+        {%- endif -%}
+        {%- if section.settings.help_link != blank -%}
+          <a href="{{ section.settings.help_link }}">{% render 'mf-icon', icon: 'chat' %} {{ section.settings.help_label | escape }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </aside>
+
+  <div class="mf-search-panel" id="MfSearchPanel" role="dialog" aria-modal="true" aria-label="{{ 'general.search.search' | t }}" tabindex="-1">
+    <div class="mf-container">
+      <form class="mf-search-bar" action="{{ routes.search_url }}" method="get" role="search">
+        {% render 'mf-icon', icon: 'search' %}
+        <label class="mf-visually-hidden" for="MfSearchInput">{{ 'general.search.search' | t }}</label>
+        <input id="MfSearchInput" name="q" type="search" placeholder="{{ section.settings.search_placeholder | escape }}" autocomplete="off" aria-controls="MfSearchResults" data-mf-search-input>
+        <input type="hidden" name="options[prefix]" value="last">
+        <button class="mf-icon-btn" type="button" data-mf-close aria-label="{{ 'accessibility.close' | t }}">{% render 'mf-icon', icon: 'close' %}</button>
+      </form>
+      <div id="MfSearchResults" aria-live="polite" data-mf-search-results>
+        <div class="mf-search-results" data-mf-search-default>
+          <div>
+            {%- assign popular = section.settings.popular_searches | split: ',' -%}
+            {%- if popular.size > 0 -%}
+              <h3>{{ 'mf.search.popular' | t }}</h3>
+              <ul class="mf-suggest">
+                {%- for term in popular -%}{%- assign t = term | strip -%}<li><a href="{{ routes.search_url }}?q={{ t | url_encode }}&options%5Bprefix%5D=last">{{ t | escape }}</a></li>{%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+          <div>
+            {%- assign sc = section.settings.search_collection -%}
+            {%- if sc != blank and sc.products.size > 0 -%}
+              <h3>{{ section.settings.search_collection_heading | escape }}</h3>
+              <div class="mf-search-cards">
+                {%- for product in sc.products limit: 4 -%}{%- render 'mf-card-product', product: product, index: forloop.index0, section_id: 'search', sizes: '(min-width: 990px) 18vw, 45vw' -%}{%- endfor -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+        <div data-mf-search-live></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mf-scrim" data-mf-scrim></div>
+
+  {%- if wa_url and section.settings.whatsapp_fab -%}
+    <a class="mf-wa-fab" href="{{ wa_url }}" target="_blank" rel="noopener" aria-label="{{ 'mf.header.whatsapp' | t }}" data-mf-fab>{% render 'mf-icon', icon: 'whatsapp' %}</a>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Header",
+  "tag": "section",
+  "class": "mf-header-section",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    { "type": "header", "content": "Logo" },
+    { "type": "image_picker", "id": "logo", "label": "Logo image", "info": "Leave empty to use the text logo." },
+    { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 260, "step": 5, "unit": "px", "default": 140 },
+    { "type": "text", "id": "logo_text", "label": "Text logo", "default": "Mango" },
+    { "type": "text", "id": "logo_tagline", "label": "Text logo tagline", "default": "Furniture Inc" },
+    { "type": "header", "content": "Navigation" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "combine_mega", "label": "Combine items with sub-menus into one mega menu", "default": true },
+    { "type": "text", "id": "mega_label", "label": "Mega menu label", "default": "Shop" },
+    { "type": "text", "id": "mega_note", "label": "Mega menu footer text", "default": "Every piece is made by hand in our Jodhpur workshop." },
+    { "type": "text", "id": "mega_all_label", "label": "Mega menu link label", "default": "Shop all furniture" },
+    { "type": "url", "id": "mega_all_link", "label": "Mega menu link" },
+    { "type": "header", "content": "Search" },
+    { "type": "text", "id": "search_placeholder", "label": "Placeholder", "default": "Search coffee tables, benches…" },
+    { "type": "text", "id": "popular_searches", "label": "Popular searches", "info": "Comma separated", "default": "Coffee tables, Accent chairs, Benches, Side tables, Leather" },
+    { "type": "collection", "id": "search_collection", "label": "Products shown before typing" },
+    { "type": "text", "id": "search_collection_heading", "label": "Heading for those products", "default": "Popular right now" },
+    { "type": "header", "content": "Contact" },
+    { "type": "text", "id": "phone", "label": "Phone (mobile menu)" },
+    { "type": "text", "id": "whatsapp_number", "label": "WhatsApp number", "info": "International format, e.g. +1 530 000 0000. Leave empty to hide WhatsApp." },
+    { "type": "text", "id": "whatsapp_message", "label": "WhatsApp pre-filled message", "default": "Hi! I have a question about your furniture." },
+    { "type": "checkbox", "id": "whatsapp_fab", "label": "Show floating WhatsApp button on mobile", "default": true },
+    { "type": "text", "id": "help_label", "label": "Help link label (mobile menu)", "default": "Help & contact" },
+    { "type": "url", "id": "help_link", "label": "Help link" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Mega menu feature",
+      "limit": 4,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Featured" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "product", "id": "product", "label": "Or feature a product", "info": "Uses the product image, title and link when set." },
+        { "type": "text", "id": "menu_item", "label": "Show only for menu item", "info": "When the mega menu isn't combined: the top-level item title this feature belongs to. Leave empty to show everywhere." }
+      ]
+    },
+    {
+      "type": "drawer_tile",
+      "name": "Mobile menu tile",
+      "limit": 6,
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Defaults to the collection image." }
+      ]
+    }
+  ]
+}
+{% endschema %}

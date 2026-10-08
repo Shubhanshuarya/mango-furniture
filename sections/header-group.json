@@ -11,6 +11,123 @@
   "type": "header",
   "name": "t:sections.header.settings.header-group.label",
   "sections": {
+    "mf_announcement": {
+      "type": "mf-announcement",
+      "blocks": {
+        "msg_1": {
+          "type": "message",
+          "settings": {
+            "text": "Free shipping across the US",
+            "text_desktop": "Handcrafted in solid mango wood",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "msg_1"
+      ],
+      "settings": {
+        "speed": 5
+      }
+    },
+    "mf_header": {
+      "type": "mf-header",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "title": "",
+            "subtitle": "",
+            "link": "",
+            "product": "annabel-bench",
+            "menu_item": ""
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "title": "",
+            "subtitle": "",
+            "link": "",
+            "product": "landon-mango-wood-and-boucle-fabric-accent-chair",
+            "menu_item": ""
+          }
+        },
+        "tile_1": {
+          "type": "drawer_tile",
+          "settings": {
+            "collection": "accent-chair",
+            "label": "Chairs"
+          }
+        },
+        "tile_2": {
+          "type": "drawer_tile",
+          "settings": {
+            "collection": "coffee-table",
+            "label": "Coffee tables"
+          }
+        },
+        "tile_3": {
+          "type": "drawer_tile",
+          "settings": {
+            "collection": "side-table",
+            "label": "Side tables"
+          }
+        },
+        "tile_4": {
+          "type": "drawer_tile",
+          "settings": {
+            "collection": "bench",
+            "label": "Benches"
+          }
+        },
+        "tile_5": {
+          "type": "drawer_tile",
+          "settings": {
+            "collection": "console",
+            "label": "Consoles"
+          }
+        },
+        "tile_6": {
+          "type": "drawer_tile",
+          "settings": {
+            "collection": "counter-stool-chair",
+            "label": "Stools"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "tile_1",
+        "tile_2",
+        "tile_3",
+        "tile_4",
+        "tile_5",
+        "tile_6"
+      ],
+      "settings": {
+        "logo_width": 140,
+        "logo_text": "Mango",
+        "logo_tagline": "Furniture Inc",
+        "menu": "main-menu",
+        "combine_mega": true,
+        "mega_label": "Shop",
+        "mega_note": "Every piece is made by hand in our Jodhpur workshop.",
+        "mega_all_label": "Shop all furniture",
+        "mega_all_link": "shopify://collections/all",
+        "search_placeholder": "Search coffee tables, benches…",
+        "popular_searches": "Coffee tables, Accent chairs, Benches, Side tables, Leather",
+        "search_collection": "all",
+        "search_collection_heading": "Popular right now",
+        "phone": "530-751-0933",
+        "whatsapp_number": "",
+        "whatsapp_message": "Hi! I have a question about your furniture.",
+        "whatsapp_fab": true,
+        "help_label": "Help & contact",
+        "help_link": "shopify://pages/contact"
+      }
+    },
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
@@ -45,7 +162,8 @@
         "is_hover_stop_autoplay": false,
         "slideshow_speed": 1.1,
         "slideshow_delay": 3
-      }
+      },
+      "disabled": true
     },
     "header": {
       "type": "header",
@@ -78,7 +196,10 @@
           }
         }
       },
-      "block_order": ["dropdown", "541dd1e3-b946-4884-8c07-190ee11738f9"],
+      "block_order": [
+        "dropdown",
+        "541dd1e3-b946-4884-8c07-190ee11738f9"
+      ],
       "settings": {
         "full_width": true,
         "height": 65,
@@ -92,8 +213,14 @@
         "sticky_header_type": "on-scroll-up",
         "logo_position": "center",
         "enable_search": true
-      }
+      },
+      "disabled": true
     }
   },
-  "order": ["announcement-bar", "header"]
+  "order": [
+    "mf_announcement",
+    "mf_header",
+    "announcement-bar",
+    "header"
+  ]
 }
