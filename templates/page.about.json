@@ -9,6 +9,181 @@
  */
 {
   "sections": {
+    "mf_hero": {
+      "type": "mf-page-hero",
+      "settings": {
+        "layout": "text",
+        "show_breadcrumb": true,
+        "eyebrow": "About us",
+        "heading": "Your space tells your story. <em>You define it. We furnish it.</em>",
+        "heading_size": "xl",
+        "text": "",
+        "image": "",
+        "button_label": "",
+        "button_link": "",
+        "button_label_2": "",
+        "button_link_2": ""
+      },
+      "blocks": {
+        "g_1": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/about-slim-side-table.webp"
+          }
+        },
+        "g_2": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/about-fluted-console.webp"
+          }
+        },
+        "g_3": {
+          "type": "gallery_image",
+          "settings": {
+            "image": "shopify://shop_images/about-sling-chair.webp"
+          }
+        }
+      },
+      "block_order": [
+        "g_1",
+        "g_2",
+        "g_3"
+      ]
+    },
+    "mf_family": {
+      "type": "mf-text-steps",
+      "settings": {
+        "eyebrow": "A family business",
+        "heading": "Twenty years of export craft, now direct to you",
+        "text": "",
+        "eyebrow_2": "",
+        "text_2": "<p>We manufacture every piece in our family manufacturing unit in Jodhpur, India. After exporting furniture for over 20 years, we wanted to do things differently.</p><p><b>Making quality furniture more accessible.</b></p><p>We're here to redefine what luxury means: not something distant or unattainable, but something you come home to every day.</p>",
+        "background": "default"
+      }
+    },
+    "mf_quote": {
+      "type": "mf-quote",
+      "settings": {
+        "quote": "“True luxury isn't about having more. It's about feeling more: <em>more comfort, more beauty, more belonging.</em>”",
+        "author": "",
+        "background": "default"
+      }
+    },
+    "mf_roots": {
+      "type": "mf-image-text",
+      "settings": {
+        "image": "shopify://shop_images/craft-faceted-drum-table.webp",
+        "image_position": "left",
+        "eyebrow": "Born from our roots",
+        "heading": "Where East <em>meets West</em>",
+        "text": "<p>Contemporary design meets timeless Indian sensibility. Every piece blends the sophistication of Western aesthetics with the warmth, craftsmanship and storytelling that homes deserve.</p>",
+        "link_label": "",
+        "link_url": "",
+        "background": "default"
+      }
+    },
+    "mf_stats": {
+      "type": "mf-stats",
+      "settings": {
+        "eyebrow": "",
+        "heading": ""
+      },
+      "blocks": {
+        "s_1": {
+          "type": "stat",
+          "settings": {
+            "value": "20+",
+            "label": "Years of furniture-making"
+          }
+        },
+        "s_2": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Handcrafted"
+          }
+        },
+        "s_3": {
+          "type": "stat",
+          "settings": {
+            "value": "Free",
+            "label": "Shipping across the US"
+          }
+        }
+      },
+      "block_order": [
+        "s_1",
+        "s_2",
+        "s_3"
+      ]
+    },
+    "mf_values": {
+      "type": "mf-values",
+      "settings": {
+        "anchor": "responsibility",
+        "eyebrow": "Corporate responsibility",
+        "heading": "How we make things matters",
+        "text": "We're committed to responsible business practices that benefit our community, the environment and everyone we work with.",
+        "background": "surface"
+      },
+      "blocks": {
+        "v_1": {
+          "type": "value",
+          "settings": {
+            "title": "Sustainability",
+            "text": "Sustainable sourcing, eco-friendly materials and a smaller environmental footprint."
+          }
+        },
+        "v_2": {
+          "type": "value",
+          "settings": {
+            "title": "Ethical manufacturing",
+            "text": "Fair labour practices and ethical production standards."
+          }
+        },
+        "v_3": {
+          "type": "value",
+          "settings": {
+            "title": "Community",
+            "text": "Giving back to our local communities and supporting social initiatives."
+          }
+        },
+        "v_4": {
+          "type": "value",
+          "settings": {
+            "title": "Environment",
+            "text": "Waste reduction, recycling and carbon management built into our manufacturing."
+          }
+        },
+        "v_5": {
+          "type": "value",
+          "settings": {
+            "title": "Transparency",
+            "text": "Honest business practices and transparent reporting."
+          }
+        }
+      },
+      "block_order": [
+        "v_1",
+        "v_2",
+        "v_3",
+        "v_4",
+        "v_5"
+      ]
+    },
+    "mf_cta": {
+      "type": "mf-cta",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Find a piece for the place that matters most.",
+        "text": "",
+        "button_label": "Shop furniture",
+        "button_link": "shopify://collections/all",
+        "button_label_2": "Contact us",
+        "button_link_2": "shopify://pages/contact",
+        "background": "default"
+      }
+    },
     "main": {
       "type": "main-page",
       "disabled": true,
@@ -25,7 +200,8 @@
         "overlay_opacity": 0,
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      }
+      },
+      "disabled": true
     },
     "0eb57b0b-608e-43f9-b209-88547e4add0d": {
       "type": "rich-text",
@@ -81,7 +257,8 @@
         "padding_bottom": "no-indent",
         "enable_border_top": false,
         "enable_border_bottom": false
-      }
+      },
+      "disabled": true
     },
     "c2fac663-805d-4bba-8672-ec813d527d4d": {
       "type": "multicolumn",
@@ -134,7 +311,8 @@
         "padding_bottom": "s",
         "enable_border_top": true,
         "enable_border_bottom": true
-      }
+      },
+      "disabled": true
     },
     "2ffae942-74ff-4c56-a915-f729ee947985": {
       "type": "blockquote",
@@ -153,7 +331,8 @@
         "padding_bottom": "m",
         "enable_border_top": false,
         "enable_border_bottom": true
-      }
+      },
+      "disabled": true
     },
     "68c21d5c-35cb-4930-a450-22babb02db2e": {
       "type": "rich-text",
@@ -209,10 +388,18 @@
         "padding_bottom": "no-indent",
         "enable_border_top": false,
         "enable_border_bottom": false
-      }
+      },
+      "disabled": true
     }
   },
   "order": [
+    "mf_hero",
+    "mf_family",
+    "mf_quote",
+    "mf_roots",
+    "mf_stats",
+    "mf_values",
+    "mf_cta",
     "main",
     "93c14491-fd18-45ff-9146-e492e581d13f",
     "0eb57b0b-608e-43f9-b209-88547e4add0d",

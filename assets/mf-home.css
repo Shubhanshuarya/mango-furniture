@@ -157,6 +157,7 @@
 @media (max-width: 989px) {
   .mf-ugc { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+.mf-benefits { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-m); }
 @media (min-width: 750px) and (max-width: 989px) {
   .mf-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-l); align-items: center; padding-top: var(--space-l); }
   .mf-hero-media { order: 0; aspect-ratio: 4 / 5; margin-inline: 0; border-radius: var(--radius-media); }

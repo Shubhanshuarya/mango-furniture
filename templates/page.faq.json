@@ -1,0 +1,188 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "mf-page-hero",
+      "settings": {
+        "layout": "text",
+        "show_breadcrumb": true,
+        "eyebrow": "",
+        "heading": "Questions, <em>answered.</em>",
+        "heading_size": "xl",
+        "text": "",
+        "image": "",
+        "button_label": "",
+        "button_link": "",
+        "button_label_2": "",
+        "button_link_2": ""
+      }
+    },
+    "faq": {
+      "type": "mf-faq",
+      "settings": {
+        "eyebrow": "",
+        "heading": "",
+        "layout": "sidebar",
+        "show_search": true,
+        "footer_note": "<b>Still have a question?</b> <a href=\"/pages/contact\">Contact us</a> or call <a href=\"tel:+15307510933\">530-751-0933</a>.",
+        "schema": true,
+        "background": "default"
+      },
+      "blocks": {
+        "q_1": {
+          "type": "group",
+          "settings": {
+            "title": "Orders & payment"
+          }
+        },
+        "q_2": {
+          "type": "question",
+          "settings": {
+            "question": "Which payment methods do you accept?",
+            "answer": "<p>Visa, Mastercard, American Express, Discover and Diners Club, plus Shop Pay. You can also pay in 4 interest-free installments with Shop Pay Installments.</p>"
+          }
+        },
+        "q_3": {
+          "type": "question",
+          "settings": {
+            "question": "Will I get a receipt?",
+            "answer": "<p>Yes. Once you place your order, a receipt is emailed to you automatically.</p>"
+          }
+        },
+        "q_4": {
+          "type": "question",
+          "settings": {
+            "question": "I'm having trouble paying. What should I do?",
+            "answer": "<p>Please <a href=\"/pages/contact\">contact us</a> and we'll help you complete your order.</p>"
+          }
+        },
+        "q_5": {
+          "type": "group",
+          "settings": {
+            "title": "Shipping & delivery"
+          }
+        },
+        "q_6": {
+          "type": "question",
+          "settings": {
+            "question": "How much does shipping cost?",
+            "answer": "<p>Shipping is free across the US. For unusually large or remote deliveries we may call you with a quote before shipping.</p>"
+          }
+        },
+        "q_7": {
+          "type": "question",
+          "settings": {
+            "question": "How long will my order take?",
+            "answer": "<p>Orders are processed within 1–4 business days (excluding weekends and holidays); orders placed after 2 PM PST are processed the next business day. Domestic delivery takes 3–10 business days, and you'll receive a tracking number by email once your order ships.</p>"
+          }
+        },
+        "q_8": {
+          "type": "question",
+          "settings": {
+            "question": "Does my furniture need assembly?",
+            "answer": "<p>It depends on the piece; assembly details are listed on each product page. Where assembly is needed, all hardware is included.</p>"
+          }
+        },
+        "q_9": {
+          "type": "group",
+          "settings": {
+            "title": "Returns & exchanges"
+          }
+        },
+        "q_10": {
+          "type": "question",
+          "settings": {
+            "question": "What is your returns policy?",
+            "answer": "<p>Please see our <a href=\"/policies/refund-policy\">refund policy</a> for eligibility and how to start a return.</p>"
+          }
+        },
+        "q_11": {
+          "type": "question",
+          "settings": {
+            "question": "My item arrived damaged. What now?",
+            "answer": "<p>Please inspect your order on arrival and email <a href=\"mailto:info@mangofurnitureinc.com\">info@mangofurnitureinc.com</a> within 2 days of delivery with your order number and photos so we can make it right.</p>"
+          }
+        },
+        "q_12": {
+          "type": "group",
+          "settings": {
+            "title": "Products & care"
+          }
+        },
+        "q_13": {
+          "type": "question",
+          "settings": {
+            "question": "What is mango wood?",
+            "answer": "<p>A dense, durable hardwood with a rich, varied grain. Because every board is different, no two pieces are exactly alike.</p>"
+          }
+        },
+        "q_14": {
+          "type": "question",
+          "settings": {
+            "question": "How do I care for my furniture?",
+            "answer": "<p>Clean regularly with a soft dry or slightly damp cloth and avoid harsh chemicals or abrasive cleaners. Wipe spills immediately. Keep pieces away from prolonged direct sunlight and heat sources, and periodically check fittings.</p>"
+          }
+        },
+        "q_15": {
+          "type": "question",
+          "settings": {
+            "question": "How do I care for leather seats?",
+            "answer": "<p>Top-grain leather wipes clean easily with a soft cloth. Avoid harsh cleaners and direct heat.</p>"
+          }
+        },
+        "q_16": {
+          "type": "group",
+          "settings": {
+            "title": "Custom & trade"
+          }
+        },
+        "q_17": {
+          "type": "question",
+          "settings": {
+            "question": "Can I order a piece in a custom size or finish?",
+            "answer": "<p>Yes. Start with our <a href=\"/pages/design-services\">design services</a> enquiry and tell us what you need.</p>"
+          }
+        },
+        "q_18": {
+          "type": "question",
+          "settings": {
+            "question": "Do you offer trade pricing?",
+            "answer": "<p>Yes. Interior designers, architects and other trade professionals can <a href=\"/pages/trade-program\">apply to our Trade Program</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q_1",
+        "q_2",
+        "q_3",
+        "q_4",
+        "q_5",
+        "q_6",
+        "q_7",
+        "q_8",
+        "q_9",
+        "q_10",
+        "q_11",
+        "q_12",
+        "q_13",
+        "q_14",
+        "q_15",
+        "q_16",
+        "q_17",
+        "q_18"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "faq"
+  ]
+}

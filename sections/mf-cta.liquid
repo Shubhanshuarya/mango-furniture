@@ -1,0 +1,30 @@
+{%- render 'mf-assets', css: 'mf-pages' -%}
+<div class="mf mf-section{% if section.settings.background == 'surface' %} mf-section--surface{% elsif section.settings.background == 'inverse' %} mf-inverse{% endif %}">
+  <div class="mf-container mf-center" style="display: grid; justify-items: center; gap: var(--space-m)">
+    {%- if section.settings.eyebrow != blank -%}<p class="mf-eyebrow" style="margin: 0">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    <h2 class="mf-display mf-display-l" style="max-width: 20ch">{{ section.settings.heading }}</h2>
+    {%- if section.settings.text != blank -%}<div class="mf-lede" style="margin: 0">{{ section.settings.text }}</div>{%- endif -%}
+    <div style="display: flex; flex-wrap: wrap; gap: var(--space-xs); justify-content: center">
+      {%- if section.settings.button_label != blank -%}<a class="mf-btn mf-btn--accent" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_label | escape }}</a>{%- endif -%}
+      {%- if section.settings.button_label_2 != blank -%}<a class="mf-btn mf-btn--secondary" href="{{ section.settings.button_link_2 | default: '#' }}">{{ section.settings.button_label_2 | escape }}</a>{%- endif -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Mango: Call to action",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Find a piece for the place that matters most." },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "text", "id": "button_label", "label": "Primary button", "default": "Shop furniture" },
+    { "type": "url", "id": "button_link", "label": "Primary button link" },
+    { "type": "text", "id": "button_label_2", "label": "Secondary button" },
+    { "type": "url", "id": "button_link_2", "label": "Secondary button link" },
+    { "type": "select", "id": "background", "label": "Background", "default": "default", "options": [{ "value": "default", "label": "Limewash" }, { "value": "surface", "label": "Plaster" }, { "value": "inverse", "label": "Walnut" }] }
+  ],
+  "presets": [{ "name": "Mango: Call to action" }]
+}
+{% endschema %}

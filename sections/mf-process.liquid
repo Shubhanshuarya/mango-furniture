@@ -1,0 +1,26 @@
+{%- render 'mf-assets', css: 'mf-pages' -%}
+<div class="mf mf-section{% if section.settings.background == 'surface' %} mf-section--surface{% endif %}">
+  <div class="mf-container">
+    {%- render 'mf-section-head', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text -%}
+    <ol class="mf-process">
+      {%- for block in section.blocks -%}
+        <li class="mf-reveal" style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}><h3>{{ block.settings.title | escape }}</h3>{% if block.settings.text != blank %}<p>{{ block.settings.text }}</p>{% endif %}</li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Mango: Process steps",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "How it works" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Three steps from idea to installed" },
+    { "type": "inline_richtext", "id": "text", "label": "Text" },
+    { "type": "select", "id": "background", "label": "Background", "default": "default", "options": [{ "value": "default", "label": "Limewash" }, { "value": "surface", "label": "Plaster" }] }
+  ],
+  "blocks": [{ "type": "step", "name": "Step", "limit": 6, "settings": [{ "type": "text", "id": "title", "label": "Title", "default": "Step" }, { "type": "inline_richtext", "id": "text", "label": "Text" }] }],
+  "presets": [{ "name": "Mango: Process steps", "blocks": [{ "type": "step", "settings": { "title": "Share your brief" } }, { "type": "step", "settings": { "title": "Discovery call" } }, { "type": "step", "settings": { "title": "Design & make" } }] }]
+}
+{% endschema %}

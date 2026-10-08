@@ -9,12 +9,173 @@
  */
 {
   "sections": {
+    "mf_hero": {
+      "type": "mf-page-hero",
+      "settings": {
+        "layout": "text",
+        "show_breadcrumb": true,
+        "eyebrow": "",
+        "heading": "We're here to help.",
+        "heading_size": "xl",
+        "text": "<p>Have a question about a product, an order, or a return? Send us a note and we'll get back to you.</p>",
+        "image": "",
+        "button_label": "",
+        "button_link": "",
+        "button_label_2": "",
+        "button_link_2": ""
+      }
+    },
+    "mf_form": {
+      "type": "mf-contact-form",
+      "settings": {
+        "anchor": "contact-form",
+        "eyebrow": "",
+        "heading": "",
+        "text": "",
+        "note": "<b>Quick answers:</b> shipping times, care and returns are covered in our <a href=\"/pages/faq\">FAQ</a>.",
+        "image": "shopify://shop_images/contact-annabel-bench.webp",
+        "form_name": "Contact",
+        "tag": "contact",
+        "button_label": "Send message",
+        "success": "<b>Thanks for your message.</b> We'll get back to you by email.",
+        "small_print": "",
+        "background": "default"
+      },
+      "blocks": {
+        "f_1": {
+          "type": "contact_item",
+          "settings": {
+            "icon": "phone",
+            "title": "Call us",
+            "text": "<a href=\"tel:+15307510933\">530-751-0933</a> · <a href=\"tel:+15304437964\">530-443-7964</a>"
+          }
+        },
+        "f_2": {
+          "type": "contact_item",
+          "settings": {
+            "icon": "mail",
+            "title": "Email",
+            "text": "<a href=\"mailto:info@mangofurnitureinc.com\">info@mangofurnitureinc.com</a>"
+          }
+        },
+        "f_3": {
+          "type": "contact_item",
+          "settings": {
+            "icon": "pin",
+            "title": "Mango Furniture Inc",
+            "text": "919 Garden Hwy, Yuba City, CA 95991"
+          }
+        },
+        "f_4": {
+          "type": "field",
+          "settings": {
+            "type": "pills",
+            "label": "What's it about?",
+            "name": "topic",
+            "required": false,
+            "width": "full",
+            "placeholder": "",
+            "options": "Product question, My order, Returns & exchanges, Something else",
+            "error": "Please fill in this field.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_5": {
+          "type": "field",
+          "settings": {
+            "type": "name",
+            "label": "Name",
+            "name": "name",
+            "required": true,
+            "width": "half",
+            "placeholder": "",
+            "options": "",
+            "error": "Please enter your name.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_6": {
+          "type": "field",
+          "settings": {
+            "type": "email",
+            "label": "Email",
+            "name": "email",
+            "required": true,
+            "width": "half",
+            "placeholder": "",
+            "options": "",
+            "error": "Enter an email like name@example.com.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_7": {
+          "type": "field",
+          "settings": {
+            "type": "tel",
+            "label": "Phone",
+            "name": "phone",
+            "required": false,
+            "width": "half",
+            "placeholder": "",
+            "options": "",
+            "error": "Enter a valid phone number.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_8": {
+          "type": "field",
+          "settings": {
+            "type": "text",
+            "label": "Order number",
+            "name": "order",
+            "required": false,
+            "width": "half",
+            "placeholder": "#1001",
+            "options": "",
+            "error": "Please fill in this field.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_9": {
+          "type": "field",
+          "settings": {
+            "type": "textarea",
+            "label": "Message",
+            "name": "body",
+            "required": true,
+            "width": "full",
+            "placeholder": "",
+            "options": "",
+            "error": "Please write a message.",
+            "is_body": true,
+            "min_length": 5
+          }
+        }
+      },
+      "block_order": [
+        "f_1",
+        "f_2",
+        "f_3",
+        "f_4",
+        "f_5",
+        "f_6",
+        "f_7",
+        "f_8",
+        "f_9"
+      ]
+    },
     "main": {
       "type": "main-page",
       "settings": {
         "padding_top": "no-indent",
         "padding_bottom": "no-indent"
-      }
+      },
+      "disabled": true
     },
     "form": {
       "type": "contact-form",
@@ -27,8 +188,14 @@
         "additional_text": "<p>Your privacy is our priority. We ensure your details are secure and valued.</p>",
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      }
+      },
+      "disabled": true
     }
   },
-  "order": ["main", "form"]
+  "order": [
+    "mf_hero",
+    "mf_form",
+    "main",
+    "form"
+  ]
 }

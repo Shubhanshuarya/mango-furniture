@@ -1,0 +1,21 @@
+{%- render 'mf-assets', css: 'mf-pages' -%}
+<div class="mf" data-mf-main>
+  <section class="mf-container mf-page-hero">
+    {%- if section.settings.show_breadcrumb -%}
+      <ol class="mf-crumbs" aria-label="{{ 'mf.collection.breadcrumb' | t }}"><li><a href="{{ routes.root_url }}">{{ 'mf.collection.home' | t }}</a></li><li aria-current="page">{{ page.title | escape }}</li></ol>
+    {%- endif -%}
+    <h1 class="mf-display mf-display-xl" style="margin-top: var(--space-m)">{{ page.title | escape }}</h1>
+  </section>
+  <section class="mf-container" style="padding-bottom: var(--space-section)">
+    <div class="mf-rte">{{ page.content }}</div>
+  </section>
+</div>
+{% schema %}
+{
+  "name": "Mango: Page content",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [{ "type": "checkbox", "id": "show_breadcrumb", "label": "Show breadcrumb", "default": true }],
+  "presets": [{ "name": "Mango: Page content" }]
+}
+{% endschema %}

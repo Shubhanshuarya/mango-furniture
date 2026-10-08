@@ -1,0 +1,199 @@
+{%- comment -%}
+  Configurable enquiry form on Shopify's native contact form: submissions arrive by email and in
+  Admin → Customers (with the tag below when "accepts marketing" is ticked). Fields are blocks.
+  Client-side validation: assets/mf-forms.js. Server errors (form.errors) are shown too.
+{%- endcomment -%}
+{%- render 'mf-assets', css: 'mf-pages' -%}
+<script src="{{ 'mf-forms.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign fields = section.blocks | where: 'type', 'field'
+  assign contacts = section.blocks | where: 'type', 'contact_item'
+  assign fid = 'MfForm-' | append: section.id
+-%}
+
+<div class="mf mf-section{% if section.settings.background == 'surface' %} mf-section--surface{% endif %}" id="{{ section.settings.anchor | default: section.id }}">
+  <div class="mf-container mf-form-split">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<p class="mf-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="mf-display mf-display-l">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="mf-lede">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if contacts.size > 0 -%}
+        <ul class="mf-contact-list">
+          {%- for block in contacts -%}
+            <li {{ block.shopify_attributes }}>
+              <span class="mf-ico">{% render 'mf-icon', icon: block.settings.icon %}</span>
+              <div><b>{{ block.settings.title | escape }}</b><span>{{ block.settings.text }}</span></div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      {%- if section.settings.note != blank -%}<div class="mf-callout mf-mt-xl">{% render 'mf-icon', icon: 'chat' %}<span>{{ section.settings.note }}</span></div>{%- endif -%}
+      {%- if section.settings.image != blank -%}
+        <div class="mf-split-media mf-mt-xl mf-hide-mobile" style="aspect-ratio: 4 / 3">{{ section.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '500, 750, 1000', sizes: '40vw' }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="mf-form-card">
+      {%- form 'contact', id: fid, class: 'mf-form', novalidate: 'novalidate', data-mf-validate: 'true' -%}
+        {%- if section.settings.tag != blank -%}<input type="hidden" name="contact[tags]" value="{{ section.settings.tag | escape }}">{%- endif -%}
+        {%- if section.settings.form_name != blank -%}<input type="hidden" name="contact[form]" value="{{ section.settings.form_name | escape }}">{%- endif -%}
+
+        <div class="mf-form-status mf-form-status--error{% if form.errors %} mf-is-visible{% endif %}" role="alert" tabindex="-1">
+          {% render 'mf-icon', icon: 'alert' %}
+          <div><b>{{ 'mf.form.error_heading' | t }}</b> <span data-mf-error-count>{%- if form.errors -%}{{ form.errors | default_errors }}{%- endif -%}</span></div>
+        </div>
+        <div class="mf-form-status mf-form-status--success{% if form.posted_successfully? %} mf-is-visible{% endif %}" role="status" tabindex="-1">
+          {% render 'mf-icon', icon: 'check' %}<div>{{ section.settings.success | default: 'Thank you. We will be in touch soon.' }}</div>
+        </div>
+
+        {%- unless form.posted_successfully? -%}
+          {%- assign row_open = false -%}
+          {%- for block in fields -%}
+            {%- liquid
+              assign fname = block.settings.name | handleize | replace: '-', '_'
+              if block.settings.type == 'email'
+                assign fname = 'email'
+              endif
+              if block.settings.type == 'name'
+                assign fname = 'name'
+              endif
+              assign input_name = 'contact[' | append: fname | append: ']'
+              if block.settings.type == 'textarea' and block.settings.is_body
+                assign input_name = 'contact[body]'
+              endif
+              assign iid = fid | append: '-' | append: block.id
+              assign half = false
+              if block.settings.width == 'half'
+                assign half = true
+              endif
+            -%}
+            {%- if half and row_open == false -%}<div class="mf-form-row">{%- assign row_open = true -%}{%- elsif half == false and row_open -%}</div>{%- assign row_open = false -%}{%- endif -%}
+
+            <div class="mf-field" {{ block.shopify_attributes }}>
+              {%- case block.settings.type -%}
+                {%- when 'checkbox' -%}
+                  <label class="mf-check"><input type="checkbox" name="{{ input_name }}" value="Yes"{% if block.settings.required %} required{% endif %}> {{ block.settings.label }}</label>
+                {%- when 'pills' -%}
+                  <span class="mf-label" id="{{ iid }}-l">{{ block.settings.label | escape }}{% if block.settings.required %} <span class="mf-req" aria-hidden="true">*</span>{% endif %}</span>
+                  <div class="mf-pills" role="radiogroup" aria-labelledby="{{ iid }}-l">
+                    {%- assign opts = block.settings.options | split: ',' -%}
+                    {%- for o in opts -%}{%- assign ov = o | strip -%}<label class="mf-pill"><input type="radio" name="{{ input_name }}" value="{{ ov | escape }}"{% if forloop.first and block.settings.required %} required{% endif %}><span>{{ ov | escape }}</span></label>{%- endfor -%}
+                  </div>
+                {%- else -%}
+                  <label for="{{ iid }}">{{ block.settings.label | escape }}{% if block.settings.required %} <span class="mf-req" aria-hidden="true">*</span>{% else %} <span class="mf-muted" style="font-weight: 400">({{ 'mf.form.optional' | t }})</span>{% endif %}</label>
+                  {%- case block.settings.type -%}
+                    {%- when 'textarea' -%}
+                      <textarea class="mf-textarea" id="{{ iid }}" name="{{ input_name }}" placeholder="{{ block.settings.placeholder | escape }}"{% if block.settings.required %} required minlength="{{ block.settings.min_length }}"{% endif %} aria-describedby="{{ iid }}-e"></textarea>
+                    {%- when 'select' -%}
+                      <select class="mf-select" id="{{ iid }}" name="{{ input_name }}"{% if block.settings.required %} required{% endif %} aria-describedby="{{ iid }}-e">
+                        <option value="">{% if block.settings.placeholder != blank %}{{ block.settings.placeholder | escape }}{% else %}{{ 'mf.form.select' | t }}{% endif %}</option>
+                        {%- assign opts = block.settings.options | split: ',' -%}
+                        {%- for o in opts -%}{%- assign ov = o | strip -%}<option>{{ ov | escape }}</option>{%- endfor -%}
+                      </select>
+                    {%- else -%}
+                      {%- liquid
+                        case block.settings.type
+                          when 'email'
+                            assign itype = 'email'
+                            assign auto = 'email'
+                          when 'tel'
+                            assign itype = 'tel'
+                            assign auto = 'tel'
+                          when 'url'
+                            assign itype = 'url'
+                            assign auto = 'url'
+                          when 'name'
+                            assign itype = 'text'
+                            assign auto = 'name'
+                          else
+                            assign itype = 'text'
+                            assign auto = 'off'
+                        endcase
+                      -%}
+                      <input class="mf-input" id="{{ iid }}" type="{{ itype }}" name="{{ input_name }}" autocomplete="{{ auto }}" placeholder="{{ block.settings.placeholder | escape }}"
+                        {%- if block.settings.required %} required{% endif %}{% if itype == 'tel' %} pattern="[\d\s\+\(\)\-]{7,}"{% endif %}
+                        {%- if fname == 'email' and form.errors contains 'email' %} aria-invalid="true"{% endif %} aria-describedby="{{ iid }}-e"
+                        {%- if fname == 'email' %} value="{{ form.email }}"{% endif %}>
+                  {%- endcase -%}
+              {%- endcase -%}
+              <p class="mf-field-error" id="{{ iid }}-e">{% render 'mf-icon', icon: 'alert', size: 16 %}{{ block.settings.error | default: 'Please fill in this field.' | escape }}</p>
+            </div>
+          {%- endfor -%}
+          {%- if row_open -%}</div>{%- endif -%}
+
+          <button class="mf-btn mf-btn--accent mf-btn--block" type="submit">{{ section.settings.button_label | escape }}</button>
+          {%- if section.settings.small_print != blank -%}<p class="mf-help" style="margin: 0">{{ section.settings.small_print }}</p>{%- endif -%}
+        {%- endunless -%}
+      {%- endform -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Enquiry form",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor ID", "info": "Lets buttons link here, e.g. #enquire.", "default": "enquire" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Get in touch" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Tell us about your project" },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "inline_richtext", "id": "note", "label": "Callout" },
+    { "type": "image_picker", "id": "image", "label": "Image under the text (desktop)" },
+    { "type": "header", "content": "Form" },
+    { "type": "text", "id": "form_name", "label": "Form name", "info": "Included in the email so you know which form was used.", "default": "Enquiry" },
+    { "type": "text", "id": "tag", "label": "Customer tag", "default": "enquiry" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send" },
+    { "type": "inline_richtext", "id": "success", "label": "Success message", "default": "<b>Thank you.</b> We'll be in touch soon." },
+    { "type": "inline_richtext", "id": "small_print", "label": "Small print" },
+    { "type": "select", "id": "background", "label": "Background", "default": "default", "options": [{ "value": "default", "label": "Limewash" }, { "value": "surface", "label": "Plaster" }] }
+  ],
+  "blocks": [
+    {
+      "type": "field",
+      "name": "Field",
+      "settings": [
+        {
+          "type": "select", "id": "type", "label": "Type", "default": "text",
+          "options": [
+            { "value": "name", "label": "Name" }, { "value": "email", "label": "Email" }, { "value": "tel", "label": "Phone" },
+            { "value": "text", "label": "Text" }, { "value": "url", "label": "Website" }, { "value": "textarea", "label": "Long text" },
+            { "value": "select", "label": "Dropdown" }, { "value": "pills", "label": "Choice buttons" }, { "value": "checkbox", "label": "Checkbox" }
+          ]
+        },
+        { "type": "text", "id": "label", "label": "Label", "default": "Field" },
+        { "type": "text", "id": "name", "label": "Field name in email", "info": "Short and unique, e.g. company, budget. Name/Email use fixed names.", "default": "field" },
+        { "type": "text", "id": "placeholder", "label": "Placeholder" },
+        { "type": "text", "id": "options", "label": "Options (dropdown / choice buttons)", "info": "Comma separated" },
+        { "type": "checkbox", "id": "required", "label": "Required", "default": false },
+        { "type": "select", "id": "width", "label": "Width", "default": "full", "options": [{ "value": "full", "label": "Full" }, { "value": "half", "label": "Half (pairs with the next half field)" }] },
+        { "type": "checkbox", "id": "is_body", "label": "Use as the message body (long text)", "default": false },
+        { "type": "range", "id": "min_length", "label": "Minimum characters (required long text)", "min": 1, "max": 50, "step": 1, "default": 10 },
+        { "type": "text", "id": "error", "label": "Error message", "default": "Please fill in this field." }
+      ]
+    },
+    {
+      "type": "contact_item",
+      "name": "Contact detail",
+      "limit": 5,
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "mail", "options": [{ "value": "mail", "label": "Mail" }, { "value": "phone", "label": "Phone" }, { "value": "whatsapp", "label": "WhatsApp" }, { "value": "pin", "label": "Location" }, { "value": "chat", "label": "Chat" }] },
+        { "type": "text", "id": "title", "label": "Title", "default": "Email" },
+        { "type": "inline_richtext", "id": "text", "label": "Text", "default": "<a href=\"mailto:info@mangofurnitureinc.com\">info@mangofurnitureinc.com</a>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mango: Enquiry form",
+      "blocks": [
+        { "type": "field", "settings": { "type": "name", "label": "Full name", "name": "name", "required": true, "width": "half", "error": "Please enter your name." } },
+        { "type": "field", "settings": { "type": "email", "label": "Email", "name": "email", "required": true, "width": "half", "error": "Enter an email like name@example.com." } },
+        { "type": "field", "settings": { "type": "textarea", "label": "Message", "name": "body", "required": true, "is_body": true, "error": "Please write a message." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,70 @@
+{%- render 'mf-assets', css: 'mf-pages', preload_fonts: true -%}
+{%- assign gallery = section.blocks | where: 'type', 'gallery_image' -%}
+
+<div class="mf" data-mf-main>
+  <section class="mf-container mf-page-hero{% if section.settings.layout == 'split' %} mf-page-hero--split{% endif %}">
+    <div>
+      {%- if section.settings.show_breadcrumb -%}
+        <ol class="mf-crumbs" aria-label="{{ 'mf.collection.breadcrumb' | t }}">
+          <li><a href="{{ routes.root_url }}">{{ 'mf.collection.home' | t }}</a></li>
+          <li aria-current="page">{{ page.title | default: section.settings.heading | strip_html | escape }}</li>
+        </ol>
+      {%- endif -%}
+      {%- if section.settings.eyebrow != blank -%}<p class="mf-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <h1 class="mf-display mf-display-{{ section.settings.heading_size }}" style="max-width: 18ch">{{ section.settings.heading | default: page.title }}</h1>
+      {%- if section.settings.text != blank -%}<div class="mf-lede">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if section.settings.button_label != blank or section.settings.button_label_2 != blank -%}
+        <div class="mf-hero-ctas" style="display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-l)">
+          {%- if section.settings.button_label != blank -%}<a class="mf-btn mf-btn--accent" href="{{ section.settings.button_link | default: '#' }}">{{ section.settings.button_label | escape }} {% render 'mf-icon', icon: 'arrow', size: 18 %}</a>{%- endif -%}
+          {%- if section.settings.button_label_2 != blank -%}<a class="mf-btn mf-btn--secondary" href="{{ section.settings.button_link_2 | default: '#' }}">{{ section.settings.button_label_2 | escape }}</a>{%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.layout == 'split' -%}
+      <div class="mf-media">
+        {%- if section.settings.image != blank -%}
+          {{- section.settings.image | image_url: width: 1600 | image_tag: widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 50vw, 100vw', loading: 'eager', fetchpriority: 'high' -}}
+        {%- else -%}
+          {{- 'lifestyle-1' | placeholder_svg_tag: 'mf-placeholder-svg' -}}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </section>
+
+  {%- if gallery.size > 0 -%}
+    <section class="mf-container" style="padding-bottom: var(--space-section)">
+      <div class="mf-about-gallery">
+        {%- for block in gallery limit: 3 -%}
+          <div class="mf-m mf-reveal" style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 1200 | image_tag: widths: '400, 700, 1000, 1200', sizes: '(min-width: 990px) 40vw, 50vw', loading: 'lazy' }}{%- else -%}{{ 'lifestyle-2' | placeholder_svg_tag: 'mf-placeholder-svg' }}{%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Page hero",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "select", "id": "layout", "label": "Layout", "default": "split", "options": [{ "value": "split", "label": "Text + image" }, { "value": "text", "label": "Text only (add gallery images as blocks)" }] },
+    { "type": "checkbox", "id": "show_breadcrumb", "label": "Show breadcrumb", "default": true },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "info": "Defaults to the page title. Italic text shows in the accent colour." },
+    { "type": "select", "id": "heading_size", "label": "Heading size", "default": "xl", "options": [{ "value": "xl", "label": "Large" }, { "value": "l", "label": "Medium" }] },
+    { "type": "richtext", "id": "text", "label": "Text" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "button_label", "label": "Primary button" },
+    { "type": "url", "id": "button_link", "label": "Primary button link" },
+    { "type": "text", "id": "button_label_2", "label": "Secondary button" },
+    { "type": "url", "id": "button_link_2", "label": "Secondary button link" }
+  ],
+  "blocks": [
+    { "type": "gallery_image", "name": "Gallery image", "limit": 3, "settings": [{ "type": "image_picker", "id": "image", "label": "Image" }] }
+  ],
+  "presets": [{ "name": "Mango: Page hero" }]
+}
+{% endschema %}

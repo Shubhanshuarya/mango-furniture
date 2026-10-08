@@ -1,0 +1,37 @@
+{%- render 'mf-assets', css: 'mf-pages' -%}
+{%- assign steps = section.blocks | where: 'type', 'step' -%}
+<div class="mf mf-section{% if section.settings.background == 'surface' %} mf-section--surface{% endif %}">
+  <div class="mf-container mf-text-steps">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<p class="mf-eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="mf-display mf-display-l">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<div class="mf-lede">{{ section.settings.text }}</div>{%- endif -%}
+    </div>
+    <div>
+      {%- if section.settings.eyebrow_2 != blank -%}<p class="mf-eyebrow">{{ section.settings.eyebrow_2 | escape }}</p>{%- endif -%}
+      {%- if section.settings.text_2 != blank -%}<div class="mf-rte" style="font-size: var(--step-1)">{{ section.settings.text_2 }}</div>{%- endif -%}
+      {%- if steps.size > 0 -%}
+        <ol class="mf-steps"{% if section.settings.eyebrow_2 != blank %} style="margin-top: 0"{% endif %}>
+          {%- for block in steps -%}<li {{ block.shopify_attributes }}><div><b>{{ block.settings.title | escape }}</b>{% if block.settings.text != blank %}<p>{{ block.settings.text }}</p>{% endif %}</div></li>{%- endfor -%}
+        </ol>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Mango: Text + steps",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Left eyebrow" },
+    { "type": "inline_richtext", "id": "heading", "label": "Left heading", "default": "Heading" },
+    { "type": "richtext", "id": "text", "label": "Left text" },
+    { "type": "text", "id": "eyebrow_2", "label": "Right eyebrow" },
+    { "type": "richtext", "id": "text_2", "label": "Right text" },
+    { "type": "select", "id": "background", "label": "Background", "default": "default", "options": [{ "value": "default", "label": "Limewash" }, { "value": "surface", "label": "Plaster" }] }
+  ],
+  "blocks": [{ "type": "step", "name": "Step", "limit": 6, "settings": [{ "type": "text", "id": "title", "label": "Title", "default": "Step" }, { "type": "inline_richtext", "id": "text", "label": "Text" }] }],
+  "presets": [{ "name": "Mango: Text + steps" }]
+}
+{% endschema %}

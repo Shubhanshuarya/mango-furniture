@@ -1,0 +1,350 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "mf-page-hero",
+      "settings": {
+        "layout": "split",
+        "show_breadcrumb": true,
+        "eyebrow": "Customised products & design services",
+        "heading": "Your vision, <em>made real.</em>",
+        "heading_size": "xl",
+        "text": "<p>Whether it's a room or an entire home, we'll help you turn your vision into reality, from 3D renderings to furniture made for your space.</p>",
+        "image": "shopify://shop_images/ds-travertine-table.webp",
+        "button_label": "Start a project",
+        "button_link": "#enquire",
+        "button_label_2": "See our projects",
+        "button_link_2": "#projects"
+      }
+    },
+    "services": {
+      "type": "mf-service-cards",
+      "settings": {
+        "eyebrow": "What we do",
+        "heading": "Design and making under one roof",
+        "text": "Customised furniture, bespoke design and quality construction, straight from the manufacturer.",
+        "columns": "3",
+        "background": "surface"
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "icon": "pin",
+            "title": "Room & home design",
+            "text": "End-to-end design for a single room or a whole home, shaped around how you live.",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "icon": "cube",
+            "title": "3D renderings",
+            "text": "See your space, and every piece in it, before anything is built.",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "icon": "ruler",
+            "title": "Custom furniture",
+            "text": "Any piece in our range made to your size and finish, or something entirely new.",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ]
+    },
+    "process": {
+      "type": "mf-process",
+      "settings": {
+        "eyebrow": "How it works",
+        "heading": "Three steps from idea to installed",
+        "text": "",
+        "background": "default"
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Share your brief",
+            "text": "Tell us about your space and requirements using the form below, or email us."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Discovery call",
+            "text": "We'll call to discuss your needs in more depth and agree the scope of the project."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Design & make",
+            "text": "The project begins with 3D renderings, end-to-end design and customised pieces."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ]
+    },
+    "portfolio": {
+      "type": "mf-portfolio",
+      "settings": {
+        "anchor": "projects",
+        "eyebrow": "Selected projects",
+        "heading": "Homes we've designed",
+        "text": "",
+        "background": "surface"
+      },
+      "blocks": {
+        "project_1": {
+          "type": "project",
+          "settings": {
+            "image": "shopify://shop_images/about-sling-chair.webp",
+            "location": "Atlanta, Georgia · USA",
+            "title": "The Atlanta Project",
+            "text": "<b>The brief:</b> a bold yet inviting home, with colours that work together but each speak their own language.",
+            "link": ""
+          }
+        },
+        "project_2": {
+          "type": "project",
+          "settings": {
+            "image": "shopify://shop_images/about-slim-side-table.webp",
+            "location": "Woodstock, Georgia · USA",
+            "title": "The Woodstock Project",
+            "text": "<b>The brief:</b> no bold colours, clean lines, and neutrals throughout the home.",
+            "link": ""
+          }
+        },
+        "project_3": {
+          "type": "project",
+          "settings": {
+            "image": "shopify://shop_images/look-loop-leg-table.webp",
+            "location": "Jodhpur, Rajasthan · India",
+            "title": "The Jodhpur Project",
+            "text": "<b>The brief:</b> renovate an existing home into a modern sanctuary with plants and subtle colours.",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "project_1",
+        "project_2",
+        "project_3"
+      ]
+    },
+    "form": {
+      "type": "mf-contact-form",
+      "settings": {
+        "anchor": "enquire",
+        "eyebrow": "Start a project",
+        "heading": "Tell us about your space",
+        "text": "<p>We'll reply to arrange a discovery call.</p>",
+        "note": "",
+        "image": "",
+        "form_name": "Design services enquiry",
+        "tag": "design-services",
+        "button_label": "Send my brief",
+        "success": "<b>Thank you, we've received your brief.</b> Our design team will be in touch to arrange a discovery call.",
+        "small_print": "Photos or floor plans? Reply to our email with attachments.",
+        "background": "default"
+      },
+      "blocks": {
+        "f_1": {
+          "type": "contact_item",
+          "settings": {
+            "icon": "mail",
+            "title": "Prefer email?",
+            "text": "<a href=\"mailto:info@mangofurnitureinc.com\">info@mangofurnitureinc.com</a>"
+          }
+        },
+        "f_2": {
+          "type": "contact_item",
+          "settings": {
+            "icon": "phone",
+            "title": "Call us",
+            "text": "<a href=\"tel:+15307510933\">530-751-0933</a>"
+          }
+        },
+        "f_3": {
+          "type": "field",
+          "settings": {
+            "type": "name",
+            "label": "Full name",
+            "name": "name",
+            "required": true,
+            "width": "half",
+            "placeholder": "",
+            "options": "",
+            "error": "Please enter your name.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_4": {
+          "type": "field",
+          "settings": {
+            "type": "email",
+            "label": "Email",
+            "name": "email",
+            "required": true,
+            "width": "half",
+            "placeholder": "",
+            "options": "",
+            "error": "Enter an email like name@example.com.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_5": {
+          "type": "field",
+          "settings": {
+            "type": "tel",
+            "label": "Phone",
+            "name": "phone",
+            "required": false,
+            "width": "half",
+            "placeholder": "",
+            "options": "",
+            "error": "Please enter a valid phone number.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_6": {
+          "type": "field",
+          "settings": {
+            "type": "text",
+            "label": "City & state",
+            "name": "location",
+            "required": true,
+            "width": "half",
+            "placeholder": "",
+            "options": "",
+            "error": "Tell us where the project is.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_7": {
+          "type": "field",
+          "settings": {
+            "type": "pills",
+            "label": "Project type",
+            "name": "project_type",
+            "required": true,
+            "width": "full",
+            "placeholder": "",
+            "options": "Single room, Whole home, Custom furniture, Commercial",
+            "error": "Choose a project type.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_8": {
+          "type": "field",
+          "settings": {
+            "type": "select",
+            "label": "Timeline",
+            "name": "timeline",
+            "required": false,
+            "width": "half",
+            "placeholder": "",
+            "options": "As soon as possible, 1–3 months, 3–6 months, Just exploring",
+            "error": "Please fill in this field.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_9": {
+          "type": "field",
+          "settings": {
+            "type": "select",
+            "label": "Budget",
+            "name": "budget",
+            "required": false,
+            "width": "half",
+            "placeholder": "",
+            "options": "Under $5,000, $5,000 – $15,000, $15,000 – $50,000, $50,000+",
+            "error": "Please fill in this field.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_10": {
+          "type": "field",
+          "settings": {
+            "type": "textarea",
+            "label": "Your brief",
+            "name": "body",
+            "required": true,
+            "width": "full",
+            "placeholder": "Rooms, style, sizes, pieces you have in mind…",
+            "options": "",
+            "error": "Tell us a little more (at least 20 characters).",
+            "is_body": true,
+            "min_length": 20
+          }
+        },
+        "f_11": {
+          "type": "field",
+          "settings": {
+            "type": "checkbox",
+            "label": "Send me design inspiration and new arrivals by email.",
+            "name": "accepts_marketing",
+            "required": false,
+            "width": "full",
+            "placeholder": "",
+            "options": "",
+            "error": "Please fill in this field.",
+            "is_body": false,
+            "min_length": 10
+          }
+        }
+      },
+      "block_order": [
+        "f_1",
+        "f_2",
+        "f_3",
+        "f_4",
+        "f_5",
+        "f_6",
+        "f_7",
+        "f_8",
+        "f_9",
+        "f_10",
+        "f_11"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "services",
+    "process",
+    "portfolio",
+    "form"
+  ]
+}

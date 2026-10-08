@@ -1,0 +1,83 @@
+{%- comment -%}
+  FAQ: add "Group" blocks as headings and "Question" blocks under them (order in the editor).
+  Outputs FAQPage structured data.
+{%- endcomment -%}
+{%- render 'mf-assets', css: 'mf-pages' -%}
+<script src="{{ 'mf-forms.js' | asset_url }}" defer="defer"></script>
+{%- assign groups = section.blocks | where: 'type', 'group' -%}
+{%- assign sidebar = false -%}
+{%- if section.settings.layout == 'sidebar' and groups.size > 1 -%}{%- assign sidebar = true -%}{%- endif -%}
+
+<div class="mf mf-section{% if section.settings.background == 'surface' %} mf-section--surface{% endif %}" data-mf-faq>
+  <div class="mf-container"{% unless sidebar %} style="max-width: 900px"{% endunless %}>
+    {%- render 'mf-section-head', eyebrow: section.settings.eyebrow, heading: section.settings.heading -%}
+    {%- if section.settings.show_search -%}
+      <div class="mf-faq-search" style="margin: 0 0 var(--space-xl)">
+        {% render 'mf-icon', icon: 'search' %}
+        <label class="mf-visually-hidden" for="MfFaqQ-{{ section.id }}">{{ 'mf.faq.search' | t }}</label>
+        <input class="mf-input" id="MfFaqQ-{{ section.id }}" type="search" placeholder="{{ 'mf.faq.search_placeholder' | t }}" data-mf-faq-search>
+      </div>
+      <p class="mf-muted" data-mf-faq-empty hidden>{{ 'mf.faq.no_match' | t }}</p>
+    {%- endif -%}
+
+    <div{% if sidebar %} class="mf-faq-layout"{% endif %}>
+      {%- if sidebar -%}
+        <nav class="mf-faq-nav" aria-label="{{ 'mf.faq.topics' | t }}" data-mf-faq-nav>
+          {%- for g in groups -%}<a href="#faq-{{ g.id }}"{% if forloop.first %} aria-current="true"{% endif %}>{{ g.settings.title | escape }}</a>{%- endfor -%}
+        </nav>
+      {%- endif -%}
+      <div>
+        {%- assign open_group = false -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'group' -%}
+            {%- if open_group -%}</div></div>{%- endif -%}
+            <div class="mf-faq-group" id="faq-{{ block.id }}" data-mf-faq-group {{ block.shopify_attributes }}>
+              <h2 class="mf-display">{{ block.settings.title | escape }}</h2>
+              <div class="mf-accordion">
+            {%- assign open_group = true -%}
+          {%- else -%}
+            {%- unless open_group -%}<div class="mf-faq-group" data-mf-faq-group><div class="mf-accordion">{%- assign open_group = true -%}{%- endunless -%}
+            <details {{ block.shopify_attributes }}>
+              <summary>{{ block.settings.question | escape }}<span class="mf-plus" aria-hidden="true"></span></summary>
+              <div class="mf-acc-body mf-rte-sm">{{ block.settings.answer }}</div>
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if open_group -%}</div></div>{%- endif -%}
+        {%- if section.settings.footer_note != blank -%}
+          <div class="mf-callout" style="margin-top: var(--space-2xl)">{% render 'mf-icon', icon: 'chat' %}<span>{{ section.settings.footer_note }}</span></div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- capture faq_json -%}
+  {%- assign qs = section.blocks | where: 'type', 'question' -%}
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+  {%- for q in qs -%}{"@type":"Question","name":{{ q.settings.question | json }},"acceptedAnswer":{"@type":"Answer","text":{{ q.settings.answer | strip_html | json }}}}{% unless forloop.last %},{% endunless %}{%- endfor -%}
+  ]}
+{%- endcapture -%}
+{%- if section.settings.schema and section.blocks.size > 0 -%}<script type="application/ld+json">{{ faq_json }}</script>{%- endif -%}
+
+{% schema %}
+{
+  "name": "Mango: FAQ",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Questions, <em>answered</em>" },
+    { "type": "select", "id": "layout", "label": "Layout", "default": "sidebar", "options": [{ "value": "sidebar", "label": "Topics sidebar" }, { "value": "simple", "label": "Single column" }] },
+    { "type": "checkbox", "id": "show_search", "label": "Show search", "default": true },
+    { "type": "inline_richtext", "id": "footer_note", "label": "Note under questions", "default": "<b>Still have a question?</b> <a href=\"/pages/contact\">Contact us</a>." },
+    { "type": "checkbox", "id": "schema", "label": "Add FAQ structured data (for search engines)", "default": true },
+    { "type": "select", "id": "background", "label": "Background", "default": "default", "options": [{ "value": "default", "label": "Limewash" }, { "value": "surface", "label": "Plaster" }] }
+  ],
+  "blocks": [
+    { "type": "group", "name": "Group heading", "settings": [{ "type": "text", "id": "title", "label": "Title", "default": "Orders & payment" }] },
+    { "type": "question", "name": "Question", "settings": [{ "type": "text", "id": "question", "label": "Question", "default": "Question?" }, { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Answer.</p>" }] }
+  ],
+  "presets": [{ "name": "Mango: FAQ", "blocks": [{ "type": "group" }, { "type": "question" }, { "type": "question" }] }]
+}
+{% endschema %}

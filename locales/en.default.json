@@ -41,7 +41,9 @@
       "success": "Thank you. We'll be in touch soon.",
       "error_heading": "Please check the form.",
       "error_name": "Please enter your name.",
-      "error_email": "Enter an email like name@example.com."
+      "error_email": "Enter an email like name@example.com.",
+      "optional": "optional",
+      "select": "Select…"
     },
     "testimonials": {
       "editor_empty": "Add review blocks with real customer quotes. This section stays hidden on the storefront until it has at least one."
@@ -149,6 +151,12 @@
       "at_checkout": "Calculated at checkout",
       "estimated_total": "Estimated total",
       "checkout": "Checkout"
+    },
+    "faq": {
+      "search": "Search questions",
+      "search_placeholder": "Search e.g. “assembly”, “care”, “trade”",
+      "no_match": "No questions match. Try another word or contact us.",
+      "topics": "FAQ topics"
     }
   },
   "general": {

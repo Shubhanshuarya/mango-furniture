@@ -1,0 +1,22 @@
+{%- render 'mf-assets', css: 'mf-pages' -%}
+<div class="mf mf-section--tight{% if section.settings.background == 'surface' %} mf-section--surface{% endif %}">
+  <div class="mf-container">
+    <figure style="margin: 0">
+      <blockquote class="mf-big-quote mf-reveal" style="margin: 0 auto">{{ section.settings.quote }}</blockquote>
+      {%- if section.settings.author != blank -%}<figcaption class="mf-center mf-muted mf-mt-l">{{ section.settings.author | escape }}</figcaption>{%- endif -%}
+    </figure>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Mango: Quote",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "inline_richtext", "id": "quote", "label": "Quote", "info": "Italic text shows in the accent colour.", "default": "“True luxury isn't about having more. It's about feeling more: <em>more comfort, more beauty, more belonging.</em>”" },
+    { "type": "text", "id": "author", "label": "Attribution" },
+    { "type": "select", "id": "background", "label": "Background", "default": "default", "options": [{ "value": "default", "label": "Limewash" }, { "value": "surface", "label": "Plaster" }] }
+  ],
+  "presets": [{ "name": "Mango: Quote" }]
+}
+{% endschema %}

@@ -1,0 +1,313 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "mf-page-hero",
+      "settings": {
+        "layout": "split",
+        "show_breadcrumb": true,
+        "eyebrow": "For the trade",
+        "heading": "Made-by-hand pieces for <em>your projects.</em>",
+        "heading_size": "xl",
+        "text": "<p>Exclusive benefits for interior designers, architects and trade professionals, direct from the workshop that makes every piece.</p>",
+        "image": "shopify://shop_images/trade-abel-bench.webp",
+        "button_label": "Apply to the program",
+        "button_link": "#apply",
+        "button_label_2": "",
+        "button_link_2": ""
+      }
+    },
+    "benefits": {
+      "type": "mf-service-cards",
+      "settings": {
+        "eyebrow": "Program benefits",
+        "heading": "Built around how designers work",
+        "text": "",
+        "columns": "4",
+        "background": "surface"
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "icon": "tag",
+            "title": "Exclusive pricing",
+            "text": "A trade discount on all orders for qualified members.",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "icon": "leaf",
+            "title": "Free swatches",
+            "text": "Fabric and finish swatches for client presentations.",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "icon": "chat",
+            "title": "Priority support",
+            "text": "Dedicated support and priority access for trade members.",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "card_4": {
+          "type": "card",
+          "settings": {
+            "icon": "ruler",
+            "title": "Custom & volume",
+            "text": "Custom sizes and finishes, and pricing for multi-unit and commercial projects.",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4"
+      ]
+    },
+    "eligibility": {
+      "type": "mf-text-steps",
+      "settings": {
+        "eyebrow": "Who it's for",
+        "heading": "Eligibility",
+        "text": "<p>Interior designers, architects, stagers, hospitality and commercial property owners, and other trade professionals with proof of business registration.</p>",
+        "eyebrow_2": "How to apply",
+        "text_2": "",
+        "background": "default"
+      },
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Apply online",
+            "text": "Tell us about your business using the form below."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Verification",
+            "text": "We review your proof of business and get back to you by email."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Shop with trade pricing",
+            "text": "Once approved, order with your trade pricing."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ]
+    },
+    "form": {
+      "type": "mf-contact-form",
+      "settings": {
+        "anchor": "apply",
+        "eyebrow": "Application",
+        "heading": "Apply to the Trade Program",
+        "text": "<p>Takes about two minutes. Fields marked * are required.</p>",
+        "note": "",
+        "image": "",
+        "form_name": "Trade program application",
+        "tag": "trade-application",
+        "button_label": "Submit application",
+        "success": "<b>Application received.</b> We'll review your details and email you.",
+        "small_print": "",
+        "background": "surface"
+      },
+      "blocks": {
+        "f_1": {
+          "type": "field",
+          "settings": {
+            "type": "text",
+            "label": "First name",
+            "name": "first_name",
+            "required": true,
+            "width": "half",
+            "placeholder": "",
+            "options": "",
+            "error": "Required.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_2": {
+          "type": "field",
+          "settings": {
+            "type": "text",
+            "label": "Last name",
+            "name": "last_name",
+            "required": true,
+            "width": "half",
+            "placeholder": "",
+            "options": "",
+            "error": "Required.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_3": {
+          "type": "field",
+          "settings": {
+            "type": "email",
+            "label": "Business email",
+            "name": "email",
+            "required": true,
+            "width": "half",
+            "placeholder": "",
+            "options": "",
+            "error": "Enter a valid email.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_4": {
+          "type": "field",
+          "settings": {
+            "type": "tel",
+            "label": "Phone",
+            "name": "phone",
+            "required": true,
+            "width": "half",
+            "placeholder": "",
+            "options": "",
+            "error": "Enter a valid phone number.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_5": {
+          "type": "field",
+          "settings": {
+            "type": "text",
+            "label": "Company name",
+            "name": "company",
+            "required": true,
+            "width": "half",
+            "placeholder": "",
+            "options": "",
+            "error": "Required.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_6": {
+          "type": "field",
+          "settings": {
+            "type": "url",
+            "label": "Website or portfolio",
+            "name": "website",
+            "required": false,
+            "width": "half",
+            "placeholder": "https://",
+            "options": "",
+            "error": "Enter a full URL starting with https://",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_7": {
+          "type": "field",
+          "settings": {
+            "type": "select",
+            "label": "Profession",
+            "name": "profession",
+            "required": true,
+            "width": "half",
+            "placeholder": "",
+            "options": "Interior designer, Architect, Home stager, Hospitality / commercial, Retailer, Other",
+            "error": "Choose your profession.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_8": {
+          "type": "field",
+          "settings": {
+            "type": "text",
+            "label": "Resale certificate / EIN",
+            "name": "tax_id",
+            "required": true,
+            "width": "half",
+            "placeholder": "",
+            "options": "",
+            "error": "Required for verification.",
+            "is_body": false,
+            "min_length": 10
+          }
+        },
+        "f_9": {
+          "type": "field",
+          "settings": {
+            "type": "textarea",
+            "label": "Tell us about your projects",
+            "name": "body",
+            "required": false,
+            "width": "full",
+            "placeholder": "Typical project types, volumes, timelines…",
+            "options": "",
+            "error": "Please fill in this field.",
+            "is_body": true,
+            "min_length": 10
+          }
+        },
+        "f_10": {
+          "type": "field",
+          "settings": {
+            "type": "checkbox",
+            "label": "I confirm the information is accurate.",
+            "name": "confirm",
+            "required": true,
+            "width": "full",
+            "placeholder": "",
+            "options": "",
+            "error": "Please confirm to continue.",
+            "is_body": false,
+            "min_length": 10
+          }
+        }
+      },
+      "block_order": [
+        "f_1",
+        "f_2",
+        "f_3",
+        "f_4",
+        "f_5",
+        "f_6",
+        "f_7",
+        "f_8",
+        "f_9",
+        "f_10"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "benefits",
+    "eligibility",
+    "form"
+  ]
+}

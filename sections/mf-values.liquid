@@ -1,0 +1,27 @@
+{%- render 'mf-assets', css: 'mf-pages' -%}
+<div class="mf mf-section{% if section.settings.background == 'surface' %} mf-section--surface{% endif %}" id="{{ section.settings.anchor | default: section.id }}">
+  <div class="mf-container">
+    {%- render 'mf-section-head', eyebrow: section.settings.eyebrow, heading: section.settings.heading, text: section.settings.text -%}
+    <div class="mf-values">
+      {%- for block in section.blocks -%}
+        <div class="mf-v mf-reveal" style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}><h3>{{ block.settings.title | escape }}</h3>{% if block.settings.text != blank %}<p>{{ block.settings.text }}</p>{% endif %}</div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Mango: Values",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor ID", "default": "responsibility" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Corporate responsibility" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "How we make things matters" },
+    { "type": "inline_richtext", "id": "text", "label": "Text" },
+    { "type": "select", "id": "background", "label": "Background", "default": "surface", "options": [{ "value": "default", "label": "Limewash" }, { "value": "surface", "label": "Plaster" }] }
+  ],
+  "blocks": [{ "type": "value", "name": "Value", "limit": 6, "settings": [{ "type": "text", "id": "title", "label": "Title", "default": "Value" }, { "type": "inline_richtext", "id": "text", "label": "Text" }] }],
+  "presets": [{ "name": "Mango: Values", "blocks": [{ "type": "value" }, { "type": "value" }, { "type": "value" }] }]
+}
+{% endschema %}

@@ -9,12 +9,20 @@
  */
 {
   "sections": {
+    "mf_page": {
+      "type": "mf-main-page",
+      "settings": {
+        "show_breadcrumb": true
+      }
+    },
     "main": {
       "type": "main-page",
-      "settings": {}
+      "settings": {},
+      "disabled": true
     }
   },
   "order": [
+    "mf_page",
     "main"
   ]
 }
