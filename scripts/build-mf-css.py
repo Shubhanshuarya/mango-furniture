@@ -28,12 +28,13 @@ GROUPS = {
     'home': r'hero[\w-]*|bento|tile[\w-]*|lookbook[\w-]*|hotspot[\w-]*|look-\w+|inverse|ds-\w+|quotes?|ugc|stats?|split[\w-]*|steps|services?|articles?|article-card[\w-]*',
     'collection': r'collection|coll-[\w-]+|subcats|toolbar[\w-]*|density|facets?[\w-]*|facet-[\w-]+|range|promo-tile|filter-[\w-]+',
     'product': r'product|pdp[\w-]*|gallery|g|g--media|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*|variant-picker|terms|dynamic-checkout|ar-btn|rte-sm|feature-cols?|recs',
+    'cart': r'cart-[\w-]+|summary|trust-row|ship-note',
     # Later stages (enable when the page is built):
     # 'product': r'pdp[\w-]*|gallery|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*',
 }
-ENABLED = ['home', 'shell', 'collection', 'product']
+ENABLED = ['home', 'shell', 'collection', 'product', 'cart']
 # Selectors from pages.css that belong to not-yet-built pages are skipped entirely.
-LATER = r'cart-\w+|summary|trust-row|process|projects?|form-card|form-split|contact-list|benefits|values|about-gallery|big-quote|faq-[\w-]+|article-hero|article-cover|article-body|article-aside|inline-product|progress|auth[\w-]*|divider|btn--shop|account[\w-]*|order[\w-]*|status[\w-]*|timeline|nf|card\.is-soldout'
+LATER = r'process|projects?|form-card|form-split|contact-list|benefits|values|about-gallery|big-quote|faq-[\w-]+|article-hero|article-cover|article-body|article-aside|inline-product|progress|auth[\w-]*|divider|btn--shop|account[\w-]*|order[\w-]*|status[\w-]*|timeline|nf|card\.is-soldout'
 
 
 

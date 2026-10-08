@@ -174,3 +174,12 @@
   .pdp-price { font-size: var(--step-1); }
   .buy-row .btn { font-size: var(--step-0); }
 }
+
+/* ---------- Cart page (theme build additions) ---------- */
+.cart-page.is-loading .cart-layout { opacity: 0.55; pointer-events: none; transition: opacity var(--dur-2) var(--ease-out); }
+.ship-note { display: flex; gap: 10px; align-items: center; padding: var(--space-s) var(--space-m); border-radius: var(--radius-md); background: var(--color-surface); font-size: var(--step--1); margin-bottom: var(--space-s); }
+.cart-note summary { cursor: pointer; font-weight: 600; font-size: var(--step--1); list-style: none; }
+.cart-note summary::-webkit-details-marker { display: none; }
+.cart-note summary::before { content: "+ "; color: var(--color-accent); }
+.cart-note[open] summary::before { content: "− "; }
+.cart-lines { border-top: 1px solid var(--color-line); }

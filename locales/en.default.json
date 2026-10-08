@@ -130,6 +130,25 @@
       "assembly": "Assembly",
       "image_zoom": "Image zoom",
       "view_all_photos": "View all {{ count }} photos"
+    },
+    "cart": {
+      "title": "Your cart",
+      "empty": "Your cart is empty",
+      "have_account": "Have an account?",
+      "sign_in": "Sign in to check out faster.",
+      "quantity_for": "Quantity for {{ title }}",
+      "remove": "Remove",
+      "add_note": "Add an order note",
+      "note": "Order note",
+      "note_placeholder": "Delivery instructions, gift message…",
+      "summary": "Order summary",
+      "subtotal": "Subtotal",
+      "you_save": "You save",
+      "shipping": "Shipping",
+      "tax": "Estimated tax",
+      "at_checkout": "Calculated at checkout",
+      "estimated_total": "Estimated total",
+      "checkout": "Checkout"
     }
   },
   "general": {

@@ -1,0 +1,151 @@
+{%- comment -%}
+  Mango redesign cart page. Quantity/remove use /cart/change.js and re-render this section and the
+  header cart bubble (assets/mf-cart.js). Without JS the form posts to /cart and links remove items.
+{%- endcomment -%}
+{%- render 'mf-assets', css: 'mf-cart' -%}
+<script src="{{ 'mf-cart.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign savings = 0
+  for item in cart.items
+    if item.original_line_price > item.final_line_price
+      assign savings = savings | plus: item.original_line_price | minus: item.final_line_price
+    endif
+    if item.variant.compare_at_price > item.variant.price
+      assign line_cmp = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity
+      assign savings = savings | plus: line_cmp
+    endif
+  endfor
+-%}
+
+<div class="mf mf-cart-page" id="MfCart-{{ section.id }}" data-mf-cart data-mf-main data-section-id="{{ section.id }}">
+  <div class="mf-container mf-page-hero">
+    <h1 class="mf-display mf-display-l">{{ 'mf.cart.title' | t }} {% if cart.item_count > 0 %}<span class="mf-muted mf-tabular">({{ cart.item_count }})</span>{% endif %}</h1>
+  </div>
+
+  {%- if cart.item_count == 0 -%}
+    <div class="mf-container">
+      <div class="mf-empty-state" style="padding-block: var(--space-2xl)">
+        <span class="mf-icon-circle">{% render 'mf-icon', icon: 'bag' %}</span>
+        <h2 class="mf-display mf-display-m">{{ 'mf.cart.empty' | t }}</h2>
+        <p class="mf-muted" style="margin: 0; max-width: 36ch">{{ section.settings.empty_text }}</p>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center">
+          <a class="mf-btn mf-btn--accent" href="{{ section.settings.empty_link | default: routes.all_products_collection_url }}">{{ section.settings.empty_button | escape }}</a>
+        </div>
+        {%- if shop.customer_accounts_enabled and customer == nil -%}
+          <p class="mf-muted" style="margin: 0; font-size: 14px">{{ 'mf.cart.have_account' | t }} <a href="{{ routes.account_login_url }}">{{ 'mf.cart.sign_in' | t }}</a></p>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" id="MfCartForm-{{ section.id }}" class="mf-container mf-cart-layout" novalidate>
+      <div>
+        {%- if section.settings.shipping_note != blank -%}
+          <div class="mf-ship-note">{% render 'mf-icon', icon: 'truck', size: 18 %}<span>{{ section.settings.shipping_note }}</span></div>
+        {%- endif -%}
+
+        <div class="mf-cart-lines" data-mf-cart-lines>
+          {%- for item in cart.items -%}
+            <div class="mf-line" data-mf-line="{{ item.key }}" data-index="{{ forloop.index }}">
+              <a class="mf-line-media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+                {%- if item.image -%}{{ item.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: '', widths: '150, 240, 300', sizes: '120px' }}{%- endif -%}
+              </a>
+              <div>
+                <h3><a href="{{ item.url }}">{{ item.product.title | escape }}</a></h3>
+                <p class="mf-meta">
+                  {%- unless item.product.has_only_default_variant -%}{%- for option in item.options_with_values -%}{{ option.value | escape }}{% unless forloop.last %} · {% endunless %}{%- endfor -%}{%- endunless -%}
+                  {%- for p in item.properties -%}{%- unless p.last == blank or p.first contains '_' -%}<br>{{ p.first | escape }}: {{ p.last | escape }}{%- endunless -%}{%- endfor -%}
+                  {%- if item.selling_plan_allocation -%}<br>{{ item.selling_plan_allocation.selling_plan.name | escape }}{%- endif -%}
+                </p>
+                {%- for discount in item.line_level_discount_allocations -%}<p class="mf-meta" style="color: var(--color-accent)">{{ discount.discount_application.title | escape }} (−{{ discount.amount | money_without_trailing_zeros }})</p>{%- endfor -%}
+                <div class="mf-line-actions">
+                  <div class="mf-qty mf-qty--sm">
+                    <button type="button" data-mf-cart-qty="-1" aria-label="{{ 'mf.product.decrease' | t }}">−</button>
+                    <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="{{ 'mf.cart.quantity_for' | t: title: item.product.title | escape }}" data-mf-cart-input>
+                    <button type="button" data-mf-cart-qty="1" aria-label="{{ 'mf.product.increase' | t }}">+</button>
+                  </div>
+                  <a class="mf-remove" href="{{ item.url_to_remove }}" data-mf-cart-remove>{{ 'mf.cart.remove' | t }}</a>
+                </div>
+                <p class="mf-field-error" style="display: none" data-mf-line-error role="alert"></p>
+              </div>
+              <div class="mf-price">
+                <span>{{ item.final_line_price | money_without_trailing_zeros }}</span>
+                {%- if item.variant.compare_at_price > item.variant.price -%}
+                  <s>{{ item.variant.compare_at_price | times: item.quantity | money_without_trailing_zeros }}</s>
+                {%- elsif item.original_line_price > item.final_line_price -%}
+                  <s>{{ item.original_line_price | money_without_trailing_zeros }}</s>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        {%- if section.settings.show_note -%}
+          <details class="mf-cart-note mf-mt-l">
+            <summary>{{ 'mf.cart.add_note' | t }}</summary>
+            <div class="mf-field" style="margin-top: var(--space-s)">
+              <label for="MfCartNote-{{ section.id }}" class="mf-visually-hidden">{{ 'mf.cart.note' | t }}</label>
+              <textarea class="mf-textarea" id="MfCartNote-{{ section.id }}" name="note" placeholder="{{ 'mf.cart.note_placeholder' | t }}" data-mf-cart-note>{{ cart.note }}</textarea>
+            </div>
+          </details>
+        {%- endif -%}
+      </div>
+
+      <aside class="mf-summary" aria-labelledby="MfSummary-{{ section.id }}">
+        <h2 id="MfSummary-{{ section.id }}" class="mf-display">{{ 'mf.cart.summary' | t }}</h2>
+        <div class="mf-totals" role="status">
+          <div><span>{{ 'mf.cart.subtotal' | t }}</span><span class="mf-tabular">{{ cart.items_subtotal_price | money_without_trailing_zeros }}</span></div>
+          {%- for discount in cart.cart_level_discount_applications -%}
+            <div><span>{{ discount.title | escape }}</span><span class="mf-tabular" style="color: var(--color-accent)">−{{ discount.total_allocated_amount | money_without_trailing_zeros }}</span></div>
+          {%- endfor -%}
+          {%- if savings > 0 -%}<div><span>{{ 'mf.cart.you_save' | t }}</span><span class="mf-tabular" style="color: var(--color-accent)">{{ savings | money_without_trailing_zeros }}</span></div>{%- endif -%}
+          <div><span>{{ 'mf.cart.shipping' | t }}</span><span class="mf-muted">{{ section.settings.shipping_label | escape }}</span></div>
+          <div><span>{{ 'mf.cart.tax' | t }}</span><span class="mf-muted">{{ 'mf.cart.at_checkout' | t }}</span></div>
+          <div class="mf-grand"><span>{{ 'mf.cart.estimated_total' | t }}</span><span class="mf-tabular">{{ cart.total_price | money_without_trailing_zeros }}</span></div>
+        </div>
+        <div class="mf-cart-checkout-bar" style="display: grid; gap: 10px">
+          <button type="submit" name="checkout" class="mf-btn mf-btn--accent mf-btn--block">{% render 'mf-icon', icon: 'lock', size: 16 %} {{ 'mf.cart.checkout' | t }}</button>
+        </div>
+        {%- if additional_checkout_buttons and section.settings.dynamic_checkout -%}
+          <div class="mf-dynamic-checkout" style="margin-top: 0">{{ content_for_additional_checkout_buttons }}</div>
+        {%- endif -%}
+        {%- if section.settings.installments_note != blank -%}<p class="mf-installments" style="margin: 0">{{ section.settings.installments_note }}</p>{%- endif -%}
+        <div class="mf-trust-row">
+          {%- for block in section.blocks -%}
+            <div {{ block.shopify_attributes }}>{% render 'mf-icon', icon: block.settings.icon %} <span>{{ block.settings.text }}</span></div>
+          {%- endfor -%}
+        </div>
+      </aside>
+    </form>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Cart",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "inline_richtext", "id": "shipping_note", "label": "Shipping message", "default": "<b>Free US shipping</b> is included on this order." },
+    { "type": "text", "id": "shipping_label", "label": "Shipping line in summary", "default": "Free" },
+    { "type": "inline_richtext", "id": "installments_note", "label": "Installments note", "default": "Pay in 4 interest-free installments with <b>Shop Pay</b>." },
+    { "type": "checkbox", "id": "show_note", "label": "Show order note", "default": true },
+    { "type": "checkbox", "id": "dynamic_checkout", "label": "Show express checkout buttons", "default": true },
+    { "type": "header", "content": "Empty cart" },
+    { "type": "inline_richtext", "id": "empty_text", "label": "Text", "default": "Start with a piece you'll keep for decades." },
+    { "type": "text", "id": "empty_button", "label": "Button label", "default": "Shop furniture" },
+    { "type": "url", "id": "empty_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "trust",
+      "name": "Trust line",
+      "limit": 4,
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "lock", "options": [{ "value": "lock", "label": "Lock" }, { "value": "hand", "label": "Hand" }, { "value": "chat", "label": "Chat" }, { "value": "truck", "label": "Truck" }, { "value": "check", "label": "Check" }] },
+        { "type": "inline_richtext", "id": "text", "label": "Text", "default": "Secure, encrypted checkout" }
+      ]
+    }
+  ]
+}
+{% endschema %}
