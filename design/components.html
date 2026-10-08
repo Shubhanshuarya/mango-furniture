@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Components — Mango Furniture Design System</title>
+  <meta name="theme-color" content="#f5f0e8">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css"><link rel="stylesheet" href="components.css"><link rel="stylesheet" href="pages.css">
+  <style>
+    .ds-section { padding-block: var(--space-2xl); border-top: 1px solid var(--color-line); }
+    .ds-section > h2 { font-size: var(--step-3); margin-bottom: var(--space-s); }
+    .ds-section > p.muted { margin: 0 0 var(--space-l); max-width: 60ch; }
+    .ds-row { display: flex; flex-wrap: wrap; gap: var(--space-s); align-items: center; }
+    .ds-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-m); }
+    .sw-card { border: 1px solid var(--color-line); border-radius: var(--radius-md); overflow: hidden; font-size: 13px; }
+    .sw-card .chip-c { height: 88px; }
+    .sw-card div:last-child { padding: 10px 12px; display: grid; gap: 2px; }
+    .sw-card code { color: var(--color-ink-muted); }
+    .type-row { display: grid; grid-template-columns: 140px 1fr; gap: var(--space-m); align-items: baseline; padding-block: 12px; border-bottom: 1px solid var(--color-line); }
+    .type-row code { font-size: 12px; color: var(--color-ink-muted); }
+    .space-bar { height: 16px; background: var(--color-accent-soft); border-left: 2px solid var(--color-accent); }
+    .label-sm { font-size: 12px; color: var(--color-ink-muted); margin: 0 0 8px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+    @media (max-width: 989px) { .type-row { grid-template-columns: 1fr; gap: 4px; } }
+  </style>
+</head>
+<body data-page="components">
+<main id="main" class="container" style="padding-bottom:var(--space-section)">
+  <section class="page-hero">
+    <p class="eyebrow">Design system · Direction A, Atelier</p>
+    <h1 class="display display-xl">Components</h1>
+    <p class="lede">Every building block used across the mockups. Each maps to a Stage B snippet; tokens live in <code>tokens.css</code>.</p>
+  </section>
+
+  <section class="ds-section">
+    <h2 class="display">Colour</h2>
+    <p class="muted">Sampled from the Askara photo set. All text pairs meet WCAG AA (≥ 4.5:1).</p>
+    <div class="ds-grid" data-swatches></div>
+  </section>
+
+  <section class="ds-section">
+    <h2 class="display">Type</h2>
+    <p class="muted">Fraunces (display; optical size + soft axis) and Figtree (text/UI). Fluid sizes from 390 to 1440px.</p>
+    <div class="type-row"><code>step-5 · display-xl</code><span class="display display-xl">Where you <em>live.</em></span></div>
+    <div class="type-row"><code>step-4 · display-l</code><span class="display display-l">Pieces for every room</span></div>
+    <div class="type-row"><code>step-3 · display-m</code><span class="display display-m">Made by hand in Jodhpur</span></div>
+    <div class="type-row"><code>step-2 · display-s</code><span class="display display-s">Solid mango wood</span></div>
+    <div class="type-row"><code>step-1 · lede</code><span class="lede" style="margin:0">Furniture shaped by hand and made to be lived with for decades.</span></div>
+    <div class="type-row"><code>step-0 · body</code><span>Clean regularly with a soft dry or slightly damp cloth and avoid harsh chemicals.</span></div>
+    <div class="type-row"><code>step--1 · small</code><span style="font-size:var(--step--1)">56″ L × 16″ D × 19″ H · Seats 3–4</span></div>
+    <div class="type-row"><code>eyebrow</code><span class="eyebrow" style="margin:0">Signature pieces</span></div>
+  </section>
+
+  <section class="ds-section">
+    <h2 class="display">Spacing</h2>
+    <p class="muted">4px base. Section rhythm is fluid: 64px on mobile to 128px on desktop.</p>
+    <div style="display:grid;gap:8px;max-width:520px">
+      <div style="display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center;font-size:13px"><code>2xs · 8</code><div class="space-bar" style="width:8px"></div><code>s · 16</code><div class="space-bar" style="width:16px"></div><code>m · 24</code><div class="space-bar" style="width:24px"></div><code>l · 32</code><div class="space-bar" style="width:32px"></div><code>xl · 48</code><div class="space-bar" style="width:48px"></div><code>2xl · 72</code><div class="space-bar" style="width:72px"></div><code>section · 64–128</code><div class="space-bar" style="width:128px"></div></div>
+    </div>
+  </section>
+
+  <section class="ds-section">
+    <h2 class="display">Buttons &amp; links</h2>
+    <p class="muted">One accent (terracotta) button per view, reserved for the primary action. 48px minimum target; 52px on the PDP.</p>
+    <div class="ds-row">
+      <button class="btn btn--accent">Add to cart</button>
+      <button class="btn">Primary</button>
+      <button class="btn btn--secondary">Secondary</button>
+      <button class="btn btn--accent is-loading">Loading</button>
+      <button class="btn" disabled style="opacity:.5">Disabled</button>
+      <button class="btn btn--sm btn--secondary">Small</button>
+      <a class="link-arrow" href="#">Text link <svg class="arrow" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <button class="icon-btn" aria-label="Search"><svg aria-hidden="true"><use href="#i-search"/></svg></button>
+      <span style="background:var(--color-ink);padding:12px;border-radius:12px"><button class="btn btn--on-image">On image</button></span>
+    </div>
+  </section>
+
+  <section class="ds-section">
+    <h2 class="display">Form controls</h2>
+    <p class="muted">Labels are always visible. Errors show inline below the field, plus a summary at the top of the form. Focus uses a 3px soft ring.</p>
+    <form class="form" data-validate style="max-width:640px" aria-label="Form demo">
+      <div class="form-status form-status--error" role="alert"><svg aria-hidden="true"><use href="#i-alert"/></svg><div><b>Please check the form.</b> <span data-error-count></span></div></div>
+      <div class="form-status form-status--success" role="status" tabindex="-1"><svg aria-hidden="true"><use href="#i-check"/></svg><div><b>Sent.</b> Success state.</div></div>
+      <div class="form-row">
+        <div class="field"><label for="x1">Text input</label><input class="input" id="x1" placeholder="Placeholder" required><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Error message.</p></div>
+        <div class="field has-error"><label for="x2">Error state</label><input class="input" id="x2" type="email" value="name@" aria-invalid="true"><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Enter an email like name@example.com.</p></div>
+      </div>
+      <div class="form-row">
+        <div class="field"><label for="x3">Select</label><select class="select" id="x3"><option>Option</option></select></div>
+        <div class="field"><span class="label">Quantity</span><div class="qty"><button type="button" aria-label="Decrease">−</button><input type="number" value="1" aria-label="Quantity"><button type="button" aria-label="Increase">+</button></div></div>
+      </div>
+      <div class="field"><label for="x4">Textarea</label><textarea class="textarea" id="x4"></textarea></div>
+      <div class="field"><span class="label">Pills (radio)</span><div class="pills"><label class="pill"><input type="radio" name="pp" checked><span>Selected</span></label><label class="pill"><input type="radio" name="pp"><span>Default</span></label><label class="pill"><input type="radio" name="pp" disabled><span>Unavailable</span></label></div></div>
+      <div class="field"><span class="label">Colour swatches</span><div class="swatch-btns"><label class="swatch-btn"><input type="radio" name="sw" checked><span style="--sw:#4a3326"></span><span class="visually-hidden">Dark Brown</span></label><label class="swatch-btn"><input type="radio" name="sw"><span style="--sw:#a77a55"></span><span class="visually-hidden">Light Brown</span></label><label class="swatch-btn"><input type="radio" name="sw" disabled><span style="--sw:#e9e3d8"></span><span class="visually-hidden">Whitewash (sold out)</span></label></div></div>
+      <label class="check"><input type="checkbox" checked> Checkbox with label</label>
+      <button class="btn btn--accent" type="submit" style="justify-self:start">Submit (try empty)</button>
+    </form>
+  </section>
+
+  <section class="ds-section">
+    <h2 class="display">Product cards</h2>
+    <p class="muted">4:5 media on a warm plinth (works with mixed photo backdrops). Hover shows the second image and quick add; on touch, a "+" button. Compare-at only when greater than price; dimension line hidden when empty.</p>
+    <div class="product-grid" data-democards></div>
+  </section>
+
+  <section class="ds-section">
+    <h2 class="display">Badges, chips, tabs, breadcrumbs</h2>
+    <div class="ds-row" style="margin-bottom:var(--space-m)"><span class="badge">New</span><span class="badge badge--sale">Save $25</span><span class="badge badge--soldout">Sold out</span><span class="placeholder-flag">placeholder</span></div>
+    <div class="chips" style="margin-bottom:var(--space-m)"><button class="chip">Mango wood <svg aria-hidden="true"><use href="#i-close"/></svg></button><button class="chip">Under $500 <svg aria-hidden="true"><use href="#i-close"/></svg></button><button class="chip-clear">Clear all</button></div>
+    <div class="tabs" style="margin-bottom:var(--space-m)"><button aria-selected="true">Products <span class="n">17</span></button><button aria-selected="false">Journal <span class="n">3</span></button></div>
+    <ol class="crumbs"><li><a href="#">Home</a></li><li><a href="#">Living Room</a></li><li aria-current="page">Benches</li></ol>
+  </section>
+
+  <section class="ds-section">
+    <h2 class="display">Accordion</h2>
+    <div class="accordion" style="max-width:640px">
+      <details open><summary>Open item<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p>Native &lt;details&gt; for zero-JS accessibility; plus/minus morphs on toggle.</p></div></details>
+      <details><summary>Closed item<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p>Body.</p></div></details>
+    </div>
+  </section>
+
+  <section class="ds-section">
+    <h2 class="display">Cart pieces</h2>
+    <p class="muted">The free-shipping bar shows progress when a threshold is set; this store ships free, so the drawer shows the "included" variant.</p>
+    <div style="display:grid;gap:var(--space-l);max-width:520px">
+      <div><p class="label-sm">Threshold variant</p><div class="ship-bar"><span>You're <b>$376</b> away from free shipping</span><div class="track"><div class="fill" style="width:75%"></div></div></div></div>
+      <div><p class="label-sm">Included variant (live)</p><div class="ship-bar"><span><svg width="16" height="16" aria-hidden="true"><use href="#i-truck"/></svg> <b>Free US shipping</b> is included on this order.</span></div></div>
+      <div data-demoline></div>
+    </div>
+  </section>
+
+  <section class="ds-section">
+    <h2 class="display">Overlays &amp; feedback</h2>
+    <p class="muted">Drawers slide (520ms ease-out), modals rise, and Esc or the scrim closes all of them. Focus moves in and returns on close. Under reduced motion, durations drop to 0.</p>
+    <div class="ds-row">
+      <button class="btn btn--secondary" data-open="cart-drawer">Cart drawer</button>
+      <button class="btn btn--secondary" data-open="menu-drawer">Mobile menu</button>
+      <button class="btn btn--secondary" data-open="search-panel">Predictive search</button>
+      <button class="btn btn--secondary" data-quick="annabel-bench">Quick view</button>
+      <button class="btn btn--secondary" data-toast>Toast</button>
+    </div>
+    <div class="ds-grid mt-xl">
+      <div class="empty-state" style="border:1px dashed var(--color-line);border-radius:var(--radius-lg)"><span class="icon-circle"><svg aria-hidden="true"><use href="#i-bag"/></svg></span><b>Empty state</b><span class="muted" style="font-size:13px">Icon, one line, one action.</span></div>
+      <div class="callout"><svg aria-hidden="true"><use href="#i-alert"/></svg><span><b>Callout.</b> Inline notes and tips.</span></div>
+      <div class="card card--skeleton" aria-hidden="true"><div class="card-media skeleton"></div><div class="skeleton sk-line"></div><div class="skeleton sk-line short"></div></div>
+    </div>
+  </section>
+
+  <section class="ds-section">
+    <h2 class="display">Motion</h2>
+    <table class="spec" style="max-width:720px"><tbody>
+      <tr><th scope="row">dur-1 · 160ms</th><td>Hover, press, colour changes</td></tr>
+      <tr><th scope="row">dur-2 · 280ms</th><td>Mega menu, chips, quick-add reveal</td></tr>
+      <tr><th scope="row">dur-3 · 520ms</th><td>Drawers, scroll reveals (fade + 18px rise, 70ms stagger)</td></tr>
+      <tr><th scope="row">Image hover</th><td>900ms scale 1 → 1.03–1.04</td></tr>
+      <tr><th scope="row">Header</th><td>Hides on scroll down after 240px, shows on scroll up</td></tr>
+      <tr><th scope="row">Easing</th><td><code>cubic-bezier(0.22, 1, 0.36, 1)</code></td></tr>
+      <tr><th scope="row">Reduced motion</th><td>All durations 0; no reveal offset; no shimmer or pulse</td></tr>
+    </tbody></table>
+  </section>
+</main>
+<script>window.MF_BASE = '';</script>
+<script src="data.js"></script>
+<script src="mock.js"></script>
+<script>
+(() => {
+  const { card, byHandle, $ } = MF;
+  const tokens = [['--color-bg', 'Limewash · bg'], ['--color-surface', 'Plaster · surface'], ['--color-surface-media', 'Media plinth'], ['--color-ink', 'Walnut · ink'], ['--color-ink-muted', 'Muted ink'], ['--color-line', 'Line'], ['--color-accent', 'Terracotta · accent'], ['--color-accent-soft', 'Accent soft'], ['--color-success', 'Success'], ['--color-error', 'Error']];
+  const cs = getComputedStyle(document.documentElement);
+  $('[data-swatches]').innerHTML = tokens.map(([v, n]) => `<div class="sw-card"><div class="chip-c" style="background:var(${v})"></div><div><b>${n}</b><code>${v} · ${cs.getPropertyValue(v).trim()}</code></div></div>`).join('');
+  $('[data-democards]').innerHTML = [card(byHandle['annabel-bench'], { eager: true }), card(byHandle['landon-mango-wood-and-boucle-fabric-accent-chair'], { i: 1 }), card(byHandle['christi-mango-wood-and-top-grain-leather-ottoman'], { i: 2, soldOut: true }), MF.skeletonCard()].join('');
+  const line = document.querySelector('[data-cart-body] .line'); if (line) $('[data-demoline]').append(line.cloneNode(true));
+  document.querySelector('[data-toast]').addEventListener('click', () => MF.toast(`<img src="assets/products/annabel-bench-1.webp" alt=""> Added Annabel Bench to cart <a href="#" data-open="cart-drawer">View cart</a>`));
+  MF.observe();
+  document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-in'));
+})();
+</script>
+</body>
+</html>

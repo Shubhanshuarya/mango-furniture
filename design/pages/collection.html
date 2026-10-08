@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Living Room Furniture — Mango Furniture Inc</title>
+  <meta name="description" content="Handcrafted solid mango wood coffee tables, side tables, consoles, accent chairs and benches.">
+  <meta name="theme-color" content="#f5f0e8">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="../pages.css">
+</head>
+<body data-page="collection">
+<main id="main">
+  <!-- sections/main-collection-banner -->
+  <section class="container coll-hero">
+    <div>
+      <ol class="crumbs" aria-label="Breadcrumb"><li><a href="home.html">Home</a></li><li><a href="collection.html">Shop</a></li><li aria-current="page">Living Room</li></ol>
+      <h1 class="display display-l" style="margin-top:var(--space-m)">Living Room</h1>
+      <p class="lede">Coffee tables, consoles, side tables and seating, each one made by hand in solid mango wood.</p>
+    </div>
+  </section>
+  <div class="container">
+    <nav class="subcats" aria-label="Categories">
+      <a href="#" aria-current="page"><img src="../assets/askara/hero-daybed.webp" alt="">All living</a>
+      <a href="#"><img src="../assets/askara/cat-coffee-tables.webp" alt="">Coffee Tables</a>
+      <a href="#"><img src="../assets/askara/cat-side-tables.webp" alt="">Side Tables</a>
+      <a href="#"><img src="../assets/askara/cat-console-shelving.webp" alt="">Console Tables</a>
+      <a href="#"><img src="../assets/askara/cat-accent-chairs.webp" alt="">Accent Chairs</a>
+      <a href="#"><img src="../assets/askara/cat-benches.webp" alt="">Benches &amp; Ottomans</a>
+      <a href="#"><img src="../assets/products/nora-2-door-solid-wood-accent-cabinet-1.webp" alt="">Storage</a>
+    </nav>
+  </div>
+
+  <!-- Toolbar: filter toggle, count, sort, density -->
+  <div class="toolbar mt-l">
+    <div class="container toolbar-inner">
+      <div class="left">
+        <button class="btn btn--secondary btn--sm" type="button" data-filter-toggle aria-expanded="true" aria-controls="facets">
+          <svg width="16" height="16" aria-hidden="true"><use href="#i-filter"/></svg> <span class="hide-mobile" data-filter-label>Hide filters</span><span class="show-mobile">Filter &amp; sort</span> <span data-active-count></span>
+        </button>
+        <span class="count" data-count aria-live="polite"></span>
+      </div>
+      <div class="right">
+        <label class="select-wrap"><span class="visually-hidden">Sort by</span>
+          <select class="select" data-sort>
+            <option value="featured">Sort: Featured</option><option value="price-asc">Price, low to high</option><option value="price-desc">Price, high to low</option><option value="az">Alphabetically, A–Z</option><option value="new">Newest</option>
+          </select></label>
+        <div class="density" role="group" aria-label="Grid density">
+          <button type="button" data-cols="3" aria-pressed="true" aria-label="Large grid"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="6" height="6"/><rect x="9" y="1" width="6" height="6"/><rect x="1" y="9" width="6" height="6"/><rect x="9" y="9" width="6" height="6"/></svg></button>
+          <button type="button" data-cols="4" aria-pressed="false" aria-label="Compact grid"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="1" y="1" width="4" height="4"/><rect x="6" y="1" width="4" height="4"/><rect x="11" y="1" width="4" height="4"/><rect x="1" y="6" width="4" height="4"/><rect x="6" y="6" width="4" height="4"/><rect x="11" y="6" width="4" height="4"/><rect x="1" y="11" width="4" height="4"/><rect x="6" y="11" width="4" height="4"/><rect x="11" y="11" width="4" height="4"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container coll-layout" data-layout>
+    <!-- snippets/facets.liquid — Search & Discovery filters (collection, metafields, price, availability) -->
+    <aside class="facets" id="facets" aria-label="Filters"><form data-facets class="accordion"></form></aside>
+    <div class="coll-main">
+      <div class="chips" data-chips></div>
+      <div class="product-grid cols-3" data-grid></div>
+      <div class="pagination" data-pagination></div>
+    </div>
+  </div>
+</main>
+
+<aside class="drawer drawer--left" id="filter-drawer" role="dialog" aria-modal="true" aria-label="Filter and sort" tabindex="-1">
+  <div class="drawer-head"><h2>Filter &amp; sort</h2><button class="icon-btn" data-close aria-label="Close filters"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
+  <div class="drawer-body">
+    <label class="field" style="margin-bottom:var(--space-m)"><span class="label">Sort by</span>
+      <select class="select" data-sort-mobile><option value="featured">Featured</option><option value="price-asc">Price, low to high</option><option value="price-desc">Price, high to low</option><option value="az">Alphabetically, A–Z</option></select></label>
+    <form data-facets-mobile class="accordion"></form>
+  </div>
+  <div class="drawer-foot filter-drawer-foot"><button class="btn btn--secondary" type="button" data-clear>Clear</button><button class="btn btn--accent" type="button" data-close data-apply>Show results</button></div>
+</aside>
+
+<script src="../data.js"></script>
+<script src="../mock.js"></script>
+<script>
+(() => {
+  const { P, card, skeletonCard, money, $, $$, open, observe, icon } = MF;
+  const PAGE = 12;
+  let shown = PAGE, soldOutDemo = [];
+  const priceBuckets = [['Under $500', (p) => p.price < 500], ['$500 – $1,000', (p) => p.price >= 500 && p.price < 1000], ['$1,000 and up', (p) => p.price >= 1000]];
+  const width = (p) => p.dims ? parseFloat(p.dims) : null;
+  const sizeBuckets = [['Under 20″ wide', (p) => width(p) && width(p) < 20], ['20″ – 40″', (p) => width(p) >= 20 && width(p) < 40], ['40″ and wider', (p) => width(p) >= 40]];
+  const materials = ['Mango wood', 'Leather', 'Bouclé', 'Fabric', 'Marble', 'Solid wood'];
+  const facets = [
+    { key: 'category', label: 'Category', values: [...new Set(P.map((p) => p.category))].map((v) => [v, (p) => p.category === v]) },
+    { key: 'availability', label: 'Availability', values: [['In stock', (p) => !soldOutDemo.includes(p.handle)], ['Out of stock', (p) => soldOutDemo.includes(p.handle)]] },
+    { key: 'price', label: 'Price', values: priceBuckets },
+    { key: 'material', label: 'Material', values: materials.map((m) => [m, (p) => p.material.toLowerCase().includes(m.toLowerCase())]) },
+    { key: 'color', label: 'Finish', swatch: true, values: [['Dark Brown', '#4a3326'], ['Light Brown', '#a77a55'], ['Natural', '#c9a77c'], ['Whitewash', '#e9e3d8'], ['Black', '#1f1b18'], ['Cream', '#efe6d6']]
+        .map(([v, c]) => [v, (p) => p.options.some((o) => o.values.some((x) => x.label === v)), c]) },
+    { key: 'size', label: 'Width', values: sizeBuckets },
+  ];
+  const active = { material: ['Mango wood'], price: [] }; // initial state shows chips in action
+  const fns = Object.fromEntries(facets.map((f) => [f.key, Object.fromEntries(f.values.map(([v, fn]) => [v, fn]))]));
+  const sel = (k) => active[k] || [];
+  const matches = (p, except) => Object.entries(active).every(([k, vals]) => k === except || !vals.length || vals.some((v) => fns[k][v](p)));
+  let sort = 'featured';
+
+  function facetHtml(prefix) {
+    return facets.map((f, i) => `<details ${i < 4 ? 'open' : ''}><summary>${f.label}${sel(f.key).length ? ` <span class="muted" style="font-weight:400">(${sel(f.key).length})</span>` : ''}<span class="plus" aria-hidden="true"></span></summary>
+      ${f.swatch ? `<div class="facet-swatches">${f.values.map(([v, fn, c]) => `<label><input type="checkbox" data-k="${f.key}" value="${v}" ${sel(f.key).includes(v) ? 'checked' : ''}><span class="dot" style="--sw:${c}"></span>${v}</label>`).join('')}</div>`
+      : `<ul class="facet-list">${f.values.map(([v, fn]) => { const n = P.filter((p) => matches(p, f.key) && fn(p)).length; const id = `${prefix}-${f.key}-${v.replace(/\W+/g, '')}`;
+          return `<li><label for="${id}"><input id="${id}" type="checkbox" data-k="${f.key}" value="${v}" ${sel(f.key).includes(v) ? 'checked' : ''} ${!n && !sel(f.key).includes(v) ? 'disabled' : ''}><span>${v}</span><span class="n">${n}</span></label></li>`; }).join('')}</ul>`}
+      ${f.key === 'price' ? `<div class="range"><input class="input" inputmode="numeric" placeholder="$ Min" aria-label="Minimum price"><span class="muted">–</span><input class="input" inputmode="numeric" placeholder="$ Max" aria-label="Maximum price"></div>` : ''}
+    </details>`).join('');
+  }
+  function sorted(list) {
+    const s = [...list];
+    if (sort === 'price-asc') s.sort((a, b) => a.price - b.price);
+    if (sort === 'price-desc') s.sort((a, b) => b.price - a.price);
+    if (sort === 'az') s.sort((a, b) => a.title.localeCompare(b.title));
+    return s;
+  }
+  function render({ loading = false } = {}) {
+    const list = sorted(P.filter((p) => matches(p)));
+    const n = Object.values(active).flat().length;
+    $('[data-facets]').innerHTML = facetHtml('d');
+    $('[data-facets-mobile]').innerHTML = facetHtml('m');
+    $('[data-active-count]').textContent = n ? `(${n})` : '';
+    $('[data-count]').textContent = `${list.length} product${list.length === 1 ? '' : 's'}`;
+    $('[data-apply]').textContent = `Show ${list.length} result${list.length === 1 ? '' : 's'}`;
+    $('[data-chips]').innerHTML = n ? Object.entries(active).flatMap(([k, vs]) => vs.map((v) => `<button class="chip" type="button" data-unset="${k}|${v}">${v} ${icon('close')}<span class="visually-hidden">Remove filter</span></button>`)).join('') + `<button class="chip-clear" type="button" data-clear>Clear all</button>` : '';
+    const grid = $('[data-grid]');
+    if (loading) { grid.innerHTML = Array.from({ length: 6 }, skeletonCard).join(''); return; }
+    if (!list.length) {
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><span class="icon-circle">${icon('filter')}</span><h2 class="display display-s">No pieces match these filters</h2><p class="muted" style="margin:0">Try removing a filter, or ask us about a custom piece.</p><button class="btn" type="button" data-clear>Clear all filters</button></div>`;
+      $('[data-pagination]').innerHTML = ''; return;
+    }
+    const cards = list.slice(0, shown).map((p, i) => card(p, { i, soldOut: soldOutDemo.includes(p.handle) }));
+    if (cards.length > 6) cards.splice(6, 0, `<a class="promo-tile reveal" href="design-services.html"><span class="media"><img src="../assets/askara/ds-slab-bench.webp" alt="" loading="lazy"></span><span class="copy"><span class="eyebrow" style="color:inherit;opacity:.75;margin:0">Design services</span><span class="display display-m">Need a custom size or finish?</span><p>We make pieces to fit your space, with 3D renderings before we build.</p><span class="link-arrow" style="justify-self:start">Start a project ${icon('arrow', 16)}</span></span></a>`);
+    grid.innerHTML = cards.join('');
+    const pct = Math.round((Math.min(shown, list.length) / list.length) * 100);
+    $('[data-pagination]').innerHTML = `<span>Showing ${Math.min(shown, list.length)} of ${list.length}</span><span class="track"><i style="width:${pct}%"></i></span>${shown < list.length ? `<button class="btn btn--secondary" type="button" data-more>Load more</button>` : ''}`;
+    observe(grid);
+  }
+
+  document.addEventListener('change', (e) => {
+    const k = e.target.dataset.k; if (!k) return;
+    const v = e.target.value; active[k] = e.target.checked ? [...sel(k), v] : sel(k).filter((x) => x !== v);
+    shown = PAGE; render({ loading: true }); setTimeout(render, 380);
+  });
+  document.addEventListener('click', (e) => {
+    const u = e.target.closest('[data-unset]'); if (u) { const [k, v] = u.dataset.unset.split('|'); active[k] = sel(k).filter((x) => x !== v); render(); return; }
+    if (e.target.closest('[data-clear]')) { Object.keys(active).forEach((k) => (active[k] = [])); render(); return; }
+    if (e.target.closest('[data-more]')) {
+      const grid = $('[data-grid]'); grid.insertAdjacentHTML('beforeend', Array.from({ length: 4 }, skeletonCard).join(''));
+      setTimeout(() => { shown += PAGE; render(); }, 700); return;
+    }
+    const t = e.target.closest('[data-filter-toggle]');
+    if (t) {
+      if (matchMedia('(max-width: 989px)').matches) { open('filter-drawer'); return; }
+      const lay = $('[data-layout]'); const collapsed = lay.classList.toggle('filters-collapsed');
+      t.setAttribute('aria-expanded', !collapsed); $('[data-filter-label]').textContent = collapsed ? 'Show filters' : 'Hide filters';
+    }
+    const d = e.target.closest('[data-cols]');
+    if (d) { $$('[data-cols]').forEach((b) => b.setAttribute('aria-pressed', b === d)); $('[data-grid]').classList.toggle('cols-3', d.dataset.cols === '3'); }
+  });
+  [$('[data-sort]'), $('[data-sort-mobile]')].forEach((s) => s.addEventListener('change', (e) => { sort = e.target.value; render(); }));
+
+  document.addEventListener('mf:state', (e) => {
+    const st = e.detail;
+    if (st === 'loading') render({ loading: true });
+    if (st === 'soldout') { soldOutDemo = ['mitzi-accent-chair', 'ridge-console-table']; render(); }
+    if (st === 'filters-open') { render(); if (matchMedia('(max-width: 989px)').matches) open('filter-drawer'); }
+    if (st === 'no-results') { active.price = ['Under $500']; active.material = ['Bouclé']; render(); }
+  });
+  render();
+})();
+</script>
+</body>
+</html>

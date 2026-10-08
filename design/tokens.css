@@ -1,0 +1,115 @@
+/* ==========================================================================
+   Mango Furniture Inc — design tokens
+   Direction A · Atelier (approved 2026-10-09). Shared by every mockup; these
+   values map 1:1 to theme settings / CSS custom properties in Stage B.
+   All text/background pairs below are WCAG 2.2 AA (≥ 4.5:1) — checked.
+   ========================================================================== */
+
+:root {
+  /* Palette — sampled from the Askara set: limewash wall, terracotta floor, walnut */
+  --color-bg: #f5f0e8;            /* limewash */
+  --color-surface: #ede5d8;       /* plaster */
+  --color-surface-media: #e8e0d3; /* behind product photos with mixed backdrops */
+  --color-ink: #2a211b;           /* walnut — 13.9:1 on bg */
+  --color-ink-muted: #6b5d52;     /* 5.6:1 on bg */
+  --color-line: #d9cebf;
+  --color-accent: #a0533a;        /* terracotta — 5.3:1 with on-accent */
+  --color-on-accent: #fff8f2;
+  --color-accent-soft: #ecd6ca;
+  --color-inverse-bg: #2a211b;
+  --color-inverse-ink: #f5f0e8;
+
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-text: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display-weight: 380;
+  --display-tracking: -0.015em;
+  --display-style-opsz: "opsz" 96, "SOFT" 50;
+  --eyebrow-tracking: 0.14em;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --radius-media: 14px;
+}
+
+/* Optional designed dark mode — off by default (?theme=dark to preview). */
+:root[data-theme="dark"] {
+  --color-bg: #1c1714;
+  --color-surface: #251f1b;
+  --color-surface-media: #2b2420;
+  --color-ink: #efe7dc;          /* 14.5:1 */
+  --color-ink-muted: #b3a595;    /* 7.4:1 */
+  --color-line: #3a312b;
+  --color-accent: #d9876a;       /* 6.5:1 as text */
+  --color-on-accent: #1c1714;
+  --color-accent-soft: #3b2a22;
+  --color-inverse-bg: #efe7dc;
+  --color-inverse-ink: #1c1714;
+}
+
+:root {
+  /* Feedback */
+  --color-success: #3d6b45;
+  --color-error: #a33a2b;
+  --color-focus: var(--color-accent);
+
+  /* Type scale — fluid between 390px and 1440px viewports */
+  --step--1: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);  /* 13 → 14 */
+  --step-0:  clamp(0.9375rem, 0.91rem + 0.12vw, 1rem);     /* 15 → 16 */
+  --step-1:  clamp(1.0625rem, 1.01rem + 0.24vw, 1.25rem);  /* 17 → 20 */
+  --step-2:  clamp(1.25rem, 1.13rem + 0.5vw, 1.625rem);    /* 20 → 26 */
+  --step-3:  clamp(1.5rem, 1.27rem + 0.95vw, 2.25rem);     /* 24 → 36 */
+  --step-4:  clamp(1.875rem, 1.45rem + 1.75vw, 3.25rem);   /* 30 → 52 */
+  --step-5:  clamp(2.375rem, 1.6rem + 3.2vw, 4.75rem);     /* 38 → 76 */
+  --leading-tight: 1.08;
+  --leading-snug: 1.3;
+  --leading-body: 1.6;
+
+  /* Spacing — 4px base, fluid section rhythm */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-section: clamp(4rem, 2.6rem + 5.8vw, 8rem);   /* 64 → 128 */
+  --gutter: clamp(1rem, 0.4rem + 2.5vw, 2.5rem);        /* 16 → 40 */
+  --container: 1360px;
+  --container-text: 68ch;
+
+  /* Elevation — used sparingly: drawers, menus, sticky bars only */
+  --shadow-1: 0 1px 2px rgb(42 33 27 / 0.06);
+  --shadow-2: 0 12px 32px -12px rgb(42 33 27 / 0.22);
+  --shadow-3: 0 24px 64px -16px rgb(42 33 27 / 0.32);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 160ms;   /* hover, press */
+  --dur-2: 280ms;   /* menus, chips */
+  --dur-3: 520ms;   /* drawers, reveals */
+  --reveal-distance: 18px;
+
+  /* Layers */
+  --z-header: 50;
+  --z-overlay: 80;
+  --z-drawer: 90;
+  --z-toast: 100;
+
+  /* Media ratios */
+  --ratio-card: 4 / 5;
+  --ratio-hero: 16 / 9;
+  --ratio-hero-mobile: 4 / 5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-1: 0ms;
+    --dur-2: 0ms;
+    --dur-3: 0ms;
+    --reveal-distance: 0px;
+  }
+}

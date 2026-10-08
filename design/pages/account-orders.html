@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Orders — Mango Furniture Inc</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#f5f0e8">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="../pages.css">
+</head>
+<body data-page="account-orders">
+<main id="main">
+  <!-- templates/customers/account.json + order.json -->
+  <section class="container page-hero">
+    <p class="eyebrow">My account</p>
+    <h1 class="display display-l">Welcome back, <span class="placeholder-flag" style="font-size:12px;vertical-align:middle">customer first name</span></h1>
+  </section>
+  <div class="container account">
+    <nav class="account-nav" aria-label="Account">
+      <a href="#" aria-current="page"><svg aria-hidden="true"><use href="#i-bag"/></svg>Orders</a>
+      <a href="#"><svg aria-hidden="true"><use href="#i-pin"/></svg>Addresses</a>
+      <a href="#"><svg aria-hidden="true"><use href="#i-user"/></svg>Profile</a>
+      <a href="trade-program.html"><svg aria-hidden="true"><use href="#i-tag"/></svg>Trade account</a>
+      <a href="account-login.html"><svg aria-hidden="true"><use href="#i-arrow"/></svg>Sign out</a>
+    </nav>
+    <div data-orders>
+      <div class="callout" style="margin-bottom:var(--space-m)"><svg aria-hidden="true"><use href="#i-alert"/></svg><span><b>Sample data:</b> layout only. Real orders render from <code>customer.orders</code>.</span></div>
+
+      <article class="order">
+        <dl class="order-head">
+          <div><dt>Order</dt><dd>#1042</dd></div><div><dt>Placed</dt><dd>Sep 28, 2026</dd></div><div><dt>Total</dt><dd class="tabular">$1,624.00</dd></div>
+          <div><dt>Status</dt><dd><span class="status"><i></i>In transit</span></dd></div>
+          <a class="btn btn--secondary btn--sm" href="#">View order</a>
+        </dl>
+        <div class="order-body">
+          <div class="timeline" aria-label="Order progress: shipped">
+            <span class="fill-line" style="width:50%"></span>
+            <span class="on">Ordered</span><span class="on">Processed</span><span class="on">Shipped</span><span>Delivered</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:end;gap:var(--space-m);flex-wrap:wrap">
+            <div class="order-items"><img src="../assets/products/annabel-bench-1.webp" alt="Annabel Bench"><img src="../assets/products/landon-mango-wood-and-boucle-fabric-accent-chair-1.webp" alt="Landon Accent Chair"></div>
+            <a class="link-arrow" href="#">Track package <svg class="arrow" width="16" height="16" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="order">
+        <dl class="order-head">
+          <div><dt>Order</dt><dd>#1017</dd></div><div><dt>Placed</dt><dd>Jul 3, 2026</dd></div><div><dt>Total</dt><dd class="tabular">$450.00</dd></div>
+          <div><dt>Status</dt><dd><span class="status status--done"><i></i>Delivered</span></dd></div>
+          <a class="btn btn--secondary btn--sm" href="#">View order</a>
+        </dl>
+        <div class="order-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:var(--space-m);flex-wrap:wrap">
+            <div class="order-items"><img src="../assets/products/jorf-side-table-1.webp" alt="Jorf Side Table"></div>
+            <button class="btn btn--sm" type="button" data-add="jorf-side-table">Buy again</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</main>
+<script src="../data.js"></script>
+<script src="../mock.js"></script>
+<script>
+  document.addEventListener('mf:state', (e) => {
+    if (e.detail === 'no-orders') document.querySelector('[data-orders]').innerHTML = `<div class="empty-state" style="border:1px dashed var(--color-line);border-radius:var(--radius-lg)"><span class="icon-circle">${MF.icon('bag')}</span><h2 class="display display-s">No orders yet</h2><p class="muted" style="margin:0">When you place an order, you'll be able to track it here.</p><a class="btn" href="collection.html">Start shopping</a></div>`;
+  });
+</script>
+</body>
+</html>

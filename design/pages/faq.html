@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQ — Mango Furniture Inc</title>
+  <meta name="theme-color" content="#f5f0e8">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="../pages.css">
+</head>
+<body data-page="faq">
+<main id="main">
+  <!-- templates/page.faq.json → sections/faq (blocks = question/answer; outputs FAQPage JSON-LD) -->
+  <section class="container page-hero">
+    <ol class="crumbs" aria-label="Breadcrumb"><li><a href="home.html">Home</a></li><li aria-current="page">FAQ</li></ol>
+    <h1 class="display display-xl">Questions, <em>answered.</em></h1>
+    <div class="faq-search"><svg aria-hidden="true"><use href="#i-search"/></svg><label class="visually-hidden" for="faq-q">Search questions</label><input class="input" id="faq-q" type="search" placeholder="Search e.g. “assembly”, “care”, “trade”" data-faq-search></div>
+    <p class="muted" data-faq-empty hidden style="margin-top:var(--space-s)">No questions match. <a href="contact.html">Ask us directly</a>.</p>
+  </section>
+
+  <div class="container faq-layout">
+    <nav class="faq-nav" aria-label="FAQ topics">
+      <a href="#orders" aria-current="true">Orders &amp; payment</a><a href="#shipping">Shipping &amp; delivery</a><a href="#returns">Returns &amp; exchanges</a><a href="#care">Products &amp; care</a><a href="#custom">Custom &amp; trade</a>
+    </nav>
+    <div>
+      <div class="faq-group" id="orders"><h2 class="display">Orders &amp; payment</h2><div class="accordion">
+        <details><summary>Which payment methods do you accept?<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p>Visa, Mastercard, American Express, Discover and Diners Club, plus Shop Pay. You can also pay in 4 interest-free installments with Shop Pay Installments.</p></div></details>
+        <details><summary>Will I get a receipt?<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p>Yes. Once you place your order, a receipt is emailed to you automatically.</p></div></details>
+        <details><summary>I'm having trouble paying. What should I do?<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p>Please <a href="contact.html">contact us</a> and we'll help you complete your order.</p></div></details>
+      </div></div>
+      <div class="faq-group" id="shipping"><h2 class="display">Shipping &amp; delivery</h2><div class="accordion">
+        <details><summary>How much does shipping cost?<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p>Shipping is free across the US. For unusually large or remote deliveries we may call you with a quote before shipping.</p></div></details>
+        <details><summary>How long will my order take?<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p>Orders are processed within 1–4 business days (excluding weekends and holidays); orders placed after 2 PM PST are processed the next business day. Domestic delivery takes 3–10 business days, and you'll receive a tracking number by email once your order ships.</p></div></details>
+        <details><summary>Do you ship outside the US?<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p><span class="placeholder-flag">confirm international policy</span></p></div></details>
+        <details><summary>Does my furniture need assembly?<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p>It depends on the piece; assembly details are listed under <b>Dimensions</b> on each product page. Where assembly is needed, all hardware is included.</p></div></details>
+      </div></div>
+      <div class="faq-group" id="returns"><h2 class="display">Returns &amp; exchanges</h2><div class="accordion">
+        <details><summary>What is your returns policy?<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p><span class="placeholder-flag">US returns policy to confirm</span> This answer will mirror the Refund policy in Shopify Admin.</p></div></details>
+        <details><summary>My item arrived damaged. What now?<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p>Please inspect your order on arrival and email <a href="mailto:info@mangofurnitureinc.com">info@mangofurnitureinc.com</a> within 2 days of delivery with your order number and photos so we can make it right.</p></div></details>
+      </div></div>
+      <div class="faq-group" id="care"><h2 class="display">Products &amp; care</h2><div class="accordion">
+        <details><summary>What is mango wood?<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p>A dense, durable hardwood with a rich, varied grain. Because every board is different, no two pieces are exactly alike.</p></div></details>
+        <details><summary>How do I care for my furniture?<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p>Clean regularly with a soft dry or slightly damp cloth and avoid harsh chemicals or abrasive cleaners. Wipe spills immediately. Keep pieces away from prolonged direct sunlight and heat sources, and periodically check fittings.</p></div></details>
+        <details><summary>How do I care for leather seats?<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p>Top-grain leather wipes clean easily with a soft cloth. Avoid harsh cleaners and direct heat.</p></div></details>
+      </div></div>
+      <div class="faq-group" id="custom"><h2 class="display">Custom &amp; trade</h2><div class="accordion">
+        <details><summary>Can I order a piece in a custom size or finish?<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p>Yes. Start with our <a href="design-services.html">design services</a> form and tell us what you need.</p></div></details>
+        <details><summary>Do you offer trade pricing?<span class="plus" aria-hidden="true"></span></summary><div class="acc-body"><p>Yes. Interior designers, architects and other trade professionals can <a href="trade-program.html">apply to our Trade Program</a>.</p></div></details>
+      </div></div>
+      <div class="callout" style="margin-top:var(--space-2xl)"><svg aria-hidden="true"><use href="#i-chat"/></svg><span><b>Still have a question?</b> <a href="contact.html">Contact us</a> or <a href="#" data-wa>message us on WhatsApp</a>.</span></div>
+    </div>
+  </div>
+</main>
+<script src="../data.js"></script>
+<script src="../mock.js"></script>
+<script>
+(() => {
+  const { $, $$ } = MF;
+  $('[data-faq-search]').addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase(); let any = false;
+    $$('.faq-group').forEach((g) => {
+      let n = 0;
+      $$('details', g).forEach((d) => { const hit = !q || d.textContent.toLowerCase().includes(q); d.hidden = !hit; if (hit) n++; if (q && hit) d.open = true; });
+      g.hidden = !n; any ||= n > 0;
+    });
+    $('[data-faq-empty]').hidden = any;
+  });
+  const links = $$('.faq-nav a');
+  const io = new IntersectionObserver((ens) => ens.forEach((en) => { if (en.isIntersecting) links.forEach((a) => a.setAttribute('aria-current', a.hash === '#' + en.target.id)); }), { rootMargin: '-30% 0px -60% 0px' });
+  $$('.faq-group').forEach((g) => io.observe(g));
+})();
+</script>
+</body>
+</html>

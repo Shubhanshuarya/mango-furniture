@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Us — Mango Furniture Inc</title>
+  <meta name="theme-color" content="#f5f0e8">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="../pages.css">
+</head>
+<body data-page="contact">
+<main id="main">
+  <!-- templates/page.contact.json -->
+  <section class="container page-hero">
+    <ol class="crumbs" aria-label="Breadcrumb"><li><a href="home.html">Home</a></li><li aria-current="page">Contact</li></ol>
+    <h1 class="display display-xl">We're here to help.</h1>
+    <p class="lede">Have a question about a product, an order, or a return? Send us a note and we'll get back to you.</p>
+  </section>
+
+  <section class="container form-split" style="padding-bottom:var(--space-section)">
+    <div>
+      <ul class="contact-list" style="margin-top:0">
+        <li><span class="ico"><svg aria-hidden="true"><use href="#i-phone"/></svg></span><div><b>Call us</b><span><a href="tel:+15307510933">530-751-0933</a> · <a href="tel:+15304437964">530-443-7964</a><br>Hours <span class="placeholder-flag">to confirm</span></span></div></li>
+        <li><span class="ico"><svg aria-hidden="true"><use href="#i-mail"/></svg></span><div><b>Email</b><span><a href="mailto:info@mangofurnitureinc.com">info@mangofurnitureinc.com</a></span></div></li>
+        <li><span class="ico"><svg aria-hidden="true"><use href="#i-wa"/></svg></span><div><b>WhatsApp</b><span><a href="#" data-wa>Start a chat</a> <span class="placeholder-flag">number</span></span></div></li>
+        <li><span class="ico"><svg aria-hidden="true"><use href="#i-pin"/></svg></span><div><b>Mango Furniture Inc</b><span>919 Garden Hwy<br>Yuba City, CA 95991</span></div></li>
+      </ul>
+      <div class="callout mt-xl"><svg aria-hidden="true"><use href="#i-chat"/></svg><span><b>Quick answers:</b> shipping times, care and returns are covered in our <a href="faq.html">FAQ</a>.</span></div>
+      <div class="split-media mt-xl hide-mobile" style="aspect-ratio:4/3"><img src="../assets/askara/contact-annabel-bench.webp" alt="Oval tan leather bench on solid mango-wood slab legs" loading="lazy"></div>
+    </div>
+    <div class="form-card">
+      <!-- {% form 'contact' %} — fixes Askara's contact link pointing at myshopify.com -->
+      <form class="form" data-validate aria-label="Contact form">
+        <div class="form-status form-status--error" role="alert"><svg aria-hidden="true"><use href="#i-alert"/></svg><div><b>Please check the form.</b> <span data-error-count></span></div></div>
+        <div class="form-status form-status--success" role="status" tabindex="-1"><svg aria-hidden="true"><use href="#i-check"/></svg><div><b>Thanks for your message.</b><br>We'll get back to you by email. <span class="placeholder-flag">reply time</span></div></div>
+        <div class="field"><span class="label" id="c-topic-l">What's it about?</span>
+          <div class="pills" role="radiogroup" aria-labelledby="c-topic-l">
+            <label class="pill"><input type="radio" name="contact[topic]" value="Product question" checked><span>Product question</span></label>
+            <label class="pill"><input type="radio" name="contact[topic]" value="My order"><span>My order</span></label>
+            <label class="pill"><input type="radio" name="contact[topic]" value="Returns"><span>Returns &amp; exchanges</span></label>
+            <label class="pill"><input type="radio" name="contact[topic]" value="Other"><span>Something else</span></label>
+          </div></div>
+        <div class="form-row">
+          <div class="field"><label for="c-name">Name <span class="req" aria-hidden="true">*</span></label><input class="input" id="c-name" name="contact[name]" autocomplete="name" required><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Please enter your name.</p></div>
+          <div class="field"><label for="c-email">Email <span class="req" aria-hidden="true">*</span></label><input class="input" id="c-email" type="email" name="contact[email]" autocomplete="email" required><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Enter an email like name@example.com.</p></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="c-phone">Phone <span class="muted" style="font-weight:400">(optional)</span></label><input class="input" id="c-phone" type="tel" name="contact[phone]" autocomplete="tel" pattern="[\d\s\+\(\)\-]{7,}"><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Enter a valid phone number.</p></div>
+          <div class="field"><label for="c-order">Order number <span class="muted" style="font-weight:400">(if any)</span></label><input class="input" id="c-order" name="contact[order]" placeholder="#1001"></div>
+        </div>
+        <div class="field"><label for="c-msg">Message <span class="req" aria-hidden="true">*</span></label><textarea class="textarea" id="c-msg" name="contact[body]" required></textarea><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Please write a message.</p></div>
+        <button class="btn btn--accent btn--block" type="submit">Send message</button>
+      </form>
+    </div>
+  </section>
+</main>
+<script src="../data.js"></script>
+<script src="../mock.js"></script>
+</body>
+</html>

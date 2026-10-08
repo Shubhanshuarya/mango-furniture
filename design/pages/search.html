@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search: “table” — Mango Furniture Inc</title>
+  <meta name="theme-color" content="#f5f0e8">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="../pages.css">
+</head>
+<body data-page="search">
+<main id="main">
+  <!-- sections/main-search -->
+  <section class="container page-hero" style="padding-bottom:var(--space-m)">
+    <p class="eyebrow">Search</p>
+    <form class="search-bar" role="search" style="border-bottom:1px solid var(--color-ink);min-height:72px" data-search-form>
+      <svg aria-hidden="true"><use href="#i-search"/></svg>
+      <label class="visually-hidden" for="q">Search</label>
+      <input id="q" name="q" type="search" value="table" autocomplete="off">
+      <button class="btn btn--sm" type="submit">Search</button>
+    </form>
+  </section>
+  <div class="container">
+    <div class="tabs" role="tablist" aria-label="Result types" data-tabs>
+      <button role="tab" aria-selected="true" data-tab="products">Products <span class="n" data-n-products></span></button>
+      <button role="tab" aria-selected="false" data-tab="articles">Journal <span class="n">3</span></button>
+      <button role="tab" aria-selected="false" data-tab="pages">Pages <span class="n">2</span></button>
+    </div>
+    <div class="toolbar-inner" style="min-height:64px">
+      <span class="muted" style="font-size:var(--step--1)" data-summary aria-live="polite"></span>
+      <label><span class="visually-hidden">Sort by</span><select class="select" style="min-height:40px;width:auto;border-radius:var(--radius-pill);font-size:var(--step--1)" data-sort><option value="rel">Sort: Relevance</option><option value="asc">Price, low to high</option><option value="desc">Price, high to low</option></select></label>
+    </div>
+  </div>
+  <div class="container" style="padding-bottom:var(--space-section)">
+    <div class="product-grid" data-results role="tabpanel"></div>
+    <div data-panel="articles" hidden>
+      <div class="articles">
+        <article class="article-card"><div class="media"><img src="../assets/askara/blog-pine-coffee-table.webp" alt="" loading="lazy"></div><div class="meta"><span>Styling</span></div><h3><a href="article.html">7 Coffee Table Styling Ideas to Elevate Your Living Room</a></h3></article>
+        <article class="article-card"><div class="media"><img src="../assets/askara/about-fluted-console.webp" alt="" loading="lazy"></div><div class="meta"><span>Styling</span></div><h3><a href="article.html">Console Table Magic: 12 Ways to Style This Versatile Piece</a></h3></article>
+        <article class="article-card"><div class="media"><img src="../assets/askara/blog-scallop-table.webp" alt="" loading="lazy"></div><div class="meta"><span>Guides</span></div><h3><a href="article.html">Living Room Furniture Arrangement: 8 Layouts That Always Work</a></h3></article>
+      </div>
+    </div>
+    <div data-panel="pages" hidden>
+      <ul class="suggest" style="font-size:var(--step-1)"><li><a href="design-services.html">Design Services: custom tables made to your size</a></li><li><a href="faq.html">FAQ: caring for a solid wood table</a></li></ul>
+    </div>
+  </div>
+</main>
+<script src="../data.js"></script>
+<script src="../mock.js"></script>
+<script>
+(() => {
+  const { P, card, $, $$, icon, observe } = MF;
+  let sort = 'rel';
+  function run(q) {
+    const t = q.trim().toLowerCase();
+    let hits = P.filter((p) => (p.title + ' ' + p.category + ' ' + p.material).toLowerCase().includes(t));
+    if (sort === 'asc') hits.sort((a, b) => a.price - b.price);
+    if (sort === 'desc') hits.sort((a, b) => b.price - a.price);
+    $('[data-n-products]').textContent = hits.length;
+    document.title = `Search: “${q}” — Mango Furniture Inc`;
+    if (!hits.length) {
+      $('[data-summary]').textContent = '';
+      $('[data-results]').innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding-block:var(--space-2xl)"><span class="icon-circle">${icon('search')}</span>
+        <h2 class="display display-m">No results for “${MF.esc(q)}”</h2><p class="muted" style="margin:0;max-width:40ch">Check the spelling or try a broader term. Looking for something specific? We can make it.</p>
+        <div class="chips" style="justify-content:center">${['Coffee tables', 'Side tables', 'Benches', 'Accent chairs', 'Leather'].map((s) => `<button class="chip" type="button" data-try="${s}">${s}</button>`).join('')}</div>
+        <a class="link-arrow" href="design-services.html">Ask about a custom piece ${icon('arrow', 16)}</a></div>
+        <div style="grid-column:1/-1;margin-top:var(--space-xl)"><h2 class="display display-s" style="margin-bottom:var(--space-m)">Popular right now <span class="placeholder-flag">verify</span></h2><div class="product-grid">${['annabel-bench', 'landon-mango-wood-and-boucle-fabric-accent-chair', 'osiac-solid-wood-console-table', 'jorf-side-table'].map((h, i) => card(MF.byHandle[h], { i })).join('')}</div></div>`;
+    } else {
+      $('[data-summary]').textContent = `${hits.length} products for “${q}”`;
+      $('[data-results]').innerHTML = hits.map((p, i) => card(p, { i })).join('');
+    }
+    observe($('[data-results]'));
+  }
+  $('[data-search-form]').addEventListener('submit', (e) => { e.preventDefault(); run($('#q').value); });
+  $('[data-sort]').addEventListener('change', (e) => { sort = e.target.value; run($('#q').value); });
+  document.addEventListener('click', (e) => {
+    const tr = e.target.closest('[data-try]'); if (tr) { $('#q').value = tr.dataset.try.replace(/s$/, ''); run($('#q').value); }
+    const tab = e.target.closest('[data-tab]');
+    if (tab) {
+      $$('[data-tab]').forEach((b) => b.setAttribute('aria-selected', b === tab));
+      const k = tab.dataset.tab;
+      $('[data-results]').hidden = k !== 'products'; $$('[data-panel]').forEach((p) => (p.hidden = p.dataset.panel !== k));
+      $('.toolbar-inner [data-sort]').parentElement.hidden = k !== 'products';
+    }
+  });
+  document.addEventListener('mf:state', (e) => {
+    if (e.detail === 'no-results') { $('#q').value = 'teak sofa'; run('teak sofa'); }
+    if (e.detail === 'loading') $('[data-results]').innerHTML = Array.from({ length: 8 }, MF.skeletonCard).join('');
+  });
+  run($('#q').value);
+})();
+</script>
+</body>
+</html>

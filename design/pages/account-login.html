@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign In — Mango Furniture Inc</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#f5f0e8">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="../pages.css">
+</head>
+<body data-page="account-login">
+<!-- templates/customers/login.json + register.json (classic accounts).
+     If the store uses Shopify's new customer accounts, Shopify hosts sign-in; this design then applies to the
+     account page branding settings instead. -->
+<main id="main" class="auth">
+  <div class="auth-media">
+    <img src="../assets/askara/about-sling-chair.webp" alt="" fetchpriority="high">
+    <blockquote>Your space tells your story.</blockquote>
+  </div>
+  <div class="auth-panel">
+    <div>
+      <div class="tabs" role="tablist" aria-label="Account">
+        <button role="tab" id="tab-in" aria-selected="true" aria-controls="panel-in" data-auth="in">Sign in</button>
+        <button role="tab" id="tab-up" aria-selected="false" aria-controls="panel-up" data-auth="up">Create account</button>
+      </div>
+
+      <section id="panel-in" role="tabpanel" aria-labelledby="tab-in" style="display:grid;gap:var(--space-l)">
+        <div><h1 class="display display-l">Welcome back</h1><p class="muted" style="margin:8px 0 0">Track orders, save addresses and see trade pricing.</p></div>
+        <a class="btn btn--shop btn--block" href="#">Sign in with Shop</a>
+        <div class="divider">or with email</div>
+        <form class="form" data-validate data-login aria-label="Sign in">
+          <div class="form-status form-status--error" role="alert" data-login-error><svg aria-hidden="true"><use href="#i-alert"/></svg><div><b data-login-msg>Please check the form.</b> <span data-error-count></span></div></div>
+          <div class="form-status form-status--success" role="status" tabindex="-1"><svg aria-hidden="true"><use href="#i-check"/></svg><div><b>Signed in.</b> Redirecting to your account…</div></div>
+          <div class="field"><label for="l-email">Email</label><input class="input" id="l-email" type="email" name="customer[email]" autocomplete="email" required><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Enter the email you registered with.</p></div>
+          <div class="field">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><label for="l-pass">Password</label><a href="#" style="font-size:var(--step--1)" data-forgot>Forgot password?</a></div>
+            <div style="position:relative"><input class="input" id="l-pass" type="password" name="customer[password]" autocomplete="current-password" required style="padding-right:64px"><button type="button" class="chip-clear" style="position:absolute;right:10px;top:50%;transform:translateY(-50%)" data-showpw aria-pressed="false">Show</button></div>
+            <p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Enter your password.</p>
+          </div>
+          <button class="btn btn--accent btn--block" type="submit">Sign in</button>
+        </form>
+        <form class="form" data-reset hidden aria-label="Reset password">
+          <div><h2 class="display display-s">Reset your password</h2><p class="muted" style="margin:6px 0 0">We'll email you a link to reset it.</p></div>
+          <div class="field"><label for="r-email">Email</label><input class="input" id="r-email" type="email" autocomplete="email" required></div>
+          <div style="display:flex;gap:8px"><button class="btn btn--accent" type="submit">Send link</button><button class="btn btn--secondary" type="button" data-cancel-reset>Cancel</button></div>
+        </form>
+        <p class="muted" style="font-size:var(--step--1);margin:0">Trade member? Sign in with your trade account to see your pricing.</p>
+      </section>
+
+      <section id="panel-up" role="tabpanel" aria-labelledby="tab-up" hidden style="display:grid;gap:var(--space-l)">
+        <div><h1 class="display display-l">Create an account</h1><p class="muted" style="margin:8px 0 0">Faster checkout and order tracking.</p></div>
+        <form class="form" data-validate aria-label="Create account">
+          <div class="form-status form-status--error" role="alert"><svg aria-hidden="true"><use href="#i-alert"/></svg><div><b>Please check the form.</b> <span data-error-count></span></div></div>
+          <div class="form-status form-status--success" role="status" tabindex="-1"><svg aria-hidden="true"><use href="#i-check"/></svg><div><b>Account created.</b> Welcome to Mango Furniture.</div></div>
+          <div class="form-row">
+            <div class="field"><label for="u-first">First name</label><input class="input" id="u-first" name="customer[first_name]" autocomplete="given-name" required><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Required.</p></div>
+            <div class="field"><label for="u-last">Last name</label><input class="input" id="u-last" name="customer[last_name]" autocomplete="family-name" required><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Required.</p></div>
+          </div>
+          <div class="field"><label for="u-email">Email</label><input class="input" id="u-email" type="email" name="customer[email]" autocomplete="email" required><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Enter a valid email.</p></div>
+          <div class="field"><label for="u-pass">Password</label><input class="input" id="u-pass" type="password" name="customer[password]" autocomplete="new-password" minlength="8" required aria-describedby="u-pass-h"><p class="help" id="u-pass-h" style="margin:0">At least 8 characters.</p><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Use at least 8 characters.</p></div>
+          <div class="field"><label class="check"><input type="checkbox" name="customer[accepts_marketing]"> Email me new arrivals and design inspiration.</label></div>
+          <button class="btn btn--accent btn--block" type="submit">Create account</button>
+        </form>
+      </section>
+    </div>
+  </div>
+</main>
+<script src="../data.js"></script>
+<script src="../mock.js"></script>
+<script>
+(() => {
+  const { $, $$ } = MF;
+  // Footer is not needed on the auth layout's first fold, but keep it for consistency.
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-auth]');
+    if (t) { $$('[data-auth]').forEach((b) => b.setAttribute('aria-selected', b === t)); $('#panel-in').hidden = t.dataset.auth !== 'in'; $('#panel-up').hidden = t.dataset.auth !== 'up'; }
+    if (e.target.closest('[data-forgot]')) { e.preventDefault(); $('[data-login]').hidden = true; $('[data-reset]').hidden = false; $('#r-email').focus(); }
+    if (e.target.closest('[data-cancel-reset]')) { $('[data-login]').hidden = false; $('[data-reset]').hidden = true; }
+    const sp = e.target.closest('[data-showpw]'); if (sp) { const i = $('#l-pass'); const show = i.type === 'password'; i.type = show ? 'text' : 'password'; sp.textContent = show ? 'Hide' : 'Show'; sp.setAttribute('aria-pressed', show); }
+  });
+  $('[data-reset]').addEventListener('submit', (e) => { e.preventDefault(); MF.toast(`${MF.icon('mail', 18)} If that email has an account, a reset link is on its way.`); $('[data-cancel-reset]').click(); });
+  // Server-side error demo: wrong credentials (Shopify returns form.errors)
+  document.addEventListener('mf:state', (e) => {
+    if (e.detail === 'login-error') { $('#l-email').value = 'alex@example.com'; $('#l-pass').value = 'wrong-pass'; $('[data-login-msg]').textContent = 'Incorrect email or password.'; $('[data-login-error]').classList.add('is-visible'); }
+  });
+})();
+</script>
+</body>
+</html>

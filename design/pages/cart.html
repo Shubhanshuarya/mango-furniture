@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Cart — Mango Furniture Inc</title>
+  <meta name="theme-color" content="#f5f0e8">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="../pages.css">
+</head>
+<body data-page="cart">
+<main id="main">
+  <section class="container page-hero">
+    <h1 class="display display-l">Your cart <span class="muted tabular" data-cart-count-text></span></h1>
+  </section>
+
+  <!-- sections/main-cart-items + main-cart-footer -->
+  <div class="container cart-layout" data-cart-page>
+    <div>
+      <div data-page-ship></div>
+      <div data-page-lines></div>
+      <details class="mt-l" style="max-width:520px">
+        <summary style="cursor:pointer;font-weight:600;font-size:var(--step--1)">Add an order note</summary>
+        <div class="field mt-l" style="margin-top:var(--space-s)"><label for="note" class="visually-hidden">Order note</label><textarea class="textarea" id="note" name="note" placeholder="Delivery instructions, gift message…"></textarea></div>
+      </details>
+    </div>
+    <aside class="summary" aria-labelledby="summary-title">
+      <h2 id="summary-title" class="display">Order summary</h2>
+      <div class="totals">
+        <div><span>Subtotal</span><span class="tabular" data-sub></span></div>
+        <div data-savings-row><span>You save</span><span class="tabular" style="color:var(--color-accent)" data-savings></span></div>
+        <div><span>Shipping</span><span class="muted">Calculated at checkout</span></div>
+        <div><span>Estimated tax</span><span class="muted">Calculated at checkout</span></div>
+        <div class="grand"><span>Estimated total</span><span class="tabular" data-total></span></div>
+      </div>
+      <details><summary>Discount code</summary>
+        <div style="display:flex;gap:8px;margin-top:10px"><label class="visually-hidden" for="disc">Discount code</label><input class="input" id="disc" placeholder="Enter code"><button class="btn btn--secondary" type="button">Apply</button></div>
+        <p class="help" style="margin:6px 0 0">Codes can also be added at checkout.</p>
+      </details>
+      <div class="cart-checkout-bar" style="display:grid;gap:10px">
+        <a class="btn btn--accent btn--block" href="#"><svg width="16" height="16" aria-hidden="true"><use href="#i-lock"/></svg> Checkout</a>
+        <a class="btn btn--block btn--shop" href="#">Buy with Shop Pay</a>
+      </div>
+      <p class="installments" style="margin:0">Pay in 4 interest-free installments with <b>Shop Pay</b>.</p>
+      <div class="trust-row">
+        <div><svg aria-hidden="true"><use href="#i-lock"/></svg> Secure, encrypted checkout</div>
+        <div><svg aria-hidden="true"><use href="#i-hand"/></svg> Handcrafted in solid mango wood</div>
+        <div><svg aria-hidden="true"><use href="#i-chat"/></svg> Questions? <a href="contact.html">Talk to us</a></div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="container" data-cart-empty hidden>
+    <div class="empty-state" style="padding-block:var(--space-2xl)">
+      <span class="icon-circle"><svg aria-hidden="true"><use href="#i-bag"/></svg></span>
+      <h2 class="display display-m">Your cart is empty</h2>
+      <p class="muted" style="margin:0;max-width:36ch">Start with a piece you'll keep for decades, or let us design one for your space.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center"><a class="btn btn--accent" href="collection.html">Shop furniture</a><a class="btn btn--secondary" href="design-services.html">Design services</a></div>
+    </div>
+  </div>
+
+  <section class="section section--surface">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">Complete the room</p><h2 class="display display-l">You might also like</h2></div></div>
+      <div class="product-grid" data-cards="jorf-side-table, enzo-coffee-table-copy, zehara-bench, tracy-multipurpose-hand-carved-genuine-marble-tray" data-mobile-limit></div>
+    </div>
+  </section>
+</main>
+<script src="../data.js"></script>
+<script src="../mock.js"></script>
+<script>
+(() => {
+  const { $, byHandle, money } = MF;
+  function render() {
+    const cart = MF.cart;
+    const empty = !cart.length;
+    $('[data-cart-page]').hidden = empty; $('[data-cart-empty]').hidden = !empty;
+    if (empty) return;
+    // Reuse the drawer's markup (same snippet in Stage B)
+    const drawerBody = $('[data-cart-body]').cloneNode(true);
+    drawerBody.querySelector('.upsell')?.remove();
+    const bar = drawerBody.querySelector('.ship-bar'); bar?.remove();
+    $('[data-page-ship]').innerHTML = bar ? `<div style="padding:var(--space-m);border-radius:var(--radius-md);background:var(--color-surface)">${bar.outerHTML}</div>` : '';
+    $('[data-page-lines]').innerHTML = drawerBody.innerHTML;
+    const sub = cart.reduce((s, l) => s + byHandle[l.handle].price * l.qty, 0);
+    const save = cart.reduce((s, l) => s + ((byHandle[l.handle].compare || byHandle[l.handle].price) - byHandle[l.handle].price) * l.qty, 0);
+    $('[data-sub]').textContent = money(sub); $('[data-total]').textContent = money(sub);
+    $('[data-savings]').textContent = '−' + money(save); $('[data-savings-row]').hidden = !save;
+  }
+  document.addEventListener('mf:cart', render);
+  render();
+})();
+</script>
+</body>
+</html>

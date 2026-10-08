@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mango Mockups</title>
+  <style>
+    :root { --bg:#f3f1ed; --panel:#ffffff; --ink:#1d1a17; --muted:#6a645d; --line:#e2ddd5; --accent:#a0533a; color-scheme: light; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#16130f; --panel:#1f1b17; --ink:#efe9e1; --muted:#a69d92; --line:#332d27; --accent:#d9876a; color-scheme: dark; } }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; height:100vh; display:grid; grid-template-columns:280px 1fr; }
+    aside { background:var(--panel); border-right:1px solid var(--line); padding:20px 16px; overflow:auto; }
+    h1 { font-size:16px; margin:0 0 4px; } aside > p { color:var(--muted); margin:0 0 12px; font-size:12px; }
+    h2 { font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:20px 0 8px; }
+    nav a { display:flex; justify-content:space-between; gap:8px; padding:7px 10px; border-radius:8px; color:inherit; text-decoration:none; }
+    nav a small { color:var(--muted); font-size:11px; }
+    nav a:hover { background:var(--bg); } nav a[aria-current="page"] { background:var(--ink); color:var(--panel); } nav a[aria-current="page"] small { color:inherit; opacity:.7; }
+    .seg { display:flex; border:1px solid var(--line); border-radius:999px; padding:3px; gap:2px; }
+    .seg button { flex:1; border:0; background:none; color:inherit; padding:6px 8px; border-radius:999px; cursor:pointer; font:inherit; font-size:12px; }
+    .seg button[aria-pressed="true"] { background:var(--ink); color:var(--panel); }
+    .states { display:flex; flex-wrap:wrap; gap:6px; }
+    .states button { border:1px solid var(--line); background:none; color:inherit; padding:5px 10px; border-radius:999px; cursor:pointer; font:inherit; font-size:12px; }
+    .states button:hover { border-color:var(--ink); }
+    .states button[aria-pressed="true"] { background:var(--accent); border-color:var(--accent); color:#fff; }
+    main { display:flex; flex-direction:column; min-width:0; }
+    .bar { display:flex; justify-content:space-between; align-items:center; padding:10px 16px; border-bottom:1px solid var(--line); font-size:12px; color:var(--muted); gap:12px; }
+    .bar a { color:var(--accent); }
+    .stage { flex:1; overflow:auto; display:flex; gap:24px; justify-content:center; align-items:flex-start; padding:28px 20px 20px; }
+    .frame-wrap { position:relative; }
+    .frame-wrap span { position:absolute; top:-20px; left:0; font-size:11px; color:var(--muted); }
+    .frame { flex:none; background:#fff; border-radius:12px; box-shadow:0 10px 40px -16px rgb(0 0 0 / .35); overflow:hidden; }
+    iframe { border:0; display:block; transform-origin:0 0; background:#fff; }
+    @media (max-width:760px) { body { grid-template-columns:1fr; grid-template-rows:auto 1fr; height:auto; } aside { border-right:0; border-bottom:1px solid var(--line); } }
+  </style>
+</head>
+<body>
+  <aside>
+    <h1>Mango Furniture: Stage A mockups</h1>
+    <p>Direction A · Atelier. Nothing here changes the live theme.</p>
+    <h2>Viewport</h2>
+    <div class="seg" id="vp"><button data-v="both" aria-pressed="true">Both</button><button data-v="1440" aria-pressed="false">1440</button><button data-v="390" aria-pressed="false">390</button></div>
+    <h2>States</h2>
+    <div class="states" id="states"></div>
+    <h2>Pages</h2>
+    <nav id="pages">
+      <a href="components.html" data-states="form-error,form-success">Components <small>system</small></a>
+      <a href="pages/home.html" aria-current="page">Home</a>
+      <a href="pages/collection.html" data-states="filters-open,loading,soldout,no-results">Collection</a>
+      <a href="pages/product.html" data-states="variant-selected,zoom-open,sticky-atc,soldout">Product</a>
+      <a href="pages/cart.html" data-states="cart-empty">Cart <small>page + drawer</small></a>
+      <a href="pages/search.html" data-states="no-results,loading">Search</a>
+      <a href="pages/design-services.html" data-states="form-error,form-success">Design Services <small>new</small></a>
+      <a href="pages/trade-program.html" data-states="form-error,form-success">Trade Program <small>new</small></a>
+      <a href="pages/about.html">About</a>
+      <a href="pages/contact.html" data-states="form-error,form-success">Contact</a>
+      <a href="pages/blog.html">Blog</a>
+      <a href="pages/article.html">Article</a>
+      <a href="pages/faq.html">FAQ <small>new</small></a>
+      <a href="pages/policy.html">Policy</a>
+      <a href="pages/account-login.html" data-states="login-error,form-error">Account login</a>
+      <a href="pages/account-orders.html" data-states="no-orders">Account orders</a>
+      <a href="pages/404.html">404</a>
+    </nav>
+    <h2>Docs</h2>
+    <nav>
+      <a href="00-reference-notes.md">Reference notes</a>
+      <a href="01-design-direction.md">Design direction</a>
+      <a href="placeholders-to-fill.md">Placeholders to fill</a>
+      <a href="images-manifest.csv">Images manifest</a>
+    </nav>
+  </aside>
+  <main>
+    <div class="bar"><span id="label">Home</span><a id="open" href="pages/home.html" target="_blank" rel="noopener">Open full page ↗</a></div>
+    <div class="stage" id="stage"></div>
+  </main>
+<script>
+  const GLOBAL_STATES = ['default', 'mega-open', 'menu-open', 'cart-open', 'cart-empty', 'search-open', 'search-empty', 'quickview-open', 'dark'];
+  const state = { page: 'pages/home.html', vp: 'both', st: 'default', pageStates: [] };
+  const stage = document.getElementById('stage');
+  const url = () => state.page + (state.st !== 'default' ? `?state=${state.st}` : '');
+  function renderStates() {
+    const all = [...new Set([...GLOBAL_STATES, ...state.pageStates])];
+    document.getElementById('states').innerHTML = all.map((s) => `<button type="button" data-s="${s}" aria-pressed="${s === state.st}">${s}</button>`).join('');
+  }
+  function render() {
+    stage.innerHTML = '';
+    const sizes = state.vp === 'both' ? [1440, 390] : [Number(state.vp)];
+    const avail = stage.clientWidth - 40 - (sizes.length - 1) * 24;
+    const scale = Math.min(1, avail / sizes.reduce((a, b) => a + b, 0));
+    const h = (stage.clientHeight - 60) / scale;
+    for (const w of sizes) {
+      const wrap = document.createElement('div'); wrap.className = 'frame-wrap';
+      const f = document.createElement('div'); f.className = 'frame'; f.style.width = w * scale + 'px'; f.style.height = h * scale + 'px';
+      const ifr = document.createElement('iframe'); ifr.src = url(); ifr.title = `${w}px preview`; ifr.width = w; ifr.height = h; ifr.style.transform = `scale(${scale})`;
+      const lab = document.createElement('span'); lab.textContent = `${w}px · ${Math.round(scale * 100)}%`;
+      f.append(ifr); wrap.append(lab, f); stage.append(wrap);
+    }
+    document.getElementById('open').href = url();
+  }
+  document.getElementById('vp').addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return;
+    state.vp = b.dataset.v; b.parentElement.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', x === b)); render();
+  });
+  document.getElementById('states').addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return;
+    state.st = b.dataset.s; renderStates(); render();
+  });
+  document.getElementById('pages').addEventListener('click', (e) => {
+    const a = e.target.closest('a'); if (!a) return;
+    e.preventDefault(); state.page = a.getAttribute('href'); state.st = 'default';
+    state.pageStates = (a.dataset.states || '').split(',').filter(Boolean);
+    document.querySelectorAll('#pages a').forEach((x) => x.toggleAttribute('aria-current', x === a));
+    if (a.hasAttribute('aria-current')) a.setAttribute('aria-current', 'page');
+    document.getElementById('label').textContent = a.firstChild.textContent.trim(); renderStates(); render();
+  });
+  addEventListener('resize', () => { clearTimeout(window._r); window._r = setTimeout(render, 150); });
+  renderStates(); render();
+</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trade Program — Mango Furniture Inc</title>
+  <meta name="description" content="Exclusive benefits for interior designers, architects and trade professionals.">
+  <meta name="theme-color" content="#f5f0e8">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..700&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../tokens.css"><link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../components.css"><link rel="stylesheet" href="../pages.css">
+</head>
+<body data-page="trade-program">
+<main id="main">
+  <!-- templates/page.trade-program.json -->
+  <section class="container page-hero page-hero--split">
+    <div>
+      <ol class="crumbs" aria-label="Breadcrumb"><li><a href="home.html">Home</a></li><li aria-current="page">Trade Program</li></ol>
+      <p class="eyebrow">For the trade</p>
+      <h1 class="display display-xl">Made-by-hand pieces for <em>your projects.</em></h1>
+      <p class="lede">Exclusive benefits for interior designers, architects and trade professionals, direct from the workshop that makes every piece.</p>
+      <div class="hero-ctas"><a class="btn btn--accent" href="#apply">Apply to the program <svg class="arrow" width="18" height="18" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="btn btn--secondary" href="account-login.html">Trade sign in</a></div>
+    </div>
+    <div class="media"><img src="../assets/askara/trade-abel-bench.webp" alt="Two-cushion tan leather bench with a wood shelf on a black metal frame" fetchpriority="high"></div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <div class="section-head"><div><p class="eyebrow">Program benefits</p><h2 class="display display-l">Built around how designers work</h2></div></div>
+      <div class="services benefits">
+        <div class="service reveal"><span class="ico"><svg aria-hidden="true"><use href="#i-tag"/></svg></span><h3>Exclusive pricing</h3><p>A trade discount on all orders. <span class="placeholder-flag">% to confirm</span></p></div>
+        <div class="service reveal" style="--i:1"><span class="ico"><svg aria-hidden="true"><use href="#i-leaf"/></svg></span><h3>Free swatches</h3><p>Fabric and finish swatches for client presentations at no charge.</p></div>
+        <div class="service reveal" style="--i:2"><span class="ico"><svg aria-hidden="true"><use href="#i-chat"/></svg></span><h3>Priority support</h3><p>Dedicated support and priority access for trade members.</p></div>
+        <div class="service reveal" style="--i:3"><span class="ico"><svg aria-hidden="true"><use href="#i-ruler"/></svg></span><h3>Custom &amp; volume</h3><p>Custom sizes and finishes, and pricing for multi-unit and commercial projects.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split" style="align-items:start">
+      <div>
+        <p class="eyebrow">Who it's for</p>
+        <h2 class="display display-l">Eligibility</h2>
+        <p class="lede">Interior designers, architects, stagers, hospitality and commercial property owners, and other trade professionals with proof of business registration.</p>
+        <p class="muted" style="margin-top:var(--space-m)">Accepted proof for US businesses <span class="placeholder-flag">to confirm</span>: e.g. resale certificate, EIN, or professional licence.</p>
+      </div>
+      <div>
+        <p class="eyebrow">How to apply</p>
+        <ol class="steps" style="margin-top:0">
+          <li><div><b>Apply online</b><p>Tell us about your business using the form below.</p></div></li>
+          <li><div><b>Verification</b><p>We review your proof of business. <span class="placeholder-flag">review time</span></p></div></li>
+          <li><div><b>Shop with trade pricing</b><p>Sign in with your trade account to see your pricing at checkout.</p></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Application form → {% form 'contact' %} tags="trade-application" (or customer form + tag) -->
+  <section class="section section--surface" id="apply">
+    <div class="container form-split">
+      <div>
+        <p class="eyebrow">Application</p>
+        <h2 class="display display-l">Apply to the Trade Program</h2>
+        <p class="lede">Takes about two minutes. Fields marked * are required.</p>
+        <div class="callout mt-l"><svg aria-hidden="true"><use href="#i-alert"/></svg><span>Already a member? <a href="account-login.html">Sign in</a> to see trade pricing.</span></div>
+      </div>
+      <div class="form-card">
+        <form class="form" data-validate aria-label="Trade application">
+          <input type="hidden" name="contact[tags]" value="trade-application">
+          <div class="form-status form-status--error" role="alert"><svg aria-hidden="true"><use href="#i-alert"/></svg><div><b>Please check the form.</b> <span data-error-count></span></div></div>
+          <div class="form-status form-status--success" role="status" tabindex="-1"><svg aria-hidden="true"><use href="#i-check"/></svg><div><b>Application received.</b><br>We'll review your details and email you once your trade account is active.</div></div>
+          <div class="form-row">
+            <div class="field"><label for="t-first">First name <span class="req" aria-hidden="true">*</span></label><input class="input" id="t-first" name="contact[first_name]" autocomplete="given-name" required><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Required.</p></div>
+            <div class="field"><label for="t-last">Last name <span class="req" aria-hidden="true">*</span></label><input class="input" id="t-last" name="contact[last_name]" autocomplete="family-name" required><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Required.</p></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="t-email">Business email <span class="req" aria-hidden="true">*</span></label><input class="input" id="t-email" type="email" name="contact[email]" autocomplete="email" required><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Enter a valid email.</p></div>
+            <div class="field"><label for="t-phone">Phone <span class="req" aria-hidden="true">*</span></label><input class="input" id="t-phone" type="tel" name="contact[phone]" autocomplete="tel" required pattern="[\d\s\+\(\)\-]{7,}"><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Enter a valid phone number.</p></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="t-co">Company name <span class="req" aria-hidden="true">*</span></label><input class="input" id="t-co" name="contact[company]" autocomplete="organization" required><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Required.</p></div>
+            <div class="field"><label for="t-web">Website or portfolio</label><input class="input" id="t-web" type="url" name="contact[website]" placeholder="https://" autocomplete="url"><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Enter a full URL starting with https://</p></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="t-role">Profession <span class="req" aria-hidden="true">*</span></label><select class="select" id="t-role" name="contact[profession]" required><option value="">Select…</option><option>Interior designer</option><option>Architect</option><option>Home stager</option><option>Hospitality / commercial</option><option>Retailer</option><option>Other</option></select><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Choose your profession.</p></div>
+            <div class="field"><label for="t-tax">Resale cert. / EIN <span class="req" aria-hidden="true">*</span></label><input class="input" id="t-tax" name="contact[tax_id]" required><p class="help" style="margin:0">Used only to verify your business.</p><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Required for verification.</p></div>
+          </div>
+          <div class="field"><label for="t-msg">Tell us about your projects</label><textarea class="textarea" id="t-msg" name="contact[body]" placeholder="Typical project types, volumes, timelines…"></textarea></div>
+          <div class="field"><label class="check"><input type="checkbox" required> I confirm the information is accurate and agree to the program terms. <span class="placeholder-flag">terms</span></label><p class="field-error"><svg width="16" height="16" aria-hidden="true"><use href="#i-alert"/></svg>Please confirm to continue.</p></div>
+          <button class="btn btn--accent btn--block" type="submit">Submit application</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="../data.js"></script>
+<script src="../mock.js"></script>
+</body>
+</html>
