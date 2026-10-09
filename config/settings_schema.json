@@ -1322,6 +1322,55 @@
         "label": "t:settings_schema.cart.settings.show_discount_code_field_drawer.label",
         "default": false
       },
+      {
+        "type": "header",
+        "content": "Mango cart drawer"
+      },
+      {
+        "type": "select",
+        "id": "mf_cart_drawer_style",
+        "label": "Drawer design",
+        "options": [
+          { "value": "mango", "label": "Mango (redesign)" },
+          { "value": "classic", "label": "Classic (original theme)" }
+        ],
+        "default": "mango"
+      },
+      {
+        "type": "inline_richtext",
+        "id": "mf_cart_shipping_note",
+        "label": "Shipping message",
+        "default": "<b>Free US shipping</b> is included on this order."
+      },
+      {
+        "type": "inline_richtext",
+        "id": "mf_cart_installments_note",
+        "label": "Installments note",
+        "default": "Pay over time with <b>Shop Pay Installments</b>."
+      },
+      {
+        "type": "text",
+        "id": "mf_cart_upsell_heading",
+        "label": "Upsell heading",
+        "default": "Complete the room"
+      },
+      {
+        "type": "collection",
+        "id": "mf_cart_upsell_collection",
+        "label": "Upsell collection",
+        "info": "Products already in the cart are skipped. Leave empty to hide the upsell."
+      },
+      {
+        "type": "select",
+        "id": "mf_cart_upsell_count",
+        "label": "Upsell products",
+        "options": [
+          { "value": "2", "label": "2" },
+          { "value": "3", "label": "3" },
+          { "value": "4", "label": "4" }
+        ],
+        "default": "3"
+      }
     ]
   },
   {

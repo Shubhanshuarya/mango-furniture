@@ -197,7 +197,14 @@
   };
 
   window.MFShell = { open, close, closeAll };
-  const boot = () => { init(); watchDrawer(); };
+  // Policy pages: place the policy tabs (rendered by sections/mf-header.liquid) under the title
+  const policyTabs = () => {
+    const tpl = doc.querySelector('template[data-mf-policy-tabs]');
+    const title = doc.querySelector('.shopify-policy__title');
+    if (tpl && title && !doc.querySelector('.shopify-policy__title + .mf-policy-tabs')) title.after(tpl.content.cloneNode(true));
+  };
+
+  const boot = () => { init(); watchDrawer(); policyTabs(); };
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', boot); else boot();
   doc.addEventListener('shopify:section:load', (e) => init(e.target));
 })();

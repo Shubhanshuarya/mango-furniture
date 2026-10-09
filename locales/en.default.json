@@ -87,7 +87,8 @@
       "facebook": "Facebook",
       "pinterest": "Pinterest",
       "tiktok": "TikTok",
-      "youtube": "YouTube"
+      "youtube": "YouTube",
+      "policies": "Store policies"
     },
     "announcement": {
       "label": "Announcement"
@@ -157,7 +158,16 @@
       "tax": "Estimated tax",
       "at_checkout": "Calculated at checkout",
       "estimated_total": "Estimated total",
-      "checkout": "Checkout"
+      "checkout": "Checkout",
+      "view_cart": "View cart",
+      "close": "Close cart",
+      "taxes_note": "Taxes and shipping calculated at checkout.",
+      "add": "Add",
+      "add_aria": "Add {{ title }} to cart",
+      "view": "View",
+      "drawer_empty_text": "Start with a piece you'll keep for decades.",
+      "shop": "Shop furniture",
+      "popular": "Popular right now"
     },
     "faq": {
       "search": "Search questions",

@@ -405,10 +405,10 @@
   .mf-form--grid > .mf-field--half { grid-column: 1 / -1; }
 }
 .mf { font-size: 16px; }
-.mf h1, .mf h2, .mf h3, .mf h4 { margin: 0; text-transform: none; max-width: none; color: inherit; letter-spacing: var(--display-tracking); }
+.mf :where(h1, h2, h3, h4) { margin: 0; text-transform: none; max-width: none; color: inherit; letter-spacing: var(--display-tracking); }
 .mf .mf-card-title, .mf .mf-card-title a, .mf h3.mf-card-title { letter-spacing: 0; }
 .mf p { color: inherit; }
-.mf a { color: inherit; }
+.mf :where(a) { color: inherit; }
 /* Buttons that are links: keep the button colour (the generic link reset above must not win) */
 .mf a.mf-btn, .mf a.mf-btn:hover, .mf a.mf-btn:visited, .mf a.mf-btn:focus,
 .mf button.mf-btn, .mf button.mf-btn:hover, .mf button.mf-btn:focus { color: var(--btn-fg); text-decoration: none; }

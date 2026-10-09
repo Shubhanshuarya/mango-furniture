@@ -26,7 +26,7 @@ ASSETS = ROOT / 'assets'
 SHELL = r'announcement|site-header|header-\w+|header-inner|logo|nav-trigger|mega[\w-]*|drawer[\w-]*|mnav[\w-]*|search-panel|search-bar|search-results|suggest|search-cards|modal[\w-]*|quickview|qv-\w+|lightbox[\w-]*|toast[\w-]*|site-footer|footer-\w+|newsletter|wa-fab|sticky-atc|skip-link|state-note|scrim|filter-drawer-foot'
 GROUPS = {
     'home': r'coll-tiles|benefits|hero[\w-]*|bento|tile[\w-]*|lookbook[\w-]*|hotspot[\w-]*|look-\w+|inverse|ds-\w+|quotes?|ugc|stats?|split[\w-]*|steps|services?|articles?|article-card[\w-]*',
-    'collection': r'collection|coll-[\w-]+|subcats|toolbar[\w-]*|density|facets?[\w-]*|facet-[\w-]+|range|promo-tile|filter-[\w-]+',
+    'collection': r'collection|coll-[\w-]+|subcats|toolbar[\w-]*|density|facets?[\w-]*|facet-[\w-]+|range|promo-tile[\w-]*|filter-[\w-]+',
     'product': r'product|pdp[\w-]*|gallery|g|g--media|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*|variant-picker|terms|dynamic-checkout|ar-btn|rte-sm|feature-cols?|recs',
     'cart': r'cart-[\w-]+|summary|trust-row|ship-note',
     'pages': r'progress|article-hero|article-cover|article-body|article-aside|inline-product|nf|num|process|projects?|form-card|form-split|contact-list|values|v|about-gallery|big-quote|faq-[\w-]+|text-steps|loc',
@@ -173,10 +173,10 @@ def main():
     base = emit(rules, 'base')
     # Theme-collision guards: the theme styles bare h1–h6, p, a, button globally.
     guards = """.mf { font-size: 16px; }
-.mf h1, .mf h2, .mf h3, .mf h4 { margin: 0; text-transform: none; max-width: none; color: inherit; letter-spacing: var(--display-tracking); }
+.mf :where(h1, h2, h3, h4) { margin: 0; text-transform: none; max-width: none; color: inherit; letter-spacing: var(--display-tracking); }
 .mf .mf-card-title, .mf .mf-card-title a, .mf h3.mf-card-title { letter-spacing: 0; }
 .mf p { color: inherit; }
-.mf a { color: inherit; }
+.mf :where(a) { color: inherit; }
 /* Buttons that are links: keep the button colour (the generic link reset above must not win) */
 .mf a.mf-btn, .mf a.mf-btn:hover, .mf a.mf-btn:visited, .mf a.mf-btn:focus,
 .mf button.mf-btn, .mf button.mf-btn:hover, .mf button.mf-btn:focus { color: var(--btn-fg); text-decoration: none; }

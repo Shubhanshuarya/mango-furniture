@@ -75,7 +75,7 @@
                   <span class="mf-label" id="{{ iid }}-l">{{ block.settings.label | escape }}{% if block.settings.required %} <span class="mf-req" aria-hidden="true">*</span>{% endif %}</span>
                   <div class="mf-pills" role="radiogroup" aria-labelledby="{{ iid }}-l">
                     {%- assign opts = block.settings.options | split: ',' -%}
-                    {%- for o in opts -%}{%- assign ov = o | strip -%}<label class="mf-pill"><input type="radio" name="{{ input_name }}" value="{{ ov | escape }}"{% if forloop.first and block.settings.required %} required{% endif %}><span>{{ ov | escape }}</span></label>{%- endfor -%}
+                    {%- for o in opts -%}{%- assign ov = o | strip -%}<label class="mf-pill"><input type="radio" name="{{ input_name }}" value="{{ ov | escape }}"{% if forloop.first %}{% if block.settings.required %} required{% else %} checked{% endif %}{% endif %}><span>{{ ov | escape }}</span></label>{%- endfor -%}
                   </div>
                 {%- else -%}
                   <label for="{{ iid }}">{{ block.settings.label | escape }}{% if block.settings.required %} <span class="mf-req" aria-hidden="true">*</span>{% else %} <span class="mf-muted" style="font-weight: 400">({{ 'mf.form.optional' | t }})</span>{% endif %}</label>

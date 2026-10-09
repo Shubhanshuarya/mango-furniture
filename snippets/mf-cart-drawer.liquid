@@ -1,0 +1,236 @@
+{%- comment -%}
+  Mango redesign cart drawer. Behaviour comes from the theme's own scripts:
+  - assets/cart-drawer.js: <cart-drawer> open/close, #CartDrawer-Overlay, renderContents() after add to cart.
+  - assets/cart.js: <cart-drawer-items> quantity/remove via /cart/change.js, re-rendering `.drawer__inner`.
+  - assets/global.js: <quantity-input> (buttons named minus/plus).
+  So the IDs and hook classes below (.drawer__inner, .drawer__inner-empty, .cart-item, .cart-item__name,
+  .quantity__button, .quantity__input, .loading-overlay, CartDrawer-*) must stay.
+
+  Settings: Theme settings → Cart (heading, note, discount code, Mango shipping/installments notes, upsell).
+{%- endcomment -%}
+{%- comment -%} cart.js + cart-drawer.js load in snippets/mf-theme-compat.liquid (in that order). {%- endcomment -%}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+<style>
+  .drawer { visibility: hidden; }
+</style>
+
+{%- liquid
+  assign heading = settings.cart_drawer_heading
+  if heading == blank
+    assign heading = 'mf.cart.title' | t
+  endif
+
+  assign cart_product_ids = cart.items | map: 'product_id' | join: ','
+  assign cart_product_ids = ',' | append: cart_product_ids | append: ','
+
+  assign savings = 0
+  for item in cart.items
+    if item.variant.compare_at_price > item.variant.price
+      assign line_cmp = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity
+      assign savings = savings | plus: line_cmp
+    endif
+  endfor
+
+  assign upsell_limit = settings.mf_cart_upsell_count | default: '3' | plus: 0
+  assign upsell = settings.mf_cart_upsell_collection
+-%}
+
+{%- capture upsell_rows -%}
+  {%- if upsell != blank -%}
+    {%- assign shown = 0 -%}
+    {%- for product in upsell.products limit: 24 -%}
+      {%- if shown >= upsell_limit -%}{%- break -%}{%- endif -%}
+      {%- assign needle = ',' | append: product.id | append: ',' -%}
+      {%- if product.available == false or cart_product_ids contains needle -%}{%- continue -%}{%- endif -%}
+      {%- assign shown = shown | plus: 1 -%}
+      {%- assign upsell_form_id = 'MfDrawerUpsell-' | append: product.id -%}
+      <div class="mf-upsell-row">
+        <a href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+          {%- if product.featured_media -%}
+            {{- product.featured_media | image_url: width: 160 | image_tag: loading: 'lazy', alt: '', widths: '80, 128, 160', sizes: '64px', width: 64, height: 64 -}}
+          {%- endif -%}
+        </a>
+        <div>
+          <b><a href="{{ product.url }}">{{ product.title | escape }}</a></b>
+          <span class="mf-tabular">{% if product.price_varies %}{{ 'mf.card.from' | t }} {% endif %}{{ product.price | money_without_trailing_zeros }}</span>
+        </div>
+        {%- if product.has_only_default_variant -%}
+          <product-form data-hide-errors="false">
+            {%- form 'product', product, id: upsell_form_id, class: 'mf-upsell-form', novalidate: 'novalidate' -%}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              <button type="submit" class="mf-btn mf-btn--secondary mf-btn--sm" aria-label="{{ 'mf.cart.add_aria' | t: title: product.title | escape }}"><span>{{ 'mf.cart.add' | t }}</span></button>
+              <div class="product-form__error-message-wrapper" role="alert" hidden><span class="product-form__error-message"></span></div>
+            {%- endform -%}
+          </product-form>
+        {%- else -%}
+          <a class="mf-btn mf-btn--secondary mf-btn--sm" href="{{ product.url }}">{{ 'mf.cart.view' | t }}</a>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+
+<cart-drawer class="drawer mf-cart-drawer{% if cart == empty %} is-empty{% endif %}">
+  <div id="CartDrawer" class="cart-drawer">
+    <div id="CartDrawer-Overlay" class="cart-drawer__overlay"></div>
+    <div class="drawer__inner mf" role="dialog" aria-modal="true" aria-labelledby="MfCartDrawerTitle" tabindex="-1">
+      <div class="mf-drawer-head">
+        <h2 id="MfCartDrawerTitle" class="mf-display">
+          {{- heading -}}
+          {%- if cart.item_count > 0 %} <span class="mf-muted mf-tabular">({{ cart.item_count }})</span>{% endif -%}
+        </h2>
+        <button type="button" class="drawer__close mf-icon-btn" onclick="this.closest('cart-drawer').close()" aria-label="{{ 'mf.cart.close' | t }}">
+          {%- render 'mf-icon', icon: 'close' -%}
+        </button>
+      </div>
+
+      {%- if cart == empty -%}
+        <div class="drawer__inner-empty mf-drawer-body">
+          <div class="mf-empty-state">
+            <span class="mf-icon-circle">{% render 'mf-icon', icon: 'bag' %}</span>
+            <h3 class="mf-display mf-display-s">{{ 'mf.cart.empty' | t }}</h3>
+            <p class="mf-muted" style="margin: 0">{{ 'mf.cart.drawer_empty_text' | t }}</p>
+            <a class="mf-btn mf-btn--accent" href="{{ routes.all_products_collection_url }}">{{ 'mf.cart.shop' | t }}</a>
+          </div>
+          {%- if upsell_rows != blank -%}
+            <div class="mf-upsell"><h3>{{ 'mf.cart.popular' | t }}</h3>{{ upsell_rows }}</div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="mf-drawer-body mf-cdrawer-body"{% if cart == empty %} hidden{% endif %}>
+        {%- if settings.cart_text != blank and cart != empty -%}
+          <div class="mf-cdrawer-text">{{ settings.cart_text }}</div>
+        {%- endif -%}
+        {%- if settings.mf_cart_shipping_note != blank and cart != empty -%}
+          <div class="mf-ship-bar"><span>{% render 'mf-icon', icon: 'truck', size: 16 %} {{ settings.mf_cart_shipping_note }}</span></div>
+        {%- endif -%}
+
+        <cart-drawer-items{% if cart == empty %} class="is-empty"{% endif %} data-source="CartDrawer">
+          <form action="{{ routes.cart_url }}" id="CartDrawer-Form" class="cart__contents cart-drawer__form" method="post">
+            <div id="CartDrawer-CartItems" class="drawer__contents js-contents">
+              {%- for item in cart.items -%}
+                {%- assign n = item.index | plus: 1 -%}
+                <div id="CartDrawer-Item-{{ n }}" class="cart-item mf-line" data-variant-id="{{ item.variant.id }}">
+                  <a class="mf-line-media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+                    {%- if item.image -%}{{ item.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: '', widths: '180, 240, 300', sizes: '88px' }}{%- endif -%}
+                  </a>
+                  <div>
+                    <h3><a href="{{ item.url }}" class="cart-item__name">{{ item.product.title | escape }}</a></h3>
+                    <p class="mf-meta">
+                      {%- liquid
+                        assign parts = ''
+                        unless item.product.has_only_default_variant
+                          for option in item.options_with_values
+                            assign parts = parts | append: option.value | append: '|'
+                          endfor
+                        endunless
+                        assign material = item.product.metafields.custom.material.value
+                        if material != blank
+                          assign parts = parts | append: material | append: '|'
+                        endif
+                        assign parts = parts | split: '|'
+                      -%}
+                      {{- parts | join: ' · ' | escape -}}
+                      {%- for p in item.properties -%}
+                        {%- assign first_char = p.first | slice: 0 -%}
+                        {%- if p.last != blank and first_char != '_' -%}
+                          <br>{{ p.first | escape }}:
+                          {% if p.last contains '/uploads/' %}<a href="{{ p.last }}" target="_blank" rel="noopener">{{ p.last | split: '/' | last }}</a>{% else %}{{ p.last | escape }}{% endif %}
+                        {%- endif -%}
+                      {%- endfor -%}
+                      {%- if item.selling_plan_allocation -%}<br>{{ item.selling_plan_allocation.selling_plan.name | escape }}{%- endif -%}
+                    </p>
+                    {%- for discount in item.line_level_discount_allocations -%}
+                      <p class="mf-meta mf-cdrawer-discount">{% render 'mf-icon', icon: 'tag', size: 14 %} {{ discount.discount_application.title | escape }} (−{{ discount.amount | money_without_trailing_zeros }})</p>
+                    {%- endfor -%}
+                    <div class="mf-line-actions">
+                      <quantity-input class="mf-qty mf-qty--sm">
+                        {%- assign qty_min = item.variant.quantity_rule.min | default: 1 -%}
+                        <button class="quantity__button{% if item.quantity <= qty_min %} mf-at-min{% endif %}" name="minus" type="button" aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}">−</button>
+                        <input
+                          class="quantity__input"
+                          type="number"
+                          name="updates[]"
+                          value="{{ item.quantity }}"
+                          min="{{ item.variant.quantity_rule.min | default: 0 }}"
+                          {% if item.variant.quantity_rule.max %}max="{{ item.variant.quantity_rule.max }}"{% endif %}
+                          step="{{ item.variant.quantity_rule.increment | default: 1 }}"
+                          aria-label="{{ 'mf.cart.quantity_for' | t: title: item.product.title | escape }}"
+                          id="Quantity-{{ n }}"
+                          data-index="{{ n }}"
+                          data-variant-id="{{ item.variant.id }}"
+                        >
+                        <button class="quantity__button" name="plus" type="button" aria-label="{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}">+</button>
+                      </quantity-input>
+                      <cart-remove-button id="CartDrawer-Remove-{{ n }}" data-index="{{ n }}">
+                        <button type="button" class="mf-remove" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}">{{ 'mf.cart.remove' | t }}</button>
+                      </cart-remove-button>
+                    </div>
+                    <div id="CartDrawer-LineItemError-{{ n }}" class="mf-cdrawer-error" role="alert"><small class="cart-item__error-text"></small></div>
+                  </div>
+                  <div class="mf-price mf-tabular">
+                    <span>{{ item.final_line_price | money_without_trailing_zeros }}</span>
+                    {%- if item.variant.compare_at_price > item.variant.price -%}
+                      <s>{{ item.variant.compare_at_price | times: item.quantity | money_without_trailing_zeros }}</s>
+                    {%- elsif item.original_line_price > item.final_line_price -%}
+                      <s>{{ item.original_line_price | money_without_trailing_zeros }}</s>
+                    {%- endif -%}
+                  </div>
+                  <div class="loading-overlay hidden" aria-hidden="true"><span class="mf-cdrawer-spinner"></span></div>
+                </div>
+              {%- endfor -%}
+              <p id="CartDrawer-LiveRegionText" class="visually-hidden" role="status"></p>
+              <p id="CartDrawer-LineItemStatus" class="visually-hidden" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
+            </div>
+            <div id="CartDrawer-CartErrors" class="mf-cdrawer-error" role="alert"></div>
+          </form>
+        </cart-drawer-items>
+
+        {%- if cart != empty and upsell_rows != blank -%}
+          <div class="mf-upsell"><h3>{{ settings.mf_cart_upsell_heading | escape }}</h3>{{ upsell_rows }}</div>
+        {%- endif -%}
+      </div>
+
+      {%- if cart != empty -%}
+        <div class="drawer__footer mf-drawer-foot">
+          {%- if settings.show_cart_note_drawer -%}
+            <details id="Details-CartDrawer" class="mf-cart-note">
+              <summary>{{ 'mf.cart.add_note' | t }}</summary>
+              <cart-note class="mf-field">
+                <label class="mf-visually-hidden" for="CartDrawer-Note">{{ 'mf.cart.note' | t }}</label>
+                <textarea id="CartDrawer-Note" class="mf-textarea" name="note" placeholder="{{ 'mf.cart.note_placeholder' | t }}">{{ cart.note }}</textarea>
+              </cart-note>
+            </details>
+          {%- endif -%}
+          {%- if settings.show_discount_code_field_drawer -%}
+            <div class="cart-drawer__discount-code">{% render 'cart-discount-code', cart: cart, section_id: 'cart-drawer' %}</div>
+          {%- endif -%}
+
+          <div class="mf-totals" role="status">
+            {%- for discount in cart.cart_level_discount_applications -%}
+              <div><span>{{ discount.title | escape }}</span><span class="mf-tabular mf-cdrawer-save">−{{ discount.total_allocated_amount | money_without_trailing_zeros }}</span></div>
+            {%- endfor -%}
+            {%- if savings > 0 -%}
+              <div><span>{{ 'mf.cart.you_save' | t }}</span><span class="mf-tabular mf-cdrawer-save">{{ savings | money_without_trailing_zeros }}</span></div>
+            {%- endif -%}
+            <div class="mf-grand"><span>{{ 'mf.cart.subtotal' | t }}</span><span class="mf-tabular">{{ cart.total_price | money_without_trailing_zeros }}</span></div>
+          </div>
+          <p class="mf-installments" style="margin: 0">
+            {{ 'mf.cart.taxes_note' | t }}
+            {%- if settings.mf_cart_installments_note != blank %} {{ settings.mf_cart_installments_note }}{% endif -%}
+          </p>
+
+          <noscript>
+            <button type="submit" class="mf-btn mf-btn--secondary mf-btn--block" form="CartDrawer-Form">{{ 'sections.cart.update' | t }}</button>
+          </noscript>
+          <button type="submit" id="CartDrawer-Checkout" class="mf-btn mf-btn--accent mf-btn--block" name="checkout" form="CartDrawer-Form">
+            {% render 'mf-icon', icon: 'lock', size: 16 %} {{ 'mf.cart.checkout' | t }}
+          </button>
+          <a class="mf-btn mf-btn--secondary mf-btn--block" href="{{ routes.cart_url }}">{{ 'mf.cart.view_cart' | t }}</a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</cart-drawer>

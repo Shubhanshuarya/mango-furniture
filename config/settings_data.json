@@ -12,6 +12,8 @@
   "installed_preset_name": "Copenhagen",
   "presets": {
     "Copenhagen": {
+      "cart_drawer_heading": "Your cart",
+      "mf_cart_upsell_collection": "accessories",
       "type_header_font": "cormorant_n4",
       "type_header_letter_spacing": -0.3,
       "type_header_line_height": 1,

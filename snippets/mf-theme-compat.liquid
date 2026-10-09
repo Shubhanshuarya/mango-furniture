@@ -25,6 +25,10 @@
 <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
 {%- if settings.cart_type == 'drawer' -%}
-  {%- comment -%} cart.js is already loaded by snippets/cart-drawer.liquid (loading it twice throws a redeclaration error). {%- endcomment -%}
+  {%- comment -%}
+    cart.js must run before cart-drawer.js (CartDrawerItems extends CartItems), as in the original header.
+    It is loaded only here: the drawer snippets don't load it again (twice throws a redeclaration error).
+  {%- endcomment -%}
+  <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}

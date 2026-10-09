@@ -338,6 +338,46 @@
         "f_10",
         "f_11"
       ]
+    },
+    "questions": {
+      "type": "mf-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "How much do design services cost?",
+            "answer": "<p>It depends on the scope of your project. Share your brief using the form above and our team will walk you through the options for your space.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Can you make a piece from your range in a different size?",
+            "answer": "<p>Yes. Customised furniture is part of what we do. Share the piece and the size you need in your brief.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Do you work with clients outside the US?",
+            "answer": "<p>Our projects include homes in Georgia, USA and Jodhpur, India. Tell us where you are in your brief.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3"
+      ],
+      "settings": {
+        "eyebrow": "Questions",
+        "heading": "Before you start",
+        "layout": "simple",
+        "show_search": false,
+        "footer_note": "",
+        "schema": true,
+        "background": "surface"
+      }
     }
   },
   "order": [
@@ -345,6 +385,7 @@
     "services",
     "process",
     "portfolio",
-    "form"
+    "form",
+    "questions"
   ]
 }

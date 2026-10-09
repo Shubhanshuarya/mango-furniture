@@ -1,7 +1,11 @@
 {%- comment -%}
-  Loads the Mango redesign styles/scripts for a section. Safe to render from several sections on one page
-  (browsers fetch each URL once). Keeps the redesign self-contained: nothing is added to layout/theme.liquid.
+  Loads the Mango redesign styles/scripts for a section. Keeps the redesign self-contained: nothing is
+  added to layout/theme.liquid.
+  mf-base.css is linked only by the header-group sections (base: true), which render first on every page.
+  Each repeated <link> re-enters the cascade at its position, so linking base again from a later section
+  would override that page's group styles (e.g. the dark design teaser lost its background).
   Accepts:
+  - base {Boolean} Link mf-base.css (header group only)
   - css {String} Optional page-group stylesheet name without extension, e.g. 'mf-home'
   - preload_fonts {Boolean} Preload display + text fonts (use in the first section above the fold)
 {%- endcomment -%}
@@ -9,7 +13,9 @@
   {{ 'mf-fraunces.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
   {{ 'mf-figtree.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
 {%- endif -%}
-{{ 'mf-base.css' | asset_url | stylesheet_tag }}
+{%- if base -%}
+  {{ 'mf-base.css' | asset_url | stylesheet_tag }}
+{%- endif -%}
 {%- if css != blank -%}
   {{ css | append: '.css' | asset_url | stylesheet_tag }}
 {%- endif -%}

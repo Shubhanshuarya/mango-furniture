@@ -67,6 +67,7 @@
 .mf-article-aside { position: sticky; top: 100px; align-self: start; font-size: var(--step--1); display: grid; gap: var(--space-s); }
 .mf-article-aside a { text-decoration: none; color: var(--color-ink-muted); }
 .mf-article-aside a:hover { color: var(--color-ink); }
+.mf-article-aside nav { display: grid; gap: 10px; line-height: 1.4; }
 .mf-inline-product { display: grid; grid-template-columns: 96px 1fr auto; gap: var(--space-s); align-items: center; padding: var(--space-s); border: 1px solid var(--color-line); border-radius: var(--radius-md); margin: 2em 0; font-size: var(--step-0); line-height: 1.4; }
 .mf-inline-product img { aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-sm); }
 .mf-inline-product b { display: block; }

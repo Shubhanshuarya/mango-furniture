@@ -209,8 +209,8 @@
             {%- if paginate.current_page == 1 -%}
               {%- for block in promos -%}
                 {%- if block.settings.position == forloop.parentloop.index -%}
-                  <a class="mf-promo-tile mf-reveal" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
-                    <span class="mf-media">{%- if block.settings.image != blank -%}{{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: '', widths: '450, 700, 900', sizes: '(min-width: 990px) 33vw, 100vw' }}{%- endif -%}</span>
+                  <a class="mf-promo-tile mf-reveal{% if block.settings.image == blank %} mf-promo-tile--text{% endif %}" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+                    {%- if block.settings.image != blank -%}<span class="mf-media">{{ block.settings.image | image_url: width: 900 | image_tag: loading: 'lazy', alt: '', widths: '450, 700, 900', sizes: '(min-width: 990px) 33vw, 100vw' }}</span>{%- endif -%}
                     <span class="mf-copy">
                       {%- if block.settings.eyebrow != blank -%}<span class="mf-eyebrow" style="color: inherit; opacity: .75; margin: 0">{{ block.settings.eyebrow | escape }}</span>{%- endif -%}
                       <span class="mf-display mf-display-m">{{ block.settings.heading | escape }}</span>

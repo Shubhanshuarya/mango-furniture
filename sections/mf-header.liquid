@@ -7,7 +7,7 @@
   cart drawer (snippets/cart-drawer.liquid) keeps opening and re-rendering it.
 {%- endcomment -%}
 {%- render 'mf-theme-compat' -%}
-{%- render 'mf-assets' -%}
+{%- render 'mf-assets', base: true -%}
 {{ 'mf-shell.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'mf-shell.js' | asset_url }}" defer="defer"></script>
 
@@ -229,6 +229,20 @@
     <a class="mf-wa-fab" href="{{ wa_url }}" target="_blank" rel="noopener" aria-label="{{ 'mf.header.whatsapp' | t }}" data-mf-fab>{% render 'mf-icon', icon: 'whatsapp' %}</a>
   {%- endif -%}
 </div>
+
+{%- comment -%}
+  Policy pages (/policies/*) are rendered by Shopify without sections. These tabs list the store's
+  policies from Admin (shop.policies); assets/mf-shell.js moves them under the policy title.
+{%- endcomment -%}
+{%- if request.page_type == 'policy' and shop.policies.size > 1 -%}
+  <template data-mf-policy-tabs>
+    <nav class="mf-policy-tabs" aria-label="{{ 'mf.footer.policies' | t }}">
+      {%- for policy in shop.policies -%}
+        <a href="{{ policy.url }}"{% if request.path == policy.url %} aria-current="page"{% endif %}>{{ policy.title | remove: ' policy' | remove: ' Policy' | escape }}</a>
+      {%- endfor -%}
+    </nav>
+  </template>
+{%- endif -%}
 
 {% schema %}
 {

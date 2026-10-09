@@ -1,4 +1,4 @@
-{%- render 'mf-assets' -%}
+{%- render 'mf-assets', base: true -%}
 {{ 'mf-shell.css' | asset_url | stylesheet_tag }}
 {%- if section.blocks.size > 0 -%}
   <div class="mf mf-announcement" role="region" aria-label="{{ 'mf.announcement.label' | t }}">
