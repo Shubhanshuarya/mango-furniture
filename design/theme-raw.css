@@ -137,3 +137,10 @@ cart-drawer.mf-cart-drawer .cart-drawer__discount-code { font-size: var(--step--
 .shopify-policy__body :is(h1, h2) { font-size: clamp(26px, 22px + 1vw, 34px); line-height: 1.15; }
 .shopify-policy__body :is(h3, h4) { font-size: clamp(21px, 19px + 0.5vw, 25px); line-height: 1.2; }
 .shopify-policy__body :is(h1, h2, h3, h4, p, li) :is(span, strong, b) { color: inherit; }
+/* A section that follows a text-only page hero doesn't need its own full top padding (the hero's bottom padding already separates them). */
+.mf-shopify-section:has(.mf-page-hero:not(.mf-page-hero--split)) + .mf-shopify-section > .mf-section:first-child,
+.mf-shopify-section:has(.mf-page-hero:not(.mf-page-hero--split)) + .mf-shopify-section > .mf > .mf-section:first-child { padding-top: 0; }
+/* If JavaScript never runs, never leave content hidden behind the scroll-reveal. */
+html.no-js .mf-reveal { opacity: 1; transform: none; }
+/* Page background matches the redesign from the first paint (the original theme can resolve to a dark scheme). */
+html, body { background-color: #f5f0e8; }

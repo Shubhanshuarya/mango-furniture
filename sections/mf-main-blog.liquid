@@ -24,7 +24,7 @@
     {%- if blog.articles.size == 0 -%}
       <div class="mf-empty-state"><h2 class="mf-display mf-display-s">{{ 'mf.blog.empty' | t }}</h2></div>
     {%- else -%}
-      <div class="mf-articles" data-mf-items>
+      <div class="mf-articles mf-articles--list" data-mf-items>
         {%- for article in blog.articles -%}
           {%- assign feature = false -%}
           {%- if forloop.first and paginate.current_page == 1 and section.settings.feature_first -%}{%- assign feature = true -%}{%- endif -%}

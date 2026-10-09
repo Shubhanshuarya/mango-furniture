@@ -56,6 +56,7 @@
       "primary_nav": "Primary",
       "whatsapp": "Chat with us on WhatsApp",
       "account": "Account",
+      "cart": "Cart",
       "sign_in": "Sign in / Create account",
       "view_all_in": "All {{ title }}"
     },
@@ -94,6 +95,7 @@
       "label": "Announcement"
     },
     "collection": {
+      "products_heading": "{{ title }} products",
       "breadcrumb": "Breadcrumb",
       "home": "Home",
       "all_in": "All {{ title }}",

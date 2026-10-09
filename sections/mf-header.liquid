@@ -7,8 +7,11 @@
   cart drawer (snippets/cart-drawer.liquid) keeps opening and re-rendering it.
 {%- endcomment -%}
 {%- render 'mf-theme-compat' -%}
-{%- render 'mf-assets', base: true -%}
-{{ 'mf-shell.css' | asset_url | stylesheet_tag }}
+{%- render 'mf-assets' -%}
+{%- if settings.quickview_button_quick_view -%}
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'mf-product.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
 <script src="{{ 'mf-shell.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
@@ -72,7 +75,7 @@
         {%- if shop.customer_accounts_enabled -%}
           <a class="mf-icon-btn mf-hide-mobile" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" aria-label="{{ 'mf.header.account' | t }}">{% render 'mf-icon', icon: 'user' %}</a>
         {%- endif -%}
-        <a class="mf-icon-btn" href="{{ routes.cart_url }}" id="cart-icon-bubble">
+        <a class="mf-icon-btn" href="{{ routes.cart_url }}" id="cart-icon-bubble" aria-label="{{ 'mf.header.cart' | t }}">
           {%- render 'icon-cart' -%}
           <span class="header__cart-text hidden">{{ 'templates.cart.cart' | t }}</span>
           <span class="cart-count-bubble hidden {% if cart.item_count > 0 %}show-count{% endif %}">
@@ -222,6 +225,16 @@
       </div>
     </div>
   </div>
+
+  {%- comment -%} Quick view (content: sections/mf-quick-view.liquid, loaded by assets/mf-shell.js) {%- endcomment -%}
+  {%- if settings.quickview_button_quick_view -%}
+    <div class="mf-modal" id="MfQuickView" role="dialog" aria-modal="true" aria-label="{{ 'mf.quickview.dialog' | t }}" tabindex="-1" data-mf-qv-modal data-error="{{ 'mf.quickview.error' | t }}">
+      <div class="mf-modal-panel">
+        <button class="mf-icon-btn mf-modal-close" type="button" data-mf-close aria-label="{{ 'mf.quickview.close' | t }}">{% render 'mf-icon', icon: 'close' %}</button>
+        <div data-mf-qv-content></div>
+      </div>
+    </div>
+  {%- endif -%}
 
   <div class="mf-scrim" data-mf-scrim></div>
 

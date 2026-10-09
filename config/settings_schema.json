@@ -1374,6 +1374,18 @@
     ]
   },
   {
+    "name": "Mango: performance",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "mf_legacy_scripts",
+        "label": "Load original theme scripts",
+        "info": "jQuery, GSAP/ScrollTrigger, Swiper and the original product-card scripts. The redesign does not need them; turn this on only if you re-enable an original (non-Mango) section that uses sliders or animations.",
+        "default": false
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.recently_viewed.name",
     "settings": [
       {

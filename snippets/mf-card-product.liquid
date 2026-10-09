@@ -7,6 +7,8 @@
   - sizes {String} Image sizes attribute (optional)
   - section_id {String} For unique form ids
 
+  Quick view: the eye button (and "Choose options" for products with variants) opens sections/mf-quick-view.liquid
+  in a modal; on/off with Theme settings → Quick view → "Quick view" button.
   Quick add re-uses the theme's own <product-form> element (assets/product-form.js), so the
   existing cart drawer updates exactly as it does elsewhere. Without JS the form posts to /cart/add.
 
@@ -16,7 +18,10 @@
 {%- liquid
   assign i = index | default: 0
   assign stagger = i | modulo: 4
-  assign img_sizes = sizes | default: '(min-width: 990px) 25vw, 50vw'
+  comment
+    The first row (index < 4) is above the fold: no reveal animation, so images paint without waiting for JS.
+  endcomment
+  assign img_sizes = sizes | default: '(min-width: 990px) 25vw, calc(50vw - 24px)'
   if i < 4
     assign loading = 'eager'
   else
@@ -48,8 +53,11 @@
   assign material = product.metafields.custom.material.value
   assign dimensions = product.metafields.custom.dimensions.value
 -%}
-<article class="mf-card{% unless product.available %} mf-is-soldout{% endunless %} mf-reveal" style="--i: {{ stagger }}">
+<article class="mf-card{% unless product.available %} mf-is-soldout{% endunless %}{% if i >= 4 %} mf-reveal{% endif %}" style="--i: {{ stagger }}">
   <div class="mf-card-media">
+    {%- if settings.quickview_button_quick_view -%}
+      <button type="button" class="mf-card-qv" data-mf-qv="{{ product.url }}" aria-haspopup="dialog" aria-label="{{ 'mf.quickview.button_aria' | t: title: product.title | escape }}" title="{{ 'mf.quickview.button' | t }}">{% render 'mf-icon', icon: 'eye', size: 20 %}</button>
+    {%- endif -%}
     <div class="mf-card-badges">
       {%- if product.available == false -%}
         <span class="mf-badge mf-badge--soldout">{{ 'mf.card.sold_out' | t }}</span>
@@ -77,7 +85,11 @@
         {%- endform -%}
       </product-form>
     {%- elsif product.available -%}
-      <a class="mf-card-quick" href="{{ product.url }}" tabindex="-1" aria-hidden="true"><span>{{ 'mf.card.choose_options' | t }}</span></a>
+      {%- if settings.quickview_button_quick_view -%}
+        <button type="button" class="mf-card-quick" data-mf-qv="{{ product.url }}" aria-haspopup="dialog" aria-label="{{ 'mf.quickview.button_aria' | t: title: product.title | escape }}"><span>{{ 'mf.card.choose_options' | t }}</span></button>
+      {%- else -%}
+        <a class="mf-card-quick" href="{{ product.url }}" tabindex="-1" aria-hidden="true"><span>{{ 'mf.card.choose_options' | t }}</span></a>
+      {%- endif -%}
     {%- endif -%}
   </div>
 

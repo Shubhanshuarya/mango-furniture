@@ -37,7 +37,7 @@
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     {%- if settings.quickview_button_quick_buy or settings.quickview_button_quick_view -%}
-      <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+      {%- if settings.mf_legacy_scripts -%}<script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>{%- endif -%}
       <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
     {% endif %}
 
@@ -45,8 +45,20 @@
 
     {% render 'vars' %}
 
-    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    {%- comment -%} Mango redesign: original-theme libraries load only when Theme settings → Mango: performance → "Load original theme scripts" is on. {%- endcomment -%}
+    {%- if settings.mf_legacy_scripts -%}
+      {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    {%- endif -%}
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {%- comment -%}
+      Mango redesign: shared styles and brand fonts load in <head> so the first paint is already styled
+      (loading them from sections in <body> caused a flash of the old theme and a large layout shift on slow phones).
+      Page-specific stylesheets (mf-home, mf-collection, …) are still linked by their sections.
+    {%- endcomment -%}
+    {{ 'mf-base.css' | asset_url | stylesheet_tag }}
+    {{ 'mf-shell.css' | asset_url | stylesheet_tag }}
+    {{ 'mf-fraunces.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+    {{ 'mf-figtree.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
 
     {%- if settings.predictive_search_enabled -%}
       <link
@@ -57,12 +69,15 @@
       >
     {%- endif -%}
 
+    {%- comment -%} The original theme fonts are not used by the redesign: preload them only with the legacy scripts. {%- endcomment -%}
+    {%- if settings.mf_legacy_scripts -%}
     {%- unless settings.type_body_font.system? -%}
       {{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
     {%- endunless -%}
     {%- unless settings.type_header_font.system? -%}
       {{ settings.type_header_font | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
     {%- endunless -%}
+    {%- endif -%}
 
     {% comment %} ACCOUNT COMPONENT VARIABLES {% endcomment %}
     {% render '_shopify-account-vars' %}
@@ -74,6 +89,7 @@
       }
     </script>
 
+    {%- if settings.mf_legacy_scripts -%}
     <script src="{{ 'jquery-3.6.0.js' | asset_url }}" defer="defer"></script>
     <script
       src="{{ 'swiper-bundle.min.js' | asset_url }}"
@@ -90,16 +106,19 @@
       src="{{ 'ScrollTrigger.min.js' | asset_url }}"
       defer="defer"
     ></script>
-    {%- if request.page_type != 'search' and settings.enable_search_modal -%}
+    {%- endif -%}
+    {%- if request.page_type != 'search' and settings.enable_search_modal and settings.mf_legacy_scripts -%}
       <script src="{{ 'search-modal.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-    <script src="{{ 'popup.js' | asset_url }}" defer="defer"></script>
+    {%- comment -%} popup.js (needs jQuery) is loaded by sections/popup.liquid itself. {%- endcomment -%}
     {% if settings.show_back_to_top %}
       <script src="{{ 'scroll-top.js' | asset_url }}" defer="defer"></script>
     {% endif %}
+    {%- if settings.mf_legacy_scripts -%}
     {% comment %}{% if settings.show_color_swatch %}{% endcomment %}
     <script src="{{ 'product-card.js' | asset_url }}" defer="defer"></script>
     {% comment %}{% endif %}{% endcomment %}
+    {%- endif -%}
 
     <script>
       let cscoDarkMode = {};

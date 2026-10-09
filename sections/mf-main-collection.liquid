@@ -203,9 +203,10 @@
           <a class="mf-btn" href="{{ collection.url }}" data-mf-link>{{ 'mf.collection.clear_all' | t }}</a>
         </div>
       {%- else -%}
+        <h2 class="mf-visually-hidden">{{ 'mf.collection.products_heading' | t: title: collection.title | escape }}</h2>
         <div class="mf-product-grid mf-cols-3" data-mf-grid>
           {%- for product in collection.products -%}
-            {%- render 'mf-card-product', product: product, index: forloop.index0, section_id: section.id, sizes: '(min-width: 1200px) 25vw, (min-width: 990px) 30vw, (min-width: 750px) 33vw, 50vw' -%}
+            {%- render 'mf-card-product', product: product, index: forloop.index0, section_id: section.id, sizes: '(min-width: 1200px) 25vw, (min-width: 990px) 30vw, (min-width: 750px) 33vw, calc(50vw - 24px)' -%}
             {%- if paginate.current_page == 1 -%}
               {%- for block in promos -%}
                 {%- if block.settings.position == forloop.parentloop.index -%}

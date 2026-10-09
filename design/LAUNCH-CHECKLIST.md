@@ -42,5 +42,9 @@ The theme now has redesigned sign in, create account, forgot/reset password, acc
 
 - [ ] **Preview server check:** run `shopify theme dev --store 091ee8-79.myshopify.com`. Without `--store`, the CLI uses its last store; on 2026-10-10 it was serving this theme on *wholesaleabaya.myshopify.com* as a development theme (not live there, but worth deleting from that store's theme list).
 
+- [ ] **Favicon:** Theme settings → Logo → Favicon (browsers currently get a 404 for /favicon.ico).
+- [ ] **Speed:** Theme settings → *Mango: performance* → "Load original theme scripts" stays **off** (jQuery, GSAP, Swiper aren't needed by the redesign). Turn it on only if you re-enable an original section with sliders/animations.
+- [ ] **Tracking scripts:** Google Tag Manager loads three tags and the Facebook pixel ~425 KB of mostly unused JS on every page. Review Online Store → Preferences and the apps/pixels under Settings → Customer events; remove duplicates.
+
 ## Rollback
 Every old section is still in its template, just **disabled**. In the theme editor you can re-enable any of them (and hide the Mango one) without touching code. In git, `main` is untouched.

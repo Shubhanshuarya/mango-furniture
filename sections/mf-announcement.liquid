@@ -1,5 +1,4 @@
-{%- render 'mf-assets', base: true -%}
-{{ 'mf-shell.css' | asset_url | stylesheet_tag }}
+{%- render 'mf-assets' -%}
 {%- if section.blocks.size > 0 -%}
   <div class="mf mf-announcement" role="region" aria-label="{{ 'mf.announcement.label' | t }}">
     <div class="mf-announcement-rotator" data-mf-rotate="{{ section.settings.speed }}">

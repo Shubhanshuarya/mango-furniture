@@ -21,7 +21,7 @@
     <div class="mf-coll-tiles">
       {%- for c in list -%}
         {%- if c.handle == 'frontpage' or c.all_products_count == 0 -%}{%- continue -%}{%- endif -%}
-        <a class="mf-tile mf-reveal" style="--i: {{ forloop.index0 | modulo: 4 }}" href="{{ c.url }}">
+        <a class="mf-tile{% if forloop.index0 >= 4 %} mf-reveal{% endif %}" style="--i: {{ forloop.index0 | modulo: 4 }}" href="{{ c.url }}">
           <span class="mf-tile-media">
             {%- assign ci = c.featured_image | default: c.products.first.featured_image -%}
             {%- if ci -%}{{ ci | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', sizes: '(min-width: 990px) 25vw, 50vw', alt: '' }}{%- else -%}{{ 'collection-1' | placeholder_svg_tag: 'mf-placeholder-svg' }}{%- endif -%}

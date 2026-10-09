@@ -8,7 +8,7 @@
   let lastFocus = null;
 
   /* ---------- Layers (drawer, search) ---------- */
-  const LAYERS = ['MfMenuDrawer', 'MfSearchPanel'];
+  const LAYERS = ['MfMenuDrawer', 'MfSearchPanel', 'MfQuickView'];
   const scrim = () => doc.querySelector('[data-mf-scrim]');
   const fab = () => doc.querySelector('[data-mf-fab]');
 
@@ -197,6 +197,56 @@
   };
 
   window.MFShell = { open, close, closeAll };
+  /* ---------- Quick view ([data-mf-qv] buttons on product cards) ---------- */
+  let qvRequest = 0;
+  async function quickView(btn) {
+    const modal = doc.getElementById('MfQuickView');
+    const content = modal?.querySelector('[data-mf-qv-content]');
+    if (!content) { location.href = btn.dataset.mfQv; return; }
+    const id = ++qvRequest;
+    btn.classList.add('loading');
+    btn.setAttribute('aria-busy', 'true');
+    try {
+      const url = new URL(btn.dataset.mfQv, location.origin);
+      url.searchParams.set('section_id', 'mf-quick-view');
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(res.status);
+      const html = new DOMParser().parseFromString(await res.text(), 'text/html');
+      const fresh = html.querySelector('.mf-quickview');
+      if (!fresh || id !== qvRequest) return;
+      content.replaceChildren(...html.querySelectorAll('link[rel=stylesheet]'), fresh);
+      modal.setAttribute('aria-labelledby', 'MfQuickViewTitle');
+      window.MFProduct?.init(content);
+      if (window.Shopify?.PaymentButton) Shopify.PaymentButton.init();
+      open('MfQuickView');
+      lastFocus = btn;
+    } catch (err) {
+      location.href = btn.dataset.mfQv; // fall back to the product page
+    } finally {
+      btn.classList.remove('loading');
+      btn.removeAttribute('aria-busy');
+    }
+  }
+  doc.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-mf-qv]');
+    if (b) { e.preventDefault(); e.stopPropagation(); quickView(b); return; }
+    const s = e.target.closest('[data-mf-qv-step]');
+    if (s) {
+      const track = s.closest('.mf-qv-media')?.querySelector('[data-mf-mtrack]');
+      if (track) track.scrollBy({ left: track.clientWidth * Number(s.dataset.mfQvStep), behavior: 'smooth' });
+      return;
+    }
+    // Click on the dimmed area around the panel closes the modal
+    if (e.target.matches?.('.mf-modal.mf-is-open')) close(e.target.id);
+  }, true);
+  // Add to cart from the quick view opens the cart drawer: close the quick view first
+  const watchQvDrawer = () => {
+    const d = doc.querySelector('cart-drawer');
+    if (!d || d.dataset.mfQvObserved) return;
+    d.dataset.mfQvObserved = '1';
+    new MutationObserver(() => { if (d.classList.contains('active')) close('MfQuickView', true); }).observe(d, { attributes: true, attributeFilter: ['class'] });
+  };
+
   // Policy pages: place the policy tabs (rendered by sections/mf-header.liquid) under the title
   const policyTabs = () => {
     const tpl = doc.querySelector('template[data-mf-policy-tabs]');
@@ -204,7 +254,16 @@
     if (tpl && title && !doc.querySelector('.shopify-policy__title + .mf-policy-tabs')) title.after(tpl.content.cloneNode(true));
   };
 
-  const boot = () => { init(); watchDrawer(); policyTabs(); };
+  const footerMq = matchMedia('(max-width: 749px)');
+  // Footer menus: collapsed on phones, always open on larger screens
+  const footerCols = () => {
+    const mq = footerMq;
+    const sync = () => doc.querySelectorAll('[data-mf-footer-col]').forEach((d) => { d.open = !mq.matches; });
+    sync();
+    if (!footerMq.mfBound) { footerMq.mfBound = true; mq.addEventListener?.('change', sync); }
+  };
+
+  const boot = () => { init(); watchDrawer(); watchQvDrawer(); policyTabs(); footerCols(); };
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', boot); else boot();
-  doc.addEventListener('shopify:section:load', (e) => init(e.target));
+  doc.addEventListener('shopify:section:load', (e) => { init(e.target); footerCols(); });
 })();

@@ -1,4 +1,4 @@
-{%- comment -%} mf-base.css and mf-shell.css are linked once by the header group (see snippets/mf-assets.liquid). {%- endcomment -%}
+{%- comment -%} mf-base.css and mf-shell.css are linked once in <head> (layout/theme.liquid). {%- endcomment -%}
 {%- render 'mf-assets' -%}
 
 <div class="mf">
@@ -27,8 +27,8 @@
               </div>
             {%- when 'menu' -%}
               {%- assign m = linklists[block.settings.menu] -%}
-              <div {{ block.shopify_attributes }}>
-                <h4>{{ block.settings.heading | default: m.title | escape }}</h4>
+              <details class="mf-footer-col" open data-mf-footer-col {{ block.shopify_attributes }}>
+                <summary><h2 class="mf-footer-heading">{{ block.settings.heading | default: m.title | escape }}</h2></summary>
                 {%- if m.links.size > 0 -%}
                   {%- assign shown = 0 -%}
                   <ul>
@@ -43,10 +43,10 @@
                     {%- endfor -%}
                   </ul>
                 {%- endif -%}
-              </div>
+              </details>
             {%- when 'contact' -%}
-              <div {{ block.shopify_attributes }}>
-                <h4>{{ block.settings.heading | escape }}</h4>
+              <details class="mf-footer-col" open data-mf-footer-col {{ block.shopify_attributes }}>
+                <summary><h2 class="mf-footer-heading">{{ block.settings.heading | escape }}</h2></summary>
                 <ul>
                   {%- if block.settings.email != blank -%}<li><a href="mailto:{{ block.settings.email }}">{{ block.settings.email | escape }}</a></li>{%- endif -%}
                   {%- if block.settings.phone != blank -%}<li><a href="tel:{{ block.settings.phone | remove: ' ' | remove: '-' }}">{{ block.settings.phone | escape }}</a></li>{%- endif -%}
@@ -65,7 +65,7 @@
                   -%}
                   {%- if block.settings.instagram != blank -%}<li><a href="{{ block.settings.instagram }}" target="_blank" rel="noopener">{{ 'mf.footer.instagram' | t }}</a></li>{%- endif -%}
                 </ul>
-              </div>
+              </details>
           {%- endcase -%}
         {%- endfor -%}
       </div>

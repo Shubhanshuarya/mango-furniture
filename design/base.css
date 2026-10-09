@@ -194,6 +194,16 @@ button, input, select, textarea { font: inherit; color: inherit; }
   .card-quick::before { content: "+"; font-size: 22px; line-height: 1; }
   .card-quick > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
+.card-qv {
+  position: absolute; top: 10px; right: 10px; z-index: 2; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%;
+  display: grid; place-items: center; background: var(--color-bg); color: var(--color-ink); cursor: pointer;
+  opacity: 0; transform: translateY(-4px); transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out), background var(--dur-1), color var(--dur-1);
+}
+.card-qv svg { width: 20px; height: 20px; }
+.card:hover .card-qv, .card:focus-within .card-qv { opacity: 1; transform: none; }
+.card-qv:hover { background: var(--color-ink); color: var(--color-bg); }
+.card-qv.loading svg { opacity: 0; }
+@media (hover: none) { .card-qv { opacity: 1; transform: none; width: 36px; height: 36px; } .card-qv svg { width: 18px; height: 18px; } }
 .card-title { margin: 0; font-family: var(--font-text); font-size: var(--step-0); font-weight: 600; letter-spacing: 0; line-height: 1.35; }
 .card-title a { text-decoration: none; }
 .card-title a::after { content: ""; position: absolute; inset: 0; } /* whole card clickable */
@@ -233,17 +243,32 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* ---------- Footer ---------- */
 .site-footer { background: var(--color-inverse-bg); color: var(--color-inverse-ink); padding-block: var(--space-2xl) var(--space-l); }
 .footer-grid { display: grid; grid-template-columns: 2fr repeat(3, minmax(0, 1fr)); gap: var(--space-xl); }
-.site-footer h4 { font-family: var(--font-text); font-size: var(--step--1); letter-spacing: var(--eyebrow-tracking); text-transform: uppercase; margin: 0 0 var(--space-s); opacity: 0.7; font-weight: 600; }
+.site-footer h4, .site-footer .footer-heading { font-family: var(--font-text); font-size: var(--step--1); letter-spacing: var(--eyebrow-tracking); text-transform: uppercase; margin: 0 0 var(--space-s); opacity: 0.7; font-weight: 600; }
 .site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
-.site-footer a { text-decoration: none; opacity: 0.9; }
+.site-footer a { text-decoration: none; opacity: 0.9; overflow-wrap: anywhere; }
 .site-footer a:hover { text-decoration: underline; opacity: 1; }
 .newsletter { display: flex; gap: 8px; margin-top: var(--space-m); max-width: 26rem; }
 .newsletter input { flex: 1; min-height: 48px; padding: 0 var(--space-s); border-radius: var(--radius-pill); border: 1px solid color-mix(in srgb, var(--color-inverse-ink) 35%, transparent); background: transparent; color: inherit; }
 .newsletter .btn { --btn-bg: var(--color-inverse-ink); --btn-fg: var(--color-inverse-bg); --btn-bd: var(--color-inverse-ink); }
 .footer-base { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-s); margin-top: var(--space-2xl); padding-top: var(--space-m); border-top: 1px solid color-mix(in srgb, var(--color-inverse-ink) 18%, transparent); font-size: var(--step--1); opacity: 0.75; }
+/* Footer menus are <details>: always open on larger screens, tap-to-expand on phones (assets/mf-shell.js). */
+.footer-col > summary { list-style: none; cursor: default; pointer-events: none; }
+.footer-col > summary::-webkit-details-marker { display: none; }
 @media (max-width: 989px) {
   .footer-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-l) var(--space-m); }
   .footer-grid > :first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 749px) {
+  .footer-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .footer-grid > :first-child { margin-bottom: var(--space-l); }
+  .footer-col { border-top: 1px solid color-mix(in srgb, var(--color-inverse-ink) 16%, transparent); }
+  .footer-col:last-child { border-bottom: 1px solid color-mix(in srgb, var(--color-inverse-ink) 16%, transparent); }
+  .footer-col > summary { pointer-events: auto; cursor: pointer; display: flex; justify-content: space-between; align-items: center; min-height: 56px; }
+  .footer-col > summary h4, .footer-col > summary .footer-heading { margin: 0; }
+  .footer-col > summary::after { content: ""; width: 12px; height: 12px; background: linear-gradient(currentColor, currentColor) center / 12px 1.5px no-repeat, linear-gradient(currentColor, currentColor) center / 1.5px 12px no-repeat; opacity: 0.7; transition: transform var(--dur-2) var(--ease-out); }
+  .footer-col[open] > summary::after { transform: rotate(45deg); }
+  .footer-col ul { padding-bottom: var(--space-m); }
+  .footer-base { margin-top: var(--space-l); }
 }
 
 /* ---------- WhatsApp floating (mobile) ---------- */

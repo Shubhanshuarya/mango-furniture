@@ -1,11 +1,11 @@
 {%- comment -%}
   Loads the Mango redesign styles/scripts for a section. Keeps the redesign self-contained: nothing is
   added to layout/theme.liquid.
-  mf-base.css is linked only by the header-group sections (base: true), which render first on every page.
-  Each repeated <link> re-enters the cascade at its position, so linking base again from a later section
-  would override that page's group styles (e.g. the dark design teaser lost its background).
+  mf-base.css and mf-shell.css (and the brand fonts) are linked once in <head> by layout/theme.liquid.
+  Don't link mf-base.css again from a section: each repeated <link> re-enters the cascade at its position
+  and would override that page's group styles (e.g. the dark design teaser lost its background).
   Accepts:
-  - base {Boolean} Link mf-base.css (header group only)
+  - base {Boolean} Link mf-base.css (only for a layout without the <head> link)
   - css {String} Optional page-group stylesheet name without extension, e.g. 'mf-home'
   - preload_fonts {Boolean} Preload display + text fonts (use in the first section above the fold)
 {%- endcomment -%}

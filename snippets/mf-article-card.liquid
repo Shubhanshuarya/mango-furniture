@@ -1,5 +1,5 @@
 {%- comment -%} Article card. Accepts: article, index, feature (Boolean), show_excerpt (Boolean) {%- endcomment -%}
-<article class="mf-article-card{% if feature %} mf-article-card--feature{% endif %} mf-reveal" style="--i: {{ index | default: 0 | modulo: 3 }}">
+<article class="mf-article-card{% if feature %} mf-article-card--feature{% endif %}{% unless feature %} mf-reveal{% endunless %}" style="--i: {{ index | default: 0 | modulo: 3 }}">
   <div class="mf-media">
     {%- if article.image -%}
       {%- if feature -%}{%- assign a_sizes = '(min-width: 990px) 55vw, 100vw' -%}{%- assign a_load = 'eager' -%}{%- else -%}{%- assign a_sizes = '(min-width: 990px) 33vw, 80vw' -%}{%- assign a_load = 'lazy' -%}{%- endif -%}

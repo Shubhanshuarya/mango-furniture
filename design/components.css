@@ -185,6 +185,23 @@ details[open] > summary .chev { transform: rotate(180deg); }
 .quickview .qv-media { background: var(--color-surface-media); aspect-ratio: 4 / 5; }
 .quickview .qv-media img { width: 100%; height: 100%; object-fit: cover; }
 .quickview .qv-body { padding: var(--space-xl) var(--space-l); display: grid; gap: var(--space-m); align-content: start; }
+.quickview .qv-media { position: relative; overflow: hidden; }
+.qv-track { display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.qv-track::-webkit-scrollbar { display: none; }
+.qv-track > * { flex: 0 0 100%; scroll-snap-align: start; }
+.qv-track img, .qv-track svg { width: 100%; height: 100%; object-fit: cover; display: block; }
+.qv-arrow { position: absolute; top: 50%; width: 40px; height: 40px; margin-top: -20px; border: 0; border-radius: 50%; background: var(--color-bg); color: var(--color-ink); display: grid; place-items: center; cursor: pointer; opacity: 0; transition: opacity var(--dur-2), background var(--dur-1), color var(--dur-1); }
+.qv-arrow--prev { left: 12px; } .qv-arrow--next { right: 12px; }
+.qv-media:hover .qv-arrow, .qv-arrow:focus-visible { opacity: 1; }
+.qv-arrow:hover { background: var(--color-ink); color: var(--color-bg); }
+.qv-media .dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; padding: 6px 10px; border-radius: var(--radius-pill); background: color-mix(in srgb, var(--color-bg) 85%, transparent); }
+.qv-media .dots i { width: 6px; height: 6px; border-radius: 3px; background: var(--color-ink); opacity: 0.25; transition: opacity var(--dur-2), width var(--dur-2); }
+.qv-media .dots i.on { opacity: 1; width: 16px; }
+.quickview .qv-title { font-size: var(--step-2); line-height: 1.1; }
+.quickview .qv-title a { text-decoration: none; }
+.quickview .qv-title a:hover { color: var(--color-accent); }
+@media (max-width: 749px) { .quickview .qv-body { gap: var(--space-s); padding-bottom: calc(var(--space-l) + env(safe-area-inset-bottom)); } .quickview .qv-title { font-size: var(--step-1); } }
+.quickview .qv-desc { margin: 0; font-size: var(--step--1); color: var(--color-ink-muted); line-height: 1.6; }
 @media (max-width: 989px) {
   .modal { padding: 0; align-items: end; }
   .modal-panel { border-radius: var(--radius-lg) var(--radius-lg) 0 0; max-height: 92dvh; transform: translateY(100%); }

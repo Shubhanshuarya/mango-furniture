@@ -1,3 +1,6 @@
+{%- comment -%} popup.js needs jQuery; both load here so the popup works without the layout's legacy scripts. {%- endcomment -%}
+<script src="{{ 'jquery-3.6.0.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'popup.js' | asset_url }}" defer="defer"></script>
 {% liquid
   if section.settings.layout == 'bar'
     if section.settings.position != 'bottom' and section.settings.position != 'top'

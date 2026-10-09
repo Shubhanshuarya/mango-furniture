@@ -25,7 +25,7 @@ ASSETS = ROOT / 'assets'
 # First class in a selector decides which output file a rule belongs to.
 SHELL = r'announcement|site-header|header-\w+|header-inner|logo|nav-trigger|mega[\w-]*|drawer[\w-]*|mnav[\w-]*|search-panel|search-bar|search-results|suggest|search-cards|modal[\w-]*|quickview|qv-\w+|lightbox[\w-]*|toast[\w-]*|site-footer|footer-\w+|newsletter|wa-fab|sticky-atc|skip-link|state-note|scrim|filter-drawer-foot'
 GROUPS = {
-    'home': r'coll-tiles|benefits|hero[\w-]*|bento|tile[\w-]*|lookbook[\w-]*|hotspot[\w-]*|look-\w+|inverse|ds-\w+|quotes?|ugc|stats?|split[\w-]*|steps|services?|articles?|article-card[\w-]*',
+    'home': r'coll-tiles|benefits|hero[\w-]*|bento|tile[\w-]*|lookbook[\w-]*|hotspot[\w-]*|look-\w+|inverse|ds-\w+|quotes?|ugc|stats?|split[\w-]*|steps|services?|articles(--[\w-]+)?|article-card[\w-]*',
     'collection': r'collection|coll-[\w-]+|subcats|toolbar[\w-]*|density|facets?[\w-]*|facet-[\w-]+|range|promo-tile[\w-]*|filter-[\w-]+',
     'product': r'product|pdp[\w-]*|gallery|g|g--media|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*|variant-picker|terms|dynamic-checkout|ar-btn|rte-sm|feature-cols?|recs',
     'cart': r'cart-[\w-]+|summary|trust-row|ship-note',

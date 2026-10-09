@@ -22,8 +22,8 @@
 -%}
 
 <div class="mf mf-product" id="MfProduct-{{ section.id }}" data-mf-product data-mf-main data-section-id="{{ section.id }}" data-url="{{ product.url }}">
-  <div class="mf-container" style="padding-top: var(--space-m)">
-    <ol class="mf-crumbs mf-hide-mobile" aria-label="{{ 'mf.collection.breadcrumb' | t }}">
+  <div class="mf-container mf-hide-mobile" style="padding-top: var(--space-m)">
+    <ol class="mf-crumbs" aria-label="{{ 'mf.collection.breadcrumb' | t }}">
       <li><a href="{{ routes.root_url }}">{{ 'mf.collection.home' | t }}</a></li>
       {%- if collection -%}<li><a href="{{ collection.url }}">{{ collection.title | escape }}</a></li>{%- endif -%}
       <li aria-current="page">{{ product.title | escape }}</li>
@@ -38,8 +38,8 @@
           {%- case media.media_type -%}
             {%- when 'image' -%}
               <button class="mf-g{% if forloop.index > section.settings.gallery_limit %} mf-g--extra{% endif %}" type="button" data-mf-zoom="{{ forloop.index0 }}" data-media-id="{{ media.id }}" data-full="{{ media | image_url: width: 2400 }}" data-alt="{{ media.alt | default: product.title | escape }}" aria-label="{{ 'mf.product.zoom' | t: index: forloop.index, total: product.media.size }}">
-                {%- if forloop.first -%}{%- assign g_load = 'eager' -%}{%- else -%}{%- assign g_load = 'lazy' -%}{%- endif -%}
-                {{- media | image_url: width: 1800 | image_tag: widths: '540, 720, 1000, 1400, 1800', sizes: '(min-width: 990px) 55vw, 100vw', loading: g_load, alt: media.alt | default: product.title -}}
+                {%- if forloop.first -%}{%- assign g_load = 'eager' -%}{%- assign g_fp = 'high' -%}{%- else -%}{%- assign g_load = 'lazy' -%}{%- assign g_fp = 'auto' -%}{%- endif -%}
+                {{- media | image_url: width: 1800 | image_tag: widths: '540, 720, 1000, 1400, 1800', sizes: '(min-width: 990px) 55vw, 10px', loading: g_load, fetchpriority: g_fp, alt: media.alt | default: product.title -}}
                 <span class="mf-zoom-ico">{% render 'mf-icon', icon: 'zoom' %}</span>
               </button>
             {%- when 'video', 'external_video' -%}
@@ -66,8 +66,9 @@
           {%- for media in product.media -%}
             {%- if media.media_type == 'image' -%}
               <button type="button" data-mf-zoom="{{ forloop.index0 }}" data-media-id="{{ media.id }}" aria-label="{{ 'mf.product.zoom' | t: index: forloop.index, total: product.media.size }}">
-                {%- if forloop.first -%}{%- assign m_load = 'eager' -%}{%- else -%}{%- assign m_load = 'lazy' -%}{%- endif -%}
-                {{- media | image_url: width: 1000 | image_tag: widths: '390, 600, 800, 1000', sizes: '100vw', loading: m_load, alt: media.alt | default: product.title -}}
+                {%- if forloop.first -%}{%- assign m_load = 'eager' -%}{%- assign m_fp = 'high' -%}{%- else -%}{%- assign m_load = 'lazy' -%}{%- assign m_fp = 'auto' -%}{%- endif -%}
+                {%- comment -%} sizes: the desktop gallery is used from 990px, so this copy stays tiny there. {%- endcomment -%}
+                {{- media | image_url: width: 1000 | image_tag: widths: '390, 600, 800, 1000', sizes: '(max-width: 989px) 100vw, 10px', loading: m_load, fetchpriority: m_fp, alt: media.alt | default: product.title -}}
               </button>
             {%- else -%}
               <div class="mf-g--media" data-media-id="{{ media.id }}">{{ media | media_tag: image_size: '1000x' }}</div>
