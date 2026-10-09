@@ -263,6 +263,16 @@
       "new_password": "New password",
       "reset_submit": "Save password"
     },
+    "quickview": {
+      "button": "Quick view",
+      "button_aria": "Quick view: {{ title }}",
+      "dialog": "Quick view",
+      "close": "Close quick view",
+      "previous": "Previous image",
+      "next": "Next image",
+      "full_details": "View full details",
+      "error": "Couldn't load this product."
+    },
     "faq": {
       "search": "Search questions",
       "search_placeholder": "Search e.g. “assembly”, “care”, “trade”",

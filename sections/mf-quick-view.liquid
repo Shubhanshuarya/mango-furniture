@@ -1,0 +1,125 @@
+{%- comment -%}
+  Quick view content. Not placed in any template: assets/mf-shell.js fetches it with the Section Rendering API
+  ({{ product.url }}?section_id=mf-quick-view) and shows it in the #MfQuickView modal (sections/mf-header.liquid).
+  Variants/price/stock use assets/mf-product.js (data-mf-no-url keeps the page URL unchanged);
+  add to cart uses the theme's <product-form>, so the cart drawer opens as everywhere else.
+  Turn the card button on/off: Theme settings → Quick view → "Quick view" button.
+{%- endcomment -%}
+{{ 'mf-product.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign form_id = 'MfQuickViewForm-' | append: product.id
+  assign images = product.media | where: 'media_type', 'image'
+  assign save_amt = ''
+  if current.compare_at_price > current.price
+    assign save_amt = current.compare_at_price | minus: current.price | money_without_trailing_zeros
+  endif
+  assign eyebrow = product.metafields.custom.material.value
+  if eyebrow == blank
+    assign eyebrow = product.type
+  endif
+-%}
+<div class="mf mf-quickview" data-mf-product data-mf-no-url data-url="{{ product.url }}">
+  <div class="mf-qv-media">
+    <div class="mf-qv-track" data-mf-mtrack>
+      {%- for media in images limit: 8 -%}
+        <div data-media-id="{{ media.id }}">
+          {%- if forloop.first -%}{%- assign qv_load = 'eager' -%}{%- else -%}{%- assign qv_load = 'lazy' -%}{%- endif -%}
+          {{- media | image_url: width: 1200 | image_tag: widths: '540, 720, 900, 1200', sizes: '(min-width: 990px) 540px, 100vw', loading: qv_load, alt: media.alt | default: product.title -}}
+        </div>
+      {%- else -%}
+        <div>{{ 'product-1' | placeholder_svg_tag: 'mf-placeholder-svg' }}</div>
+      {%- endfor -%}
+    </div>
+    {%- if images.size > 1 -%}
+      <button class="mf-qv-arrow mf-qv-arrow--prev" type="button" data-mf-qv-step="-1" aria-label="{{ 'mf.quickview.previous' | t }}">{% render 'mf-icon', icon: 'left', size: 18 %}</button>
+      <button class="mf-qv-arrow mf-qv-arrow--next" type="button" data-mf-qv-step="1" aria-label="{{ 'mf.quickview.next' | t }}">{% render 'mf-icon', icon: 'right', size: 18 %}</button>
+      <div class="mf-dots" aria-hidden="true">{%- for media in images limit: 8 -%}<i{% if forloop.first %} class="mf-on"{% endif %}></i>{%- endfor -%}</div>
+    {%- endif -%}
+  </div>
+
+  <div class="mf-qv-body">
+    <div>
+      {%- if eyebrow != blank -%}<p class="mf-eyebrow" style="margin: 0 0 var(--space-xs)">{{ eyebrow | escape }}</p>{%- endif -%}
+      <h2 class="mf-display mf-qv-title" id="MfQuickViewTitle"><a href="{{ product.url }}">{{ product.title | escape }}</a></h2>
+    </div>
+
+    <div class="mf-pdp-price">
+      <span data-mf-price-current>{{ current.price | money_without_trailing_zeros }}</span>
+      <s data-mf-price-compare{% unless current.compare_at_price > current.price %} hidden{% endunless %}>{{ current.compare_at_price | money_without_trailing_zeros }}</s>
+      <span class="mf-badge mf-badge--sale" data-mf-price-save{% unless current.compare_at_price > current.price %} hidden{% endunless %}>{%- if save_amt != '' -%}{{ 'mf.card.save' | t: amount: save_amt }}{%- endif -%}</span>
+    </div>
+
+    <div class="mf-pdp-sub">
+      {%- if product.metafields.custom.dimensions != blank -%}<span>{{ product.metafields.custom.dimensions.value | escape }}</span>{%- endif -%}
+      <span data-mf-stock>
+        {%- if current.available -%}<span class="mf-status mf-status--done"><i></i>{{ 'mf.product.in_stock' | t }}</span>{%- else -%}<span class="mf-status"><i></i>{{ 'mf.card.sold_out' | t }}</span>{%- endif -%}
+      </span>
+    </div>
+
+    {%- unless product.has_only_default_variant -%}
+      <div class="mf-variant-picker">
+        {%- for option in product.options_with_values -%}
+          {%- assign oname = option.name | downcase -%}
+          <fieldset class="mf-option" data-mf-option="{{ forloop.index0 }}">
+            <legend>{{ option.name | escape }}: <span data-mf-option-label>{{ option.selected_value | escape }}</span></legend>
+            {%- if oname == 'color' or oname == 'colour' or oname == 'finish' -%}
+              <div class="mf-swatch-btns">
+                {%- for value in option.values -%}
+                  {%- capture sw -%}{%- render 'mf-swatch-color', value: value -%}{%- endcapture -%}
+                  <label class="mf-swatch-btn" title="{{ value.name | escape }}">
+                    <input type="radio" name="mf-qv-option-{{ product.id }}-{{ forloop.parentloop.index0 }}" value="{{ value.name | escape }}" form="{{ form_id }}-options"{% if value.selected %} checked{% endif %}>
+                    <span style="--sw: {{ sw }}"></span><span class="mf-visually-hidden">{{ value.name | escape }}</span>
+                  </label>
+                {%- endfor -%}
+              </div>
+            {%- else -%}
+              <div class="mf-pills">
+                {%- for value in option.values -%}
+                  <label class="mf-pill"><input type="radio" name="mf-qv-option-{{ product.id }}-{{ forloop.parentloop.index0 }}" value="{{ value.name | escape }}" form="{{ form_id }}-options"{% if value.selected %} checked{% endif %}><span>{{ value.name | escape }}</span></label>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </fieldset>
+        {%- endfor -%}
+        <script type="application/json" data-mf-variant-json>{{ product.variants | json }}</script>
+      </div>
+    {%- endunless -%}
+
+    <product-form class="mf-product-form" data-hide-errors="false">
+      {%- form 'product', product, id: form_id, class: 'mf-form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+        <input type="hidden" name="id" value="{{ current.id }}">
+        <div class="mf-buy-row">
+          <div class="mf-qty">
+            <button type="button" data-mf-qty="-1" aria-label="{{ 'mf.product.decrease' | t }}">−</button>
+            <input type="number" name="quantity" value="1" min="1" aria-label="{{ 'mf.product.quantity' | t }}" data-mf-qty-input>
+            <button type="button" data-mf-qty="1" aria-label="{{ 'mf.product.increase' | t }}">+</button>
+          </div>
+          <button type="submit" name="add" class="mf-btn mf-btn--accent" data-mf-atc{% unless current.available %} disabled aria-disabled="true"{% endunless %}
+            data-label-add="{{ 'mf.product.add_to_cart' | t }}" data-label-soldout="{{ 'mf.card.sold_out' | t }}" data-label-unavailable="{{ 'mf.product.unavailable' | t }}">
+            <span>{%- if current.available -%}{{ 'mf.product.add_to_cart' | t }}{%- else -%}{{ 'mf.card.sold_out' | t }}{%- endif -%}</span>
+          </button>
+        </div>
+        <div class="product-form__error-message-wrapper mf-form-status mf-form-status--error" role="alert" hidden>
+          {% render 'mf-icon', icon: 'alert' %}<span class="product-form__error-message"></span>
+        </div>
+      {%- endform -%}
+    </product-form>
+    <form id="{{ form_id }}-options" hidden></form>
+
+    {%- if product.description != blank -%}
+      <p class="mf-qv-desc">{{ product.description | strip_html | truncatewords: 32 }}</p>
+    {%- endif -%}
+
+    <a class="mf-link-arrow" href="{{ product.url }}" style="justify-self: start">{{ 'mf.quickview.full_details' | t }} {% render 'mf-icon', icon: 'arrow', size: 16 %}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Quick view",
+  "tag": "div",
+  "class": "mf-shopify-section",
+  "settings": []
+}
+{% endschema %}

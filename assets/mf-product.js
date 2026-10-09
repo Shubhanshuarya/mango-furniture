@@ -64,9 +64,11 @@
         ? `<span class="mf-status mf-status--done"><i></i>${stock.dataset.inStock || 'In stock'}</span>`
         : `<span class="mf-status"><i></i>${atc.dataset.labelSoldout}</span>`;
       setText('[data-mf-sticky-variant]', `· ${variant.title}`);
-      const url = new URL(location.href);
-      url.searchParams.set('variant', variant.id);
-      history.replaceState({}, '', url);
+      if (!root.hasAttribute('data-mf-no-url')) { // quick view must not change the page URL
+        const url = new URL(location.href);
+        url.searchParams.set('variant', variant.id);
+        history.replaceState({}, '', url);
+      }
       if (variant.featured_media) showMedia(variant.featured_media.id);
     }
 
