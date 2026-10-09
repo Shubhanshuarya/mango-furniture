@@ -1,0 +1,57 @@
+{%- comment -%}
+  Fields for a customer_address form (add or edit). Country/province selects are wired by assets/mf-account.js
+  with Shopify.CountryProvinceSelector.
+  Accepts: form {Object} the customer_address form, key {String} unique suffix for IDs ('new' or the address id),
+  is_default {Boolean} whether this address is the default.
+{%- endcomment -%}
+<div class="mf-form-row">
+  <div class="mf-field">
+    <label for="MfAddrFirst-{{ key }}">{{ 'mf.account.first_name' | t }}</label>
+    <input class="mf-input" id="MfAddrFirst-{{ key }}" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name" required>
+    <p class="mf-field-error">{% render 'mf-icon', icon: 'alert', size: 16 %}{{ 'mf.account.error_required' | t }}</p>
+  </div>
+  <div class="mf-field">
+    <label for="MfAddrLast-{{ key }}">{{ 'mf.account.last_name' | t }}</label>
+    <input class="mf-input" id="MfAddrLast-{{ key }}" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name" required>
+    <p class="mf-field-error">{% render 'mf-icon', icon: 'alert', size: 16 %}{{ 'mf.account.error_required' | t }}</p>
+  </div>
+</div>
+<div class="mf-field">
+  <label for="MfAddrCompany-{{ key }}">{{ 'mf.account.company' | t }} <span class="mf-muted" style="font-weight: 400">{{ 'mf.account.optional' | t }}</span></label>
+  <input class="mf-input" id="MfAddrCompany-{{ key }}" name="address[company]" value="{{ form.company }}" autocomplete="organization">
+</div>
+<div class="mf-field">
+  <label for="MfAddr1-{{ key }}">{{ 'mf.account.address1' | t }}</label>
+  <input class="mf-input" id="MfAddr1-{{ key }}" name="address[address1]" value="{{ form.address1 }}" autocomplete="address-line1" required>
+  <p class="mf-field-error">{% render 'mf-icon', icon: 'alert', size: 16 %}{{ 'mf.account.error_required' | t }}</p>
+</div>
+<div class="mf-field">
+  <label for="MfAddr2-{{ key }}">{{ 'mf.account.address2' | t }} <span class="mf-muted" style="font-weight: 400">{{ 'mf.account.optional' | t }}</span></label>
+  <input class="mf-input" id="MfAddr2-{{ key }}" name="address[address2]" value="{{ form.address2 }}" autocomplete="address-line2">
+</div>
+<div class="mf-form-row">
+  <div class="mf-field">
+    <label for="MfAddrCity-{{ key }}">{{ 'mf.account.city' | t }}</label>
+    <input class="mf-input" id="MfAddrCity-{{ key }}" name="address[city]" value="{{ form.city }}" autocomplete="address-level2" required>
+    <p class="mf-field-error">{% render 'mf-icon', icon: 'alert', size: 16 %}{{ 'mf.account.error_required' | t }}</p>
+  </div>
+  <div class="mf-field">
+    <label for="MfAddrZip-{{ key }}">{{ 'mf.account.zip' | t }}</label>
+    <input class="mf-input" id="MfAddrZip-{{ key }}" name="address[zip]" value="{{ form.zip }}" autocomplete="postal-code" autocapitalize="characters">
+  </div>
+</div>
+<div class="mf-form-row">
+  <div class="mf-field">
+    <label for="MfAddrCountry-{{ key }}">{{ 'mf.account.country' | t }}</label>
+    <select class="mf-select" id="MfAddrCountry-{{ key }}" name="address[country]" autocomplete="country" data-default="{{ form.country }}" data-mf-country="{{ key }}">{{ all_country_option_tags }}</select>
+  </div>
+  <div class="mf-field" id="MfAddrProvinceWrap-{{ key }}">
+    <label for="MfAddrProvince-{{ key }}">{{ 'mf.account.province' | t }}</label>
+    <select class="mf-select" id="MfAddrProvince-{{ key }}" name="address[province]" autocomplete="address-level1" data-default="{{ form.province }}"></select>
+  </div>
+</div>
+<div class="mf-field">
+  <label for="MfAddrPhone-{{ key }}">{{ 'mf.account.phone' | t }} <span class="mf-muted" style="font-weight: 400">{{ 'mf.account.optional' | t }}</span></label>
+  <input class="mf-input" id="MfAddrPhone-{{ key }}" type="tel" name="address[phone]" value="{{ form.phone }}" autocomplete="tel">
+</div>
+<label class="mf-check"><input type="checkbox" name="address[default]" value="1"{% if is_default %} checked{% endif %}> {{ 'mf.account.set_default' | t }}</label>

@@ -1,0 +1,154 @@
+{%- comment -%}
+  Order detail (templates/customers/order.json, classic customer accounts).
+{%- endcomment -%}
+{%- render 'mf-assets', css: 'mf-account', preload_fonts: true -%}
+
+{%- liquid
+  assign paid = false
+  if order.financial_status == 'paid' or order.financial_status == 'partially_refunded' or order.financial_status == 'refunded'
+    assign paid = true
+  endif
+  assign shipped = false
+  if order.fulfillment_status == 'fulfilled' or order.fulfillment_status == 'partial'
+    assign shipped = true
+  endif
+  assign step = 0
+  if paid
+    assign step = 1
+  endif
+  if shipped
+    assign step = 2
+  endif
+-%}
+
+<div class="mf" data-mf-main>
+  <section class="mf-container mf-page-hero">
+    <ol class="mf-crumbs" aria-label="{{ 'mf.collection.breadcrumb' | t }}">
+      <li><a href="{{ routes.account_url }}">{{ 'mf.account.my_account' | t }}</a></li>
+      <li aria-current="page">{{ order.name }}</li>
+    </ol>
+    <h1 class="mf-display mf-display-l">{{ 'mf.account.order' | t }} {{ order.name }}</h1>
+    <p class="mf-muted" style="margin: 8px 0 0">{{ 'mf.account.placed' | t }} {{ order.created_at | time_tag: format: 'date_at_time' }}</p>
+  </section>
+
+  <div class="mf-container mf-account">
+    {%- render 'mf-account-nav', current: 'orders', extra_label: section.settings.extra_label, extra_link: section.settings.extra_link -%}
+
+    <div class="mf-account-main">
+      {%- if order.cancelled -%}
+        {%- assign cancelled_on = order.cancelled_at | date: format: 'date' -%}
+        <div class="mf-auth-errors" role="status">
+          <p><b>{{ 'mf.account.cancelled' | t: date: cancelled_on }}</b></p>
+          {%- if order.cancel_reason_label != blank -%}<p>{{ order.cancel_reason_label }}</p>{%- endif -%}
+        </div>
+      {%- else -%}
+        <div class="mf-order">
+          <div class="mf-order-body">
+            <div style="display: flex; justify-content: space-between; gap: var(--space-s); flex-wrap: wrap">
+              <span class="mf-status{% if order.fulfillment_status == 'fulfilled' %} mf-status--done{% endif %}"><i></i>{{ order.fulfillment_status_label }}</span>
+              <span class="mf-muted" style="font-size: var(--step--1)">{{ 'mf.account.payment' | t }}: {{ order.financial_status_label }}</span>
+            </div>
+            <div class="mf-timeline" style="--n: 3" role="img" aria-label="{{ 'mf.account.progress' | t: status: order.fulfillment_status_label | escape }}">
+              <span class="mf-fill-line" style="width: calc((100% - 100% / 3) * {{ step }} / 2)"></span>
+              <span class="mf-on">{{ 'mf.account.step_ordered' | t }}</span>
+              <span{% if paid %} class="mf-on"{% endif %}>{{ 'mf.account.step_paid' | t }}</span>
+              <span{% if shipped %} class="mf-on"{% endif %}>{{ 'mf.account.step_shipped' | t }}</span>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      <div class="mf-order-detail">
+        <div>
+          <h2 class="mf-display mf-display-s" style="margin-bottom: var(--space-s)">{{ 'mf.account.items' | t }}</h2>
+          <div class="mf-order-lines">
+            {%- for item in order.line_items -%}
+              <div class="mf-order-line">
+                <a class="mf-media" href="{{ item.url | default: '#' }}" tabindex="-1" aria-hidden="true">
+                  {%- if item.image -%}{{ item.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: '', widths: '180, 240, 300', sizes: '88px' }}{%- endif -%}
+                </a>
+                <div>
+                  <h3>{% if item.url != blank %}<a href="{{ item.url }}">{{ item.product.title | default: item.title | escape }}</a>{% else %}{{ item.title | escape }}{% endif %}</h3>
+                  <p class="mf-meta">
+                    {%- unless item.product.has_only_default_variant or item.variant.title == blank -%}{{ item.variant.title | escape }} · {% endunless -%}
+                    {{ 'mf.account.quantity' | t: quantity: item.quantity }}
+                    {%- if item.sku != blank %} · {{ item.sku | escape }}{% endif -%}
+                  </p>
+                  {%- for property in item.properties -%}
+                    {%- assign first_char = property.first | slice: 0 -%}
+                    {%- if property.last != blank and first_char != '_' -%}<p class="mf-meta">{{ property.first | escape }}: {{ property.last | escape }}</p>{%- endif -%}
+                  {%- endfor -%}
+                  {%- for discount in item.line_level_discount_allocations -%}
+                    <p class="mf-meta" style="color: var(--color-accent)">{{ discount.discount_application.title | escape }} (−{{ discount.amount | money }})</p>
+                  {%- endfor -%}
+                  {%- if item.fulfillment -%}
+                    <div class="mf-order-track mf-meta">
+                      <span>{{ item.fulfillment.created_at | time_tag: format: 'date' }}</span>
+                      {%- if item.fulfillment.tracking_url -%}
+                        <a href="{{ item.fulfillment.tracking_url }}" target="_blank" rel="noopener">{{ 'mf.account.track' | t }}{% if item.fulfillment.tracking_number %} · {{ item.fulfillment.tracking_number }}{% endif %}</a>
+                      {%- elsif item.fulfillment.tracking_number -%}
+                        <span>{{ item.fulfillment.tracking_company }} {{ item.fulfillment.tracking_number }}</span>
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+                <div class="mf-price mf-tabular">
+                  <span>{{ item.final_line_price | money }}</span>
+                  {%- if item.original_line_price != item.final_line_price -%}<s>{{ item.original_line_price | money }}</s>{%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <aside class="mf-order-aside">
+          <div class="mf-order-box">
+            <h2>{{ 'mf.account.summary' | t }}</h2>
+            <div class="mf-totals">
+              <div><span>{{ 'mf.account.subtotal' | t }}</span><span class="mf-tabular">{{ order.line_items_subtotal_price | money }}</span></div>
+              {%- for discount in order.cart_level_discount_applications -%}
+                <div><span>{{ 'mf.account.discount' | t }} · {{ discount.title | escape }}</span><span class="mf-tabular">−{{ discount.total_allocated_amount | money }}</span></div>
+              {%- endfor -%}
+              {%- for shipping_method in order.shipping_methods -%}
+                <div><span>{{ 'mf.account.shipping' | t }} · {{ shipping_method.title | escape }}</span><span class="mf-tabular">{{ shipping_method.price | money }}</span></div>
+              {%- endfor -%}
+              {%- for tax_line in order.tax_lines -%}
+                <div><span>{{ 'mf.account.tax' | t }} · {{ tax_line.title | escape }} ({{ tax_line.rate_percentage }}%)</span><span class="mf-tabular">{{ tax_line.price | money }}</span></div>
+              {%- endfor -%}
+              <div class="mf-grand"><span>{{ 'mf.account.total' | t }}</span><span class="mf-tabular">{{ order.total_price | money_with_currency }}</span></div>
+              {%- if order.total_refunded_amount > 0 -%}
+                <div><span>{{ order.financial_status_label }}</span><span class="mf-tabular">−{{ order.total_refunded_amount | money }}</span></div>
+              {%- endif -%}
+            </div>
+          </div>
+          {%- if order.shipping_address -%}
+            <div class="mf-order-box">
+              <h2>{{ 'mf.account.shipping_address' | t }}</h2>
+              <address>{{ order.shipping_address | format_address }}</address>
+            </div>
+          {%- endif -%}
+          {%- if order.billing_address -%}
+            <div class="mf-order-box">
+              <h2>{{ 'mf.account.billing_address' | t }}</h2>
+              <address>{{ order.billing_address | format_address }}</address>
+            </div>
+          {%- endif -%}
+          <a class="mf-link-arrow" href="{{ routes.account_url }}" style="justify-self: start">{% render 'mf-icon', icon: 'left', size: 16 %} {{ 'mf.account.back' | t }}</a>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Order",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "header", "content": "Extra menu link" },
+    { "type": "text", "id": "extra_label", "label": "Label", "info": "e.g. Trade program. Leave empty to hide." },
+    { "type": "url", "id": "extra_link", "label": "Link" }
+  ]
+}
+{% endschema %}

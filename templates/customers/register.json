@@ -9,10 +9,20 @@
  */
 {
   "sections": {
+    "mf_main": {
+      "type": "mf-main-register",
+      "settings": {
+        "image": "shopify://shop_images/about-sling-chair.webp"
+      }
+    },
     "main": {
       "type": "main-register",
-      "settings": {}
+      "settings": {},
+      "disabled": true
     }
   },
-  "order": ["main"]
+  "order": [
+    "mf_main",
+    "main"
+  ]
 }

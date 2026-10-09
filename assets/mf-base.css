@@ -407,7 +407,7 @@
 .mf { font-size: 16px; }
 .mf :where(h1, h2, h3, h4) { margin: 0; text-transform: none; max-width: none; color: inherit; letter-spacing: var(--display-tracking); }
 .mf .mf-card-title, .mf .mf-card-title a, .mf h3.mf-card-title { letter-spacing: 0; }
-.mf p { color: inherit; }
+:where(.mf) p { color: inherit; }
 .mf :where(a) { color: inherit; }
 /* Buttons that are links: keep the button colour (the generic link reset above must not win) */
 .mf a.mf-btn, .mf a.mf-btn:hover, .mf a.mf-btn:visited, .mf a.mf-btn:focus,

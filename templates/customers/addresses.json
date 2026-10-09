@@ -9,9 +9,14 @@
  */
 {
   "sections": {
+    "mf_main": {
+      "type": "mf-main-addresses",
+      "settings": {}
+    },
     "main": {
       "type": "main-addresses",
-      "settings": {}
+      "settings": {},
+      "disabled": true
     },
     "popular-products": {
       "type": "popular-products",
@@ -22,10 +27,12 @@
         "show_secondary_image": true,
         "show_vendor": true,
         "show_desc": false
-      }
+      },
+      "disabled": true
     }
   },
   "order": [
+    "mf_main",
     "main",
     "popular-products"
   ]

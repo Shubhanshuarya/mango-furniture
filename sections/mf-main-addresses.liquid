@@ -1,0 +1,102 @@
+{%- comment -%}
+  Addresses (templates/customers/addresses.json, classic customer accounts).
+  Native customer_address forms; delete posts _method=delete to the address URL (assets/mf-account.js).
+{%- endcomment -%}
+{%- render 'mf-assets', css: 'mf-account', preload_fonts: true -%}
+{{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+<script src="{{ 'mf-forms.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'mf-account.js' | asset_url }}" defer="defer"></script>
+
+<div class="mf" data-mf-main>
+  <section class="mf-container mf-page-hero">
+    <ol class="mf-crumbs" aria-label="{{ 'mf.collection.breadcrumb' | t }}">
+      <li><a href="{{ routes.account_url }}">{{ 'mf.account.my_account' | t }}</a></li>
+      <li aria-current="page">{{ 'mf.account.addresses' | t }}</li>
+    </ol>
+    <h1 class="mf-display mf-display-l">{{ 'mf.account.addresses' | t }}</h1>
+  </section>
+
+  <div class="mf-container mf-account">
+    {%- render 'mf-account-nav', current: 'addresses', extra_label: section.settings.extra_label, extra_link: section.settings.extra_link -%}
+
+    <div class="mf-account-main" data-mf-addresses>
+      {%- if customer -%}
+      {%- paginate customer.addresses by 12 -%}
+        <button type="button" class="mf-btn mf-btn--accent mf-address-add" aria-expanded="false" aria-controls="MfAddressForm-new" data-mf-address-toggle="new">
+          {% render 'mf-icon', icon: 'plus', size: 18 %} {{ 'mf.account.add_address' | t }}
+        </button>
+
+        <div class="mf-address-form" id="MfAddressForm-new" hidden>
+          {%- form 'customer_address', customer.new_address, id: 'MfAddressNew', novalidate: 'novalidate', data-mf-validate: 'true' -%}
+            <h2 class="mf-display">{{ 'mf.account.add_address' | t }}</h2>
+            {%- render 'mf-form-errors', form: form -%}
+            {%- if form.errors -%}<span hidden data-mf-open-form="new"></span>{%- endif -%}
+            {%- render 'mf-address-fields', form: form, key: 'new', is_default: false -%}
+            <div style="display: flex; gap: 8px; flex-wrap: wrap">
+              <button class="mf-btn mf-btn--accent" type="submit">{{ 'mf.account.save' | t }}</button>
+              <button class="mf-btn mf-btn--secondary" type="button" data-mf-address-toggle="new">{{ 'mf.account.cancel' | t }}</button>
+            </div>
+          {%- endform -%}
+        </div>
+
+        {%- if customer.addresses.size == 0 -%}
+          <div class="mf-empty-state mf-account-empty">
+            <span class="mf-icon-circle">{% render 'mf-icon', icon: 'pin' %}</span>
+            <h2 class="mf-display mf-display-s">{{ 'mf.account.no_addresses' | t }}</h2>
+            <p class="mf-muted" style="margin: 0">{{ 'mf.account.no_addresses_text' | t }}</p>
+          </div>
+        {%- else -%}
+          <div class="mf-address-grid">
+            {%- for address in customer.addresses -%}
+              {%- assign is_default = false -%}
+              {%- if address == customer.default_address -%}{%- assign is_default = true -%}{%- endif -%}
+              <div class="mf-address-card" id="MfAddressCard-{{ address.id }}">
+                {%- if is_default -%}<span class="mf-badge mf-badge--soldout">{{ 'mf.account.default' | t }}</span>{%- endif -%}
+                <address>{{ address | format_address }}</address>
+                <div class="mf-address-actions">
+                  <button type="button" aria-expanded="false" aria-controls="MfAddressForm-{{ address.id }}" data-mf-address-toggle="{{ address.id }}">{{ 'mf.account.edit' | t }}</button>
+                  <button type="button" data-mf-address-delete="{{ address.url }}" data-confirm="{{ 'mf.account.delete_confirm' | t }}">{{ 'mf.account.delete' | t }}</button>
+                </div>
+              </div>
+              <div class="mf-address-form" id="MfAddressForm-{{ address.id }}" hidden style="grid-column: 1 / -1">
+                {%- assign edit_form_id = 'MfAddressEdit-' | append: address.id -%}
+                {%- form 'customer_address', address, id: edit_form_id, novalidate: 'novalidate', data-mf-validate: 'true' -%}
+                  <h2 class="mf-display">{{ 'mf.account.edit_address' | t }}</h2>
+                  {%- render 'mf-form-errors', form: form -%}
+                  {%- if form.errors -%}<span hidden data-mf-open-form="{{ address.id }}"></span>{%- endif -%}
+                  {%- render 'mf-address-fields', form: form, key: address.id, is_default: is_default -%}
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                    <button class="mf-btn mf-btn--accent" type="submit">{{ 'mf.account.save' | t }}</button>
+                    <button class="mf-btn mf-btn--secondary" type="button" data-mf-address-toggle="{{ address.id }}">{{ 'mf.account.cancel' | t }}</button>
+                  </div>
+                {%- endform -%}
+              </div>
+            {%- endfor -%}
+          </div>
+
+          {%- if paginate.pages > 1 -%}
+            <nav aria-label="{{ 'mf.account.addresses' | t }}" style="display: flex; gap: 8px; justify-content: center">
+              {%- if paginate.previous -%}<a class="mf-btn mf-btn--secondary mf-btn--sm" href="{{ paginate.previous.url }}">{% render 'mf-icon', icon: 'left', size: 16 %} {{ paginate.previous.title | strip_html }}</a>{%- endif -%}
+              <span class="mf-muted" style="align-self: center; font-size: var(--step--1)">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+              {%- if paginate.next -%}<a class="mf-btn mf-btn--secondary mf-btn--sm" href="{{ paginate.next.url }}">{{ paginate.next.title | strip_html }} {% render 'mf-icon', icon: 'right', size: 16 %}</a>{%- endif -%}
+            </nav>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endpaginate -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Addresses",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "header", "content": "Extra menu link" },
+    { "type": "text", "id": "extra_label", "label": "Label", "info": "e.g. Trade program. Leave empty to hide." },
+    { "type": "url", "id": "extra_link", "label": "Link" }
+  ]
+}
+{% endschema %}

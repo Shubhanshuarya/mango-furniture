@@ -1,0 +1,11 @@
+{%- comment -%}
+  Account side navigation. Accepts: current {String} 'orders' | 'addresses', extra_label/extra_link {String} optional link (e.g. trade program).
+{%- endcomment -%}
+<nav class="mf-account-nav" aria-label="{{ 'mf.account.my_account' | t }}">
+  <a href="{{ routes.account_url }}"{% if current == 'orders' %} aria-current="page"{% endif %}>{% render 'mf-icon', icon: 'bag', size: 18 %}{{ 'mf.account.orders' | t }}</a>
+  <a href="{{ routes.account_addresses_url }}"{% if current == 'addresses' %} aria-current="page"{% endif %}>{% render 'mf-icon', icon: 'pin', size: 18 %}{{ 'mf.account.addresses' | t }}</a>
+  {%- if extra_label != blank and extra_link != blank -%}
+    <a href="{{ extra_link }}">{% render 'mf-icon', icon: 'tag', size: 18 %}{{ extra_label | escape }}</a>
+  {%- endif -%}
+  <a href="{{ routes.account_logout_url }}">{% render 'mf-icon', icon: 'arrow', size: 18 %}{{ 'mf.account.sign_out' | t }}</a>
+</nav>

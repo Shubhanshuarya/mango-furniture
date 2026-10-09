@@ -1,0 +1,20 @@
+{%- comment -%}
+  Lists Shopify's server-side form errors (wrong password, email taken, …).
+  Accepts: form {Object} the current form object from inside a {% form %} tag.
+{%- endcomment -%}
+{%- if form.errors -%}
+  <div class="mf-auth-errors" role="alert" tabindex="-1" data-mf-autofocus>
+    <p><b>{{ 'mf.account.errors_heading' | t }}</b></p>
+    <ul>
+      {%- for field in form.errors -%}
+        <li>
+          {%- if field == 'form' -%}
+            {{ form.errors.messages[field] }}
+          {%- else -%}
+            {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}

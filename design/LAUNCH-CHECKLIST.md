@@ -28,11 +28,12 @@ Everything in the theme is built on branch `redesign-askara-ref`. These are the 
 - [ ] WhatsApp: theme editor → Header → **WhatsApp number**. The icon and floating mobile button show once it's set.
 - [ ] Theme settings → Social media: replace the `#` placeholders. The footer shows a link only when a real URL is set.
 
-## 5. Customer accounts (Shopify-hosted)
-Your store uses new customer accounts, so sign-in and order history are Shopify pages. Match them to the theme in **Settings → Checkout / Customer accounts → Customize → Branding**:
-- Background `#F5F0E8`, surfaces `#EDE5D8`, text `#2A211B`, accent and buttons `#A0533A`, corner radius *large* (pill buttons).
-- Fonts: closest Shopify fonts to Fraunces (headings) and Figtree (body), e.g. *Fraunces* if offered, otherwise *Playfair Display* / *Inter*.
-- Logo: the same logo as the header.
+## 5. Customer accounts (classic, theme-designed)
+The theme now has redesigned sign in, create account, forgot/reset password, account activation, order history, order detail and address pages. They only show once the store uses **classic** customer accounts (today it uses Shopify-hosted new accounts, which the theme cannot style).
+- [ ] **Settings → Customer accounts** → choose the classic/legacy accounts option (Shopify labels it "Legacy" or "Classic"). Note: Shopify is phasing this option out; if it is no longer offered, use the branding fallback below.
+- [ ] Test: sign up, sign out, sign in, "Forgot password?", add/edit/delete an address, place a test order and open it from the account page.
+- [ ] Optional: theme editor → account pages → set the side image, quote and an extra menu link (e.g. "Trade program").
+- Fallback (if you stay on new accounts): **Settings → Checkout → Customize → Branding**: background `#F5F0E8`, surfaces `#EDE5D8`, text `#2A211B`, accent/buttons `#A0533A`, large corner radius, same logo as the header.
 
 ## 6. Before publishing
 - [ ] **Decide the target theme.** This repo was pulled from the unpublished theme "Copenhagen" (#193145438500), not your live theme "Updated copy of Copy of OG Copenhagen 2" (#193145241892). Recommended: `shopify theme push --unpublished` to create a fresh preview theme from this branch, review it on your phone, then publish it from Admin.

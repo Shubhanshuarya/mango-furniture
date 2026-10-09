@@ -1,0 +1,128 @@
+{%- comment -%}
+  Account / order history (templates/customers/account.json, classic customer accounts).
+  Progress uses only what Shopify knows: ordered → paid (financial_status) → shipped (fulfillment_status).
+{%- endcomment -%}
+{%- render 'mf-assets', css: 'mf-account', preload_fonts: true -%}
+
+<div class="mf" data-mf-main>
+  <section class="mf-container mf-page-hero">
+    <p class="mf-eyebrow">{{ 'mf.account.my_account' | t }}</p>
+    <h1 class="mf-display mf-display-l">
+      {%- if customer.first_name != blank -%}{{ 'mf.account.welcome_name' | t: name: customer.first_name | escape }}{%- else -%}{{ 'mf.account.welcome_back' | t }}{%- endif -%}
+    </h1>
+  </section>
+
+  <div class="mf-container mf-account">
+    {%- render 'mf-account-nav', current: 'orders', extra_label: section.settings.extra_label, extra_link: section.settings.extra_link -%}
+
+    <div class="mf-account-main">
+      {%- if customer -%}
+      {%- paginate customer.orders by 10 -%}
+        {%- if customer.orders.size == 0 -%}
+          <div class="mf-empty-state mf-account-empty">
+            <span class="mf-icon-circle">{% render 'mf-icon', icon: 'bag' %}</span>
+            <h2 class="mf-display mf-display-s">{{ 'mf.account.no_orders' | t }}</h2>
+            <p class="mf-muted" style="margin: 0">{{ 'mf.account.no_orders_text' | t }}</p>
+            <a class="mf-btn" href="{{ section.settings.shop_link | default: routes.all_products_collection_url }}">{{ 'mf.account.start_shopping' | t }}</a>
+          </div>
+        {%- else -%}
+          <div>
+            {%- for order in customer.orders -%}
+              {%- liquid
+                assign paid = false
+                if order.financial_status == 'paid' or order.financial_status == 'partially_refunded' or order.financial_status == 'refunded'
+                  assign paid = true
+                endif
+                assign shipped = false
+                if order.fulfillment_status == 'fulfilled' or order.fulfillment_status == 'partial'
+                  assign shipped = true
+                endif
+                assign step = 0
+                if paid
+                  assign step = 1
+                endif
+                if shipped
+                  assign step = 2
+                endif
+                assign tracking_url = nil
+                for item in order.line_items
+                  if item.fulfillment.tracking_url != blank
+                    assign tracking_url = item.fulfillment.tracking_url
+                    break
+                  endif
+                endfor
+              -%}
+              <article class="mf-order">
+                <dl class="mf-order-head">
+                  <div><dt>{{ 'mf.account.order' | t }}</dt><dd>{{ order.name }}</dd></div>
+                  <div><dt>{{ 'mf.account.placed' | t }}</dt><dd>{{ order.created_at | time_tag: format: 'date' }}</dd></div>
+                  <div><dt>{{ 'mf.account.total' | t }}</dt><dd class="mf-tabular">{{ order.total_price | money }}</dd></div>
+                  <div><dt>{{ 'mf.account.status' | t }}</dt><dd>
+                    {%- if order.cancelled -%}
+                      <span class="mf-status"><i style="background: var(--color-error)"></i>{{ order.financial_status_label }}</span>
+                    {%- else -%}
+                      <span class="mf-status{% if order.fulfillment_status == 'fulfilled' %} mf-status--done{% endif %}"><i></i>{{ order.fulfillment_status_label }}</span>
+                    {%- endif -%}
+                  </dd></div>
+                  <a class="mf-btn mf-btn--secondary mf-btn--sm" href="{{ order.customer_url }}" aria-label="{{ 'mf.account.view_order' | t }} {{ order.name }}">{{ 'mf.account.view_order' | t }}</a>
+                </dl>
+                <div class="mf-order-body">
+                  {%- if order.cancelled -%}
+                    {%- assign cancelled_on = order.cancelled_at | date: format: 'date' -%}
+                    <p class="mf-order-cancelled">{{ 'mf.account.cancelled' | t: date: cancelled_on }}</p>
+                  {%- else -%}
+                    <div class="mf-timeline" style="--n: 3" role="img" aria-label="{{ 'mf.account.progress' | t: status: order.fulfillment_status_label | escape }}">
+                      <span class="mf-fill-line" style="width: calc((100% - 100% / 3) * {{ step }} / 2)"></span>
+                      <span class="mf-on">{{ 'mf.account.step_ordered' | t }}</span>
+                      <span{% if paid %} class="mf-on"{% endif %}>{{ 'mf.account.step_paid' | t }}</span>
+                      <span{% if shipped %} class="mf-on"{% endif %}>{{ 'mf.account.step_shipped' | t }}</span>
+                    </div>
+                  {%- endif -%}
+                  <div style="display: flex; justify-content: space-between; align-items: end; gap: var(--space-m); flex-wrap: wrap">
+                    <div class="mf-order-items">
+                      {%- for item in order.line_items limit: 5 -%}
+                        <a href="{{ order.customer_url }}" title="{{ item.title | escape }}">
+                          {%- if item.image -%}{{ item.image | image_url: width: 180 | image_tag: loading: 'lazy', alt: item.title, width: 72, height: 90 }}{%- else -%}<span class="mf-order-more" aria-hidden="true">{{ item.quantity }}×</span>{%- endif -%}
+                        </a>
+                      {%- endfor -%}
+                      {%- if order.line_items.size > 5 -%}
+                        {%- assign more = order.line_items.size | minus: 5 -%}
+                        <a class="mf-order-more" href="{{ order.customer_url }}">{{ 'mf.account.more_items' | t: count: more }}</a>
+                      {%- endif -%}
+                    </div>
+                    {%- if tracking_url -%}
+                      <a class="mf-link-arrow" href="{{ tracking_url }}" target="_blank" rel="noopener">{{ 'mf.account.track' | t }} {% render 'mf-icon', icon: 'arrow', size: 16 %}</a>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </article>
+            {%- endfor -%}
+          </div>
+
+          {%- if paginate.pages > 1 -%}
+            <nav class="mf-pagination" aria-label="{{ 'mf.account.orders' | t }}" style="display: flex; gap: 8px; justify-content: center">
+              {%- if paginate.previous -%}<a class="mf-btn mf-btn--secondary mf-btn--sm" href="{{ paginate.previous.url }}">{% render 'mf-icon', icon: 'left', size: 16 %} {{ paginate.previous.title | strip_html }}</a>{%- endif -%}
+              <span class="mf-muted" style="align-self: center; font-size: var(--step--1)">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+              {%- if paginate.next -%}<a class="mf-btn mf-btn--secondary mf-btn--sm" href="{{ paginate.next.url }}">{{ paginate.next.title | strip_html }} {% render 'mf-icon', icon: 'right', size: 16 %}</a>{%- endif -%}
+            </nav>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endpaginate -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mango: Account",
+  "tag": "section",
+  "class": "mf-shopify-section",
+  "settings": [
+    { "type": "url", "id": "shop_link", "label": "\"Start shopping\" link" },
+    { "type": "header", "content": "Extra menu link" },
+    { "type": "text", "id": "extra_label", "label": "Label", "info": "e.g. Trade program. Leave empty to hide." },
+    { "type": "url", "id": "extra_link", "label": "Link" }
+  ]
+}
+{% endschema %}

@@ -30,6 +30,7 @@
   doc.addEventListener('submit', (e) => {
     const form = e.target.closest('form[data-mf-validate]');
     if (!form) return;
+    if (e.submitter?.hasAttribute('data-mf-skip-validate')) return;
     const bad = validate(form);
     if (bad.length) { e.preventDefault(); bad[0].focus(); return; }
     form.querySelector('[type=submit]')?.classList.add('loading');

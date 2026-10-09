@@ -29,13 +29,14 @@ GROUPS = {
     'collection': r'collection|coll-[\w-]+|subcats|toolbar[\w-]*|density|facets?[\w-]*|facet-[\w-]+|range|promo-tile[\w-]*|filter-[\w-]+',
     'product': r'product|pdp[\w-]*|gallery|g|g--media|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*|variant-picker|terms|dynamic-checkout|ar-btn|rte-sm|feature-cols?|recs',
     'cart': r'cart-[\w-]+|summary|trust-row|ship-note',
+    'account': r'auth[\w-]*|divider|btn--shop|account[\w-]*|order[\w-]*|timeline|address[\w-]*|pw-toggle',
     'pages': r'progress|article-hero|article-cover|article-body|article-aside|inline-product|nf|num|process|projects?|form-card|form-split|contact-list|values|v|about-gallery|big-quote|faq-[\w-]+|text-steps|loc',
     # Later stages (enable when the page is built):
     # 'product': r'pdp[\w-]*|gallery|media-slot|mobile-gallery|buy-row|delivery|pdp-links|dim-diagram|spec|story-band|scroller[\w-]*',
 }
-ENABLED = ['home', 'shell', 'collection', 'product', 'cart', 'pages']
+ENABLED = ['home', 'shell', 'collection', 'product', 'cart', 'pages', 'account']
 # Selectors from pages.css that belong to not-yet-built pages are skipped entirely.
-LATER = r'auth[\w-]*|divider|btn--shop|account[\w-]*|order[\w-]*|timeline|card\.is-soldout'
+LATER = r'card\.is-soldout'
 
 
 
@@ -175,7 +176,7 @@ def main():
     guards = """.mf { font-size: 16px; }
 .mf :where(h1, h2, h3, h4) { margin: 0; text-transform: none; max-width: none; color: inherit; letter-spacing: var(--display-tracking); }
 .mf .mf-card-title, .mf .mf-card-title a, .mf h3.mf-card-title { letter-spacing: 0; }
-.mf p { color: inherit; }
+:where(.mf) p { color: inherit; }
 .mf :where(a) { color: inherit; }
 /* Buttons that are links: keep the button colour (the generic link reset above must not win) */
 .mf a.mf-btn, .mf a.mf-btn:hover, .mf a.mf-btn:visited, .mf a.mf-btn:focus,

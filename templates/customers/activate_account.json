@@ -9,12 +9,20 @@
  */
 {
   "sections": {
+    "mf_main": {
+      "type": "mf-main-activate-account",
+      "settings": {
+        "image": "shopify://shop_images/about-sling-chair.webp"
+      }
+    },
     "main": {
       "type": "main-activate-account",
-      "settings": {}
+      "settings": {},
+      "disabled": true
     }
   },
   "order": [
+    "mf_main",
     "main"
   ]
 }
