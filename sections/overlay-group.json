@@ -13,6 +13,7 @@
   "sections": {
     "popup_wwwgMz": {
       "type": "popup",
+      "disabled": true,
       "blocks": {
         "popup_heading_kmkN84": {
           "type": "popup_heading",

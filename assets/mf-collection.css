@@ -2,7 +2,7 @@
 /* Scoped: every class is prefixed mf-, element rules live under .mf. */
 .mf-coll-hero { display: grid; grid-template-columns: 1fr auto; gap: var(--space-l); align-items: end; padding-block: var(--space-xl) var(--space-l); }
 .mf-coll-hero .mf-lede { margin-top: var(--space-s); }
-.mf-subcats { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; margin-top: var(--space-m); }
+.mf-subcats { display: flex; gap: 8px; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; padding-bottom: 4px; margin-top: var(--space-m); }
 .mf-subcats a { flex: none; display: inline-flex; align-items: center; gap: 10px; padding: 6px 16px 6px 6px; border: 1px solid var(--color-line); border-radius: var(--radius-pill); text-decoration: none; font-size: var(--step--1); font-weight: 500; transition: border-color var(--dur-1); }
 .mf-subcats a:hover, .mf-subcats a[aria-current="page"] { border-color: var(--color-ink); }
 .mf-subcats img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: var(--color-surface-media); }

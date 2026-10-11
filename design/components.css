@@ -19,6 +19,8 @@ body.is-locked { overflow: hidden; }
   transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out), visibility 0s linear var(--dur-2);
 }
 .mega.is-open { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+/* Phones/tablets use the menu drawer; the hidden desktop panel must not take part in layout (it widened the page below 390px). */
+@media (max-width: 989px) { .mega { display: none; } }
 .mega-inner { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) 1.6fr; gap: var(--space-l); padding-block: var(--space-xl); }
 .mega h3 { font-family: var(--font-text); font-size: var(--step--1); font-weight: 600; letter-spacing: var(--eyebrow-tracking); text-transform: uppercase; color: var(--color-ink-muted); margin: 0 0 var(--space-s); }
 .mega ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
@@ -186,7 +188,7 @@ details[open] > summary .chev { transform: rotate(180deg); }
 .quickview .qv-media img { width: 100%; height: 100%; object-fit: cover; }
 .quickview .qv-body { padding: var(--space-xl) var(--space-l); display: grid; gap: var(--space-m); align-content: start; }
 .quickview .qv-media { position: relative; overflow: hidden; }
-.qv-track { display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.qv-track { display: flex; height: 100%; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
 .qv-track::-webkit-scrollbar { display: none; }
 .qv-track > * { flex: 0 0 100%; scroll-snap-align: start; }
 .qv-track img, .qv-track svg { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -233,7 +235,7 @@ details[open] > summary .chev { transform: rotate(180deg); }
 .chip svg { width: 14px; height: 14px; }
 .chip:hover { background: var(--color-accent-soft); }
 .chip-clear { border: 0; background: none; text-decoration: underline; font-size: var(--step--1); cursor: pointer; padding: 0 6px; }
-.tabs { display: flex; gap: var(--space-l); border-bottom: 1px solid var(--color-line); overflow-x: auto; scrollbar-width: none; }
+.tabs { display: flex; gap: var(--space-l); border-bottom: 1px solid var(--color-line); overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
 .tabs button, .tabs a { border: 0; background: none; padding: 14px 0; font-weight: 600; color: var(--color-ink-muted); cursor: pointer; text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -1px; }
 .tabs [aria-selected="true"], .tabs [aria-current="page"] { color: var(--color-ink); border-bottom-color: var(--color-ink); }
 .tabs .n { font-weight: 400; margin-left: 4px; }

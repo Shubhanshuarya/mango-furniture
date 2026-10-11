@@ -55,7 +55,7 @@
   .mf-about-gallery .mf-m:nth-child(2) { grid-column: span 2; grid-row: 1; }
   .mf-about-gallery .mf-m:nth-child(1), .mf-about-gallery .mf-m:nth-child(3) { aspect-ratio: 1; }
   .mf-faq-layout { grid-template-columns: minmax(0, 1fr); gap: var(--space-m); }
-  .mf-faq-nav { position: sticky; top: 60px; z-index: 5; display: flex; overflow-x: auto; scrollbar-width: none; background: var(--color-bg); padding-block: 8px; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); border-bottom: 1px solid var(--color-line); }
+  .mf-faq-nav { position: sticky; top: 60px; z-index: 5; display: flex; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; background: var(--color-bg); padding-block: 8px; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); border-bottom: 1px solid var(--color-line); }
   .mf-faq-nav a { flex: none; }
 }
 .mf-article-hero { max-width: 880px; margin-inline: auto; text-align: center; padding-block: var(--space-xl) var(--space-l); }

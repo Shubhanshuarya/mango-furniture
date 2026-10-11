@@ -30,10 +30,10 @@
 .mf-footer-grid { display: grid; grid-template-columns: 2fr repeat(3, minmax(0, 1fr)); gap: var(--space-xl); }
 .mf-site-footer h4, .mf-site-footer .mf-footer-heading { font-family: var(--font-text); font-size: var(--step--1); letter-spacing: var(--eyebrow-tracking); text-transform: uppercase; margin: 0 0 var(--space-s); opacity: 0.7; font-weight: 600; }
 .mf-site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
-.mf-site-footer a { text-decoration: none; opacity: 0.9; overflow-wrap: anywhere; }
+.mf-site-footer a { text-decoration: none; opacity: 0.9; overflow-wrap: break-word; }
 .mf-site-footer a:hover { text-decoration: underline; opacity: 1; }
 .mf-newsletter { display: flex; gap: 8px; margin-top: var(--space-m); max-width: 416px; }
-.mf-newsletter input { flex: 1; min-height: 48px; padding: 0 var(--space-s); border-radius: var(--radius-pill); border: 1px solid color-mix(in srgb, var(--color-inverse-ink) 35%, transparent); background: transparent; color: inherit; }
+.mf-newsletter input { flex: 1; min-width: 0; min-height: 48px; padding: 0 var(--space-s); border-radius: var(--radius-pill); border: 1px solid color-mix(in srgb, var(--color-inverse-ink) 35%, transparent); background: transparent; color: inherit; }
 .mf-newsletter .mf-btn { --btn-bg: var(--color-inverse-ink); --btn-fg: var(--color-inverse-bg); --btn-bd: var(--color-inverse-ink); }
 .mf-footer-base { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-s); margin-top: var(--space-2xl); padding-top: var(--space-m); border-top: 1px solid color-mix(in srgb, var(--color-inverse-ink) 18%, transparent); font-size: var(--step--1); opacity: 0.75; }
 .mf-footer-col > summary { list-style: none; cursor: default; pointer-events: none; }
@@ -73,6 +73,9 @@ body.mf-is-locked { overflow: hidden; }
   opacity: 0; visibility: hidden; transform: translateY(-6px);
   transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out), visibility 0s linear var(--dur-2); }
 .mf-mega.mf-is-open { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+@media (max-width: 989px) {
+  .mf-mega { display: none; }
+}
 .mf-mega-inner { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) 1.6fr; gap: var(--space-l); padding-block: var(--space-xl); }
 .mf-mega h3 { font-family: var(--font-text); font-size: var(--step--1); font-weight: 600; letter-spacing: var(--eyebrow-tracking); text-transform: uppercase; color: var(--color-ink-muted); margin: 0 0 var(--space-s); }
 .mf-mega ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
@@ -146,7 +149,7 @@ body.mf-is-locked { overflow: hidden; }
 .mf-quickview .mf-qv-media img { width: 100%; height: 100%; object-fit: cover; }
 .mf-quickview .mf-qv-body { padding: var(--space-xl) var(--space-l); display: grid; gap: var(--space-m); align-content: start; }
 .mf-quickview .mf-qv-media { position: relative; overflow: hidden; }
-.mf-qv-track { display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.mf-qv-track { display: flex; height: 100%; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
 .mf-qv-track::-webkit-scrollbar { display: none; }
 .mf-qv-track > * { flex: 0 0 100%; scroll-snap-align: start; }
 .mf-qv-track img, .mf-qv-track svg { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -318,7 +321,7 @@ cart-drawer.mf-cart-drawer .cart-drawer__discount-code { font-size: var(--step--
 .shopify-policy__container > nav.breadcrumb a:hover { color: #2a211b; }
 .shopify-policy__container > nav.breadcrumb .breadcrumb__delimiter svg { display: none; }
 .shopify-policy__container > nav.breadcrumb .breadcrumb__delimiter::before { content: "/"; }
-.mf-policy-tabs { display: flex; gap: 24px; margin: 24px 0 40px; border-bottom: 1px solid #d9cebf; overflow-x: auto; scrollbar-width: none; font-family: "MF Figtree", system-ui, sans-serif; font-size: 15px; }
+.mf-policy-tabs { display: flex; gap: 24px; margin: 24px 0 40px; border-bottom: 1px solid #d9cebf; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; font-family: "MF Figtree", system-ui, sans-serif; font-size: 15px; }
 .mf-policy-tabs::-webkit-scrollbar { display: none; }
 .mf-policy-tabs a { flex: none; padding: 10px 0; margin-bottom: -1px; border-bottom: 2px solid transparent; color: #6b5d52; text-decoration: none; white-space: nowrap; transition: color 200ms ease, border-color 200ms ease; }
 .mf-policy-tabs a:hover { color: #2a211b; }
@@ -343,3 +346,6 @@ cart-drawer.mf-cart-drawer .cart-drawer__discount-code { font-size: var(--step--
 html.no-js .mf-reveal { opacity: 1; transform: none; }
 /* Page background matches the redesign from the first paint (the original theme can resolve to a dark scheme). */
 html, body { background-color: #f5f0e8; }
+/* Policy text pasted from other tools can carry wide wrappers/long words: keep everything inside the column. */
+.shopify-policy__body { overflow-wrap: anywhere; }
+.shopify-policy__body * { max-width: 100%; box-sizing: border-box; min-width: 0; }

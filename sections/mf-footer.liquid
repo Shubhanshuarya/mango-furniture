@@ -48,7 +48,7 @@
               <details class="mf-footer-col" open data-mf-footer-col {{ block.shopify_attributes }}>
                 <summary><h2 class="mf-footer-heading">{{ block.settings.heading | escape }}</h2></summary>
                 <ul>
-                  {%- if block.settings.email != blank -%}<li><a href="mailto:{{ block.settings.email }}">{{ block.settings.email | escape }}</a></li>{%- endif -%}
+                  {%- if block.settings.email != blank -%}<li><a href="mailto:{{ block.settings.email }}">{{ block.settings.email | escape | replace: '@', '@<wbr>' }}</a></li>{%- endif -%}
                   {%- if block.settings.phone != blank -%}<li><a href="tel:{{ block.settings.phone | remove: ' ' | remove: '-' }}">{{ block.settings.phone | escape }}</a></li>{%- endif -%}
                   {%- liquid
                     assign socials = 'instagram,facebook,pinterest,tiktok,youtube' | split: ','

@@ -127,7 +127,7 @@
 .mf-quote figcaption img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
 .mf-quotes .mf-quote:has(.mf-quote-text) { border-style: solid; }
 @media (max-width: 989px) {
-  .mf-quotes { grid-template-columns: 85%; grid-auto-flow: column; grid-auto-columns: 85%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scrollbar-width: none; }
+  .mf-quotes { grid-template-columns: 85%; grid-auto-flow: column; grid-auto-columns: 85%; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; padding-bottom: 8px; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scrollbar-width: none; }
   .mf-quote { scroll-snap-align: start; }
 }
 .mf-articles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl) var(--space-m); }
@@ -185,9 +185,9 @@
   .mf-hero-stamp { left: 12px; bottom: 12px; padding: 6px 12px; font-size: 12px; }
   .mf-hero-ctas { flex-direction: column; align-items: stretch; gap: 4px; margin-top: var(--space-m); }
   .mf-hero-ctas a.mf-btn--secondary, .mf-hero-ctas a.mf-btn--secondary:hover { --btn-bg: transparent; --btn-bd: transparent; --btn-fg: var(--color-ink); text-decoration: underline; text-underline-offset: 0.25em; box-shadow: none; transform: none; }
-  .mf-hero-proof { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; white-space: nowrap; gap: var(--space-m); margin: var(--space-m) calc(var(--gutter) * -1) 0; padding-inline: var(--gutter); }
+  .mf-hero-proof { flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; white-space: nowrap; gap: var(--space-m); margin: var(--space-m) calc(var(--gutter) * -1) 0; padding-inline: var(--gutter); }
   .mf-hero-proof::-webkit-scrollbar { display: none; }
-  .mf-bento { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 42%; grid-auto-rows: auto; gap: var(--space-xs); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); }
+  .mf-bento { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 42%; grid-auto-rows: auto; gap: var(--space-xs); overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); }
   .mf-bento::-webkit-scrollbar { display: none; }
   .mf-tile, .mf-tile--tall, .mf-tile--wide, .mf-tile:last-child:nth-child(even) { grid-row: auto; grid-column: auto; display: grid; gap: 8px; scroll-snap-align: start; }
   .mf-tile-media { position: relative; inset: auto; aspect-ratio: 4 / 5; }
@@ -215,7 +215,7 @@
   .mf-services { gap: 0; border-top: 1px solid var(--color-line); }
   .mf-service { background: none; border: 0; border-bottom: 1px solid var(--color-line); border-radius: 0; padding: var(--space-m) 0; }
   :where(.mf) a.mf-service:hover { transform: none; }
-  .mf-articles { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; gap: var(--space-s); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); }
+  .mf-articles { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; gap: var(--space-s); overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); }
   .mf-articles::-webkit-scrollbar { display: none; }
   .mf-article-card { scroll-snap-align: start; }
   .mf-article-card h3 { font-size: var(--step-1); }

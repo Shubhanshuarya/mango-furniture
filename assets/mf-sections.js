@@ -59,7 +59,10 @@
           if (typeof publish === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
             publish(PUB_SUB_EVENTS.cartUpdate, { source: 'mf-shop-the-look' });
           }
-          if (drawer && data.sections) drawer.renderContents(data);
+          if (drawer && data.sections) {
+            drawer.classList.remove('is-empty'); // as product-form.js does; cart-drawer.js traps focus in .drawer__inner-empty while this is set
+            drawer.renderContents(data);
+          }
           else window.location = (window.routes && window.routes.cart_url) || '/cart';
         } catch (err) {
           const msg = scope.querySelector('[data-mf-add-all-error]');

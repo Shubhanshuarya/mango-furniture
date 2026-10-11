@@ -2396,6 +2396,7 @@ const productSlidersData = [];
 
 (function () {
   const hoverOpacity = () => {
+    if (!window.jQuery) return; // jQuery loads only with "Load original theme scripts" (old-theme markup only)
     $("[data-hover-opacity]").hover(
       function () {
         const id = $(this).data("hover-opacity");
@@ -2418,6 +2419,7 @@ const productSlidersData = [];
 
 (function () {
   const onClickOpacity = () => {
+    if (!window.jQuery) return; // jQuery loads only with "Load original theme scripts" (old-theme markup only)
     const dir = document.querySelector("html").getAttribute("dir");
     $("[data-click-action]").on("mouseenter", function () {
       const id = $(this).data("click-action");
@@ -2449,6 +2451,7 @@ const productSlidersData = [];
 
 (function () {
   const sidebar = () => {
+    if (!window.jQuery) return; // jQuery loads only with "Load original theme scripts" (old-theme markup only)
     let pageNav = $(".product-details");
 
     if (pageNav.length > 0) {
@@ -2555,6 +2558,7 @@ const productSlidersData = [];
 
 (function () {
   const initDrawerAccordion = () => {
+    if (!window.jQuery) return; // jQuery loads only with "Load original theme scripts" (old-theme markup only)
     $(".drawer__accordion-title").click(function () {
       if (!$(this).hasClass("active")) {
         $(".drawer__accordion-title.active").removeClass("active");

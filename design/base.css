@@ -185,7 +185,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .card-quick {
   position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 1;
   min-height: 44px; border: 0; border-radius: var(--radius-pill); background: var(--color-bg); color: var(--color-ink); font-weight: 600; cursor: pointer;
-  opacity: 0; transform: translateY(8px); transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out), background var(--dur-1);
+  opacity: 0; transform: translateY(8px); transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out), background var(--dur-1), color var(--dur-1);
 }
 .card:hover .card-quick, .card:focus-within .card-quick { opacity: 1; transform: none; }
 .card-quick:hover { background: var(--color-ink); color: var(--color-bg); }
@@ -245,10 +245,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .footer-grid { display: grid; grid-template-columns: 2fr repeat(3, minmax(0, 1fr)); gap: var(--space-xl); }
 .site-footer h4, .site-footer .footer-heading { font-family: var(--font-text); font-size: var(--step--1); letter-spacing: var(--eyebrow-tracking); text-transform: uppercase; margin: 0 0 var(--space-s); opacity: 0.7; font-weight: 600; }
 .site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
-.site-footer a { text-decoration: none; opacity: 0.9; overflow-wrap: anywhere; }
+.site-footer a { text-decoration: none; opacity: 0.9; overflow-wrap: break-word; }
 .site-footer a:hover { text-decoration: underline; opacity: 1; }
 .newsletter { display: flex; gap: 8px; margin-top: var(--space-m); max-width: 26rem; }
-.newsletter input { flex: 1; min-height: 48px; padding: 0 var(--space-s); border-radius: var(--radius-pill); border: 1px solid color-mix(in srgb, var(--color-inverse-ink) 35%, transparent); background: transparent; color: inherit; }
+.newsletter input { flex: 1; min-width: 0; min-height: 48px; padding: 0 var(--space-s); border-radius: var(--radius-pill); border: 1px solid color-mix(in srgb, var(--color-inverse-ink) 35%, transparent); background: transparent; color: inherit; }
 .newsletter .btn { --btn-bg: var(--color-inverse-ink); --btn-fg: var(--color-inverse-bg); --btn-bd: var(--color-inverse-ink); }
 .footer-base { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-s); margin-top: var(--space-2xl); padding-top: var(--space-m); border-top: 1px solid color-mix(in srgb, var(--color-inverse-ink) 18%, transparent); font-size: var(--step--1); opacity: 0.75; }
 /* Footer menus are <details>: always open on larger screens, tap-to-expand on phones (assets/mf-shell.js). */
