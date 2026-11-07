@@ -32,14 +32,14 @@
           "type": "step",
           "settings": {
             "title": "Door to door delivery",
-            "text": "We will handle all the logistics from our factory to your client's home"
+            "text": "From our factory to your client's home"
           }
         },
         "ds_2": {
           "type": "step",
           "settings": {
-            "title": "Lower cost",
-            "text": "Customized items without any middlemen"
+            "title": "Bespoke Designs",
+            "text": "We will make your designs come to life"
           }
         },
         "ds_3": {
@@ -103,7 +103,7 @@
         "image": "shopify://shop_images/O0A4720i.jpg",
         "image_position": "left",
         "eyebrow": "A family business",
-        "heading": "Twenty years of export craft, <em>now direct to you</em>",
+        "heading": "Over twenty years of export craft, <em>now direct to you</em>",
         "text": "<p>Every piece is made in our family manufacturing unit in Jodhpur, where East meets West: contemporary forms with the warmth and storytelling of Indian craft.</p>",
         "link_label": "Our story",
         "link_url": "shopify://pages/about-us",
