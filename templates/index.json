@@ -37,7 +37,9 @@
         "proof_3"
       ],
       "settings": {
-        "image": "shopify://shop_images/hero-daybed.webp",
+        "image": "shopify://shop_images/O0A5189i.jpg",
+        "mobile_layout": "overlay",
+        "overlay_strength": 55,
         "eyebrow": "Handmade in Jodhpur, India",
         "heading": "Because true luxury begins <em>where you live.</em>",
         "text": "Solid mango wood furniture, shaped by hand in our family workshop and made to be lived with for decades.",
@@ -56,7 +58,7 @@
           "settings": {
             "collection": "accent-chair",
             "label": "Accent Chairs",
-            "image": "shopify://shop_images/cat-accent-chairs.webp",
+            "link": "",
             "size": "tall"
           }
         },
@@ -65,7 +67,7 @@
           "settings": {
             "collection": "side-table",
             "label": "Side Tables",
-            "image": "shopify://shop_images/cat-side-tables.webp",
+            "link": "",
             "size": "normal"
           }
         },
@@ -74,7 +76,7 @@
           "settings": {
             "collection": "coffee-table",
             "label": "Coffee Tables",
-            "image": "shopify://shop_images/cat-coffee-tables.webp",
+            "link": "",
             "size": "wide"
           }
         },
@@ -83,7 +85,7 @@
           "settings": {
             "collection": "bench",
             "label": "Benches",
-            "image": "shopify://shop_images/cat-benches.webp",
+            "link": "",
             "size": "normal"
           }
         },
@@ -92,7 +94,7 @@
           "settings": {
             "collection": "console",
             "label": "Consoles & Shelving",
-            "image": "shopify://shop_images/cat-console-shelving.webp",
+            "link": "",
             "size": "normal"
           }
         },
@@ -101,7 +103,7 @@
           "settings": {
             "collection": "counter-stool-chair",
             "label": "Dining & Stools",
-            "image": "shopify://shop_images/cat-dining.webp",
+            "link": "",
             "size": "normal"
           }
         }
@@ -177,7 +179,6 @@
         "step_3"
       ],
       "settings": {
-        "image": "shopify://shop_images/craft-faceted-drum-table.webp",
         "image_position": "left",
         "eyebrow": "A family business",
         "heading": "Twenty years of export craft, <em>now direct to you</em>",
@@ -227,7 +228,6 @@
         "eyebrow": "Shop the room",
         "heading": "The living room edit",
         "text": "Three pieces in warm walnut tones that sit together without trying too hard.",
-        "image": "",
         "background": "default"
       }
     },
@@ -304,10 +304,7 @@
         "form_tag": "design-services",
         "button_label": "Start a project",
         "button_link": "",
-        "success_message": "Thank you. Our design team will be in touch soon.",
-        "image_1": "shopify://shop_images/ds-travertine-table.webp",
-        "image_2": "shopify://shop_images/about-fluted-console.webp",
-        "image_3": "shopify://shop_images/ds-slab-bench.webp"
+        "success_message": "Thank you. Our design team will be in touch soon."
       }
     },
     "mf_services": {
@@ -353,6 +350,7 @@
         "eyebrow": "Why buy direct",
         "heading": "Service as considered as the furniture",
         "text": "",
+        "columns": "3",
         "background": "surface"
       }
     },
@@ -383,42 +381,36 @@
         "ugc_1": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/look-loop-leg-table.webp",
             "link": ""
           }
         },
         "ugc_2": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/about-sling-chair.webp",
             "link": ""
           }
         },
         "ugc_3": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/blog-scallop-table.webp",
             "link": ""
           }
         },
         "ugc_4": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/contact-annabel-bench.webp",
             "link": ""
           }
         },
         "ugc_5": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/about-slim-side-table.webp",
             "link": ""
           }
         },
         "ugc_6": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/trade-abel-bench.webp",
             "link": ""
           }
         }
@@ -449,7 +441,9 @@
             "heading": "Versatile <em>Shackets</em> – The Perfect Mix of Shirt and Jacket",
             "text": "<p>Layer Up</p>",
             "button_label": "shop collection",
+            "button_link": "",
             "second_button_label": "more details",
+            "second_button_link": "",
             "article": ""
           }
         },
@@ -461,7 +455,9 @@
             "heading": "Minimalist <em>Everyday Bags</em> in Timeless Styles",
             "text": "<p>Simply Functional</p>",
             "button_label": "shop collection",
+            "button_link": "",
             "second_button_label": "more details",
+            "second_button_link": "",
             "article": ""
           }
         },
@@ -473,7 +469,9 @@
             "heading": "Soft <em>Flannel Shirts</em> for a Cozy, Warm Feel",
             "text": "<p>Perfect Layering</p>",
             "button_label": "shop collection",
+            "button_link": "",
             "second_button_label": "more details",
+            "second_button_link": "",
             "article": ""
           }
         }
@@ -483,6 +481,7 @@
         "slideshow_item-2",
         "slideshow_item-3"
       ],
+      "disabled": true,
       "settings": {
         "section_layout": "full",
         "section_alignment": "center",
@@ -496,10 +495,10 @@
         "slideshow_speed": 1.1,
         "slideshow_delay": 3,
         "slide_effects": "slide",
+        "heading_tag": "h1",
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      },
-      "disabled": true
+      }
     },
     "collection-grid": {
       "type": "collection-grid",
@@ -507,7 +506,9 @@
         "categories-1": {
           "type": "categories",
           "settings": {
+            "collection": "",
             "button_label": "shop collection",
+            "button_link": "",
             "column_start": 1,
             "column_end": 2,
             "row_start": "unset",
@@ -517,7 +518,9 @@
         "categories-2": {
           "type": "categories",
           "settings": {
+            "collection": "",
             "button_label": "shop collection",
+            "button_link": "",
             "column_start": 2,
             "column_end": 3,
             "row_start": "unset",
@@ -527,7 +530,9 @@
         "categories-3": {
           "type": "categories",
           "settings": {
+            "collection": "",
             "button_label": "Shop collection",
+            "button_link": "",
             "column_start": 3,
             "column_end": 4,
             "row_start": "unset",
@@ -540,6 +545,7 @@
         "categories-2",
         "categories-3"
       ],
+      "disabled": true,
       "settings": {
         "columns": 3,
         "blocks_spacing": "m",
@@ -551,14 +557,15 @@
         "show_collection_button": true,
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      },
-      "disabled": true
+      }
     },
     "popular-products": {
       "type": "popular-products",
+      "disabled": true,
       "settings": {
         "product_list": [],
         "heading": "New Season <em>Favourites</em>",
+        "heading_tag": "h2",
         "description": "<p>Essential styles for the new season. Practical, comfortable, and easy to wear every day.</p>",
         "alignment": "center",
         "autoplay": false,
@@ -578,8 +585,7 @@
         "padding_bottom": "no-indent",
         "enable_border_top": true,
         "enable_border_bottom": false
-      },
-      "disabled": true
+      }
     },
     "grid-banner": {
       "type": "grid-banner",
@@ -600,9 +606,12 @@
             "text_vertical": "flex-end",
             "heading": "Transitional <em>Weather Essentials</em>",
             "heading_size": "h2",
+            "heading_tag": "h2",
             "text": "<p>In Store and Online</p>",
             "button_label": "shop bestsellers",
-            "second_button_label": "shop all collection"
+            "button_link": "",
+            "second_button_label": "shop all collection",
+            "second_button_link": ""
           }
         },
         "column-2": {
@@ -621,8 +630,10 @@
             "text_vertical": "flex-end",
             "heading": "Your <em>Spring</em> Carry",
             "heading_size": "h2",
+            "heading_tag": "h2",
             "text": "<p>All Our Bestselling Bags in One Place</p>",
             "button_label": "shop now",
+            "button_link": "",
             "second_button_label": "",
             "second_button_link": ""
           }
@@ -632,12 +643,12 @@
         "column-1",
         "column-2"
       ],
+      "disabled": true,
       "settings": {
         "columns": 2,
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      },
-      "disabled": true
+      }
     },
     "fa0130ad-1353-49bf-b178-b562783abf82": {
       "type": "brands",
@@ -645,43 +656,50 @@
         "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-1": {
           "type": "column",
           "settings": {
-            "image_width": 165
+            "image_width": 165,
+            "brand_link": ""
           }
         },
         "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-2": {
           "type": "column",
           "settings": {
-            "image_width": 105
+            "image_width": 105,
+            "brand_link": ""
           }
         },
         "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-3": {
           "type": "column",
           "settings": {
-            "image_width": 100
+            "image_width": 100,
+            "brand_link": ""
           }
         },
         "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-4": {
           "type": "column",
           "settings": {
-            "image_width": 100
+            "image_width": 100,
+            "brand_link": ""
           }
         },
         "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-5": {
           "type": "column",
           "settings": {
-            "image_width": 100
+            "image_width": 100,
+            "brand_link": ""
           }
         },
         "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-6": {
           "type": "column",
           "settings": {
-            "image_width": 100
+            "image_width": 100,
+            "brand_link": ""
           }
         },
         "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-7": {
           "type": "column",
           "settings": {
-            "image_width": 95
+            "image_width": 95,
+            "brand_link": ""
           }
         }
       },
@@ -694,11 +712,11 @@
         "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-6",
         "template--14703255126051__fa0130ad-1353-49bf-b178-b562783abf82-column-7"
       ],
+      "disabled": true,
       "settings": {
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      },
-      "disabled": true
+      }
     },
     "d36c1fcf-5d88-4f60-9edd-8d03e896463d": {
       "type": "product-markers",
@@ -710,6 +728,7 @@
             "marker_color": "#988c63",
             "marker_background_hover": "#17324e",
             "marker_color_hover": "#ffffff",
+            "product": "",
             "image_ratio": "portrait",
             "position_x": 20,
             "position_y": 30
@@ -722,6 +741,7 @@
             "marker_color": "#988c63",
             "marker_background_hover": "#17324e",
             "marker_color_hover": "#ffffff",
+            "product": "",
             "image_ratio": "portrait",
             "position_x": 40,
             "position_y": 50
@@ -734,6 +754,7 @@
             "marker_color": "#988c63",
             "marker_background_hover": "#17324e",
             "marker_color_hover": "#ffffff",
+            "product": "",
             "image_ratio": "portrait",
             "position_x": 20,
             "position_y": 30
@@ -745,12 +766,14 @@
         "template--14703255126051__d36c1fcf-5d88-4f60-9edd-8d03e896463d-marker-2",
         "bc634ef8-211d-44ac-9923-6a077a2d9c13"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "",
         "section_stype": "multi-column",
         "banner_ratio": "landscape",
         "overlay_opacity": 30,
         "heading": "Now Trending",
+        "heading_tag": "h2",
         "description": "<p>The latest must-have styles, from classic staples to new-season updates.</p>",
         "alignment": "center",
         "show_secondary_image": true,
@@ -769,14 +792,15 @@
         "margin_bottom": "l",
         "padding_top": "no-indent",
         "padding_bottom": "no-indent"
-      },
-      "disabled": true
+      }
     },
     "collection_tabs_kR6ndA": {
       "type": "collection-tabs",
+      "disabled": true,
       "settings": {
         "color_scheme": "",
         "heading": "Spring 2025 Collection",
+        "heading_tag": "h2",
         "description": "<p>Lightweight jackets, breathable shirts, and versatile layers for the new season. Practical, comfortable, and easy to style.</p>",
         "alignment": "center",
         "collection_list": [],
@@ -794,8 +818,7 @@
         "padding_bottom": "no-indent",
         "enable_border_top": false,
         "enable_border_bottom": false
-      },
-      "disabled": true
+      }
     },
     "countdown": {
       "type": "countdown",
@@ -803,6 +826,7 @@
         "categories_c48t3J": {
           "type": "categories",
           "settings": {
+            "collection": "",
             "show_collection_desc": false,
             "show_collection_button": true
           }
@@ -810,6 +834,7 @@
         "categories_BTdcjx": {
           "type": "categories",
           "settings": {
+            "collection": "",
             "show_collection_desc": false,
             "show_collection_button": true
           }
@@ -817,6 +842,7 @@
         "categories_FnKRNR": {
           "type": "categories",
           "settings": {
+            "collection": "",
             "show_collection_desc": false,
             "show_collection_button": true
           }
@@ -827,15 +853,21 @@
         "categories_BTdcjx",
         "categories_FnKRNR"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "",
         "subheading": "markdown",
         "heading": "Extra 50% Off All Sale",
+        "heading_tag": "h2",
         "text_horizontal": "left",
         "button_label": "start Shopping",
+        "button_link": "",
         "button_style": "tertiary",
         "overlay_opacity": 0,
         "time_zone": 0,
+        "enable_mock_timer": false,
+        "mock_date_picker_day": 2,
+        "mock_date_picker_hours": 3,
         "date_picker": "2024-01-31",
         "time_picker": "00:00",
         "heading_size": "large",
@@ -847,8 +879,7 @@
         "padding_bottom": "l",
         "enable_border_top": true,
         "enable_border_bottom": true
-      },
-      "disabled": true
+      }
     },
     "split-screen-slideshow": {
       "type": "split-screen-slideshow",
@@ -862,6 +893,7 @@
             "text": "<p>We offer fast and secure international shipping, ensuring your order arrives safely no matter where you are.</p>",
             "slide_index": true,
             "button_label": "shiping details",
+            "button_link": "",
             "button_style": "tertiary"
           }
         },
@@ -874,6 +906,7 @@
             "text": "<p>All our products are made from high-quality, durable fabrics designed for comfort, longevity, and everyday wear.</p>",
             "slide_index": true,
             "button_label": "shiping details",
+            "button_link": "",
             "button_style": "tertiary"
           }
         },
@@ -886,6 +919,7 @@
             "text": "<p>Our collection is regularly updated with the latest styles, featuring modern designs and seasonal must-haves.</p>",
             "slide_index": true,
             "button_label": "shiping details",
+            "button_link": "",
             "button_style": "tertiary"
           }
         }
@@ -895,6 +929,7 @@
         "slide-2",
         "slide-3"
       ],
+      "disabled": true,
       "settings": {
         "sliding_types": "scroll",
         "image_size": "75",
@@ -906,10 +941,10 @@
         "slideshow_speed": 1.1,
         "slideshow_delay": 3,
         "slide_effects": "fade",
+        "subheading_tag": "h2",
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      },
-      "disabled": true
+      }
     },
     "39c2ce61-61c0-4425-9eaf-db1df93f34ce": {
       "type": "collapsible-content",
@@ -918,6 +953,7 @@
           "type": "text-block",
           "settings": {
             "block_heading": "What payment methods do you accept?",
+            "block_heading_tag": "h4",
             "text": "<p>We accept a variety of payment methods including credit/debit cards, PayPal, and other secure online payment systems.</p>"
           }
         },
@@ -925,6 +961,7 @@
           "type": "text-block",
           "settings": {
             "block_heading": "How can I track my order?",
+            "block_heading_tag": "h4",
             "text": "<p>Once your order is dispatched, you'll receive a tracking link via email, allowing you to monitor its progress in real-time.</p>"
           }
         },
@@ -932,6 +969,7 @@
           "type": "text-block",
           "settings": {
             "block_heading": "Can I return or exchange an item?",
+            "block_heading_tag": "h4",
             "text": "<p>Yes, we offer a hassle-free return and exchange policy. Items can be returned or exchanged within 30 days of purchase, provided they are in original condition.</p>"
           }
         },
@@ -939,6 +977,7 @@
           "type": "text-block",
           "settings": {
             "block_heading": "Do you offer customer support?",
+            "block_heading_tag": "h4",
             "text": "<p>Absolutely! Our customer service team is available to assist you with any inquiries or issues you may have, ensuring a smooth shopping experience.</p>"
           }
         }
@@ -949,9 +988,11 @@
         "template--14703255126051__39c2ce61-61c0-4425-9eaf-db1df93f34ce-text-block-3",
         "119a5cc4-1bec-479f-a4ac-2dacc21e8927"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "",
         "heading": "Frequently Asked <em>Questions</em>",
+        "heading_tag": "h3",
         "description": "Find quick answers to all your queries in our comprehensive FAQ section, designed to enhance your shopping experience.",
         "margin_top": "no-indent",
         "margin_bottom": "l",
@@ -959,17 +1000,20 @@
         "padding_bottom": "no-indent",
         "enable_border_top": false,
         "enable_border_bottom": false
-      },
-      "disabled": true
+      }
     },
     "blog-post": {
       "type": "blog-post",
+      "disabled": true,
       "settings": {
         "posts_count": 4,
         "per_row": 4,
         "heading": "Popular <em>Stories</em>",
+        "heading_tag": "h2",
         "heading_position": "center",
         "button_label": "read more",
+        "button_link": "",
+        "blog": "",
         "text_horizontal": "center",
         "show_image": true,
         "show_tags": true,
@@ -980,11 +1024,11 @@
         "image_fit": "cover",
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      },
-      "disabled": true
+      }
     },
     "image-banner": {
       "type": "image-banner",
+      "disabled": true,
       "settings": {
         "hide_mobile_image": true,
         "full_width": true,
@@ -992,11 +1036,14 @@
         "image_size": "adapt",
         "overlay_opacity": 20,
         "subheading": "ABOUT US",
+        "subheading_tag": "h2",
         "heading": "Keeping Up With <em>Trends</em>, Never Compromising on <em>Quality</em>",
+        "heading_tag": "h2",
         "description": "<p>Staying on top of fashion shouldn’t mean settling for lower quality. We create modern, trend-forward clothing using durable fabrics and precise construction.</p>",
         "text_horizontal": "center",
         "text_vertical": "center",
         "button_label": "more about us",
+        "button_link": "",
         "button_style": "tertiary",
         "margin_top": "no-indent",
         "margin_bottom": "l",
@@ -1004,8 +1051,7 @@
         "padding_bottom": "no-indent",
         "enable_border_top": true,
         "enable_border_bottom": false
-      },
-      "disabled": true
+      }
     }
   },
   "order": [
