@@ -18,7 +18,7 @@
           "type": "message",
           "settings": {
             "text": "Free shipping across the US",
-            "text_desktop": "Handcrafted in solid mango wood",
+            "text_desktop": "",
             "link": ""
           }
         }
