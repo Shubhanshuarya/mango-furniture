@@ -107,7 +107,8 @@
         "tile_6"
       ],
       "settings": {
-        "logo_width": 140,
+        "logo": "shopify://shop_images/mamgo_logo_crop_46293bbf-4a8c-463a-a8d2-ad061b9b31d9.png",
+        "logo_width": 90,
         "logo_text": "Mango",
         "logo_tagline": "Furniture Inc",
         "menu": "main-menu",
@@ -133,19 +134,29 @@
       "blocks": {
         "slide": {
           "type": "slide",
-          "settings": {}
+          "settings": {
+            "text": ""
+          }
         },
         "slide1": {
           "type": "slide",
-          "settings": {}
+          "settings": {
+            "text": ""
+          }
         },
         "slide2": {
           "type": "slide",
-          "settings": {}
+          "settings": {
+            "text": ""
+          }
         },
         "a5617969-8a72-48f4-8ab5-b5d3336887bc": {
           "type": "social-links",
-          "settings": {}
+          "settings": {
+            "button_label": "Follow Us",
+            "button_link": "",
+            "icon_social": "instagram"
+          }
         }
       },
       "block_order": [
@@ -154,6 +165,7 @@
         "slide2",
         "a5617969-8a72-48f4-8ab5-b5d3336887bc"
       ],
+      "disabled": true,
       "settings": {
         "full_width": true,
         "height": 40,
@@ -161,9 +173,10 @@
         "is_autoplay": true,
         "is_hover_stop_autoplay": false,
         "slideshow_speed": 1.1,
-        "slideshow_delay": 3
-      },
-      "disabled": true
+        "slideshow_delay": 3,
+        "button_label_about": "See More",
+        "button_link_about": ""
+      }
     },
     "header": {
       "type": "header",
@@ -175,24 +188,42 @@
             "dropdown_button_menu": "main-menu",
             "show_promo": true,
             "color_scheme": "background-2",
+            "heading": "Special Offer",
+            "description": "Don’t miss out!",
             "promo_alignment": "center",
-            "effect_opacity": 0
+            "effect_opacity": 0,
+            "button_label": "Shop Now",
+            "button_link": ""
           }
         },
         "541dd1e3-b946-4884-8c07-190ee11738f9": {
           "type": "mega_menu_collection",
           "settings": {
+            "menu_trigger": "",
             "menu_primary": "collections",
-            "menu_secondary": "mega-menu",
+            "primary_heading": "Discover Top Trends",
+            "primary_button_label": "Browse All",
+            "primary_button_link": "",
+            "menu_secondary": "",
             "secondary_heading": "featured",
+            "secondary_button_label": "View More",
+            "secondary_button_link": "",
             "show_promo": true,
             "color_scheme": "",
+            "heading": "Discover Your Style",
+            "description": "Navigate through our top categories to shop the latest and greatest selections.",
             "promo_alignment": "center",
             "effect_opacity": 0,
+            "button_label": "Explore Now",
+            "button_link": "",
             "show_promo_2": true,
             "color_scheme_2": "",
+            "heading_2": "Shop by Category",
+            "description_2": "Easily explore our wide range of products, from trending items to classic favorites.",
             "promo_alignment_2": "center",
-            "effect_opacity_2": 0
+            "effect_opacity_2": 0,
+            "button_label_2": "Start Shopping",
+            "button_link_2": ""
           }
         }
       },
@@ -200,21 +231,27 @@
         "dropdown",
         "541dd1e3-b946-4884-8c07-190ee11738f9"
       ],
+      "disabled": true,
       "settings": {
         "full_width": true,
         "height": 65,
         "header_enable_border_bottom": true,
+        "show_cart_item_count": false,
         "logo_width": 265,
         "header_overlay": true,
+        "enable_content_animation": false,
         "menu": "main-menu",
         "color_scheme": "background-1",
         "enable_country_selector": true,
+        "show_country_flag": false,
         "enable_language_selector": true,
         "sticky_header_type": "on-scroll-up",
         "logo_position": "center",
+        "enable_account_btn": true,
+        "enable_account_modal_component": true,
+        "customer_account_menu": "customer-account-main-menu",
         "enable_search": true
-      },
-      "disabled": true
+      }
     }
   },
   "order": [

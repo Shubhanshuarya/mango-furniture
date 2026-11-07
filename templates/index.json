@@ -25,103 +25,48 @@
         "stamp": ""
       }
     },
-    "mf_bento": {
-      "type": "mf-category-bento",
+    "mf_design": {
+      "type": "mf-design-teaser",
       "blocks": {
-        "cat_1": {
-          "type": "category",
+        "ds_1": {
+          "type": "step",
           "settings": {
-            "collection": "accent-chair",
-            "label": "Accent Chairs",
-            "link": "",
-            "size": "tall"
+            "title": "Door to door delivery",
+            "text": "We will handle all the logistics from our factory to your client's home"
           }
         },
-        "cat_2": {
-          "type": "category",
+        "ds_2": {
+          "type": "step",
           "settings": {
-            "collection": "side-table",
-            "label": "Side Tables",
-            "link": "",
-            "size": "normal"
+            "title": "Lower cost",
+            "text": "Customized items without any middlemen"
           }
         },
-        "cat_3": {
-          "type": "category",
+        "ds_3": {
+          "type": "step",
           "settings": {
-            "collection": "coffee-table",
-            "label": "Coffee Tables",
-            "link": "",
-            "size": "wide"
-          }
-        },
-        "cat_4": {
-          "type": "category",
-          "settings": {
-            "collection": "bench",
-            "label": "Benches",
-            "link": "",
-            "size": "normal"
-          }
-        },
-        "cat_5": {
-          "type": "category",
-          "settings": {
-            "collection": "console",
-            "label": "Consoles & Shelving",
-            "link": "",
-            "size": "normal"
-          }
-        },
-        "cat_6": {
-          "type": "category",
-          "settings": {
-            "collection": "counter-stool-chair",
-            "label": "Dining & Stools",
-            "link": "",
-            "size": "normal"
+            "title": "Mixed Materials",
+            "text": "Wood. Metal. Glass. Veneer. We do it all"
           }
         }
       },
       "block_order": [
-        "cat_1",
-        "cat_2",
-        "cat_3",
-        "cat_4",
-        "cat_5",
-        "cat_6"
+        "ds_1",
+        "ds_2",
+        "ds_3"
       ],
       "settings": {
-        "eyebrow": "Shop by category",
-        "heading": "Pieces for every room",
-        "link_label": "All furniture",
-        "link_url": "shopify://collections/all"
-      }
-    },
-    "mf_featured": {
-      "type": "mf-featured-products",
-      "settings": {
-        "eyebrow": "Signature pieces",
-        "heading": "",
-        "text": "",
-        "collection": "all",
-        "product_list": [
-          "chantell-accent-table-1",
-          "jefferson-tuffted-chair",
-          "osiac-solid-wood-console-table",
-          "enzo-side-table-copy",
-          "zehara-bench",
-          "austin-side-table",
-          "rihana-solid-wood-and-top-grain-leather-accent-chair",
-          "marco-console",
-          "kyechair"
-        ],
-        "products_to_show": 8,
-        "hide_sold_out": true,
-        "mobile_limit": true,
-        "link_label": "Shop all",
-        "link_url": "shopify://collections/all",
-        "background": "default"
+        "eyebrow": "For interior designers",
+        "heading": "Are you an interior designer? <em>Let's partner for your next project.</em>",
+        "text": "<p>Start-to-finish manufacturing services that turn your projects into reality</p>",
+        "show_form": true,
+        "form_tag": "design-services",
+        "button_label": "Start a project",
+        "button_link": "",
+        "success_message": "Thank you. Our design team will be in touch soon.",
+        "image_1": "shopify://shop_images/O0A4713.jpg",
+        "image_2": "shopify://shop_images/O0A5002i.jpg",
+        "image_3": "shopify://shop_images/WhatsAppImage2026-08-11at2.05.21PM.jpg"
       }
     },
     "mf_story": {
@@ -165,46 +110,29 @@
         "background": "surface"
       }
     },
-    "mf_look": {
-      "type": "mf-shop-the-look",
-      "blocks": {
-        "look_1": {
-          "type": "product",
-          "settings": {
-            "product": "osiac-solid-wood-console-table",
-            "show_hotspot": true,
-            "x": 46,
-            "y": 44
-          }
-        },
-        "look_2": {
-          "type": "product",
-          "settings": {
-            "product": "chantell-accent-table-1",
-            "show_hotspot": false,
-            "x": 50,
-            "y": 50
-          }
-        },
-        "look_3": {
-          "type": "product",
-          "settings": {
-            "product": "geometric-marble-coffee-table",
-            "show_hotspot": false,
-            "x": 50,
-            "y": 50
-          }
-        }
-      },
-      "block_order": [
-        "look_1",
-        "look_2",
-        "look_3"
-      ],
+    "mf_featured": {
+      "type": "mf-featured-products",
       "settings": {
-        "eyebrow": "Shop the room",
-        "heading": "The living room edit",
-        "text": "Three pieces that sit together without trying too hard.",
+        "eyebrow": "Signature pieces",
+        "heading": "",
+        "text": "",
+        "collection": "all",
+        "product_list": [
+          "chantell-accent-table-1",
+          "jefferson-tuffted-chair",
+          "osiac-solid-wood-console-table",
+          "enzo-side-table-copy",
+          "zehara-bench",
+          "austin-side-table",
+          "rihana-solid-wood-and-top-grain-leather-accent-chair",
+          "marco-console",
+          "kyechair"
+        ],
+        "products_to_show": 8,
+        "hide_sold_out": true,
+        "mobile_limit": true,
+        "link_label": "Shop all",
+        "link_url": "shopify://collections/all",
         "background": "default"
       }
     },
@@ -215,21 +143,21 @@
           "type": "stat",
           "settings": {
             "value": "100%",
-            "label": "Handcrafted by skilled artisans"
+            "label": "Guarantee on quality"
           }
         },
         "stat_2": {
           "type": "stat",
           "settings": {
-            "value": "20+",
+            "value": "25+",
             "label": "Years of furniture-making and export"
           }
         },
         "stat_3": {
           "type": "stat",
           "settings": {
-            "value": "Free",
-            "label": "Shipping across the US"
+            "value": "Customize",
+            "label": "Create bespoke pieces for your home"
           }
         }
       },
@@ -241,115 +169,6 @@
       "settings": {
         "eyebrow": "",
         "heading": ""
-      }
-    },
-    "mf_design": {
-      "type": "mf-design-teaser",
-      "blocks": {
-        "ds_1": {
-          "type": "step",
-          "settings": {
-            "title": "Tell us about your space",
-            "text": "Share your room, style and requirements."
-          }
-        },
-        "ds_2": {
-          "type": "step",
-          "settings": {
-            "title": "Discovery call",
-            "text": "We talk through your needs and the scope of the project."
-          }
-        },
-        "ds_3": {
-          "type": "step",
-          "settings": {
-            "title": "3D renderings and custom pieces",
-            "text": "End-to-end design, then furniture made to fit."
-          }
-        }
-      },
-      "block_order": [
-        "ds_1",
-        "ds_2",
-        "ds_3"
-      ],
-      "settings": {
-        "eyebrow": "Design services",
-        "heading": "Need an interior designer? <em>We'll take it from here.</em>",
-        "text": "<p>Start-to-finish design services that turn a house into a home: customised furniture, bespoke design and quality construction, straight from the maker.</p>",
-        "show_form": true,
-        "form_tag": "design-services",
-        "button_label": "Start a project",
-        "button_link": "",
-        "success_message": "Thank you. Our design team will be in touch soon."
-      }
-    },
-    "mf_services": {
-      "type": "mf-service-cards",
-      "blocks": {
-        "svc_1": {
-          "type": "card",
-          "settings": {
-            "icon": "tag",
-            "title": "Trade pricing",
-            "text": "Exclusive pricing, free fabric swatches and priority support for designers and architects.",
-            "link_label": "Ask about trade",
-            "link": "shopify://pages/contact"
-          }
-        },
-        "svc_2": {
-          "type": "card",
-          "settings": {
-            "icon": "truck",
-            "title": "Shipping & Returns",
-            "text": "Free shipping across the US. Orders are processed in 1–4 business days and arrive in 3–10.",
-            "link_label": "Shipping policy",
-            "link": "/policies/shipping-policy"
-          }
-        },
-        "svc_3": {
-          "type": "card",
-          "settings": {
-            "icon": "chat",
-            "title": "Expert Customer Service",
-            "text": "Help by phone, chat or email through every step of designing and shopping.",
-            "link_label": "Get in touch",
-            "link": "shopify://pages/contact"
-          }
-        }
-      },
-      "block_order": [
-        "svc_1",
-        "svc_2",
-        "svc_3"
-      ],
-      "settings": {
-        "eyebrow": "Why buy direct",
-        "heading": "Service as considered as the furniture",
-        "text": "",
-        "columns": "3",
-        "background": "surface"
-      }
-    },
-    "mf_testimonials": {
-      "type": "mf-testimonials",
-      "settings": {
-        "eyebrow": "In their homes",
-        "heading": "What customers say",
-        "background": "default"
-      }
-    },
-    "mf_blog": {
-      "type": "mf-featured-blog",
-      "settings": {
-        "eyebrow": "Journal",
-        "heading": "Ideas for living well",
-        "blog": "news",
-        "post_limit": "3",
-        "show_date": true,
-        "show_tag": true,
-        "link_label": "All stories",
-        "background": "surface"
       }
     },
     "mf_ugc": {
@@ -1033,15 +852,10 @@
   },
   "order": [
     "mf_hero",
-    "mf_bento",
-    "mf_featured",
-    "mf_story",
-    "mf_look",
-    "mf_stats",
     "mf_design",
-    "mf_services",
-    "mf_testimonials",
-    "mf_blog",
+    "mf_story",
+    "mf_featured",
+    "mf_stats",
     "mf_ugc",
     "slideshow",
     "collection-grid",

@@ -17,7 +17,7 @@
         "nl": {
           "type": "newsletter",
           "settings": {
-            "heading": "Home-décor inspiration and first looks at new arrivals.",
+            "heading": "Stay in Touch",
             "text": ""
           }
         },
@@ -65,23 +65,42 @@
       "blocks": {
         "footer-0": {
           "type": "logo_info",
-          "settings": {}
+          "settings": {
+            "logo_width": 100,
+            "copyright_show": true
+          }
         },
         "footer-1": {
           "type": "link_list",
-          "settings": {}
+          "settings": {
+            "heading": "Quick links",
+            "menu": "footer",
+            "mobile_menu_type": "dropdown"
+          }
         },
         "footer-2": {
           "type": "link_list",
-          "settings": {}
+          "settings": {
+            "heading": "Quick links",
+            "menu": "footer",
+            "mobile_menu_type": "dropdown"
+          }
         },
         "footer-3": {
           "type": "link_list",
-          "settings": {}
+          "settings": {
+            "heading": "Quick links",
+            "menu": "footer",
+            "mobile_menu_type": "dropdown"
+          }
         },
         "footer-5": {
           "type": "subscribe",
           "settings": {
+            "newsletter_text": "<p>Here you can include a brief invitation encouraging visitors to subscribe and stay updated with the latest news, offers, and updates.</p>",
+            "heading": "Subscribe",
+            "button_label": "Submit",
+            "button_style": "primary",
             "newsletter_sub": ""
           }
         }
@@ -93,8 +112,22 @@
         "footer-3",
         "footer-5"
       ],
-      "settings": {},
-      "disabled": true
+      "disabled": true,
+      "settings": {
+        "color_scheme": "",
+        "color_scheme_bottom": "",
+        "enable_language_selector": true,
+        "enable_country_selector": true,
+        "show_country_flag": false,
+        "enable_follow_on_shop": false,
+        "payment_enable": true,
+        "show_policy": false,
+        "margin_top": "no-indent",
+        "padding_top": "m",
+        "padding_bottom": "m",
+        "enable_border_top": true,
+        "enable_border_bottom": false
+      }
     }
   },
   "order": [
