@@ -11,43 +11,18 @@
   "sections": {
     "mf_hero": {
       "type": "mf-hero",
-      "blocks": {
-        "proof_1": {
-          "type": "proof",
-          "settings": {
-            "text": "Solid mango wood"
-          }
-        },
-        "proof_2": {
-          "type": "proof",
-          "settings": {
-            "text": "Free US shipping"
-          }
-        },
-        "proof_3": {
-          "type": "proof",
-          "settings": {
-            "text": "Shop Pay Installments"
-          }
-        }
-      },
-      "block_order": [
-        "proof_1",
-        "proof_2",
-        "proof_3"
-      ],
       "settings": {
         "image": "shopify://shop_images/O0A5950.jpg",
         "mobile_layout": "overlay",
         "overlay_strength": 55,
-        "eyebrow": "Handmade in Jodhpur, India",
-        "heading": "Because true luxury begins <em>where you live.</em>",
-        "text": "Solid mango wood furniture, shaped by hand in our family workshop and made to be lived with for decades.",
+        "eyebrow": "Skip the middlemen. Go DIRECT",
+        "heading": "Customizable Products. Delivered to Your Doorstep.",
+        "text": "",
         "button_label": "Shop the collection",
         "button_link": "shopify://collections/all",
         "button_label_2": "Talk to our team",
         "button_link_2": "shopify://pages/contact",
-        "stamp": "Made to order in solid wood"
+        "stamp": ""
       }
     },
     "mf_bento": {
@@ -127,18 +102,19 @@
       "type": "mf-featured-products",
       "settings": {
         "eyebrow": "Signature pieces",
-        "heading": "Made in solid wood, <em>finished by hand</em>",
+        "heading": "",
         "text": "",
         "collection": "all",
         "product_list": [
-          "landon-mango-wood-and-boucle-fabric-accent-chair",
-          "annabel-bench",
+          "chantell-accent-table-1",
+          "jefferson-tuffted-chair",
           "osiac-solid-wood-console-table",
-          "jorf-side-table",
+          "enzo-side-table-copy",
           "zehara-bench",
-          "enzo-coffee-table-copy",
+          "austin-side-table",
           "rihana-solid-wood-and-top-grain-leather-accent-chair",
-          "griffith-oval-book-case"
+          "marco-console",
+          "kyechair"
         ],
         "products_to_show": 8,
         "hide_sold_out": true,
@@ -154,15 +130,15 @@
         "step_1": {
           "type": "step",
           "settings": {
-            "title": "Sustainably sourced mango wood",
-            "text": "A dense, richly grained hardwood, finished to bring out its natural character."
+            "title": "Built to last",
+            "text": "Thoughtfully constructed with quality materials and careful attention to detail, each piece is made to stand the test of time."
           }
         },
         "step_2": {
           "type": "step",
           "settings": {
-            "title": "Shaped and finished by hand",
-            "text": "Joinery, carving and finishing by skilled artisans, one piece at a time."
+            "title": "Rooted in craftsmanship",
+            "text": "Every detail, from the woodwork to the finishing touches, is thoughtfully considered to highlight the natural beauty of the material."
           }
         },
         "step_3": {
@@ -179,6 +155,7 @@
         "step_3"
       ],
       "settings": {
+        "image": "shopify://shop_images/O0A4720i.jpg",
         "image_position": "left",
         "eyebrow": "A family business",
         "heading": "Twenty years of export craft, <em>now direct to you</em>",
@@ -194,7 +171,7 @@
         "look_1": {
           "type": "product",
           "settings": {
-            "product": "osiac-solid-wood-coffee-table",
+            "product": "osiac-solid-wood-console-table",
             "show_hotspot": true,
             "x": 46,
             "y": 44
@@ -203,7 +180,7 @@
         "look_2": {
           "type": "product",
           "settings": {
-            "product": "landon-mango-wood-and-boucle-fabric-accent-chair",
+            "product": "chantell-accent-table-1",
             "show_hotspot": false,
             "x": 50,
             "y": 50
@@ -212,7 +189,7 @@
         "look_3": {
           "type": "product",
           "settings": {
-            "product": "jorf-side-table",
+            "product": "geometric-marble-coffee-table",
             "show_hotspot": false,
             "x": 50,
             "y": 50
@@ -227,7 +204,7 @@
       "settings": {
         "eyebrow": "Shop the room",
         "heading": "The living room edit",
-        "text": "Three pieces in warm walnut tones that sit together without trying too hard.",
+        "text": "Three pieces that sit together without trying too hard.",
         "background": "default"
       }
     },
