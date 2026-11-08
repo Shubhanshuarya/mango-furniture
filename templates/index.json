@@ -18,10 +18,10 @@
         "eyebrow": "Skip the middlemen. Go DIRECT.",
         "heading": "Customizable products, <em>for every project</em>",
         "text": "",
-        "button_label": "Shop the collection",
-        "button_link": "shopify://collections/all",
-        "button_label_2": "Talk to our team",
-        "button_link_2": "shopify://pages/contact",
+        "button_label": "Talk to our team",
+        "button_link": "shopify://pages/contact",
+        "button_label_2": "Shop the collection",
+        "button_link_2": "shopify://collections/all",
         "stamp": ""
       }
     },
