@@ -15,10 +15,9 @@
         "layout": "text",
         "show_breadcrumb": true,
         "eyebrow": "",
-        "heading": "We're here to help.",
+        "heading": "Are you an interior designer?&nbsp;<em>Let's partner for your next project.</em>",
         "heading_size": "xl",
-        "text": "<p>Have a question about a product, an order, or a return? Send us a note and we'll get back to you.</p>",
-        "image": "",
+        "text": "<p>Start-to-finish manufacturing services that turn your projects into reality</p>",
         "button_label": "",
         "button_link": "",
         "button_label_2": "",
@@ -27,20 +26,6 @@
     },
     "mf_form": {
       "type": "mf-contact-form",
-      "settings": {
-        "anchor": "contact-form",
-        "eyebrow": "",
-        "heading": "",
-        "text": "",
-        "note": "<b>Quick answers:</b> shipping times, care and returns are covered in our <a href=\"/pages/faq\">FAQ</a>.",
-        "image": "shopify://shop_images/contact-annabel-bench.webp",
-        "form_name": "Contact",
-        "tag": "contact",
-        "button_label": "Send message",
-        "success": "<b>Thanks for your message.</b> We'll get back to you by email.",
-        "small_print": "",
-        "background": "default"
-      },
       "blocks": {
         "f_1": {
           "type": "contact_item",
@@ -72,13 +57,13 @@
             "type": "pills",
             "label": "What's it about?",
             "name": "topic",
-            "required": false,
-            "width": "full",
             "placeholder": "",
             "options": "Product question, My order, Returns & exchanges, Something else",
-            "error": "Please fill in this field.",
+            "required": false,
+            "width": "full",
             "is_body": false,
-            "min_length": 10
+            "min_length": 10,
+            "error": "Please fill in this field."
           }
         },
         "f_5": {
@@ -87,13 +72,13 @@
             "type": "name",
             "label": "Name",
             "name": "name",
-            "required": true,
-            "width": "half",
             "placeholder": "",
             "options": "",
-            "error": "Please enter your name.",
+            "required": true,
+            "width": "half",
             "is_body": false,
-            "min_length": 10
+            "min_length": 10,
+            "error": "Please enter your name."
           }
         },
         "f_6": {
@@ -102,13 +87,13 @@
             "type": "email",
             "label": "Email",
             "name": "email",
-            "required": true,
-            "width": "half",
             "placeholder": "",
             "options": "",
-            "error": "Enter an email like name@example.com.",
+            "required": true,
+            "width": "half",
             "is_body": false,
-            "min_length": 10
+            "min_length": 10,
+            "error": "Enter an email like name@example.com."
           }
         },
         "f_7": {
@@ -117,13 +102,13 @@
             "type": "tel",
             "label": "Phone",
             "name": "phone",
-            "required": false,
-            "width": "half",
             "placeholder": "",
             "options": "",
-            "error": "Enter a valid phone number.",
+            "required": false,
+            "width": "half",
             "is_body": false,
-            "min_length": 10
+            "min_length": 10,
+            "error": "Enter a valid phone number."
           }
         },
         "f_8": {
@@ -132,13 +117,13 @@
             "type": "text",
             "label": "Order number",
             "name": "order",
-            "required": false,
-            "width": "half",
             "placeholder": "#1001",
             "options": "",
-            "error": "Please fill in this field.",
+            "required": false,
+            "width": "half",
             "is_body": false,
-            "min_length": 10
+            "min_length": 10,
+            "error": "Please fill in this field."
           }
         },
         "f_9": {
@@ -147,13 +132,13 @@
             "type": "textarea",
             "label": "Message",
             "name": "body",
-            "required": true,
-            "width": "full",
             "placeholder": "",
             "options": "",
-            "error": "Please write a message.",
+            "required": true,
+            "width": "full",
             "is_body": true,
-            "min_length": 5
+            "min_length": 5,
+            "error": "Please write a message."
           }
         }
       },
@@ -167,29 +152,49 @@
         "f_7",
         "f_8",
         "f_9"
-      ]
+      ],
+      "settings": {
+        "anchor": "contact-form",
+        "eyebrow": "",
+        "heading": "",
+        "text": "",
+        "note": "<strong>Quick answers:</strong> shipping times, care and returns are covered in our <a href=\"/pages/faq\">FAQ</a>.",
+        "form_name": "Contact",
+        "tag": "contact",
+        "button_label": "Send message",
+        "success": "<strong>Thanks for your message.</strong> We'll get back to you by email.",
+        "small_print": "",
+        "background": "default"
+      }
     },
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": "no-indent",
         "padding_bottom": "no-indent"
-      },
-      "disabled": true
+      }
     },
     "form": {
       "type": "contact-form",
+      "disabled": true,
       "settings": {
         "heading": "Contact form",
+        "heading_tag": "h2",
         "text": "<p>Reach out to us — we're here to help and answer any questions you might have.</p>",
         "color_scheme": "",
         "form_heading": "<strong>Get in Touch</strong>",
+        "form_heading_tag": "h4",
         "form_desc": "<p>Fill out the form below, and our team will get back to you promptly.</p>",
+        "show_name_field": true,
+        "name_required": true,
+        "show_phone_field": true,
+        "phone_required": true,
+        "privacy_policy_consent": false,
         "additional_text": "<p>Your privacy is our priority. We ensure your details are secure and valued.</p>",
         "margin_top": "no-indent",
         "margin_bottom": "l"
-      },
-      "disabled": true
+      }
     }
   },
   "order": [
