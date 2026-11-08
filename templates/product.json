@@ -71,6 +71,7 @@
             "heading": "Description",
             "source": "description",
             "content": "",
+            "page": "",
             "open": true
           }
         },
@@ -80,6 +81,7 @@
             "heading": "Dimensions & specs",
             "source": "specs",
             "content": "",
+            "page": "",
             "open": false
           }
         },
@@ -89,6 +91,7 @@
             "heading": "Materials & care",
             "source": "materials",
             "content": "<p>Clean regularly with a soft dry or slightly damp cloth and avoid harsh chemicals or abrasive cleaners. Wipe spills immediately. Keep the piece out of prolonged direct sunlight and away from heat sources. Natural variation in grain and colour makes every piece unique.</p>",
+            "page": "",
             "open": false
           }
         },
@@ -98,6 +101,7 @@
             "heading": "Shipping & returns",
             "source": "richtext",
             "content": "<p><b>Free shipping across the US.</b> Orders are processed within 1–4 business days (orders after 2 PM PST process the next business day) and delivered in 3–10 business days, with tracking by email.</p><p>See our <a href=\"/policies/shipping-policy\">shipping policy</a> and <a href=\"/policies/refund-policy\">refund policy</a>.</p>",
+            "page": "",
             "open": false
           }
         }
@@ -126,7 +130,6 @@
         "c1": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/craft-faceted-drum-table.webp",
             "title": "Solid mango wood",
             "text": "A dense, richly grained hardwood. Every board has its own figure, so no two pieces are identical.",
             "link": ""
@@ -135,7 +138,6 @@
         "c2": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/contact-annabel-bench.webp",
             "title": "Finished by hand",
             "text": "Joinery, carving and finishing by skilled artisans, one piece at a time.",
             "link": ""
@@ -144,9 +146,8 @@
         "c3": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/about-sling-chair.webp",
             "title": "Made in Jodhpur",
-            "text": "Shaped and finished in our family workshop in Jodhpur, India.",
+            "text": "Shaped and finished in our family owned and operated manufacturing unit in India.",
             "link": ""
           }
         }
@@ -158,7 +159,7 @@
       ],
       "settings": {
         "eyebrow": "The making of",
-        "heading": "Built for daily life, <em>finished by hand</em>",
+        "heading": "Built for daily life, <em>rooted in craftsmanship</em>",
         "text": "",
         "background": "surface"
       }
@@ -182,7 +183,9 @@
         },
         "title": {
           "type": "title",
-          "settings": {}
+          "settings": {
+            "heading_tag": "h1"
+          }
         },
         "text": {
           "type": "text",
@@ -199,17 +202,24 @@
         },
         "inventory_6wQxE8": {
           "type": "inventory",
-          "settings": {}
+          "settings": {
+            "enable_low_stock_threshold": false,
+            "low_stock_threshold": 0
+          }
         },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
             "picker_type": "button",
+            "color_swatches_type": "color",
             "show_size_guide": true,
             "size_guide_header": "",
+            "size_guide_heading_tag": "h3",
             "size_guide_decription": "",
             "size_guide_text": "Size Guide",
-            "page": "size-chart"
+            "page": "size-chart",
+            "enable_linked_products": false,
+            "linked_products_label": "Color"
           }
         },
         "buy_buttons": {
@@ -232,6 +242,7 @@
           "settings": {
             "subheading": "Fabric & Care",
             "additional_heading": "Fabric",
+            "additional_heading_tag": "h3",
             "additional_content": "89% Merino Wool / 11% Nylon, 170 gsm",
             "additional_text_alignment": "center"
           }
@@ -241,6 +252,7 @@
           "settings": {
             "subheading": "",
             "additional_heading": "Care",
+            "additional_heading_tag": "h3",
             "additional_content": "Cold hand wash, wash separately, do not bleach or soak, drip dry in shade, do not tumble dry, warm iron on reverse side only, dry cleanable.",
             "additional_text_alignment": "center"
           }
@@ -251,6 +263,7 @@
             "subheading": "Faq",
             "heading": "Find quick answers to most common queries.",
             "about_heading": "Are there any special offers or discounts if I purchase multiple items?",
+            "about_heading_tag": "h2",
             "about_heading_content": "<p>We occasionally run promotions for bulk purchases or multiple items. Please subscribe to our newsletter or check our website regularly for the latest deals and offers.</p>"
           }
         },
@@ -260,6 +273,7 @@
             "subheading": "",
             "heading": "",
             "about_heading": "Can I make changes to my order after it has been placed?",
+            "about_heading_tag": "h2",
             "about_heading_content": "<p>Order modifications are subject to our processing timeline. If your order hasn't been processed yet, we may be able to make changes. Please contact our customer service immediately with your order details for assistance.</p>"
           }
         },
@@ -269,6 +283,7 @@
             "subheading": "",
             "heading": "",
             "about_heading": "What should I do if I receive a damaged or incorrect item?",
+            "about_heading_tag": "h2",
             "about_heading_content": "<p>If you receive a damaged or incorrect item, please contact our customer service within 48 hours of receiving the product with your order number and a photo of the item. We'll assist you with a return or exchange.</p>"
           }
         }
@@ -288,6 +303,7 @@
         "about-2",
         "about-3"
       ],
+      "disabled": true,
       "settings": {
         "image_gallery_collage": "thumbnail_carousel",
         "desktop_alignment": "left",
@@ -295,15 +311,17 @@
         "image_fit": "cover",
         "enable_autoheight": false,
         "animation": true,
+        "variant_media_display": "show_all",
         "padding_top": "no-indent",
         "padding_bottom": "no-indent"
-      },
-      "disabled": true
+      }
     },
     "product-recommendations": {
       "type": "product-recommendations",
+      "disabled": true,
       "settings": {
         "heading": "You May Be Interested",
+        "heading_tag": "h2",
         "products_to_show": 4,
         "show_two_cards": true,
         "autoplay": false,
@@ -320,8 +338,7 @@
         "show_desc": false,
         "margin_top": "s",
         "margin_bottom": "l"
-      },
-      "disabled": true
+      }
     }
   },
   "order": [
