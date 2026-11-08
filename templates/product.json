@@ -167,8 +167,8 @@
     "mf_recs": {
       "type": "mf-product-recommendations",
       "settings": {
-        "eyebrow": "Complete the look",
-        "heading": "Pairs well with",
+        "eyebrow": "",
+        "heading": "Shop similar products",
         "intent": "related",
         "limit": 8,
         "background": "default"
