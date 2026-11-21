@@ -104,7 +104,9 @@
             {%- render 'mf-mega-features', features: features, menu_title: '' -%}
             {%- if section.settings.mega_note != blank or section.settings.mega_all_label != blank -%}
               <div class="mf-mega-all">
-                {% comment %} <span>{{ section.settings.mega_note | escape }}</span> {% endcomment %}
+                <span>
+                  {% comment %} {{ section.settings.mega_note | escape }} {% endcomment %}
+                </span>
                 {%- if section.settings.mega_all_label != blank -%}
                   <a class="mf-link-arrow" href="{{ section.settings.mega_all_link | default: routes.all_products_collection_url }}">{{ section.settings.mega_all_label | escape }} {% render 'mf-icon', icon: 'arrow', size: 16 %}</a>
                 {%- endif -%}
