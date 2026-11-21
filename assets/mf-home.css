@@ -231,11 +231,11 @@
   .mf-coll-tiles .mf-tile { aspect-ratio: auto; display: grid; gap: 8px; }
 }
 @media (max-width: 749px) {
-   .mf-hero--overlay { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "stack";
+  .mf-hero--overlay { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "stack";
     gap: 0; padding: 0; max-width: none; width: 100%; margin-inline: 0;
-    height: clamp(540px, calc(100svh - 118px), 780px); min-height: 0; grid-template-rows: minmax(0, 1fr); overflow: hidden; }
+    min-height: clamp(540px, calc(100svh - 118px), 780px); }
   .mf-hero--overlay > * { grid-area: stack; }
-  .mf-hero--overlay .mf-hero-media { order: 0; margin: 0; aspect-ratio: auto; height: 100%; min-height: 0; border-radius: 0; }
+  .mf-hero--overlay .mf-hero-media { order: 0; margin: 0; aspect-ratio: auto; height: 100%; border-radius: 0; }
   .mf-hero--overlay .mf-hero-media picture { display: block; width: 100%; height: 100%; }
   .mf-hero--overlay .mf-hero-media::after { content: ""; position: absolute; inset: 0; pointer-events: none;
     background: linear-gradient(180deg,
