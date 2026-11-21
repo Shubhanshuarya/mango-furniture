@@ -114,7 +114,7 @@
         "menu": "main-menu",
         "combine_mega": true,
         "mega_label": "Shop",
-        "mega_note": "Every piece is made by hand in our Jodhpur workshop.",
+        // "mega_note": "Every piece is made by hand in our Jodhpur workshop.",
         "mega_all_label": "Shop all furniture",
         "mega_all_link": "shopify://collections/all",
         "search_placeholder": "Search coffee tables, benches…",
