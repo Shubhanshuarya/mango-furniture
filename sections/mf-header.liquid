@@ -139,7 +139,15 @@
 <div class="mf" data-mf-overlays="{{ section.id }}">
   <aside class="mf-drawer mf-drawer--left" id="MfMenuDrawer" role="dialog" aria-modal="true" aria-label="{{ 'sections.header.menu' | t }}" tabindex="-1">
     <div class="mf-drawer-head">
-      <a class="mf-logo" href="{{ routes.root_url }}" style="justify-self: start">{{ section.settings.logo_text | default: shop.name | escape }}{% if section.settings.logo_tagline != blank %}<small>{{ section.settings.logo_tagline | escape }}</small>{% endif %}</a>
+      <a class="mf-logo" href="{{ routes.root_url }}">
+        {%- if section.settings.logo != blank -%}
+          {%- assign logo_h = section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round -%}
+          {{- section.settings.logo | image_url: width: 600 | image_tag: width: section.settings.logo_width, height: logo_h, alt: shop.name, loading: 'eager', widths: '200, 300, 400, 600' -}}
+        {%- else -%}
+          {{ section.settings.logo_text | default: shop.name | escape }}
+          {%- if section.settings.logo_tagline != blank -%}<small>{{ section.settings.logo_tagline | escape }}</small>{%- endif -%}
+        {%- endif -%}
+      </a>
       <button class="mf-icon-btn" type="button" data-mf-close aria-label="{{ 'accessibility.close' | t }}">{% render 'mf-icon', icon: 'close' %}</button>
     </div>
     <div class="mf-drawer-body mf-mnav">
